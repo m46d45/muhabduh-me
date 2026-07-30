@@ -1,4 +1,4 @@
-import { ArrowUpRight, BookOpen } from "lucide-react";
+import { ArrowUpRight, BookOpen, Compass } from "lucide-react";
 
 const research = [
   {
@@ -26,14 +26,6 @@ const research = [
       "A comparative look at lean construction adoption using the Technology–Organization–Environment framework.",
     href: "https://iglc.net/papers/Details/2382",
   },
-  {
-    title: "Research agenda 2025–2027",
-    venue: "Personal research roadmap",
-    year: "2025–27",
-    description:
-      "Themes I hope to keep working on: construction management, lean practice, and related systems questions.",
-    href: "https://sway.cloud.microsoft/wWEXS6mhOhX3RLEL?ref=Link",
-  },
 ];
 
 const interests = [
@@ -60,19 +52,41 @@ export function Research() {
             Questions I keep returning to
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Selected papers and notes on lean, sustainability, and construction
-            systems. A fuller list is on{" "}
-            <a
-              href="https://scholar.google.com/citations?user=DctmufgAAAAJ&hl=en"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent underline-offset-2 hover:underline"
-            >
-              Google Scholar
+            Themes, selected papers, and notes. The newest journal items also
+            appear under{" "}
+            <a href="#news" className="text-accent underline-offset-2 hover:underline">
+              News
             </a>
-            .
+            ; a fuller list is on Google Scholar.
           </p>
         </div>
+
+        <a
+          href="https://sway.cloud.microsoft/wWEXS6mhOhX3RLEL?ref=Link"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group mt-10 flex flex-col gap-4 rounded-xl border border-accent/25 bg-teal-wash/40 p-6 shadow-soft transition-colors hover:border-accent/45 sm:flex-row sm:items-start sm:gap-6 sm:p-7"
+        >
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-accent/20 bg-surface text-accent">
+            <Compass className="h-4 w-4" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-subtle">
+              <span className="rounded-full border border-accent/25 bg-surface px-2 py-0.5 font-medium text-accent">
+                Research topics
+              </span>
+              <span className="font-mono tabular-nums">2025–2027</span>
+            </div>
+            <h3 className="mt-2 font-display text-lg font-semibold tracking-tight text-ink transition-colors group-hover:text-accent">
+              Research topics 2025–2027
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              Themes I hope to keep exploring — construction management, lean
+              practice, and related systems questions.
+            </p>
+          </div>
+          <ArrowUpRight className="hidden h-4 w-4 shrink-0 text-subtle transition-colors group-hover:text-accent sm:mt-1 sm:block" />
+        </a>
 
         <ul className="mt-8 flex flex-wrap gap-2">
           {interests.map((item) => (

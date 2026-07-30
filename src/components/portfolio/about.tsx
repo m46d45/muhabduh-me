@@ -1,4 +1,19 @@
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, FileUser, Images } from "lucide-react";
+
+const profileResources = [
+  {
+    label: "Curriculum vitae",
+    blurb: "Academic history, publications, and professional service.",
+    href: "https://bit.ly/BioMAIndonesia",
+    icon: FileUser,
+  },
+  {
+    label: "Photos for media",
+    blurb: "Photographs for invitations, media, and institutional use.",
+    href: "https://itbdsti-my.sharepoint.com/:f:/g/personal/abduh_itb_ac_id/IgA-gX8rVSybToQJ1AGVwmGBAXhfgIrRto_M3Q9aknVxoDs?e=yKpbPt",
+    icon: Images,
+  },
+];
 
 export function About() {
   return (
@@ -102,6 +117,39 @@ export function About() {
               classroom, and for construction that serves the public — not as a
               claim, but as a daily practice I keep learning.
             </p>
+          </div>
+        </div>
+
+        <div className="mt-14">
+          <p className="text-sm font-semibold tracking-[0.08em] uppercase text-subtle">
+            Profile materials
+          </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {profileResources.map((item) => {
+              const Icon = item.icon;
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-start gap-4 rounded-xl border border-border bg-surface p-5 shadow-soft transition-colors hover:border-accent/30"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-teal-wash text-accent">
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="flex items-center gap-1.5 font-display text-base font-semibold text-ink transition-colors group-hover:text-accent">
+                      {item.label}
+                      <ExternalLink className="h-3.5 w-3.5 shrink-0 opacity-60" />
+                    </span>
+                    <span className="mt-1 block text-sm text-muted">
+                      {item.blurb}
+                    </span>
+                  </span>
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>
