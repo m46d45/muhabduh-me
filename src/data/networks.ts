@@ -26,4 +26,11 @@ export const networks: NetworkItem[] = [
       "The national body for accreditation of engineering education programmes in Indonesia — quality assurance for engineering schools.",
     website: "https://iabee.or.id/",
   },
+  {
+    name: "Forum Akademik Konstruksi Ramping",
+    kind: "forum",
+    description:
+      "An academic forum on lean construction (konstruksi ramping) — shared notes and discussion for educators and researchers.",
+    website: "https://sway.cloud.microsoft/CvGD78y1dQLICPSU?ref=Link",
+  },
 ];
