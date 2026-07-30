@@ -9,11 +9,8 @@ export function Footer() {
             Don't be afraid to care.
           </p>
           <p className="mt-1 text-sm text-subtle">
-            © {year} Prof. Ir. Muhamad Abduh, M.T., Ph.D. ·{" "}
-            <a
-              href="https://muhabduh.id"
-              className="hover:text-accent"
-            >
+            © {year} Muhamad Abduh ·{" "}
+            <a href="https://muhabduh.id" className="hover:text-accent">
               muhabduh.id
             </a>
           </p>

@@ -19,25 +19,23 @@ export const Route = createRootRoute({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title:
-          "Prof. Ir. Muhamad Abduh, M.T., Ph.D. — Civil Engineering · ITB",
+        title: "Muhamad Abduh — Civil Engineering · ITB",
       },
       {
         name: "description",
         content:
-          "Professor of Civil Engineering at Institut Teknologi Bandung. Lean construction, sustainable construction, research, teaching, and public resources. Don't be afraid to care.",
+          "Muhamad Abduh — Professor of Civil Engineering at Institut Teknologi Bandung. Lean construction, sustainable construction, research, teaching, and public resources. Don't be afraid to care.",
       },
       { name: "theme-color", content: "#f4f1ea" },
       {
         name: "author",
-        content: "Prof. Ir. Muhamad Abduh, M.T., Ph.D.",
+        content: "Muhamad Abduh",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_URL },
       {
         property: "og:title",
-        content:
-          "Prof. Ir. Muhamad Abduh, M.T., Ph.D. — Civil Engineering · ITB",
+        content: "Muhamad Abduh — Civil Engineering · ITB",
       },
       {
         property: "og:description",

@@ -13,8 +13,8 @@ export function Hero() {
           <p className="fade-up mb-4 text-sm font-semibold tracking-[0.08em] uppercase text-accent">
             Professor · Civil Engineering · ITB
           </p>
-          <h1 className="fade-up stagger-1 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl lg:text-[3.25rem] lg:leading-[1.12]">
-            Prof. Ir. Muhamad Abduh, M.T., Ph.D.
+          <h1 className="fade-up stagger-1 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl lg:text-[3.5rem] lg:leading-[1.1]">
+            Muhamad Abduh
           </h1>
 
           <p className="fade-up stagger-2 mt-6 max-w-lg font-display text-2xl font-medium italic leading-snug tracking-tight text-ink sm:text-3xl sm:leading-snug">
@@ -67,7 +67,7 @@ export function Hero() {
             <div className="relative overflow-hidden rounded-xl border border-border bg-surface shadow-soft">
               <img
                 src="/portrait.jpg"
-                alt="Portrait of Prof. Muhamad Abduh"
+                alt="Portrait of Muhamad Abduh"
                 width={420}
                 height={520}
                 className="aspect-[4/5] w-64 object-cover object-top sm:w-72 lg:w-80"

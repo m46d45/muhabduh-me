@@ -18,7 +18,7 @@ const articles = [
     href: "https://sway.cloud.microsoft/wWEXS6mhOhX3RLEL?ref=Link",
   },
   {
-    title: "Curriculum Vitae — Muhamad Abduh, Ph.D.",
+    title: "Curriculum Vitae — Muhamad Abduh",
     date: "CV",
     reading: "Full profile",
     summary:
