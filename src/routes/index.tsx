@@ -7,6 +7,7 @@ import { News } from "@/components/portfolio/news";
 import { Experience } from "@/components/portfolio/experience";
 import { Research } from "@/components/portfolio/research";
 import { Teaching } from "@/components/portfolio/teaching";
+import { Networks } from "@/components/portfolio/networks";
 import { Projects } from "@/components/portfolio/projects";
 import { Software } from "@/components/portfolio/software";
 import { Articles } from "@/components/portfolio/articles";
@@ -29,6 +30,7 @@ function PortfolioPage() {
         <Experience />
         <Research />
         <Teaching />
+        <Networks />
         <Projects />
         <Software />
         <Articles />

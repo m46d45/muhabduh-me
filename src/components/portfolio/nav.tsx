@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 /**
  * Faculty-style primary nav. Scroll-spy: last section whose document top is
  * at or above the spy line under the sticky header.
+ *
+ * Desktop shows a compact set; full list is always on mobile + in page sections.
  */
 const links = [
   { href: "#bio", label: "About", id: "bio" },
@@ -13,6 +15,7 @@ const links = [
   { href: "#experience", label: "Experience", id: "experience" },
   { href: "#research", label: "Research", id: "research" },
   { href: "#teaching", label: "Teaching", id: "teaching" },
+  { href: "#networks", label: "Networks", id: "networks" },
   { href: "#software", label: "Software", id: "software" },
   { href: "#articles", label: "Publications", id: "articles" },
 ] as const;
@@ -23,6 +26,7 @@ const SECTION_ORDER = [
   "experience",
   "research",
   "teaching",
+  "networks",
   "projects",
   "software",
   "articles",
@@ -126,7 +130,7 @@ export function Nav() {
         </a>
 
         <nav
-          className="hidden items-center gap-0 xl:flex"
+          className="hidden items-center gap-0 2xl:flex"
           aria-label="Primary"
         >
           {links.map((link) => {
@@ -137,7 +141,7 @@ export function Nav() {
                 href={link.href}
                 onClick={() => onNavClick(link.id)}
                 className={cn(
-                  "relative rounded-md px-2 py-2 text-[0.8125rem] transition-colors duration-150 lg:px-2.5 lg:text-sm",
+                  "relative rounded-md px-2 py-2 text-[0.8125rem] transition-colors duration-150",
                   isActive
                     ? "font-medium text-ink"
                     : "text-muted hover:text-ink",
@@ -167,7 +171,7 @@ export function Nav() {
           <Button
             variant="ghost"
             size="icon"
-            className="xl:hidden"
+            className="2xl:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
@@ -178,7 +182,7 @@ export function Nav() {
       </div>
 
       {open && (
-        <div className="border-t border-border bg-bg/98 backdrop-blur-md xl:hidden">
+        <div className="border-t border-border bg-bg/98 backdrop-blur-md 2xl:hidden">
           <nav
             className="container-narrow section-pad flex flex-col gap-0.5 py-3"
             aria-label="Mobile"
