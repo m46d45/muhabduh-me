@@ -16,6 +16,16 @@ export type PublicationItem = {
 
 export const publications: PublicationItem[] = [
   {
+    title:
+      "Research Companion to Advances in the Construction Industry in the Global South",
+    kind: "book",
+    venue: "Edward Elgar · Elgar Companions to the Built Environment",
+    year: "2025",
+    summary:
+      "An edited research companion on construction in the Global South (series editor George Ofori) — advances, challenges, and practice across regions.",
+    href: "https://www.elgaronline.com/edcollbook/book/9781035349029/9781035349029.xml",
+  },
+  {
     title: "Construction: Industry, Management & Engineering — 2nd Edition",
     kind: "book",
     venue: "ITB Press",
@@ -24,13 +34,4 @@ export const publications: PublicationItem[] = [
       "A textbook for students and practitioners on the construction industry, management, and engineering. (Original title: Konstruksi: Industri, Pengelolaan dan Rekayasa.)",
     href: "https://www.itbpress.id/buku-gratis/#flipbook-df_41183/3",
   },
-  // Add more books / selected articles here (newest first if you like):
-  // {
-  //   title: "…",
-  //   kind: "book",
-  //   venue: "…",
-  //   year: "20XX",
-  //   summary: "…",
-  //   href: "https://…",
-  // },
 ];
