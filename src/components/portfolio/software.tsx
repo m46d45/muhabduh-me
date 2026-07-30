@@ -1,28 +1,22 @@
 import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-/**
- * Streamlit / simulation software. Replace placeholder hrefs when the user
- * shares final Streamlit Cloud + GitHub URLs.
- */
 const apps = [
   {
-    title: "Simulation app 1",
+    title: "Parade of Trades — Team Work Simulation",
     description:
-      "Interactive construction / engineering simulation built with Streamlit. Open the live app or browse the source on GitHub.",
-    tags: ["Streamlit", "Simulation", "Python"],
-    streamlitUrl: "#software",
-    githubUrl: "#software",
-    pending: true,
+      "Interactive Streamlit simulation of the Parade of Trades (lean construction, after Iris Tommelein) — exploring workflow, variability, and collaboration in multi-trade production.",
+    tags: ["Streamlit", "Lean construction", "Parade of Trades", "Python"],
+    streamlitUrl: "https://parade-tim-kerja.streamlit.app/",
+    githubUrl: "https://github.com/m46d45/Parade-Tim-Kerja",
   },
   {
-    title: "Simulation app 2",
+    title: "SimKon — Earthwork Operations",
     description:
-      "Second interactive tool for research and teaching — web-based simulation hosted on Streamlit Community Cloud.",
-    tags: ["Streamlit", "Simulation", "Python"],
-    streamlitUrl: "#software",
-    githubUrl: "#software",
-    pending: true,
+      "Construction operations simulation focused on earthwork — a web-based tool for teaching and exploring production systems in construction (SimKon v1.0).",
+    tags: ["Streamlit", "Earthwork", "Construction ops", "Python"],
+    streamlitUrl: "https://simkon-earthwork.streamlit.app/",
+    githubUrl: "https://github.com/m46d45/SimKon",
   },
 ];
 
@@ -41,37 +35,31 @@ export function Software() {
             Simulation tools
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Interactive software I develop for research and teaching — published
-            on Streamlit and open on GitHub. Live links will appear here once
-            shared.
+            Interactive software for research and teaching — construction
+            operations and lean production simulations, hosted on Streamlit and
+            open on GitHub.
           </p>
         </div>
 
         <div className="mt-12 grid gap-5 md:grid-cols-2">
           {apps.map((app, i) => (
             <article
-              key={app.title + i}
+              key={app.title}
               className="group flex flex-col rounded-xl border border-border bg-surface p-6 shadow-soft transition-colors duration-200 hover:border-accent/30 sm:p-7"
             >
               <div className="mb-5 flex items-start justify-between gap-3">
                 <span className="font-mono text-xs tabular-nums text-subtle">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                {app.pending ? (
-                  <span className="rounded-full border border-border bg-bg-deep px-2.5 py-1 text-xs text-subtle">
-                    Links coming soon
-                  </span>
-                ) : (
-                  <a
-                    href={app.streamlitUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted transition-colors group-hover:border-accent/40 group-hover:text-accent"
-                    aria-label={`Open ${app.title}`}
-                  >
-                    <ArrowUpRight className="h-4 w-4" />
-                  </a>
-                )}
+                <a
+                  href={app.streamlitUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted transition-colors group-hover:border-accent/40 group-hover:text-accent"
+                  aria-label={`Open ${app.title}`}
+                >
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
               </div>
               <h3 className="font-display text-xl font-semibold tracking-tight text-ink">
                 {app.title}
@@ -90,31 +78,21 @@ export function Software() {
                 ))}
               </div>
               <div className="mt-6 flex flex-wrap gap-2">
-                <Button
-                  asChild
-                  size="sm"
-                  variant={app.pending ? "secondary" : "default"}
-                  className={app.pending ? "pointer-events-none opacity-70" : ""}
-                >
+                <Button asChild size="sm">
                   <a
                     href={app.streamlitUrl}
-                    target={app.pending ? undefined : "_blank"}
-                    rel={app.pending ? undefined : "noopener noreferrer"}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Open on Streamlit
                     <ExternalLink className="h-3.5 w-3.5" />
                   </a>
                 </Button>
-                <Button
-                  asChild
-                  size="sm"
-                  variant="secondary"
-                  className={app.pending ? "pointer-events-none opacity-70" : ""}
-                >
+                <Button asChild size="sm" variant="secondary">
                   <a
                     href={app.githubUrl}
-                    target={app.pending ? undefined : "_blank"}
-                    rel={app.pending ? undefined : "noopener noreferrer"}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <Github className="h-3.5 w-3.5" />
                     Source on GitHub
