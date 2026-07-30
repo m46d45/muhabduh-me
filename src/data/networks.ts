@@ -5,7 +5,7 @@
 export type NetworkItem = {
   name: string;
   /** Short label under the name */
-  kind: "society" | "forum" | "campus" | "media" | "accreditation" | "other";
+  kind: "society" | "forum" | "campus" | "media" | "accreditation" | "collaboration" | "other";
   description: string;
   website?: string;
   youtube?: string;
@@ -32,5 +32,12 @@ export const networks: NetworkItem[] = [
     description:
       "An academic forum on lean construction (konstruksi ramping) — shared notes and discussion for educators and researchers.",
     website: "https://sway.cloud.microsoft/CvGD78y1dQLICPSU?ref=Link",
+  },
+  {
+    name: "IA-CRC — Indonesia–Australia Collaborative Research in Construction",
+    kind: "collaboration",
+    description:
+      "A collaborative research network linking Indonesian and Australian colleagues on construction topics.",
+    website: "https://sway.cloud.microsoft/k5tRy7iEV1wXrlKu?ref=Link",
   },
 ];
