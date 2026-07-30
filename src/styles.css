@@ -1,0 +1,150 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+  "Teal Scholar" — warm academic editorial tuned to MA's character:
+  approachable senior educator/researcher, teal from portrait studio.
+*/
+@theme {
+  --color-bg: #f4f1ea;
+  --color-bg-deep: #ebe6db;
+  --color-surface: #fffcf7;
+  --color-surface-raised: #f7f3eb;
+  --color-fg: #1c2430;
+  --color-muted: #5a6573;
+  --color-subtle: #8893a1;
+  --color-border: #ddd5c8;
+  --color-border-strong: #c4b9a8;
+  --color-accent: #1f6f8b;
+  --color-accent-soft: #3d8eab;
+  --color-accent-fg: #f7fbfc;
+  --color-ink: #14202b;
+  --color-ring: #1f6f8b;
+  --color-teal-wash: #d9eaf1;
+
+  --font-sans: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: "Source Serif 4", "Georgia", "Times New Roman", serif;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1.25rem;
+  --radius-full: 9999px;
+
+  --shadow-soft: 0 1px 2px rgb(28 36 48 / 0.04), 0 12px 32px rgb(28 36 48 / 0.06);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-bg text-fg font-sans;
+    line-height: 1.65;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 100% -10%, color-mix(in oklab, var(--color-teal-wash) 70%, transparent), transparent),
+      radial-gradient(ellipse 60% 40% at 0% 100%, color-mix(in oklab, var(--color-bg-deep) 90%, transparent), transparent);
+    background-attachment: fixed;
+  }
+
+  /* Offset anchor jumps under the fixed header */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 28%, transparent);
+    color: var(--color-ink);
+  }
+}
+
+@layer utilities {
+  .section-pad {
+    @apply px-5 sm:px-8 lg:px-12;
+  }
+
+  .container-narrow {
+    @apply mx-auto w-full max-w-5xl;
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .fade-up {
+    animation: fade-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .stagger-1 {
+    animation-delay: 60ms;
+  }
+  .stagger-2 {
+    animation-delay: 120ms;
+  }
+  .stagger-3 {
+    animation-delay: 180ms;
+  }
+  .stagger-4 {
+    animation-delay: 240ms;
+  }
+
+  .rule-accent {
+    width: 2.5rem;
+    height: 2px;
+    background: var(--color-accent);
+    border-radius: 9999px;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .fade-up {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
