@@ -5,7 +5,7 @@
 export type NetworkItem = {
   name: string;
   /** Short label under the name */
-  kind: "society" | "forum" | "campus" | "media" | "accreditation" | "collaboration" | "other";
+  kind: "society" | "forum" | "campus" | "media" | "accreditation" | "collaboration" | "platform" | "other";
   description: string;
   website?: string;
   youtube?: string;
@@ -39,6 +39,13 @@ export const networks: NetworkItem[] = [
     description:
       "A collaborative research network linking Indonesian and Australian colleagues on construction topics.",
     website: "https://sway.cloud.microsoft/k5tRy7iEV1wXrlKu?ref=Link",
+  },
+  {
+    name: "K2R Neo",
+    kind: "platform",
+    description:
+      "A digital platform for learning lean construction — courses and materials for students and practitioners.",
+    website: "https://k2r-neo.net/",
   },
   {
     name: "Perjalanan Elsie",

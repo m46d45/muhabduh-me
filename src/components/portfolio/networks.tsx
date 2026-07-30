@@ -9,6 +9,7 @@ const kindLabel: Record<NetworkItem["kind"], string> = {
   media: "Media",
   accreditation: "Accreditation",
   collaboration: "Collaboration",
+  platform: "Platform",
   other: "Network",
 };
 
