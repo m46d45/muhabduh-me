@@ -108,14 +108,18 @@ export function Nav() {
       <div className="container-narrow section-pad flex h-16 items-center justify-between gap-4 lg:gap-6">
         <a
           href="#top"
-          className="group min-w-0 shrink leading-tight"
+          className="group min-w-0 max-w-[11rem] shrink leading-tight sm:max-w-[14rem]"
           onClick={() => {
             setActive("");
             closeMenu();
           }}
+          title="Don't be afraid to care."
         >
-          <span className="block font-display text-sm font-medium italic tracking-tight text-ink transition-colors group-hover:text-accent sm:text-[0.95rem]">
-            Don't be afraid to care.
+          <span className="block truncate font-display text-[0.95rem] font-semibold tracking-tight text-ink transition-colors group-hover:text-accent sm:text-base">
+            Muhamad Abduh
+          </span>
+          <span className="mt-0.5 block truncate font-display text-[0.7rem] font-medium italic tracking-tight text-subtle sm:text-xs">
+            Don't be afraid to care...
           </span>
         </a>
 
