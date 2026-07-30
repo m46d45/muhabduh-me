@@ -17,6 +17,16 @@ export type PublicationItem = {
 export const publications: PublicationItem[] = [
   {
     title:
+      "Seni dan Filosofi Konstruksi Ramping (The Art and Philosophy of Lean Construction)",
+    kind: "book",
+    venue: "Indonesian translation · original by Do, D. (2024)",
+    year: "2024",
+    summary:
+      "Indonesian translation of Do’s The Art and Philosophy of Lean Construction — making lean construction ideas more accessible to Indonesian readers. Translator: M. Abduh.",
+    href: "https://cdn1.site-media.eu/images/document/14668524/TheArtandPhilosophyofLeanConstruction-INA-01.pdf",
+  },
+  {
+    title:
       "Research Companion to Advances in the Construction Industry in the Global South",
     kind: "book",
     venue: "Edward Elgar · Elgar Companions to the Built Environment",
