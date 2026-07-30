@@ -2,7 +2,7 @@
  * Books and longer-form writing for the Publications section.
  * Peer-reviewed papers: see News (latest 3) and Research / Google Scholar.
  *
- * Add new books at the top when you share them.
+ * Order: newest first → oldest last.
  */
 export type PublicationItem = {
   title: string;
@@ -17,16 +17,6 @@ export type PublicationItem = {
 export const publications: PublicationItem[] = [
   {
     title:
-      "Seni dan Filosofi Konstruksi Ramping (The Art and Philosophy of Lean Construction)",
-    kind: "book",
-    venue: "Indonesian translation · original by Do, D. (2024)",
-    year: "2024",
-    summary:
-      "Indonesian translation of Do’s The Art and Philosophy of Lean Construction — making lean construction ideas more accessible to Indonesian readers. Translator: M. Abduh.",
-    href: "https://cdn1.site-media.eu/images/document/14668524/TheArtandPhilosophyofLeanConstruction-INA-01.pdf",
-  },
-  {
-    title:
       "Research Companion to Advances in the Construction Industry in the Global South",
     kind: "book",
     venue: "Edward Elgar · Elgar Companions to the Built Environment",
@@ -34,6 +24,16 @@ export const publications: PublicationItem[] = [
     summary:
       "An edited research companion on construction in the Global South (series editor George Ofori) — advances, challenges, and practice across regions.",
     href: "https://www.elgaronline.com/edcollbook/book/9781035349029/9781035349029.xml",
+  },
+  {
+    title:
+      "Seni dan Filosofi Konstruksi Ramping (The Art and Philosophy of Lean Construction)",
+    kind: "book",
+    venue: "Indonesian translation · original by Do, D. (2024)",
+    year: "2024",
+    summary:
+      "Indonesian translation of Do’s The Art and Philosophy of Lean Construction — making lean construction ideas more accessible to Indonesian readers. Translator: M. Abduh.",
+    href: "https://cdn1.site-media.eu/images/document/14668524/TheArtandPhilosophyofLeanConstruction-INA-01.pdf",
   },
   {
     title: "Construction: Industry, Management & Engineering — 2nd Edition",
