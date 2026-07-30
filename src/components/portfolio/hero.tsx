@@ -18,7 +18,7 @@ export function Hero() {
           </h1>
 
           <p className="fade-up stagger-2 mt-6 max-w-lg font-display text-2xl font-medium italic leading-snug tracking-tight text-ink sm:text-3xl sm:leading-snug">
-            Don't be afraid to care.
+            Don't be afraid to care...
           </p>
 
           <p className="fade-up stagger-3 mt-5 max-w-xl text-lg text-muted leading-relaxed">
