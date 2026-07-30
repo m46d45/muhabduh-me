@@ -24,7 +24,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Muhamad Abduh — Professor of Civil Engineering at Institut Teknologi Bandung. Lean construction, sustainable construction, research, teaching, and public resources. Don't be afraid to care.",
+          "Muhamad Abduh teaches and researches civil engineering at Institut Teknologi Bandung — lean construction, sustainability, and construction management. Don't be afraid to care.",
       },
       { name: "theme-color", content: "#f4f1ea" },
       {
@@ -40,7 +40,7 @@ export const Route = createRootRoute({
       {
         property: "og:description",
         content:
-          "Professor of Civil Engineering at ITB. Lean construction, research, teaching. Don't be afraid to care.",
+          "Teaching and research in lean construction and construction management at ITB. Don't be afraid to care.",
       },
       {
         property: "og:image",

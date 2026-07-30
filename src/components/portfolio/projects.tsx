@@ -5,21 +5,21 @@ const projects = [
   {
     title: "Construction & Infrastructure Management in Indonesia",
     description:
-      "Ongoing book project on construction and infrastructure management in the Indonesian context — bridging research, policy, and practice.",
+      "A book project still in progress on construction and infrastructure management in the Indonesian context — written for students and practitioners.",
     tags: ["Book project", "Infrastructure", "Indonesia"],
     href: "https://sway.cloud.microsoft/H23UaNMXsSvoJTqL?ref=Link",
   },
   {
     title: "ConCERN 2026",
     description:
-      "International conference engagement on sustainable and responsible construction — connecting researchers and practitioners.",
+      "An international conference on sustainable and responsible construction that I am involved with, alongside many colleagues.",
     tags: ["Conference", "Sustainable construction"],
     href: "https://concern.itb.ac.id",
   },
   {
     title: "GOBUILD 2026",
     description:
-      "The 1st International Online Conference on Sustainable Construction — globalize, organize, build, unite, innovate, lead, develop.",
+      "The 1st International Online Conference on Sustainable Construction — a shared platform for researchers and practitioners.",
     tags: ["Conference", "Online", "Sustainability"],
     href: "https://sciforum.net/event/GOBUILD2026",
   },
@@ -37,11 +37,11 @@ export function Projects() {
             Projects
           </p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-            Initiatives in progress
+            Work in progress
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Selected books, conferences, and programs featured on my public
-            profile — work that sits beside day-to-day research and teaching.
+            A few books, conferences, and programs I am part of — alongside
+            everyday research and teaching.
           </p>
         </div>
 

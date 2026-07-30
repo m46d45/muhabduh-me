@@ -6,15 +6,15 @@ const articles = [
     date: "Book",
     reading: "ITB Press",
     summary:
-      "Textbook and reference on the construction industry, management, and engineering — updated edition for students and practitioners. (Original title: Konstruksi: Industri, Pengelolaan dan Rekayasa.)",
+      "A textbook for students and practitioners on the construction industry, management, and engineering. (Original title: Konstruksi: Industri, Pengelolaan dan Rekayasa.)",
     href: "https://www.itbpress.id/buku-gratis/#flipbook-df_41183/3",
   },
   {
     title: "Research Topics 2025–2027",
     date: "Agenda",
-    reading: "Research roadmap",
+    reading: "Research notes",
     summary:
-      "Personal research themes for the coming years — construction management, lean practice, and related systems questions.",
+      "Themes I hope to keep exploring — construction management, lean practice, and related systems questions.",
     href: "https://sway.cloud.microsoft/wWEXS6mhOhX3RLEL?ref=Link",
   },
   {
@@ -22,7 +22,7 @@ const articles = [
     date: "CV",
     reading: "Full profile",
     summary:
-      "Complete curriculum vitae with academic history, publications, and professional service.",
+      "A fuller record of academic history, publications, and professional service.",
     href: "https://bit.ly/BioMAIndonesia",
   },
   {
@@ -30,7 +30,7 @@ const articles = [
     date: "Media",
     reading: "Press kit",
     summary:
-      "Official photographs available for media, invitations, and institutional use.",
+      "Photographs available for media, invitations, and institutional use.",
     href: "https://itbdsti-my.sharepoint.com/:f:/g/personal/abduh_itb_ac_id/IgA-gX8rVSybToQJ1AGVwmGBAXhfgIrRto_M3Q9aknVxoDs?e=yKpbPt",
   },
 ];
@@ -50,9 +50,9 @@ export function Articles() {
             Books, CV, and public materials
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Selected resources from my public profile — books, research agenda,
-            CV, and media assets. Peer-reviewed papers are listed under Research
-            and on Google Scholar.
+            Resources I share publicly — books, research notes, CV, and media
+            assets. Peer-reviewed papers are listed under Research and on Google
+            Scholar.
           </p>
         </div>
 

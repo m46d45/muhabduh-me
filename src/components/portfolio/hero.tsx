@@ -22,10 +22,10 @@ export function Hero() {
           </p>
 
           <p className="fade-up stagger-3 mt-5 max-w-xl text-lg text-muted leading-relaxed">
-            Professor of Civil Engineering at Institut Teknologi Bandung.
-            Research and teaching in lean construction, sustainable
-            construction, and construction management — for industry, policy,
-            and the next generation of engineers.
+            I teach and do research in civil engineering at Institut Teknologi
+            Bandung, with a focus on lean construction, sustainability, and
+            construction management — learning with students, colleagues, and
+            practitioners along the way.
           </p>
           <div className="fade-up stagger-4 mt-9 flex flex-wrap items-center gap-3">
             <Button asChild size="lg">

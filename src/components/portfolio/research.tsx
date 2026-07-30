@@ -6,7 +6,7 @@ const research = [
     venue: "IGLC · 14th Annual Conference",
     year: "2006",
     description:
-      "Foundational work on how Indonesian contractors understand and prepare for lean construction practice.",
+      "An early study on how Indonesian contractors understood and prepared for lean construction practice.",
     href: "https://iglc.net/Papers/Details/402",
   },
   {
@@ -15,7 +15,7 @@ const research = [
     venue: "IGLC · 22nd Annual Conference",
     year: "2014",
     description:
-      "Assessment model to improve sustainable practices on government construction projects in Indonesia.",
+      "A proposed assessment model to support more sustainable practice on government construction projects in Indonesia.",
     href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:wbdj-CoPYUoC",
   },
   {
@@ -23,7 +23,7 @@ const research = [
     venue: "IGLC · TOE framework study",
     year: "Recent",
     description:
-      "Comparative study of lean construction adoption using the Technology–Organization–Environment framework.",
+      "A comparative look at lean construction adoption using the Technology–Organization–Environment framework.",
     href: "https://iglc.net/papers/Details/2382",
   },
   {
@@ -31,7 +31,7 @@ const research = [
     venue: "Personal research roadmap",
     year: "2025–27",
     description:
-      "Forward research themes spanning construction management, lean practice, and infrastructure systems.",
+      "Themes I hope to keep working on: construction management, lean practice, and related systems questions.",
     href: "https://sway.cloud.microsoft/wWEXS6mhOhX3RLEL?ref=Link",
   },
 ];
@@ -57,18 +57,18 @@ export function Research() {
             Research
           </p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-            Inquiry that serves practice
+            Questions I keep returning to
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Selected publications and agendas in lean, sustainability, and
-            construction systems — with{" "}
+            Selected papers and notes on lean, sustainability, and construction
+            systems. A fuller list is on{" "}
             <a
               href="https://scholar.google.com/citations?user=DctmufgAAAAJ&hl=en"
               target="_blank"
               rel="noopener noreferrer"
               className="text-accent underline-offset-2 hover:underline"
             >
-              1,140+ citations on Google Scholar
+              Google Scholar
             </a>
             .
           </p>
@@ -123,7 +123,7 @@ export function Research() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline underline-offset-2"
           >
-            All publications on Google Scholar
+            Publications on Google Scholar
             <ArrowUpRight className="h-3.5 w-3.5" />
           </a>
           <a

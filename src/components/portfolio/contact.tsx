@@ -131,8 +131,8 @@ export function Contact() {
             Get in touch
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            For research collaboration, teaching invitations, media, or
-            professional inquiries — email is best. Website:{" "}
+            Happy to hear about teaching, research, or collaboration. Email is
+            usually the easiest way to reach me. Website:{" "}
             <a
               href="https://muhabduh.id"
               className="font-medium text-accent underline-offset-2 hover:underline"
@@ -226,7 +226,7 @@ export function Contact() {
                 <Textarea
                   id="message"
                   name="message"
-                  placeholder="Research, teaching, media, or collaboration..."
+                  placeholder="A short note is welcome..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   required
@@ -242,7 +242,7 @@ export function Contact() {
                 <Send className="h-4 w-4" />
               </Button>
               <p className="text-xs text-subtle">
-                Sends to abduh@itb.ac.id using your email app.
+                Opens your email app to send to abduh@itb.ac.id.
               </p>
             </div>
           </form>

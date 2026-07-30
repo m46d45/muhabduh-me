@@ -5,27 +5,27 @@ const teaching = [
     icon: GraduationCap,
     title: "University teaching",
     items: [
-      "Civil engineering & construction management at FTSL ITB",
-      "Lean construction concepts and project delivery practice",
-      "Graduate and undergraduate mentoring in construction research",
+      "Civil engineering & construction management courses at FTSL ITB",
+      "Lean construction ideas and project delivery practice",
+      "Mentoring undergraduate and graduate students in construction research",
     ],
   },
   {
     icon: Users,
     title: "Professional community",
     items: [
-      "Chairman of IAMKRI (lean construction management society)",
-      "Capacity building for contractors and project organizations",
-      "Dialogue between academia, industry, and policy stakeholders",
+      "Service with IAMKRI (lean construction management society)",
+      "Workshops and discussion with contractors and project teams",
+      "Conversations between campus, industry, and public institutions",
     ],
   },
   {
     icon: Mic2,
-    title: "Seminars & invited roles",
+    title: "Seminars & shared learning",
     items: [
-      "National seminars on lean construction policy enrichment",
-      "Conference leadership and contributions (e.g. ConCERN, GOBUILD)",
-      "Knowledge sharing on sustainable and productive construction",
+      "National seminars on lean construction and related policy themes",
+      "Participation in conferences such as ConCERN and GOBUILD",
+      "Sharing notes on more sustainable and productive construction",
     ],
   },
 ];
@@ -42,11 +42,12 @@ export function Teaching() {
             Teaching
           </p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-            Classrooms, profession, and public learning
+            Classrooms and shared learning
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Teaching at ITB and educating the wider construction community —
-            students, practitioners, and institutions — on how to build better.
+            Teaching at ITB and joining the wider construction community —
+            students, practitioners, and institutions — to learn how we might
+            build a little better.
           </p>
         </div>
 

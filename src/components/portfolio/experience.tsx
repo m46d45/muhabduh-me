@@ -23,7 +23,7 @@ const roles: Role[] = [
     logoAlt: "Institut Teknologi Bandung logo",
     logoScale: "scale-125",
     description:
-      "Lead research and teaching in construction management and lean construction. Mentor graduate and undergraduate engineers, and engage industry and policy partners on productivity, sustainability, and project delivery.",
+      "I teach and supervise research in construction management and lean construction, and try to stay useful to students, colleagues, and partners in industry and government.",
     current: true,
   },
   {
@@ -34,26 +34,26 @@ const roles: Role[] = [
     logoSrc: "/orgs/iamkri-logo.png",
     logoAlt: "IAMKRI logo",
     description:
-      "Chair the national professional community for lean construction management, advancing practice, dialogue, and capacity building across Indonesia’s construction ecosystem.",
+      "I help convene a national community of lean construction practice — learning with members, sharing experience, and supporting capacity building where I can.",
     current: true,
   },
   {
     period: "Career path",
-    title: "Academic leadership in construction engineering",
+    title: "Faculty member, construction engineering",
     org: "Institut Teknologi Bandung",
     orgUrl: "https://www.itb.ac.id",
     logoSrc: "/orgs/itb-logo.png",
     logoAlt: "Institut Teknologi Bandung logo",
     logoScale: "scale-125",
     description:
-      "Progressed through faculty ranks in civil and environmental engineering — including associate professor and professor roles — with a sustained focus on lean construction readiness, green construction assessment, supply chains, and operations in Indonesian practice.",
+      "I have grown through faculty ranks at ITB with a steady interest in lean readiness, green construction assessment, supply chains, and operations in Indonesian practice.",
   },
   {
     period: "Ongoing",
     title: "Researcher & knowledge partner",
     org: "Industry · Government · International networks",
     description:
-      "Collaborate on applied research, conferences, and knowledge products that connect Indonesian construction challenges with global lean and sustainability communities (including IGLC and related forums).",
+      "I join applied research, conferences, and knowledge products that link local construction questions with global lean and sustainability conversations (including IGLC and related forums).",
   },
 ];
 
@@ -64,14 +64,14 @@ const affiliations = [
     href: "https://www.itb.ac.id",
     logoSrc: "/orgs/itb-logo.png",
     logoScale: "scale-125",
-    blurb: "Home university — academic and research base",
+    blurb: "Where I teach and do research",
   },
   {
     name: "IAMKRI",
     short: "iamkri.id",
     href: "https://iamkri.id",
     logoSrc: "/orgs/iamkri-logo.png",
-    blurb: "Lean construction professional society",
+    blurb: "Lean construction professional community",
   },
 ];
 
@@ -90,7 +90,7 @@ export function Experience() {
             Roles and responsibilities
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Academic leadership at{" "}
+            Appointments at{" "}
             <a
               href="https://www.itb.ac.id"
               target="_blank"
@@ -99,7 +99,7 @@ export function Experience() {
             >
               ITB
             </a>
-            , professional community leadership through{" "}
+            , service with{" "}
             <a
               href="https://iamkri.id"
               target="_blank"
@@ -108,7 +108,7 @@ export function Experience() {
             >
               IAMKRI
             </a>
-            , and long-standing engagement with practice.
+            , and ongoing collaboration with practice.
           </p>
         </div>
 

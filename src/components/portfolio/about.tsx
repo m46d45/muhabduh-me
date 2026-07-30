@@ -10,7 +10,7 @@ export function About() {
               About
             </p>
             <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Building better construction through knowledge and care
+              Learning how construction can work better
             </h2>
             <div className="rule-accent mt-6" />
             <ul className="mt-8 space-y-3 text-sm text-muted">
@@ -36,7 +36,7 @@ export function About() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 font-medium text-ink hover:text-accent"
                 >
-                  Chairman, IAMKRI
+                  IAMKRI (lean construction community)
                   <ExternalLink className="h-3 w-3" />
                 </a>
               </li>
@@ -49,15 +49,23 @@ export function About() {
                 </span>
               </li>
               <li>
-                <span className="text-subtle">Scholar</span>
+                <span className="text-subtle">Writing & research</span>
                 <br />
-                <span className="text-ink">1,140+ citations (Google Scholar)</span>
+                <a
+                  href="https://scholar.google.com/citations?user=DctmufgAAAAJ&hl=en"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 font-medium text-ink hover:text-accent"
+                >
+                  Google Scholar profile
+                  <ExternalLink className="h-3 w-3" />
+                </a>
               </li>
             </ul>
           </div>
           <div className="space-y-5 text-base leading-relaxed text-muted sm:text-lg">
             <p>
-              I am a professor of civil engineering at{" "}
+              I work as a professor of civil engineering at{" "}
               <a
                 href="https://www.itb.ac.id"
                 target="_blank"
@@ -66,17 +74,14 @@ export function About() {
               >
                 Institut Teknologi Bandung (ITB)
               </a>
-              , working at the intersection of construction practice, research,
-              and education. My work centers on how projects, organizations, and
-              supply chains can deliver better outcomes with less waste —
-              technically, environmentally, and humanly.
+              . Much of my time is spent teaching, writing, and talking with
+              people in the industry about how projects and organizations can
+              reduce waste — of material, time, and human effort.
             </p>
             <p>
-              Over many years I have contributed to lean construction and
-              sustainable construction in Indonesia and internationally:
-              publishing research, advising industry and government partners,
-              and teaching engineers who will shape the built environment. I also
-              serve as Chairman of{" "}
+              Over the years I have been fortunate to take part in research on
+              lean and sustainable construction in Indonesia and abroad, and to
+              serve the professional community through{" "}
               <a
                 href="https://iamkri.id"
                 target="_blank"
@@ -85,17 +90,17 @@ export function About() {
               >
                 IAMKRI
               </a>
-              , the Indonesian professional society for lean construction
-              management.
+              . Any useful outcomes have always been shared work — with
+              students, co-authors, and practitioners.
             </p>
             <p>
-              The thread through it all is simple:{" "}
+              What I try to hold on to is simple:{" "}
               <span className="font-display italic text-ink">
                 don't be afraid to care
               </span>
-              . Care for quality of work, for people on site and in the
-              classroom, and for construction systems that serve the public
-              good — not as a slogan alone, but as a daily discipline.
+              . Care for the quality of the work, for people on site and in the
+              classroom, and for construction that serves the public — not as a
+              claim, but as a daily practice I keep learning.
             </p>
           </div>
         </div>

@@ -5,7 +5,7 @@ const apps = [
   {
     title: "Parade of Trades — Team Work Simulation",
     description:
-      "Interactive Streamlit simulation of the Parade of Trades (lean construction, after Iris Tommelein) — exploring workflow, variability, and collaboration in multi-trade production.",
+      "A small Streamlit simulation of the Parade of Trades (lean construction, after Iris Tommelein) for exploring workflow and variability with students and practitioners.",
     tags: ["Streamlit", "Lean construction", "Parade of Trades", "Python"],
     streamlitUrl: "https://parade-tim-kerja.streamlit.app/",
     githubUrl: "https://github.com/m46d45/Parade-Tim-Kerja",
@@ -13,7 +13,7 @@ const apps = [
   {
     title: "SimKon — Earthwork Operations",
     description:
-      "Construction operations simulation focused on earthwork — a web-based tool for teaching and exploring production systems in construction (SimKon v1.0).",
+      "A web-based construction operations tool focused on earthwork (SimKon v1.0) — built for teaching and experimentation, open on GitHub.",
     tags: ["Streamlit", "Earthwork", "Construction ops", "Python"],
     streamlitUrl: "https://simkon-earthwork.streamlit.app/",
     githubUrl: "https://github.com/m46d45/SimKon",
@@ -35,9 +35,8 @@ export function Software() {
             Simulation tools
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Interactive software for research and teaching — construction
-            operations and lean production simulations, hosted on Streamlit and
-            open on GitHub.
+            Simple interactive tools I build for teaching and research — free to
+            try on Streamlit, with source on GitHub.
           </p>
         </div>
 
