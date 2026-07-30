@@ -40,4 +40,11 @@ export const networks: NetworkItem[] = [
       "A collaborative research network linking Indonesian and Australian colleagues on construction topics.",
     website: "https://sway.cloud.microsoft/k5tRy7iEV1wXrlKu?ref=Link",
   },
+  {
+    name: "Perjalanan Elsie",
+    kind: "media",
+    description:
+      "A YouTube channel sharing stories and journeys — personal notes along the way.",
+    youtube: "https://www.youtube.com/channel/UC2ZCAipLxzopbjjVQ-CYWMw",
+  },
 ];
