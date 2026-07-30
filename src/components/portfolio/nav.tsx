@@ -4,15 +4,15 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 /**
- * Faculty-style primary nav: fewer items, clear hierarchy, one CTA.
- * Scroll-spy: last section whose document top is at or above the spy line
- * (below the sticky header). Click sets active immediately.
+ * Faculty-style primary nav. Scroll-spy: last section whose document top is
+ * at or above the spy line under the sticky header.
  */
 const links = [
   { href: "#bio", label: "About", id: "bio" },
   { href: "#experience", label: "Experience", id: "experience" },
   { href: "#research", label: "Research", id: "research" },
   { href: "#teaching", label: "Teaching", id: "teaching" },
+  { href: "#software", label: "Software", id: "software" },
   { href: "#articles", label: "Publications", id: "articles" },
 ] as const;
 
@@ -22,6 +22,7 @@ const SECTION_ORDER = [
   "research",
   "teaching",
   "projects",
+  "software",
   "articles",
   "contact",
 ] as const;
@@ -38,7 +39,6 @@ export function Nav() {
 
   useEffect(() => {
     function resolveActive(): string {
-      // Spy line just under the fixed header (matches scroll-margin-top ~5rem)
       const spyLine = window.scrollY + 96;
       let current: string = SECTION_ORDER[0];
 
@@ -51,7 +51,6 @@ export function Nav() {
         }
       }
 
-      // Near bottom of page → last section
       const docHeight = document.documentElement.scrollHeight;
       const viewBottom = window.scrollY + window.innerHeight;
       if (viewBottom >= docHeight - 8) {
@@ -106,7 +105,7 @@ export function Nav() {
           : "bg-transparent",
       )}
     >
-      <div className="container-narrow section-pad flex h-16 items-center justify-between gap-6">
+      <div className="container-narrow section-pad flex h-16 items-center justify-between gap-4 lg:gap-6">
         <a
           href="#top"
           className="group shrink-0 leading-tight"
@@ -124,7 +123,7 @@ export function Nav() {
         </a>
 
         <nav
-          className="hidden items-center gap-0.5 md:flex"
+          className="hidden items-center gap-0 xl:flex"
           aria-label="Primary"
         >
           {links.map((link) => {
@@ -135,7 +134,7 @@ export function Nav() {
                 href={link.href}
                 onClick={() => onNavClick(link.id)}
                 className={cn(
-                  "relative rounded-md px-3 py-2 text-sm transition-colors duration-150",
+                  "relative rounded-md px-2.5 py-2 text-sm transition-colors duration-150",
                   isActive
                     ? "font-medium text-ink"
                     : "text-muted hover:text-ink",
@@ -145,7 +144,7 @@ export function Nav() {
                 {link.label}
                 <span
                   className={cn(
-                    "absolute inset-x-3 -bottom-0.5 h-px origin-left bg-accent transition-transform duration-200",
+                    "absolute inset-x-2.5 -bottom-0.5 h-px origin-left bg-accent transition-transform duration-200",
                     isActive ? "scale-x-100" : "scale-x-0",
                   )}
                   aria-hidden
@@ -165,7 +164,7 @@ export function Nav() {
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden"
+            className="xl:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
@@ -176,7 +175,7 @@ export function Nav() {
       </div>
 
       {open && (
-        <div className="border-t border-border bg-bg/98 backdrop-blur-md md:hidden">
+        <div className="border-t border-border bg-bg/98 backdrop-blur-md xl:hidden">
           <nav
             className="container-narrow section-pad flex flex-col gap-0.5 py-3"
             aria-label="Mobile"
