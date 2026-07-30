@@ -108,17 +108,14 @@ export function Nav() {
       <div className="container-narrow section-pad flex h-16 items-center justify-between gap-4 lg:gap-6">
         <a
           href="#top"
-          className="group shrink-0 leading-tight"
+          className="group min-w-0 shrink leading-tight"
           onClick={() => {
             setActive("");
             closeMenu();
           }}
         >
-          <span className="block font-display text-[0.95rem] font-semibold tracking-tight text-ink transition-colors group-hover:text-accent sm:text-base">
-            Muhamad Abduh
-          </span>
-          <span className="hidden text-[0.65rem] font-medium uppercase tracking-[0.12em] text-subtle sm:block">
-            Professor · ITB
+          <span className="block font-display text-sm font-medium italic tracking-tight text-ink transition-colors group-hover:text-accent sm:text-[0.95rem]">
+            Don't be afraid to care.
           </span>
         </a>
 
