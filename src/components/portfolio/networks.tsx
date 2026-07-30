@@ -7,6 +7,7 @@ const kindLabel: Record<NetworkItem["kind"], string> = {
   forum: "Forum",
   campus: "Campus",
   media: "Media",
+  accreditation: "Accreditation",
   other: "Network",
 };
 
