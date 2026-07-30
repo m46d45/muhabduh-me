@@ -42,12 +42,28 @@ export const Route = createRootRoute({
         content:
           "Professor of Civil Engineering at ITB. Lean construction, research, teaching. Don't be afraid to care.",
       },
+      {
+        property: "og:image",
+        content: `${SITE_URL}/portrait.jpg`,
+      },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:url", content: SITE_URL },
+      {
+        name: "twitter:image",
+        content: `${SITE_URL}/portrait.jpg`,
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "canonical", href: SITE_URL },
+      { rel: "icon", href: "/favicon.ico", sizes: "any" },
+      { rel: "icon", href: "/favicon-32.png", type: "image/png", sizes: "32x32" },
+      { rel: "icon", href: "/favicon-16.png", type: "image/png", sizes: "16x16" },
+      {
+        rel: "apple-touch-icon",
+        href: "/apple-touch-icon.png",
+        sizes: "180x180",
+      },
       {
         rel: "preconnect",
         href: "https://fonts.googleapis.com",
