@@ -8,7 +8,7 @@ import {
 import { Toaster } from "sonner";
 import appCss from "@/styles.css?url";
 
-const SITE_URL = "https://muhabduh.me";
+const SITE_URL = "https://muhabduh.id";
 
 export const Route = createRootRoute({
   head: () => ({

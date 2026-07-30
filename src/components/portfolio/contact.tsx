@@ -23,9 +23,9 @@ const socials = [
   },
   {
     label: "Website",
-    href: "https://muhabduh.me",
+    href: "https://muhabduh.id",
     icon: ExternalLink,
-    value: "muhabduh.me",
+    value: "muhabduh.id",
   },
   {
     label: "LinkedIn",
@@ -134,10 +134,10 @@ export function Contact() {
             For research collaboration, teaching invitations, media, or
             professional inquiries — email is best. Website:{" "}
             <a
-              href="https://muhabduh.me"
+              href="https://muhabduh.id"
               className="font-medium text-accent underline-offset-2 hover:underline"
             >
-              muhabduh.me
+              muhabduh.id
             </a>
             .
           </p>

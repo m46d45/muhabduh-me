@@ -11,10 +11,10 @@ export function Footer() {
           <p className="mt-1 text-sm text-subtle">
             © {year} Prof. Ir. Muhamad Abduh, M.T., Ph.D. ·{" "}
             <a
-              href="https://muhabduh.me"
+              href="https://muhabduh.id"
               className="hover:text-accent"
             >
-              muhabduh.me
+              muhabduh.id
             </a>
           </p>
         </div>
