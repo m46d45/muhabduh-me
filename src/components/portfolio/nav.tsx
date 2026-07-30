@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
  */
 const links = [
   { href: "#bio", label: "About", id: "bio" },
+  { href: "#news", label: "News", id: "news" },
   { href: "#experience", label: "Experience", id: "experience" },
   { href: "#research", label: "Research", id: "research" },
   { href: "#teaching", label: "Teaching", id: "teaching" },
@@ -18,6 +19,7 @@ const links = [
 
 const SECTION_ORDER = [
   "bio",
+  "news",
   "experience",
   "research",
   "teaching",
@@ -135,7 +137,7 @@ export function Nav() {
                 href={link.href}
                 onClick={() => onNavClick(link.id)}
                 className={cn(
-                  "relative rounded-md px-2.5 py-2 text-sm transition-colors duration-150",
+                  "relative rounded-md px-2 py-2 text-[0.8125rem] transition-colors duration-150 lg:px-2.5 lg:text-sm",
                   isActive
                     ? "font-medium text-ink"
                     : "text-muted hover:text-ink",
@@ -145,7 +147,7 @@ export function Nav() {
                 {link.label}
                 <span
                   className={cn(
-                    "absolute inset-x-2.5 -bottom-0.5 h-px origin-left bg-accent transition-transform duration-200",
+                    "absolute inset-x-2 -bottom-0.5 h-px origin-left bg-accent transition-transform duration-200",
                     isActive ? "scale-x-100" : "scale-x-0",
                   )}
                   aria-hidden

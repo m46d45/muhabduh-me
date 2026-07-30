@@ -3,6 +3,7 @@ import { Nav } from "@/components/portfolio/nav";
 import { Hero } from "@/components/portfolio/hero";
 import { About } from "@/components/portfolio/about";
 import { Mantra } from "@/components/portfolio/mantra";
+import { News } from "@/components/portfolio/news";
 import { Experience } from "@/components/portfolio/experience";
 import { Research } from "@/components/portfolio/research";
 import { Teaching } from "@/components/portfolio/teaching";
@@ -24,6 +25,7 @@ function PortfolioPage() {
         <Hero />
         <About />
         <Mantra />
+        <News />
         <Experience />
         <Research />
         <Teaching />
