@@ -27,6 +27,16 @@ export const publications: PublicationItem[] = [
   },
   {
     title:
+      "Manajemen Operasi Konstruksi untuk Peningkatan Kinerja Proyek Konstruksi di Indonesia",
+    kind: "book",
+    venue: "FGB ITB · ITB Press",
+    year: "2024",
+    summary:
+      "On construction operations management for improving project performance in Indonesia. ISBN 978-623-297-418-0 · e-ISBN 978-623-297-419-7 (PDF).",
+    href: "https://www.itbpress.id/orasi-ilmiah/#flipbook-df_18718/1/",
+  },
+  {
+    title:
       "Seni dan Filosofi Konstruksi Ramping (The Art and Philosophy of Lean Construction)",
     kind: "book",
     venue: "Indonesian translation · original by Do, D. (2024)",
