@@ -1,5 +1,4 @@
-import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ExternalLink } from "lucide-react";
 import { TrackedLink } from "@/components/portfolio/link-stats";
 
 const apps = [
@@ -17,7 +16,6 @@ const apps = [
     ],
     note: "Updated Aug 2026",
     streamlitUrl: "https://parade-tim-kerja.streamlit.app/",
-    githubUrl: "https://github.com/m46d45/Parade-Tim-Kerja",
   },
   {
     id: "simkon",
@@ -33,7 +31,6 @@ const apps = [
     ],
     note: "v1.0",
     streamlitUrl: "https://simkon-earthwork.streamlit.app/",
-    githubUrl: "https://github.com/m46d45/SimKon",
   },
 ];
 
@@ -53,8 +50,8 @@ export function Software() {
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
             Interactive tools I build for teaching and learning — free to try on
-            Streamlit, with source on GitHub. They are still evolving; feedback
-            from class use is welcome.
+            Streamlit. They are still evolving; feedback from class use is
+            welcome.
           </p>
         </div>
 
@@ -90,7 +87,7 @@ export function Software() {
                   </span>
                 ))}
               </div>
-              <div className="mt-6 flex flex-wrap items-end gap-4">
+              <div className="mt-6">
                 <TrackedLink
                   href={app.streamlitUrl}
                   trackId={`software-${app.id}-streamlit`}
@@ -98,15 +95,6 @@ export function Software() {
                   <span className="inline-flex items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent/90">
                     Open on Streamlit
                     <ExternalLink className="h-3.5 w-3.5" />
-                  </span>
-                </TrackedLink>
-                <TrackedLink
-                  href={app.githubUrl}
-                  trackId={`software-${app.id}-github`}
-                >
-                  <span className="inline-flex items-center gap-2 rounded-md border border-border bg-surface-raised px-3 py-2 text-sm font-medium text-fg transition-colors hover:border-accent/40">
-                    <Github className="h-3.5 w-3.5" />
-                    Source on GitHub
                   </span>
                 </TrackedLink>
               </div>
