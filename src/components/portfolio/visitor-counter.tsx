@@ -1,18 +1,13 @@
 import { useEffect, useState } from "react";
 import { Eye } from "lucide-react";
+import {
+  fetchCount,
+  formatCount,
+  markSessionHit,
+  sessionAlreadyHit,
+} from "@/lib/counter";
 
-/**
- * Lightweight page-view counter via CounterAPI (no signup, no cookies from us).
- * Counts once per browser tab session so reloads in the same session don't
- * inflate the number as much as raw hits.
- */
-const COUNTER_NAMESPACE = "muhabduh-id";
-const COUNTER_KEY = "portfolio-views";
-const SESSION_FLAG = "muhabduh-view-counted";
-
-function formatCount(n: number): string {
-  return new Intl.NumberFormat("en-US").format(n);
-}
+const VIEW_KEY = "portfolio-views";
 
 export function VisitorCounter() {
   const [count, setCount] = useState<number | null>(null);
@@ -21,26 +16,11 @@ export function VisitorCounter() {
     let cancelled = false;
 
     async function run() {
-      try {
-        const already =
-          typeof sessionStorage !== "undefined" &&
-          sessionStorage.getItem(SESSION_FLAG) === "1";
-
-        const path = already ? "get" : "up";
-        const res = await fetch(
-          `https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/${COUNTER_KEY}/${path}`,
-          { credentials: "omit" },
-        );
-        if (!res.ok) return;
-        const data = (await res.json()) as { count?: number };
-        if (typeof data.count === "number" && !cancelled) {
-          setCount(data.count);
-          if (!already && typeof sessionStorage !== "undefined") {
-            sessionStorage.setItem(SESSION_FLAG, "1");
-          }
-        }
-      } catch {
-        // Stay silent if the counter service is unreachable
+      const already = sessionAlreadyHit(VIEW_KEY);
+      const n = await fetchCount(VIEW_KEY, already ? "get" : "up");
+      if (n !== null && !cancelled) {
+        setCount(n);
+        if (!already) markSessionHit(VIEW_KEY);
       }
     }
 
@@ -65,7 +45,7 @@ export function VisitorCounter() {
   return (
     <span
       className="inline-flex items-center gap-1.5 text-sm text-subtle"
-      title="Approximate page views (once per visit session)"
+      title="Approximate site views (once per visit session)"
     >
       <Eye className="h-3.5 w-3.5 text-accent" aria-hidden />
       <span className="font-mono tabular-nums text-muted">

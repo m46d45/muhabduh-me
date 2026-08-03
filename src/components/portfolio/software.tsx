@@ -1,8 +1,10 @@
 import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { TrackedLink } from "@/components/portfolio/link-stats";
 
 const apps = [
   {
+    id: "parade-tim-kerja",
     title: "Parade Tim Kerja — Zone-flow simulation",
     description:
       "Interactive lean construction classroom tool (after Iris Tommelein’s Parade of Trades), set in an Indonesian concrete floor cycle. Students explore variability, WIP, throughput, and cycle time — with scenario comparison, CONWIP / Little’s Law views, and a built-in learning manual.",
@@ -18,6 +20,7 @@ const apps = [
     githubUrl: "https://github.com/m46d45/Parade-Tim-Kerja",
   },
   {
+    id: "simkon",
     title: "SimKon — Earthwork operations (v1.0)",
     description:
       "Discrete-event simulation of earthmoving production (excavator + dump truck): load → haul → dump → return. Parameters for fleet and cycle times, throughput and utilisation metrics, and simple queueing views — for teaching construction operations.",
@@ -58,29 +61,18 @@ export function Software() {
         <div className="mt-12 grid gap-5 md:grid-cols-2">
           {apps.map((app, i) => (
             <article
-              key={app.title}
+              key={app.id}
               className="group flex flex-col rounded-xl border border-border bg-surface p-6 shadow-soft transition-colors duration-200 hover:border-accent/30 sm:p-7"
             >
               <div className="mb-5 flex items-start justify-between gap-3">
                 <span className="font-mono text-xs tabular-nums text-subtle">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <div className="flex items-center gap-2">
-                  {app.note && (
-                    <span className="rounded-full border border-accent/25 bg-teal-wash px-2.5 py-1 text-xs font-medium text-accent">
-                      {app.note}
-                    </span>
-                  )}
-                  <a
-                    href={app.streamlitUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted transition-colors group-hover:border-accent/40 group-hover:text-accent"
-                    aria-label={`Open ${app.title}`}
-                  >
-                    <ArrowUpRight className="h-4 w-4" />
-                  </a>
-                </div>
+                {app.note && (
+                  <span className="rounded-full border border-accent/25 bg-teal-wash px-2.5 py-1 text-xs font-medium text-accent">
+                    {app.note}
+                  </span>
+                )}
               </div>
               <h3 className="font-display text-xl font-semibold tracking-tight text-ink">
                 {app.title}
@@ -98,27 +90,25 @@ export function Software() {
                   </span>
                 ))}
               </div>
-              <div className="mt-6 flex flex-wrap gap-2">
-                <Button asChild size="sm">
-                  <a
-                    href={app.streamlitUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+              <div className="mt-6 flex flex-wrap items-end gap-4">
+                <TrackedLink
+                  href={app.streamlitUrl}
+                  trackId={`software-${app.id}-streamlit`}
+                >
+                  <span className="inline-flex items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent/90">
                     Open on Streamlit
                     <ExternalLink className="h-3.5 w-3.5" />
-                  </a>
-                </Button>
-                <Button asChild size="sm" variant="secondary">
-                  <a
-                    href={app.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  </span>
+                </TrackedLink>
+                <TrackedLink
+                  href={app.githubUrl}
+                  trackId={`software-${app.id}-github`}
+                >
+                  <span className="inline-flex items-center gap-2 rounded-md border border-border bg-surface-raised px-3 py-2 text-sm font-medium text-fg transition-colors hover:border-accent/40">
                     <Github className="h-3.5 w-3.5" />
                     Source on GitHub
-                  </a>
-                </Button>
+                  </span>
+                </TrackedLink>
               </div>
             </article>
           ))}

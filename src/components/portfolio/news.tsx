@@ -1,5 +1,8 @@
-import { ArrowUpRight, Newspaper } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, Eye, Newspaper } from "lucide-react";
 import { getLatestNews, type NewsItem } from "@/data/news";
+import { fetchCount, formatCount } from "@/lib/counter";
+import { recordLinkClick } from "@/components/portfolio/link-stats";
 
 const kindLabel: Record<NewsItem["kind"], string> = {
   paper: "Paper",
@@ -14,6 +17,127 @@ function formatWhen(iso: string): string {
     month: "short",
     year: "numeric",
   });
+}
+
+function newsTrackId(item: NewsItem): string {
+  return `news-${item.date}-${item.title
+    .slice(0, 24)
+    .replace(/\W+/g, "-")
+    .toLowerCase()}`;
+}
+
+function ClickLine({ count }: { count: number | null }) {
+  return (
+    <span className="inline-flex items-center gap-1 text-xs text-subtle">
+      <Eye className="h-3 w-3 text-accent/80" aria-hidden />
+      {count === null ? (
+        <span className="font-mono tabular-nums">…</span>
+      ) : (
+        <>
+          <span className="font-mono tabular-nums text-muted">
+            {formatCount(count)}
+          </span>
+          <span>clicks</span>
+        </>
+      )}
+    </span>
+  );
+}
+
+function NewsRow({ item, index }: { item: NewsItem; index: number }) {
+  const trackId = newsTrackId(item);
+  const [clicks, setClicks] = useState<number | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    void fetchCount(`click-${trackId}`, "get").then((n) => {
+      if (!cancelled && n !== null) setClicks(n);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [trackId]);
+
+  return (
+    <li>
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={async () => {
+          const n = await recordLinkClick(trackId);
+          if (n !== null) setClicks(n);
+        }}
+        className="group flex flex-col gap-3 rounded-xl border border-border bg-surface p-5 shadow-soft transition-colors duration-150 hover:border-accent/30 sm:flex-row sm:items-start sm:gap-5 sm:p-6"
+      >
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-teal-wash text-accent">
+          <Newspaper className="h-4 w-4" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-subtle">
+            <span className="rounded-full border border-accent/25 bg-teal-wash px-2 py-0.5 font-medium text-accent">
+              {kindLabel[item.kind]}
+            </span>
+            <span className="font-mono tabular-nums">
+              {formatWhen(item.date)}
+            </span>
+            <span aria-hidden>·</span>
+            <span className="truncate">{item.venue}</span>
+            {index === 0 && (
+              <>
+                <span aria-hidden>·</span>
+                <span className="font-medium text-accent">Latest</span>
+              </>
+            )}
+          </div>
+          <h3 className="mt-2 font-display text-base font-semibold tracking-tight text-ink transition-colors group-hover:text-accent sm:text-lg">
+            {item.title}
+          </h3>
+          {item.authors && (
+            <p className="mt-1.5 text-sm text-muted">{item.authors}</p>
+          )}
+          <div className="mt-3">
+            <ClickLine count={clicks} />
+          </div>
+        </div>
+        <ArrowUpRight className="hidden h-4 w-4 shrink-0 text-subtle transition-colors group-hover:text-accent sm:mt-1 sm:block" />
+      </a>
+    </li>
+  );
+}
+
+function TrackedScholarLink() {
+  const trackId = "news-all-scholar";
+  const [clicks, setClicks] = useState<number | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    void fetchCount(`click-${trackId}`, "get").then((n) => {
+      if (!cancelled && n !== null) setClicks(n);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return (
+    <span className="inline-flex flex-col items-start gap-1 sm:items-end">
+      <a
+        href="https://scholar.google.com/citations?user=DctmufgAAAAJ&hl=en&view_op=list_works&sortby=pubdate"
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={async () => {
+          const n = await recordLinkClick(trackId);
+          if (n !== null) setClicks(n);
+        }}
+        className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-accent underline-offset-2 hover:underline"
+      >
+        All on Google Scholar
+        <ArrowUpRight className="h-3.5 w-3.5" />
+      </a>
+      <ClickLine count={clicks} />
+    </span>
+  );
 }
 
 export function News() {
@@ -40,56 +164,12 @@ export function News() {
               newer is added.
             </p>
           </div>
-          <a
-            href="https://scholar.google.com/citations?user=DctmufgAAAAJ&hl=en&view_op=list_works&sortby=pubdate"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-accent underline-offset-2 hover:underline"
-          >
-            All on Google Scholar
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          </a>
+          <TrackedScholarLink />
         </div>
 
         <ul className="mt-10 space-y-3">
           {items.map((item, index) => (
-            <li key={item.title + item.date}>
-              <a
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col gap-3 rounded-xl border border-border bg-surface p-5 shadow-soft transition-colors duration-150 hover:border-accent/30 sm:flex-row sm:items-start sm:gap-5 sm:p-6"
-              >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-teal-wash text-accent">
-                  <Newspaper className="h-4 w-4" />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-subtle">
-                    <span className="rounded-full border border-accent/25 bg-teal-wash px-2 py-0.5 font-medium text-accent">
-                      {kindLabel[item.kind]}
-                    </span>
-                    <span className="font-mono tabular-nums">
-                      {formatWhen(item.date)}
-                    </span>
-                    <span aria-hidden>·</span>
-                    <span className="truncate">{item.venue}</span>
-                    {index === 0 && (
-                      <>
-                        <span aria-hidden>·</span>
-                        <span className="font-medium text-accent">Latest</span>
-                      </>
-                    )}
-                  </div>
-                  <h3 className="mt-2 font-display text-base font-semibold tracking-tight text-ink transition-colors group-hover:text-accent sm:text-lg">
-                    {item.title}
-                  </h3>
-                  {item.authors && (
-                    <p className="mt-1.5 text-sm text-muted">{item.authors}</p>
-                  )}
-                </div>
-                <ArrowUpRight className="hidden h-4 w-4 shrink-0 text-subtle transition-colors group-hover:text-accent sm:mt-1 sm:block" />
-              </a>
-            </li>
+            <NewsRow key={item.title + item.date} item={item} index={index} />
           ))}
         </ul>
       </div>

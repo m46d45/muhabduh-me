@@ -1,13 +1,16 @@
 import { ExternalLink, FileUser, Images } from "lucide-react";
+import { TrackedLink } from "@/components/portfolio/link-stats";
 
 const profileResources = [
   {
+    id: "cv",
     label: "Curriculum vitae",
     blurb: "Academic history, publications, and professional service.",
     href: "https://bit.ly/BioMAIndonesia",
     icon: FileUser,
   },
   {
+    id: "media-photos",
     label: "Photos for media",
     blurb: "Photographs for invitations, media, and institutional use.",
     href: "https://itbdsti-my.sharepoint.com/:f:/g/personal/abduh_itb_ac_id/IgA-gX8rVSybToQJ1AGVwmGBAXhfgIrRto_M3Q9aknVxoDs?e=yKpbPt",
@@ -28,32 +31,30 @@ export function About() {
               Learning how construction can work better
             </h2>
             <div className="rule-accent mt-6" />
-            <ul className="mt-8 space-y-3 text-sm text-muted">
+            <ul className="mt-8 space-y-4 text-sm text-muted">
               <li>
                 <span className="text-subtle">Affiliation</span>
                 <br />
-                <a
+                <TrackedLink
                   href="https://www.itb.ac.id"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-medium text-ink hover:text-accent"
+                  trackId="about-itb"
+                  className="mt-0.5 inline-flex items-center gap-1 font-medium text-ink hover:text-accent"
                 >
                   Faculty of Civil & Environmental Engineering, ITB
                   <ExternalLink className="h-3 w-3" />
-                </a>
+                </TrackedLink>
               </li>
               <li>
                 <span className="text-subtle">Professional society</span>
                 <br />
-                <a
+                <TrackedLink
                   href="https://iamkri.id"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-medium text-ink hover:text-accent"
+                  trackId="about-iamkri"
+                  className="mt-0.5 inline-flex items-center gap-1 font-medium text-ink hover:text-accent"
                 >
                   IAMKRI (lean construction community)
                   <ExternalLink className="h-3 w-3" />
-                </a>
+                </TrackedLink>
               </li>
               <li>
                 <span className="text-subtle">Focus</span>
@@ -66,15 +67,14 @@ export function About() {
               <li>
                 <span className="text-subtle">Writing & research</span>
                 <br />
-                <a
+                <TrackedLink
                   href="https://scholar.google.com/citations?user=DctmufgAAAAJ&hl=en"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-medium text-ink hover:text-accent"
+                  trackId="about-scholar"
+                  className="mt-0.5 inline-flex items-center gap-1 font-medium text-ink hover:text-accent"
                 >
                   Google Scholar profile
                   <ExternalLink className="h-3 w-3" />
-                </a>
+                </TrackedLink>
               </li>
             </ul>
           </div>
@@ -128,26 +128,29 @@ export function About() {
             {profileResources.map((item) => {
               const Icon = item.icon;
               return (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-start gap-4 rounded-xl border border-border bg-surface p-5 shadow-soft transition-colors hover:border-accent/30"
+                <div
+                  key={item.id}
+                  className="rounded-xl border border-border bg-surface p-5 shadow-soft"
                 >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-teal-wash text-accent">
-                    <Icon className="h-4 w-4" />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="flex items-center gap-1.5 font-display text-base font-semibold text-ink transition-colors group-hover:text-accent">
-                      {item.label}
-                      <ExternalLink className="h-3.5 w-3.5 shrink-0 opacity-60" />
+                  <TrackedLink
+                    href={item.href}
+                    trackId={`about-${item.id}`}
+                    className="group flex items-start gap-4"
+                  >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-teal-wash text-accent">
+                      <Icon className="h-4 w-4" />
                     </span>
-                    <span className="mt-1 block text-sm text-muted">
-                      {item.blurb}
+                    <span className="min-w-0">
+                      <span className="flex items-center gap-1.5 font-display text-base font-semibold text-ink transition-colors group-hover:text-accent">
+                        {item.label}
+                        <ExternalLink className="h-3.5 w-3.5 shrink-0 opacity-60" />
+                      </span>
+                      <span className="mt-1 block text-sm text-muted">
+                        {item.blurb}
+                      </span>
                     </span>
-                  </span>
-                </a>
+                  </TrackedLink>
+                </div>
               );
             })}
           </div>

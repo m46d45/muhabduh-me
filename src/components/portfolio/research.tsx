@@ -1,7 +1,11 @@
-import { ArrowUpRight, BookOpen, Compass } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, BookOpen, Compass, Eye } from "lucide-react";
+import { fetchCount, formatCount } from "@/lib/counter";
+import { recordLinkClick } from "@/components/portfolio/link-stats";
 
 const research = [
   {
+    id: "lean-readiness-2006",
     title: "Indonesian contractors’ readiness towards lean construction",
     venue: "IGLC · 14th Annual Conference",
     year: "2006",
@@ -10,6 +14,7 @@ const research = [
     href: "https://iglc.net/Papers/Details/402",
   },
   {
+    id: "green-assessment-2014",
     title:
       "Green construction assessment model for Indonesian government projects",
     venue: "IGLC · 22nd Annual Conference",
@@ -19,6 +24,7 @@ const research = [
     href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:wbdj-CoPYUoC",
   },
   {
+    id: "lean-adoption-toe",
     title: "Lean construction adoption in Indonesia and Australia",
     venue: "IGLC · TOE framework study",
     year: "Recent",
@@ -37,6 +43,66 @@ const interests = [
   "Productivity Improvement",
 ];
 
+function ClickLine({ count }: { count: number | null }) {
+  return (
+    <span className="inline-flex items-center gap-1 text-xs text-subtle">
+      <Eye className="h-3 w-3 text-accent/80" aria-hidden />
+      {count === null ? (
+        <span className="font-mono tabular-nums">…</span>
+      ) : (
+        <>
+          <span className="font-mono tabular-nums text-muted">
+            {formatCount(count)}
+          </span>
+          <span>clicks</span>
+        </>
+      )}
+    </span>
+  );
+}
+
+function TrackedCard({
+  trackId,
+  href,
+  children,
+  className,
+}: {
+  trackId: string;
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const [clicks, setClicks] = useState<number | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    void fetchCount(`click-${trackId}`, "get").then((n) => {
+      if (!cancelled && n !== null) setClicks(n);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [trackId]);
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={async () => {
+        const n = await recordLinkClick(trackId);
+        if (n !== null) setClicks(n);
+      }}
+      className={className}
+    >
+      {children}
+      <div className="mt-3 w-full sm:col-span-full">
+        <ClickLine count={clicks} />
+      </div>
+    </a>
+  );
+}
+
 export function Research() {
   return (
     <section
@@ -54,18 +120,20 @@ export function Research() {
           <p className="mt-4 text-muted leading-relaxed">
             Themes, selected papers, and notes. The newest journal items also
             appear under{" "}
-            <a href="#news" className="text-accent underline-offset-2 hover:underline">
+            <a
+              href="#news"
+              className="text-accent underline-offset-2 hover:underline"
+            >
               News
             </a>
             ; a fuller list is on Google Scholar.
           </p>
         </div>
 
-        <a
+        <TrackedCard
+          trackId="research-topics-2025-27"
           href="https://sway.cloud.microsoft/wWEXS6mhOhX3RLEL?ref=Link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group mt-10 flex flex-col gap-4 rounded-xl border border-accent/25 bg-teal-wash/40 p-6 shadow-soft transition-colors hover:border-accent/45 sm:flex-row sm:items-start sm:gap-6 sm:p-7"
+          className="group mt-10 flex flex-col gap-4 rounded-xl border border-accent/25 bg-teal-wash/40 p-6 shadow-soft transition-colors hover:border-accent/45 sm:flex-row sm:flex-wrap sm:items-start sm:gap-6 sm:p-7"
         >
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-accent/20 bg-surface text-accent">
             <Compass className="h-4 w-4" />
@@ -86,7 +154,7 @@ export function Research() {
             </p>
           </div>
           <ArrowUpRight className="hidden h-4 w-4 shrink-0 text-subtle transition-colors group-hover:text-accent sm:mt-1 sm:block" />
-        </a>
+        </TrackedCard>
 
         <ul className="mt-8 flex flex-wrap gap-2">
           {interests.map((item) => (
@@ -100,12 +168,11 @@ export function Research() {
 
         <ul className="mt-10 space-y-4">
           {research.map((item) => (
-            <li key={item.title}>
-              <a
+            <li key={item.id}>
+              <TrackedCard
+                trackId={`research-paper-${item.id}`}
                 href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col gap-4 rounded-xl border border-border bg-surface p-6 shadow-soft transition-colors duration-200 hover:border-accent/30 sm:flex-row sm:items-start sm:gap-6 sm:p-7"
+                className="group flex flex-col gap-4 rounded-xl border border-border bg-surface p-6 shadow-soft transition-colors duration-200 hover:border-accent/30 sm:flex-row sm:flex-wrap sm:items-start sm:gap-6 sm:p-7"
               >
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-border bg-teal-wash text-accent">
                   <BookOpen className="h-4 w-4" />
@@ -125,32 +192,65 @@ export function Research() {
                   </p>
                 </div>
                 <ArrowUpRight className="hidden h-4 w-4 shrink-0 text-subtle transition-colors group-hover:text-accent sm:mt-1 sm:block" />
-              </a>
+              </TrackedCard>
             </li>
           ))}
         </ul>
 
-        <div className="mt-8 flex flex-wrap gap-3">
-          <a
+        <div className="mt-8 flex flex-wrap gap-6">
+          <ScholarFooterLink
+            trackId="research-scholar-all"
             href="https://scholar.google.com/citations?user=DctmufgAAAAJ&hl=en"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline underline-offset-2"
-          >
-            Publications on Google Scholar
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          </a>
-          <a
+            label="Publications on Google Scholar"
+          />
+          <ScholarFooterLink
+            trackId="research-scopus"
             href="https://www.scopus.com/authid/detail.uri?authorId=55584791103"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline underline-offset-2"
-          >
-            Scopus profile
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          </a>
+            label="Scopus profile"
+          />
         </div>
       </div>
     </section>
+  );
+}
+
+function ScholarFooterLink({
+  trackId,
+  href,
+  label,
+}: {
+  trackId: string;
+  href: string;
+  label: string;
+}) {
+  const [clicks, setClicks] = useState<number | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    void fetchCount(`click-${trackId}`, "get").then((n) => {
+      if (!cancelled && n !== null) setClicks(n);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [trackId]);
+
+  return (
+    <span className="inline-flex flex-col items-start gap-1">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={async () => {
+          const n = await recordLinkClick(trackId);
+          if (n !== null) setClicks(n);
+        }}
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline underline-offset-2"
+      >
+        {label}
+        <ArrowUpRight className="h-3.5 w-3.5" />
+      </a>
+      <ClickLine count={clicks} />
+    </span>
   );
 }
