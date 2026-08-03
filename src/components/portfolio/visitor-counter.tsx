@@ -18,9 +18,9 @@ export function VisitorCounter() {
     async function run() {
       const already = sessionAlreadyHit(VIEW_KEY);
       const n = await fetchCount(VIEW_KEY, already ? "get" : "up");
-      if (n !== null && !cancelled) {
-        setCount(n);
-        if (!already) markSessionHit(VIEW_KEY);
+      if (!cancelled) {
+        setCount(n ?? 0);
+        if (!already && n !== null) markSessionHit(VIEW_KEY);
       }
     }
 
@@ -30,26 +30,14 @@ export function VisitorCounter() {
     };
   }, []);
 
-  if (count === null) {
-    return (
-      <span
-        className="inline-flex items-center gap-1.5 text-sm text-subtle"
-        aria-hidden
-      >
-        <Eye className="h-3.5 w-3.5" />
-        <span className="font-mono tabular-nums">…</span>
-      </span>
-    );
-  }
-
   return (
     <span
-      className="inline-flex items-center gap-1.5 text-sm text-subtle"
+      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-bg-deep/80 px-2.5 py-1 text-sm text-muted"
       title="Approximate site views (once per visit session)"
     >
-      <Eye className="h-3.5 w-3.5 text-accent" aria-hidden />
-      <span className="font-mono tabular-nums text-muted">
-        {formatCount(count)}
+      <Eye className="h-3.5 w-3.5 shrink-0 text-accent" aria-hidden />
+      <span className="font-mono tabular-nums font-medium text-ink">
+        {count === null ? "…" : formatCount(count)}
       </span>
       <span className="text-subtle">views</span>
     </span>

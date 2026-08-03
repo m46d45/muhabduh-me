@@ -9,15 +9,10 @@ import {
 import { cn } from "@/lib/utils";
 
 type LinkStatsProps = {
-  /** Stable id for this link (e.g. software-parade-streamlit) */
   trackId: string;
   className?: string;
 };
 
-/**
- * Displays click count under a link. Call `recordClick` from the parent
- * when the user activates the link, or wrap with TrackedLink.
- */
 export function LinkStats({ trackId, className }: LinkStatsProps) {
   const [count, setCount] = useState<number | null>(null);
   const key = `click-${trackId}`;
@@ -25,46 +20,30 @@ export function LinkStats({ trackId, className }: LinkStatsProps) {
   useEffect(() => {
     let cancelled = false;
     void fetchCount(key, "get").then((n) => {
-      if (!cancelled && n !== null) setCount(n);
+      if (!cancelled) setCount(n ?? 0);
     });
     return () => {
       cancelled = true;
     };
   }, [key]);
 
-  if (count === null) {
-    return (
-      <span
-        className={cn(
-          "inline-flex items-center gap-1 text-xs text-subtle",
-          className,
-        )}
-        aria-hidden
-      >
-        <Eye className="h-3 w-3" />
-        <span className="font-mono tabular-nums">…</span>
-      </span>
-    );
-  }
-
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 text-xs text-subtle",
+        "mt-1 inline-flex items-center gap-1.5 rounded-full border border-border bg-bg-deep/80 px-2.5 py-1 text-xs text-muted",
         className,
       )}
       title="Clicks on this link"
     >
-      <Eye className="h-3 w-3 text-accent/80" aria-hidden />
-      <span className="font-mono tabular-nums text-muted">
-        {formatCount(count)}
+      <Eye className="h-3.5 w-3.5 shrink-0 text-accent" aria-hidden />
+      <span className="font-mono tabular-nums font-medium text-ink">
+        {count === null ? "…" : formatCount(count)}
       </span>
-      <span>clicks</span>
+      <span className="text-subtle">clicks</span>
     </span>
   );
 }
 
-/** Fire-and-forget click increment (deduped per session optional) */
 export async function recordLinkClick(
   trackId: string,
   options?: { oncePerSession?: boolean },
@@ -83,7 +62,6 @@ type TrackedLinkProps = {
   trackId: string;
   className?: string;
   children: ReactNode;
-  /** Show stats row under children */
   showStats?: boolean;
   statsClassName?: string;
   target?: string;
@@ -91,9 +69,6 @@ type TrackedLinkProps = {
   "aria-label"?: string;
 };
 
-/**
- * External (or any) link that records clicks and optionally shows stats below.
- */
 export function TrackedLink({
   href,
   trackId,
@@ -111,7 +86,7 @@ export function TrackedLink({
   useEffect(() => {
     let cancelled = false;
     void fetchCount(key, "get").then((n) => {
-      if (!cancelled && n !== null) setCount(n);
+      if (!cancelled) setCount(n ?? 0);
     });
     return () => {
       cancelled = true;
@@ -121,10 +96,11 @@ export function TrackedLink({
   async function onClick(_e: MouseEvent<HTMLAnchorElement>) {
     const n = await recordLinkClick(trackId);
     if (n !== null) setCount(n);
+    else setCount((c) => (c === null ? 1 : c + 1));
   }
 
   return (
-    <span className="inline-flex flex-col items-start gap-1">
+    <span className="inline-flex flex-col items-start gap-1.5">
       <a
         href={href}
         target={target}
@@ -138,24 +114,16 @@ export function TrackedLink({
       {showStats && (
         <span
           className={cn(
-            "inline-flex items-center gap-1 text-xs text-subtle",
+            "inline-flex items-center gap-1.5 rounded-full border border-border bg-bg-deep/80 px-2.5 py-1 text-xs text-muted",
             statsClassName,
           )}
           title="Clicks on this link"
         >
-          <Eye className="h-3 w-3 text-accent/80" aria-hidden />
-          {count === null ? (
-            <span className="font-mono tabular-nums" aria-hidden>
-              …
-            </span>
-          ) : (
-            <>
-              <span className="font-mono tabular-nums text-muted">
-                {formatCount(count)}
-              </span>
-              <span>clicks</span>
-            </>
-          )}
+          <Eye className="h-3.5 w-3.5 shrink-0 text-accent" aria-hidden />
+          <span className="font-mono tabular-nums font-medium text-ink">
+            {count === null ? "…" : formatCount(count)}
+          </span>
+          <span className="text-subtle">clicks</span>
         </span>
       )}
     </span>

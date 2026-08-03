@@ -73,7 +73,7 @@ function ProjectCard({
   useEffect(() => {
     let cancelled = false;
     void fetchCount(`click-${trackId}`, "get").then((n) => {
-      if (!cancelled && n !== null) setClicks(n);
+      if (!cancelled) setClicks(n ?? 0);
     });
     return () => {
       cancelled = true;
@@ -110,24 +110,19 @@ function ProjectCard({
         onClick={async () => {
           const n = await recordLinkClick(trackId);
           if (n !== null) setClicks(n);
+          else setClicks((c) => (c ?? 0) + 1);
         }}
         className="mt-5 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-accent hover:underline underline-offset-2"
       >
         Open link
         <ArrowUpRight className="h-3.5 w-3.5" />
       </a>
-      <span className="mt-2 inline-flex items-center gap-1 text-xs text-subtle">
-        <Eye className="h-3 w-3 text-accent/80" aria-hidden />
-        {clicks === null ? (
-          <span className="font-mono tabular-nums">…</span>
-        ) : (
-          <>
-            <span className="font-mono tabular-nums text-muted">
-              {formatCount(clicks)}
-            </span>
-            <span>clicks</span>
-          </>
-        )}
+      <span className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-border bg-bg-deep/80 px-2.5 py-1 text-xs text-muted">
+        <Eye className="h-3.5 w-3.5 shrink-0 text-accent" aria-hidden />
+        <span className="font-mono tabular-nums font-medium text-ink">
+          {clicks === null ? "…" : formatCount(clicks)}
+        </span>
+        <span className="text-subtle">clicks</span>
       </span>
     </article>
   );

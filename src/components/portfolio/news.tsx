@@ -28,13 +28,13 @@ function newsTrackId(item: NewsItem): string {
 
 function ClickLine({ count }: { count: number | null }) {
   return (
-    <span className="inline-flex items-center gap-1 text-xs text-subtle">
-      <Eye className="h-3 w-3 text-accent/80" aria-hidden />
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-bg-deep/80 px-2.5 py-1 text-xs text-muted">
+      <Eye className="h-3.5 w-3.5 shrink-0 text-accent" aria-hidden />
       {count === null ? (
         <span className="font-mono tabular-nums">…</span>
       ) : (
         <>
-          <span className="font-mono tabular-nums text-muted">
+          <span className="font-mono tabular-nums font-medium text-ink">
             {formatCount(count)}
           </span>
           <span>clicks</span>
@@ -51,7 +51,7 @@ function NewsRow({ item, index }: { item: NewsItem; index: number }) {
   useEffect(() => {
     let cancelled = false;
     void fetchCount(`click-${trackId}`, "get").then((n) => {
-      if (!cancelled && n !== null) setClicks(n);
+      if (!cancelled) setClicks(n ?? 0);
     });
     return () => {
       cancelled = true;
@@ -113,7 +113,7 @@ function TrackedScholarLink() {
   useEffect(() => {
     let cancelled = false;
     void fetchCount(`click-${trackId}`, "get").then((n) => {
-      if (!cancelled && n !== null) setClicks(n);
+      if (!cancelled) setClicks(n ?? 0);
     });
     return () => {
       cancelled = true;

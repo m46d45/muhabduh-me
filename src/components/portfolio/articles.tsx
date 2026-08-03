@@ -29,7 +29,7 @@ function PubRow({ item }: { item: PublicationItem }) {
   useEffect(() => {
     let cancelled = false;
     void fetchCount(`click-${trackId}`, "get").then((n) => {
-      if (!cancelled && n !== null) setClicks(n);
+      if (!cancelled) setClicks(n ?? 0);
     });
     return () => {
       cancelled = true;
@@ -45,6 +45,7 @@ function PubRow({ item }: { item: PublicationItem }) {
         onClick={async () => {
           const n = await recordLinkClick(trackId);
           if (n !== null) setClicks(n);
+          else setClicks((c) => (c ?? 0) + 1);
         }}
         className="group flex flex-col gap-3 py-6 transition-colors sm:flex-row sm:items-start sm:justify-between sm:gap-10 sm:py-7"
       >
@@ -69,18 +70,12 @@ function PubRow({ item }: { item: PublicationItem }) {
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
               {item.summary}
             </p>
-            <span className="mt-3 inline-flex items-center gap-1 text-xs text-subtle">
-              <Eye className="h-3 w-3 text-accent/80" aria-hidden />
-              {clicks === null ? (
-                <span className="font-mono tabular-nums">…</span>
-              ) : (
-                <>
-                  <span className="font-mono tabular-nums text-muted">
-                    {formatCount(clicks)}
-                  </span>
-                  <span>clicks</span>
-                </>
-              )}
+            <span className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-border bg-bg-deep/80 px-2.5 py-1 text-xs text-muted">
+              <Eye className="h-3.5 w-3.5 shrink-0 text-accent" aria-hidden />
+              <span className="font-mono tabular-nums font-medium text-ink">
+                {clicks === null ? "…" : formatCount(clicks)}
+              </span>
+              <span className="text-subtle">clicks</span>
             </span>
           </div>
         </div>
@@ -95,7 +90,7 @@ function PubRow({ item }: { item: PublicationItem }) {
 
 export function Articles() {
   const books = publications.filter((p) => p.kind === "book");
-  const articles = publications.filter((p) => p.kind === "article");
+  const articlesList = publications.filter((p) => p.kind === "article");
 
   return (
     <section
@@ -145,23 +140,17 @@ export function Articles() {
           </div>
         )}
 
-        {articles.length > 0 && (
+        {articlesList.length > 0 && (
           <div className="mt-12">
             <h3 className="font-display text-sm font-semibold uppercase tracking-[0.08em] text-subtle">
               Selected articles
             </h3>
             <ul className="mt-4 divide-y divide-border border-y border-border">
-              {articles.map((item) => (
+              {articlesList.map((item) => (
                 <PubRow key={item.title} item={item} />
               ))}
             </ul>
           </div>
-        )}
-
-        {publications.length === 0 && (
-          <p className="mt-10 text-sm text-muted">
-            Book and article entries will appear here as they are added.
-          </p>
         )}
       </div>
     </section>
