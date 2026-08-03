@@ -3,18 +3,32 @@ import { Button } from "@/components/ui/button";
 
 const apps = [
   {
-    title: "Parade of Trades — Team Work Simulation",
+    title: "Parade Tim Kerja — Zone-flow simulation",
     description:
-      "A small Streamlit simulation of the Parade of Trades (lean construction, after Iris Tommelein) for exploring workflow and variability with students and practitioners.",
-    tags: ["Streamlit", "Lean construction", "Parade of Trades", "Python"],
+      "Interactive lean construction classroom tool (after Iris Tommelein’s Parade of Trades), set in an Indonesian concrete floor cycle. Students explore variability, WIP, throughput, and cycle time — with scenario comparison, CONWIP / Little’s Law views, and a built-in learning manual.",
+    tags: [
+      "Streamlit",
+      "Lean construction",
+      "Parade of Trades",
+      "Teaching",
+      "Python",
+    ],
+    note: "Updated Aug 2026",
     streamlitUrl: "https://parade-tim-kerja.streamlit.app/",
     githubUrl: "https://github.com/m46d45/Parade-Tim-Kerja",
   },
   {
-    title: "SimKon — Earthwork Operations",
+    title: "SimKon — Earthwork operations (v1.0)",
     description:
-      "A web-based construction operations tool focused on earthwork (SimKon v1.0) — built for teaching and experimentation, open on GitHub.",
-    tags: ["Streamlit", "Earthwork", "Construction ops", "Python"],
+      "Discrete-event simulation of earthmoving production (excavator + dump truck): load → haul → dump → return. Parameters for fleet and cycle times, throughput and utilisation metrics, and simple queueing views — for teaching construction operations.",
+    tags: [
+      "Streamlit",
+      "Earthwork",
+      "DES",
+      "Construction ops",
+      "Python",
+    ],
+    note: "v1.0",
     streamlitUrl: "https://simkon-earthwork.streamlit.app/",
     githubUrl: "https://github.com/m46d45/SimKon",
   },
@@ -35,8 +49,9 @@ export function Software() {
             Simulation tools
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Simple interactive tools I build for teaching and research — free to
-            try on Streamlit, with source on GitHub.
+            Interactive tools I build for teaching and learning — free to try on
+            Streamlit, with source on GitHub. They are still evolving; feedback
+            from class use is welcome.
           </p>
         </div>
 
@@ -50,15 +65,22 @@ export function Software() {
                 <span className="font-mono text-xs tabular-nums text-subtle">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <a
-                  href={app.streamlitUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted transition-colors group-hover:border-accent/40 group-hover:text-accent"
-                  aria-label={`Open ${app.title}`}
-                >
-                  <ArrowUpRight className="h-4 w-4" />
-                </a>
+                <div className="flex items-center gap-2">
+                  {app.note && (
+                    <span className="rounded-full border border-accent/25 bg-teal-wash px-2.5 py-1 text-xs font-medium text-accent">
+                      {app.note}
+                    </span>
+                  )}
+                  <a
+                    href={app.streamlitUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted transition-colors group-hover:border-accent/40 group-hover:text-accent"
+                    aria-label={`Open ${app.title}`}
+                  >
+                    <ArrowUpRight className="h-4 w-4" />
+                  </a>
+                </div>
               </div>
               <h3 className="font-display text-xl font-semibold tracking-tight text-ink">
                 {app.title}
