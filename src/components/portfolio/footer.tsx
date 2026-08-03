@@ -1,3 +1,5 @@
+import { VisitorCounter } from "@/components/portfolio/visitor-counter";
+
 export function Footer() {
   const year = new Date().getFullYear();
 
@@ -16,6 +18,7 @@ export function Footer() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-4 text-sm">
+          <VisitorCounter />
           <a
             href="https://www.itb.ac.id"
             target="_blank"
