@@ -1,6 +1,7 @@
 import { ExternalLink } from "lucide-react";
 import { TrackedLink } from "@/components/portfolio/link-stats";
 
+/** All teaching simulations — newest first. Keep all three visible. */
 const apps = [
   {
     id: "rusun-takt",
@@ -47,7 +48,7 @@ const apps = [
     note: "v1.0",
     streamlitUrl: "https://simkon-earthwork.streamlit.app/",
   },
-];
+] as const;
 
 export function Software() {
   return (
@@ -64,13 +65,14 @@ export function Software() {
             Simulation tools
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Interactive tools I build for teaching and learning — free to try on
+            Three interactive tools for teaching and learning — free to try on
             Streamlit. They are still evolving; feedback from class use is
             welcome.
           </p>
         </div>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {/* Always list all apps; 1 col mobile, 3 cols from md so none look “missing” */}
+        <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
           {apps.map((app, i) => (
             <article
               key={app.id}
@@ -86,7 +88,7 @@ export function Software() {
                   </span>
                 )}
               </div>
-              <h3 className="font-display text-xl font-semibold tracking-tight text-ink">
+              <h3 className="font-display text-lg font-semibold tracking-tight text-ink sm:text-xl">
                 {app.title}
               </h3>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">
