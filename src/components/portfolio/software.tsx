@@ -3,6 +3,21 @@ import { TrackedLink } from "@/components/portfolio/link-stats";
 
 const apps = [
   {
+    id: "rusun-takt",
+    title: "Rusun Takt — 3-storey housing simulation",
+    description:
+      "A lean construction teaching simulation for a walk-up rusun (3 floors, 5 zones). Students compare push vs JIT starts, parade-of-trades flow across seven crews, takt planning, curing delays, and how waiting turns into waste — inspired by Takt Towers.",
+    tags: [
+      "Streamlit",
+      "Lean construction",
+      "Takt planning",
+      "Rusun",
+      "Teaching",
+    ],
+    note: "New · Aug 2026",
+    streamlitUrl: "https://rusun-takt-simulasi.streamlit.app/",
+  },
+  {
     id: "parade-tim-kerja",
     title: "Parade Tim Kerja — Zone-flow simulation",
     description:
@@ -55,7 +70,7 @@ export function Software() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
+        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {apps.map((app, i) => (
             <article
               key={app.id}
