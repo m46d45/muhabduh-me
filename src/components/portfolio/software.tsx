@@ -69,7 +69,7 @@ const apps: SoftApp[] = [
   {
     id: "siklops",
     title: "SiklOps",
-    subtitle: "Cyclic construction operations · DES (v1.1)",
+    subtitle: "Cyclic construction operations · DES",
     description:
       "SiklOps (Siklus Operasi) is a discrete-event simulation for repeating construction operations — not whole-project scheduling. Run earthmoving, bricklaying, and ready-mixed concrete placing (buggy / crane bucket / pump), then read shared result tabs on throughput, queues, match factor, cost, and CO₂e.",
     points: [
@@ -85,7 +85,7 @@ const apps: SoftApp[] = [
       "Concreting",
       "Teaching",
     ],
-    note: "Full app · Vercel · v1.1",
+    note: "Full app · Vercel",
     appUrl: "https://siklops.vercel.app/",
     buttonLabel: "Open SiklOps",
     trackId: "software-siklops-vercel",
