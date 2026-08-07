@@ -7,7 +7,6 @@ type SoftApp = {
   description: string;
   tags: string[];
   note: string;
-  /** Primary public URL (prefer Vercel when live) */
   appUrl: string;
   buttonLabel: string;
   trackId: string;
@@ -45,27 +44,27 @@ const apps: SoftApp[] = [
       "Teaching",
     ],
     note: "On Vercel",
-    // Landing on Vercel; simulation runs via Streamlit from that page
     appUrl: "https://parade-tim-kerja.vercel.app/",
     buttonLabel: "Open app",
     trackId: "software-parade-tim-kerja-vercel",
   },
   {
-    id: "simkon",
-    title: "SimKon — Earthwork operations (v1.0)",
+    id: "siklops",
+    title: "SiklOps — Construction operations cycles (v1.1)",
     description:
-      "Discrete-event simulation of earthmoving production (excavator + dump truck): load → haul → dump → return. Parameters for fleet and cycle times, throughput and utilisation metrics, and simple queueing views — for teaching construction operations.",
+      "Discrete-event simulation of construction operations cycles — earthmoving (excavator + dump truck), bricklaying, and concreting. Explore cycle times, utilisation, cost, and emissions with scenarios, CSV export, and a built-in manual.",
     tags: [
-      "Streamlit",
-      "Earthwork",
+      "Vercel",
       "DES",
-      "Construction ops",
-      "Python",
+      "Earthmoving",
+      "Bricklaying",
+      "Concreting",
+      "Teaching",
     ],
-    note: "Streamlit",
-    appUrl: "https://simkon-earthwork.streamlit.app/",
-    buttonLabel: "Open on Streamlit",
-    trackId: "software-simkon-streamlit",
+    note: "On Vercel · v1.1",
+    appUrl: "https://siklops.vercel.app/",
+    buttonLabel: "Open app",
+    trackId: "software-siklops-vercel",
   },
 ];
 
@@ -85,8 +84,8 @@ export function Software() {
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
             Three interactive tools for teaching and learning — open in the
-            browser (Vercel or Streamlit). They are still evolving; feedback
-            from class use is welcome.
+            browser. They are still evolving; feedback from class use is
+            welcome.
           </p>
         </div>
 
