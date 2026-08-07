@@ -1,37 +1,54 @@
 import { ExternalLink } from "lucide-react";
 import { TrackedLink } from "@/components/portfolio/link-stats";
 
-/** All teaching simulations — newest first. Keep all three visible. */
-const apps = [
+type SoftApp = {
+  id: string;
+  title: string;
+  description: string;
+  tags: string[];
+  note: string;
+  /** Primary public URL (prefer Vercel when live) */
+  appUrl: string;
+  buttonLabel: string;
+  trackId: string;
+};
+
+/** Teaching simulations — newest first. All three always listed. */
+const apps: SoftApp[] = [
   {
     id: "rusun-takt",
     title: "Rusun Takt — 3-storey housing simulation",
     description:
       "A lean construction teaching simulation for a walk-up rusun (3 floors, 5 zones). Students compare push vs JIT starts, parade-of-trades flow across seven crews, takt planning, curing delays, and how waiting turns into waste — inspired by Takt Towers.",
     tags: [
-      "Streamlit",
+      "Vercel",
       "Lean construction",
       "Takt planning",
       "Rusun",
       "Teaching",
     ],
-    note: "New · Aug 2026",
-    streamlitUrl: "https://rusun-takt-simulasi.streamlit.app/",
+    note: "On Vercel",
+    appUrl: "https://rusun-takt.vercel.app/",
+    buttonLabel: "Open app",
+    trackId: "software-rusun-takt-vercel",
   },
   {
     id: "parade-tim-kerja",
     title: "Parade Tim Kerja — Zone-flow simulation",
     description:
-      "Interactive lean construction classroom tool (after Iris Tommelein’s Parade of Trades), set in an Indonesian concrete floor cycle. Students explore variability, WIP, throughput, and cycle time — with scenario comparison, CONWIP / Little’s Law views, and a built-in learning manual.",
+      "Interactive lean construction classroom tool (after Iris Tommelein’s Parade of Trades), set in an Indonesian concrete floor cycle. Students explore variability, WIP, throughput, and cycle time — with scenario comparison, CONWIP / Little’s Law views, and a learning manual.",
     tags: [
+      "Vercel",
       "Streamlit",
       "Lean construction",
       "Parade of Trades",
       "Teaching",
-      "Python",
     ],
-    note: "Updated Aug 2026",
-    streamlitUrl: "https://parade-tim-kerja.streamlit.app/",
+    note: "On Vercel",
+    // Landing on Vercel; simulation runs via Streamlit from that page
+    appUrl: "https://parade-tim-kerja.vercel.app/",
+    buttonLabel: "Open app",
+    trackId: "software-parade-tim-kerja-vercel",
   },
   {
     id: "simkon",
@@ -45,10 +62,12 @@ const apps = [
       "Construction ops",
       "Python",
     ],
-    note: "v1.0",
-    streamlitUrl: "https://simkon-earthwork.streamlit.app/",
+    note: "Streamlit",
+    appUrl: "https://simkon-earthwork.streamlit.app/",
+    buttonLabel: "Open on Streamlit",
+    trackId: "software-simkon-streamlit",
   },
-] as const;
+];
 
 export function Software() {
   return (
@@ -65,13 +84,12 @@ export function Software() {
             Simulation tools
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Three interactive tools for teaching and learning — free to try on
-            Streamlit. They are still evolving; feedback from class use is
-            welcome.
+            Three interactive tools for teaching and learning — open in the
+            browser (Vercel or Streamlit). They are still evolving; feedback
+            from class use is welcome.
           </p>
         </div>
 
-        {/* Always list all apps; 1 col mobile, 3 cols from md so none look “missing” */}
         <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
           {apps.map((app, i) => (
             <article
@@ -82,11 +100,9 @@ export function Software() {
                 <span className="font-mono text-xs tabular-nums text-subtle">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                {app.note && (
-                  <span className="rounded-full border border-accent/25 bg-teal-wash px-2.5 py-1 text-xs font-medium text-accent">
-                    {app.note}
-                  </span>
-                )}
+                <span className="rounded-full border border-accent/25 bg-teal-wash px-2.5 py-1 text-xs font-medium text-accent">
+                  {app.note}
+                </span>
               </div>
               <h3 className="font-display text-lg font-semibold tracking-tight text-ink sm:text-xl">
                 {app.title}
@@ -105,12 +121,9 @@ export function Software() {
                 ))}
               </div>
               <div className="mt-6">
-                <TrackedLink
-                  href={app.streamlitUrl}
-                  trackId={`software-${app.id}-streamlit`}
-                >
+                <TrackedLink href={app.appUrl} trackId={app.trackId}>
                   <span className="inline-flex items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent/90">
-                    Open on Streamlit
+                    {app.buttonLabel}
                     <ExternalLink className="h-3.5 w-3.5" />
                   </span>
                 </TrackedLink>
