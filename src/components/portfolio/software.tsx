@@ -15,20 +15,45 @@ type SoftApp = {
 };
 
 /**
- * Teaching simulations — copy aligned with live Vercel apps (Aug 2026).
- * Newest / primary product first where useful; all three always listed.
+ * All public teaching simulations (live on Vercel, Aug 2026).
+ * Order: newest / richest product first where useful; always show every app.
  */
 const apps: SoftApp[] = [
   {
+    id: "siklops",
+    title: "SiklOps",
+    subtitle: "Cyclic construction operations · DES classroom path",
+    description:
+      "SiklOps (Siklus Operasi) is a discrete-event simulation for repeating construction operations — throughput, utilisation, queues, buffers, priority, cost, and CO₂e — not whole-project scheduling (WBS / CPM). A learning path runs simple → complex so DES ideas are introduced step by step.",
+    points: [
+      "Six operations: earthmoving · bricklaying · concreting · tower crane · asphalt paving · precast plant",
+      "Shared workflow: choose op → set resources & cycle times → run → standard result tabs",
+      "Scenarios, multi-seed where available, CSV export, and a full in-app manual",
+    ],
+    tags: [
+      "Vercel",
+      "DES",
+      "Earthmoving",
+      "Tower crane",
+      "Asphalt",
+      "Precast",
+      "Teaching",
+    ],
+    note: "Full app · Vercel",
+    appUrl: "https://siklops.vercel.app/",
+    buttonLabel: "Open SiklOps",
+    trackId: "software-siklops-vercel",
+  },
+  {
     id: "rusun-takt",
     title: "Rusun Takt",
-    subtitle: "3-storey walk-up housing · lean takt simulation",
+    subtitle: "3-storey walk-up rusun · push, JIT & takt flow",
     description:
-      "An educational lean construction simulation for a three-floor walk-up rusun (inspired by Takt Towers, adapted to an Indonesian context). Seven sequential crews move through five zones per floor while you compare push starts against just-in-time, capacity variation, curing delays, waiting waste, and owner contract outcomes.",
+      "An educational lean construction simulation for a three-floor walk-up rusun (inspired by Takt Towers, adapted to Indonesia). Seven sequential crews move through five zones per floor while you explore push vs just-in-time starts, capacity variation, curing delays, waiting waste, owner duration, and labour margin.",
     points: [
       "7 wagons: structure → slab & stairs → walls → MEP → plaster → tiles → paint",
-      "Push vs JIT starts, one zone–one team, 7-day slab curing per zone",
-      "Takt plan by week, owner duration, penalty and margin views",
+      "One zone–one team, 7-day slab curing, push (M1–M7) vs JIT mobilisation",
+      "Weekly takt plan, capacity rolls, owner target, penalty and margin views",
     ],
     tags: [
       "Vercel",
@@ -36,6 +61,7 @@ const apps: SoftApp[] = [
       "Takt plan",
       "Parade of trades",
       "Rusun",
+      "Teaching",
     ],
     note: "Full app · Vercel",
     appUrl: "https://rusun-takt.vercel.app/",
@@ -45,50 +71,26 @@ const apps: SoftApp[] = [
   {
     id: "parade-tim-kerja",
     title: "Parade Tim Kerja",
-    subtitle: "Zone-flow parade · variability & batch handoff",
+    subtitle: "Zone-flow parade · variability, WIP & batch handoff",
     description:
-      "A classroom parade-of-trades simulation for construction production learning (after Tommelein and colleagues). Watch how variability, sequential handoffs, and zoning affect duration, WIP, utilisation, and idle cost — free in the browser, with no software install.",
+      "A classroom parade-of-trades tool for construction production learning (after Tommelein and colleagues). Observe how variability, sequential handoffs, and zoning affect duration, WIP, utilisation, and idle cost — free in the browser, no install. Landing on Vercel opens the interactive simulation.",
     points: [
-      "Zone-flow with sequential trades (formwork → finishing context)",
-      "Capacity, variability, and batch handoff; LOB / WIP / multi-scenario compare",
-      "Takt plan aids (bay vs planning zone) and export for class exercises",
+      "Zone-flow with sequential trades (formwork → finishing style context)",
+      "Capacity, variability, batch handoff; LOB / WIP / multi-scenario compare",
+      "Takt plan aids (bay vs planning zone), seed control, CSV/Excel export",
     ],
     tags: [
       "Vercel",
       "Streamlit",
       "Lean construction",
       "Zone-flow",
+      "WIP",
       "Teaching",
     ],
     note: "Landing · Vercel",
-    // Vercel landing; simulation opens from there (Streamlit Cloud)
     appUrl: "https://parade-tim-kerja.vercel.app/",
     buttonLabel: "Open Parade Tim Kerja",
     trackId: "software-parade-tim-kerja-vercel",
-  },
-  {
-    id: "siklops",
-    title: "SiklOps",
-    subtitle: "Cyclic construction operations · DES",
-    description:
-      "SiklOps (Siklus Operasi) is a discrete-event simulation for repeating construction operations — not whole-project scheduling. Run earthmoving, bricklaying, and ready-mixed concrete placing (buggy / crane bucket / pump), then read shared result tabs on throughput, queues, match factor, cost, and CO₂e.",
-    points: [
-      "Operations: earthmoving · bricklaying · concreting (RMC dual-cycle)",
-      "Fleet, cycle times, distributions, cost (Rp/hour), fuel → emissions",
-      "Standard result tabs, scenarios, CSV export, and an in-app manual",
-    ],
-    tags: [
-      "Vercel",
-      "DES",
-      "Earthmoving",
-      "Bricklaying",
-      "Concreting",
-      "Teaching",
-    ],
-    note: "Full app · Vercel",
-    appUrl: "https://siklops.vercel.app/",
-    buttonLabel: "Open SiklOps",
-    trackId: "software-siklops-vercel",
   },
 ];
 
@@ -107,9 +109,12 @@ export function Software() {
             Simulation tools
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Three browser-based tools for teaching lean construction and
-            production operations. Open them free on Vercel (and Streamlit where
-            noted). They keep evolving with classroom use.
+            All of the teaching simulations currently online — open free in the
+            browser. They keep evolving with classroom use; feedback is always
+            welcome.
+          </p>
+          <p className="mt-2 text-sm text-subtle">
+            {apps.length} tools · Vercel (and Streamlit where noted)
           </p>
         </div>
 
