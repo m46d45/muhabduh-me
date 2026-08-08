@@ -15,10 +15,57 @@ type SoftApp = {
 };
 
 /**
- * All public teaching simulations (live on Vercel, Aug 2026).
- * Order: newest / richest product first where useful; always show every app.
+ * All public teaching simulations (live on Vercel).
+ * Always list every app; newest product work first.
  */
 const apps: SoftApp[] = [
+  {
+    id: "neo-cyclone",
+    title: "Neo-CYCLONE",
+    subtitle: "AI-assisted CYCLONE modeling · Halpin tradition",
+    description:
+      "An AI-assisted classroom agent for Daniel W. Halpin’s CYCLONE language. Describe a construction operation in a structured prompt, draw the resource–task network, refine until the model is right, then simulate cycles with distributions, seed, and production units.",
+    points: [
+      "Prompt → draw CYCLONE model (resources, tasks, queues, production)",
+      "Duration distributions: const, unif, tri, normal, lognormal, beta, gamma",
+      "Run max cycles & seed; results after the diagram looks correct",
+    ],
+    tags: [
+      "Vercel",
+      "CYCLONE",
+      "DES",
+      "AI agent",
+      "Teaching",
+    ],
+    note: "Full app · Vercel",
+    appUrl: "https://neo-cyclone.vercel.app/",
+    buttonLabel: "Open Neo-CYCLONE",
+    trackId: "software-neo-cyclone-vercel",
+  },
+  {
+    id: "mp2k",
+    title: "MP2K",
+    subtitle: "Multi-mode project production · PPM education",
+    description:
+      "MP2K (Multi-Moda Produksi Proyek Konstruksi) teaches Project Production Management with a fixed multi-mode concrete frame case: onsite craft columns, near-site beams, and far-supply floor panels that must match at the workface. Case → DES on capacity / variability / inventory → three-curve analytics.",
+    points: [
+      "Fixed case: RC frame, 3×5 grid, 2 floors, 8 zones per floor",
+      "Three modes: M craft onsite · N near-site · F far supply & install",
+      "DES with seed control, wave zoning, and Operations Science style curves",
+    ],
+    tags: [
+      "Vercel",
+      "PPM",
+      "Multi-mode",
+      "DES",
+      "Inventory",
+      "Teaching",
+    ],
+    note: "Full app · Vercel",
+    appUrl: "https://mp2k.vercel.app/",
+    buttonLabel: "Open MP2K",
+    trackId: "software-mp2k-vercel",
+  },
   {
     id: "siklops",
     title: "SiklOps",
@@ -114,11 +161,11 @@ export function Software() {
             welcome.
           </p>
           <p className="mt-2 text-sm text-subtle">
-            {apps.length} tools · Vercel (and Streamlit where noted)
+            {apps.length} tools · hosted on Vercel
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {apps.map((app, i) => (
             <article
               key={app.id}
