@@ -121,7 +121,7 @@ export function Research() {
             Research
           </p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-            Work in progress, {year}
+            Current studies, {year}
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
             Studies I am in the middle of this year — not yet a publication

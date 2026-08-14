@@ -42,7 +42,7 @@ export function Projects() {
             Projects
           </p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-            Work in progress
+            Books and gatherings
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
             A few books, conferences, and programs I am part of — alongside
