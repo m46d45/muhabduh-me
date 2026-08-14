@@ -5,34 +5,47 @@ import { recordLinkClick } from "@/components/portfolio/link-stats";
 
 const research = [
   {
-    id: "lean-adoption-toe",
-    title: "Lean construction adoption in Indonesia and Australia",
-    venue: "IGLC · TOE framework study",
-    year: "Recent",
+    id: "lean-dc-indonesia-2026",
+    title: "Lean construction in developing countries: the case of Indonesia",
+    venue:
+      "Research Companion to Advances in the Construction Industry in the Global South",
+    year: "2026",
     description:
-      "A comparative look at lean construction adoption using the Technology–Organization–Environment framework.",
-    href: "https://iglc.net/papers/Details/2382",
+      "A chapter on how lean construction has been understood and practised in Indonesia, written for an international companion on the Global South.",
+    href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:k8Z6L05lTy4C",
   },
   {
-    id: "green-assessment-2014",
+    id: "production-thinking-education-2026",
     title:
-      "Green construction assessment model for Indonesian government projects",
-    venue: "IGLC · 22nd Annual Conference",
-    year: "2014",
+      "Introducing production system thinking into construction management education: a multi-level framework based on the Indonesian context",
+    venue: "International Journal of Construction Management",
+    year: "2026",
     description:
-      "A proposed assessment model to support more sustainable practice on government construction projects in Indonesia.",
-    href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:wbdj-CoPYUoC",
+      "A framework for bringing production-system thinking into construction management education, grounded in Indonesian classrooms and practice.",
+    href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:MLfJN-KU85MC",
   },
   {
-    id: "lean-readiness-2006",
-    title: "Indonesian contractors’ readiness towards lean construction",
-    venue: "IGLC · 14th Annual Conference",
-    year: "2006",
+    id: "tech-data-quality-2026",
+    title:
+      "Evaluating the quality of publicly available construction technology data in Indonesia",
+    venue: "Construction Economics and Building",
+    year: "2026",
     description:
-      "An early study on how Indonesian contractors understood and prepared for lean construction practice.",
-    href: "https://iglc.net/Papers/Details/402",
+      "A look at how reliable publicly available construction-technology data in Indonesia actually is, and what that means for research and policy.",
+    href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:tuHXwOkdijsC",
+  },
+  {
+    id: "lcc-fuzzy-delphi-2026",
+    title:
+      "Selecting Life Cycle Cost Indicators for Sustainable Public Procurement: A Fuzzy Delphi Consensus from Indonesia",
+    venue: "Sustainability",
+    year: "2026",
+    description:
+      "A Fuzzy Delphi study toward life-cycle cost indicators that can support more sustainable public procurement in Indonesia.",
+    href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:VaXvl8Fpj5cC",
   },
 ];
+
 
 
 const interests = [
@@ -119,8 +132,8 @@ export function Research() {
             Questions I keep returning to
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Themes, selected papers, and notes. The newest journal items also
-            appear under{" "}
+            Themes, selected recent papers from Google Scholar, and notes. The
+            full list for this year also appears under{" "}
             <a
               href="#news"
               className="text-accent underline-offset-2 hover:underline"
