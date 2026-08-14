@@ -15,8 +15,28 @@ export type CurrentStudy = {
   href?: string;
 };
 
-/** Work in progress this year. Add items when you send the list. */
-export const currentStudies: CurrentStudy[] = [];
+/** Work in progress this year. Newest / current grants first. */
+export const currentStudies: CurrentStudy[] = [
+  {
+    id: "kurikulum-s1-mk-2026",
+    title:
+      "Model Kurikulum Program Sarjana Manajemen Konstruksi Multidisiplin di Indonesia",
+    note: "PPMI ITB, 2026 · Muhamad Abduh. A curriculum model for a multidisciplinary undergraduate programme in construction management.",
+  },
+  {
+    id: "disaster-resiliency-infra-2026",
+    title:
+      "Mainstreaming Disaster Resiliency in Infrastructure Systems: Research and Education",
+    note: "PPMI ITB, 2026 · Reini Wirahadikusumah, Muhamad Abduh, Patria Kusumaningrum, Eliza Rosmaya Puri, Sri Suryani. Bringing disaster resiliency into infrastructure research and teaching.",
+  },
+  {
+    id: "lean-small-contractors-equity-2025-26",
+    title:
+      "Prinsip dan Metode Konstruksi Ramping untuk Kontraktor Kecil di Indonesia",
+    note: "Equity ITB, 2025–2026 · Muhamad Abduh. Lean construction principles and methods for small contractors in Indonesia.",
+  },
+];
+
 
 const interests = [
   "Lean Construction",
