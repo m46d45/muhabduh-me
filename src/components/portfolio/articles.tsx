@@ -21,8 +21,27 @@ function pubTrackId(item: PublicationItem): string {
     .toLowerCase()}`;
 }
 
-function PubRow({ item }: { item: PublicationItem }) {
+function Cover({ item }: { item: PublicationItem }) {
   const Icon = kindIcon[item.kind];
+  if (item.cover) {
+    return (
+      <img
+        src={item.cover}
+        alt=""
+        width={96}
+        height={144}
+        className="h-36 w-24 shrink-0 rounded-sm object-cover shadow-soft ring-1 ring-border/80"
+      />
+    );
+  }
+  return (
+    <span className="flex h-36 w-24 shrink-0 items-center justify-center rounded-sm border border-border bg-surface text-accent">
+      <Icon className="h-5 w-5" />
+    </span>
+  );
+}
+
+function PubRow({ item }: { item: PublicationItem }) {
   const trackId = pubTrackId(item);
   const [clicks, setClicks] = useState<number | null>(null);
 
@@ -47,12 +66,10 @@ function PubRow({ item }: { item: PublicationItem }) {
           if (n !== null) setClicks(n);
           else setClicks((c) => (c ?? 0) + 1);
         }}
-        className="group flex flex-col gap-3 py-6 transition-colors sm:flex-row sm:items-start sm:justify-between sm:gap-10 sm:py-7"
+        className="group flex flex-col gap-4 py-6 transition-colors sm:flex-row sm:items-start sm:justify-between sm:gap-10 sm:py-7"
       >
-        <div className="flex min-w-0 flex-1 gap-4">
-          <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border bg-surface text-accent">
-            <Icon className="h-4 w-4" />
-          </span>
+        <div className="flex min-w-0 flex-1 gap-4 sm:gap-5">
+          <Cover item={item} />
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-subtle">
               <span className="rounded-full border border-border bg-surface px-2 py-0.5 font-medium text-muted">
