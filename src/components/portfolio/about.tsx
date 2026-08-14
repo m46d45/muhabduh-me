@@ -89,14 +89,24 @@ export function About() {
               >
                 Institut Teknologi Bandung (ITB)
               </a>
-              . Much of my time is spent teaching, writing, and talking with
-              people in the industry about how projects and organizations can
-              reduce waste — of material, time, and human effort.
+              . Much of my time is spent teaching, researching, writing, and
+              talking with people in the industry about how projects and
+              organizations can reduce waste — of material, time, and human
+              effort.
             </p>
             <p>
-              Over the years I have been fortunate to take part in research on
-              lean and sustainable construction in Indonesia and abroad, and to
-              serve the professional community through{" "}
+              My research sits with lean and sustainable construction,
+              operations, and related systems questions — in Indonesia and
+              with colleagues abroad. Selected papers, a 2025–2027 topic
+              note, and Scholar links are gathered under{" "}
+              <a
+                href="#research"
+                className="font-medium text-accent underline-offset-2 hover:underline"
+              >
+                Research
+              </a>
+              . Any useful outcomes have always been shared work — with
+              students, co-authors, and practitioners, including through{" "}
               <a
                 href="https://iamkri.id"
                 target="_blank"
@@ -105,8 +115,7 @@ export function About() {
               >
                 IAMKRI
               </a>
-              . Any useful outcomes have always been shared work — with
-              students, co-authors, and practitioners.
+              .
             </p>
             <p>
               What I try to hold on to is simple:{" "}
