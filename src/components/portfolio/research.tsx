@@ -5,13 +5,13 @@ import { recordLinkClick } from "@/components/portfolio/link-stats";
 
 const research = [
   {
-    id: "lean-readiness-2006",
-    title: "Indonesian contractors’ readiness towards lean construction",
-    venue: "IGLC · 14th Annual Conference",
-    year: "2006",
+    id: "lean-adoption-toe",
+    title: "Lean construction adoption in Indonesia and Australia",
+    venue: "IGLC · TOE framework study",
+    year: "Recent",
     description:
-      "An early study on how Indonesian contractors understood and prepared for lean construction practice.",
-    href: "https://iglc.net/Papers/Details/402",
+      "A comparative look at lean construction adoption using the Technology–Organization–Environment framework.",
+    href: "https://iglc.net/papers/Details/2382",
   },
   {
     id: "green-assessment-2014",
@@ -24,15 +24,16 @@ const research = [
     href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:wbdj-CoPYUoC",
   },
   {
-    id: "lean-adoption-toe",
-    title: "Lean construction adoption in Indonesia and Australia",
-    venue: "IGLC · TOE framework study",
-    year: "Recent",
+    id: "lean-readiness-2006",
+    title: "Indonesian contractors’ readiness towards lean construction",
+    venue: "IGLC · 14th Annual Conference",
+    year: "2006",
     description:
-      "A comparative look at lean construction adoption using the Technology–Organization–Environment framework.",
-    href: "https://iglc.net/papers/Details/2382",
+      "An early study on how Indonesian contractors understood and prepared for lean construction practice.",
+    href: "https://iglc.net/Papers/Details/402",
   },
 ];
+
 
 const interests = [
   "Lean Construction",
