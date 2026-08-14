@@ -21,7 +21,7 @@ export const publications: PublicationItem[] = [
       "Research Companion to Advances in the Construction Industry in the Global South",
     kind: "book",
     venue: "Edward Elgar · Elgar Companions to the Built Environment",
-    year: "2025",
+    year: "2026",
     summary:
       "An edited research companion on construction in the Global South (series editor George Ofori) — advances, challenges, and practice across regions.",
     href: "https://www.elgaronline.com/edcollbook/book/9781035349029/9781035349029.xml",

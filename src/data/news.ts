@@ -5,14 +5,12 @@
  * - Newest first.
  * - Only items whose `year` matches the current calendar year are shown.
  * - When a new Scholar item appears, add it here and push.
- * - Older years stay in the file as archive (they will show again next year
- *   only if you change `year` — they do not appear automatically).
  */
 export type NewsItem = {
   /** ISO date for sorting (YYYY-MM-DD). Newer = higher priority. */
   date: string;
   title: string;
-  kind: "paper" | "article" | "book";
+  kind: "paper" | "article" | "book" | "chapter";
   venue: string;
   /** Publication year as shown on Google Scholar (e.g. "2026") */
   year: string;
@@ -21,6 +19,16 @@ export type NewsItem = {
 };
 
 export const newsItems: NewsItem[] = [
+  {
+    date: "2026-07-21",
+    title: "Lean construction in developing countries: the case of Indonesia",
+    kind: "chapter",
+    venue:
+      "Research Companion to Advances in the Construction Industry in the Global South",
+    year: "2026",
+    authors: "M Abduh",
+    href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:k8Z6L05lTy4C",
+  },
   {
     date: "2026-01-15",
     title:

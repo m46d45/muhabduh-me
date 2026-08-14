@@ -12,6 +12,7 @@ const kindLabel: Record<NewsItem["kind"], string> = {
   paper: "Paper",
   article: "Article",
   book: "Book",
+  chapter: "Chapter",
 };
 
 function formatWhen(iso: string): string {
