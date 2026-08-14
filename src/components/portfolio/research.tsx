@@ -25,6 +25,16 @@ const research = [
     href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:MLfJN-KU85MC",
   },
   {
+    id: "lean-small-contractors-2026",
+    title:
+      "Revealing Lean-aligned practices in Indonesian small contractors: a preliminary study",
+    venue: "IGLC · 34th Annual Conference",
+    year: "2026",
+    description:
+      "A preliminary look at practices among Indonesian small contractors that already align with lean ideas, even when they are not labelled as such.",
+    href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:kz9GbA2Ns4gC",
+  },
+  {
     id: "tech-data-quality-2026",
     title:
       "Evaluating the quality of publicly available construction technology data in Indonesia",

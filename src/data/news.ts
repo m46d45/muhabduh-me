@@ -40,6 +40,16 @@ export const newsItems: NewsItem[] = [
     href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:MLfJN-KU85MC",
   },
   {
+    date: "2026-01-14",
+    title:
+      "Revealing Lean-aligned practices in Indonesian small contractors: a preliminary study",
+    kind: "paper",
+    venue: "IGLC · 34th Annual Conference",
+    year: "2026",
+    authors: "M Abduh, B Hasiholan, E Puri, A Wirdianto, H Linas, P Nainggolan",
+    href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:kz9GbA2Ns4gC",
+  },
+  {
     date: "2026-01-12",
     title:
       "Evaluating the quality of publicly available construction technology data in Indonesia",
