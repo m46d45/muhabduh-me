@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Eye, Newspaper } from "lucide-react";
-import { getLatestNews, type NewsItem } from "@/data/news";
+import {
+  currentNewsYear,
+  getLatestNews,
+  type NewsItem,
+} from "@/data/news";
 import { fetchCount, formatCount } from "@/lib/counter";
 import { recordLinkClick } from "@/components/portfolio/link-stats";
 
@@ -141,7 +145,8 @@ function TrackedScholarLink() {
 }
 
 export function News() {
-  const items = getLatestNews(3);
+  const year = currentNewsYear();
+  const items = getLatestNews();
   if (items.length === 0) return null;
 
   return (
@@ -156,12 +161,12 @@ export function News() {
               News
             </p>
             <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Recent publications
+              Publications in {year}
             </h2>
             <p className="mt-3 text-muted leading-relaxed">
-              The three most recent papers, articles, or books — often newly
-              indexed on Google Scholar. Older items step aside when something
-              newer is added.
+              Papers, articles, and books from this year as they appear on
+              Google Scholar. Last year’s items step aside when the calendar
+              turns.
             </p>
           </div>
           <TrackedScholarLink />

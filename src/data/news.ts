@@ -1,27 +1,25 @@
 /**
- * Latest news — papers, articles, books (e.g. newly indexed on Google Scholar).
+ * News — papers / articles / books from Google Scholar for the CURRENT YEAR.
  *
  * Rules:
- * - Put the newest item at the TOP of the array.
- * - Only the first 3 items are shown on the site (older ones “fall off”).
- * - Update this file when something new is published; then push to deploy.
+ * - Newest first.
+ * - Only items whose `year` matches the current calendar year are shown.
+ * - When a new Scholar item appears, add it here and push.
+ * - Older years stay in the file as archive (they will show again next year
+ *   only if you change `year` — they do not appear automatically).
  */
 export type NewsItem = {
   /** ISO date for sorting (YYYY-MM-DD). Newer = higher priority. */
   date: string;
   title: string;
-  /** paper | article | book */
   kind: "paper" | "article" | "book";
-  /** Journal / venue / publisher (short) */
   venue: string;
+  /** Publication year as shown on Google Scholar (e.g. "2026") */
   year: string;
   authors?: string;
   href: string;
 };
 
-/**
- * Newest first. Only NEWS_LIMIT items render.
- */
 export const newsItems: NewsItem[] = [
   {
     date: "2026-01-15",
@@ -34,7 +32,7 @@ export const newsItems: NewsItem[] = [
     href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:MLfJN-KU85MC",
   },
   {
-    date: "2026-01-10",
+    date: "2026-01-12",
     title:
       "Evaluating the quality of publicly available construction technology data in Indonesia",
     kind: "paper",
@@ -42,6 +40,16 @@ export const newsItems: NewsItem[] = [
     year: "2026",
     authors: "AT Putri, TK Chan, B Soemardi, M Abduh",
     href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:tuHXwOkdijsC",
+  },
+  {
+    date: "2026-01-08",
+    title:
+      "Selecting Life Cycle Cost Indicators for Sustainable Public Procurement: A Fuzzy Delphi Consensus from Indonesia",
+    kind: "paper",
+    venue: "Sustainability",
+    year: "2026",
+    authors: "DS Panjaitan, A Cakravastia, YA Hidayat, M Abduh",
+    href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:VaXvl8Fpj5cC",
   },
   {
     date: "2026-01-05",
@@ -53,22 +61,16 @@ export const newsItems: NewsItem[] = [
     authors: "A Firdaus, KS Pribadi, M Abduh, SA Sagala",
     href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:lmc2jWPfTJgC",
   },
-  // Older items below stay in the file for history, but will not appear until
-  // they are among the top 3 by date. Example (hidden while the three above exist):
-  // {
-  //   date: "2025-06-01",
-  //   title: "…",
-  //   kind: "paper",
-  //   venue: "…",
-  //   year: "2025",
-  //   href: "https://scholar.google.com/…",
-  // },
 ];
 
-export const NEWS_LIMIT = 3;
+export function currentNewsYear(now = new Date()): string {
+  return String(now.getFullYear());
+}
 
-export function getLatestNews(limit = NEWS_LIMIT): NewsItem[] {
+/** All items for the running calendar year, newest first. */
+export function getLatestNews(now = new Date()): NewsItem[] {
+  const y = currentNewsYear(now);
   return [...newsItems]
-    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
-    .slice(0, limit);
+    .filter((item) => item.year === y)
+    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 }
