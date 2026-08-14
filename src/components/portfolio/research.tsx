@@ -1,62 +1,22 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight, BookOpen, Compass, Eye } from "lucide-react";
+import { ArrowUpRight, Compass, Eye, FlaskConical } from "lucide-react";
 import { fetchCount, formatCount } from "@/lib/counter";
 import { recordLinkClick } from "@/components/portfolio/link-stats";
 
-const research = [
-  {
-    id: "lean-dc-indonesia-2026",
-    title: "Lean construction in developing countries: the case of Indonesia",
-    venue:
-      "Research Companion to Advances in the Construction Industry in the Global South",
-    year: "2026",
-    description:
-      "A chapter on how lean construction has been understood and practised in Indonesia, written for an international companion on the Global South.",
-    href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:k8Z6L05lTy4C",
-  },
-  {
-    id: "production-thinking-education-2026",
-    title:
-      "Introducing production system thinking into construction management education: a multi-level framework based on the Indonesian context",
-    venue: "International Journal of Construction Management",
-    year: "2026",
-    description:
-      "A framework for bringing production-system thinking into construction management education, grounded in Indonesian classrooms and practice.",
-    href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:MLfJN-KU85MC",
-  },
-  {
-    id: "lean-small-contractors-2026",
-    title:
-      "Revealing Lean-aligned practices in Indonesian small contractors: a preliminary study",
-    venue: "IGLC · 34th Annual Conference",
-    year: "2026",
-    description:
-      "A preliminary look at practices among Indonesian small contractors that already align with lean ideas, even when they are not labelled as such.",
-    href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:kz9GbA2Ns4gC",
-  },
-  {
-    id: "tech-data-quality-2026",
-    title:
-      "Evaluating the quality of publicly available construction technology data in Indonesia",
-    venue: "Construction Economics and Building",
-    year: "2026",
-    description:
-      "A look at how reliable publicly available construction-technology data in Indonesia actually is, and what that means for research and policy.",
-    href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:tuHXwOkdijsC",
-  },
-  {
-    id: "lcc-fuzzy-delphi-2026",
-    title:
-      "Selecting Life Cycle Cost Indicators for Sustainable Public Procurement: A Fuzzy Delphi Consensus from Indonesia",
-    venue: "Sustainability",
-    year: "2026",
-    description:
-      "A Fuzzy Delphi study toward life-cycle cost indicators that can support more sustainable public procurement in Indonesia.",
-    href: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&citation_for_view=DctmufgAAAAJ:VaXvl8Fpj5cC",
-  },
-];
+/**
+ * Ongoing work for the current calendar year — not published papers
+ * (those live under News / Scholar). Fill this list when new lines of
+ * work start; older years are simply left out.
+ */
+export type CurrentStudy = {
+  id: string;
+  title: string;
+  note: string;
+  href?: string;
+};
 
-
+/** Work in progress this year. Add items when you send the list. */
+export const currentStudies: CurrentStudy[] = [];
 
 const interests = [
   "Lean Construction",
@@ -128,6 +88,8 @@ function TrackedCard({
 }
 
 export function Research() {
+  const year = String(new Date().getFullYear());
+
   return (
     <section
       id="research"
@@ -139,18 +101,18 @@ export function Research() {
             Research
           </p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-            Questions I keep returning to
+            Work in progress, {year}
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Themes, selected recent papers from Google Scholar, and notes. The
-            full list for this year also appears under{" "}
+            Studies I am in the middle of this year — not yet a publication
+            list. Papers that have appeared go under{" "}
             <a
               href="#news"
               className="text-accent underline-offset-2 hover:underline"
             >
               News
-            </a>
-            ; a fuller list is on Google Scholar.
+            </a>{" "}
+            and Google Scholar.
           </p>
         </div>
 
@@ -173,8 +135,8 @@ export function Research() {
               Research topics 2025–2027
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-muted">
-              Themes I hope to keep exploring — construction management, lean
-              practice, and related systems questions.
+              Longer themes I hope to keep exploring — construction management,
+              lean practice, and related systems questions.
             </p>
           </div>
           <ArrowUpRight className="hidden h-4 w-4 shrink-0 text-subtle transition-colors group-hover:text-accent sm:mt-1 sm:block" />
@@ -190,36 +152,32 @@ export function Research() {
           ))}
         </ul>
 
-        <ul className="mt-10 space-y-4">
-          {research.map((item) => (
-            <li key={item.id}>
-              <TrackedCard
-                trackId={`research-paper-${item.id}`}
-                href={item.href}
-                className="group flex flex-col gap-4 rounded-xl border border-border bg-surface p-6 shadow-soft transition-colors duration-200 hover:border-accent/30 sm:flex-row sm:flex-wrap sm:items-start sm:gap-6 sm:p-7"
-              >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-border bg-teal-wash text-accent">
-                  <BookOpen className="h-4 w-4" />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                    <span className="font-mono text-xs tabular-nums text-subtle">
-                      {item.year}
-                    </span>
-                    <span className="text-xs text-subtle">{item.venue}</span>
+        {currentStudies.length > 0 ? (
+          <ul className="mt-10 space-y-4">
+            {currentStudies.map((item) => (
+              <li key={item.id}>
+                {item.href ? (
+                  <TrackedCard
+                    trackId={`research-current-${item.id}`}
+                    href={item.href}
+                    className="group flex flex-col gap-4 rounded-xl border border-border bg-surface p-6 shadow-soft transition-colors duration-200 hover:border-accent/30 sm:flex-row sm:flex-wrap sm:items-start sm:gap-6 sm:p-7"
+                  >
+                    <StudyBody item={item} linked />
+                  </TrackedCard>
+                ) : (
+                  <div className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-6 shadow-soft sm:flex-row sm:items-start sm:gap-6 sm:p-7">
+                    <StudyBody item={item} />
                   </div>
-                  <h3 className="mt-2 font-display text-lg font-semibold tracking-tight text-ink transition-colors group-hover:text-accent">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
-                    {item.description}
-                  </p>
-                </div>
-                <ArrowUpRight className="hidden h-4 w-4 shrink-0 text-subtle transition-colors group-hover:text-accent sm:mt-1 sm:block" />
-              </TrackedCard>
-            </li>
-          ))}
-        </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-10 rounded-xl border border-dashed border-border bg-surface/60 px-5 py-6 text-sm text-muted">
+            A short list of {year} studies will sit here. Papers already out
+            are kept under News, so the two sections stay distinct.
+          </p>
+        )}
 
         <div className="mt-8 flex flex-wrap gap-6">
           <ScholarFooterLink
@@ -235,6 +193,35 @@ export function Research() {
         </div>
       </div>
     </section>
+  );
+}
+
+function StudyBody({
+  item,
+  linked,
+}: {
+  item: CurrentStudy;
+  linked?: boolean;
+}) {
+  return (
+    <>
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-border bg-teal-wash text-accent">
+        <FlaskConical className="h-4 w-4" />
+      </span>
+      <div className="min-w-0 flex-1">
+        <h3
+          className={`font-display text-lg font-semibold tracking-tight text-ink ${
+            linked ? "transition-colors group-hover:text-accent" : ""
+          }`}
+        >
+          {item.title}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted">{item.note}</p>
+      </div>
+      {linked && (
+        <ArrowUpRight className="hidden h-4 w-4 shrink-0 text-subtle transition-colors group-hover:text-accent sm:mt-1 sm:block" />
+      )}
+    </>
   );
 }
 
