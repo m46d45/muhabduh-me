@@ -1,13 +1,42 @@
 import { GraduationCap, Users, Mic2 } from "lucide-react";
 
+/** Official course names as taught at ITB (kept in Indonesian). */
+const itbCourses = [
+  "Desain dan Analisis Operasi Konstruksi",
+  "Ekonomi Teknik",
+  "Estimasi Biaya Konstruksi",
+  "Komputasi dalam Teknik Sipil",
+  "Konstruksi Berkelanjutan",
+  "Konstruksi Ramping (Lean Construction)",
+  "Manajemen Bisnis Konstruksi",
+  "Manajemen Infrastruktur",
+  "Manajemen Konstruksi",
+  "Manajemen Operasi Infrastruktur",
+  "Manajemen Operasi Konstruksi",
+  "Manajemen Produksi Proyek",
+  "Manajemen Proyek",
+  "Manajemen Proyek Transportasi",
+  "Metode Pelaksanaan Konstruksi",
+  "Metode Penelitian",
+  "Pengantar Rekayasa Infrastruktur",
+  "Produktivitas Konstruksi",
+  "Rantai Pasok Konstruksi",
+  "Rekayasa dan Desain Infrastruktur",
+  "Sistem Informasi Manajemen Infrastruktur",
+  "Sistem Perencanaan dan Pengendalian Proyek",
+  "Sistem Rekayasa Sipil",
+  "Studi Mandiri Teknik Sipil",
+  "TI dalam Konstruksi",
+];
+
 const teaching = [
   {
     icon: GraduationCap,
     title: "University teaching",
     items: [
-      "Civil engineering & construction management courses at FTSL ITB",
-      "Lean construction ideas and project delivery practice",
-      "Mentoring undergraduate and graduate students in construction research",
+      "Undergraduate and graduate courses at FTSL ITB",
+      "Lean construction, operations, and project delivery",
+      "Mentoring students in construction research",
     ],
   },
   {
@@ -45,10 +74,28 @@ export function Teaching() {
             Classrooms and shared learning
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Teaching at ITB and joining the wider construction community —
-            students, practitioners, and institutions — to learn how we might
-            build a little better.
+            Courses I have taught at Institut Teknologi Bandung, and the wider
+            construction community I keep learning with — students,
+            practitioners, and institutions.
           </p>
+        </div>
+
+        <div className="mt-12">
+          <h3 className="font-display text-sm font-semibold uppercase tracking-[0.08em] text-subtle">
+            Courses at ITB
+          </h3>
+          <p className="mt-2 text-sm text-muted">
+            Faculty of Civil and Environmental Engineering · official titles
+          </p>
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {itbCourses.map((course) => (
+              <li key={course}>
+                <span className="inline-flex rounded-full border border-border bg-surface px-3.5 py-1.5 text-sm text-ink">
+                  {course}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="mt-12 grid gap-5 md:grid-cols-3">
