@@ -75,6 +75,21 @@ const affiliations = [
   },
 ];
 
+const reviewOutlets = [
+  "Automation in Construction",
+  "International Journal of Construction Management",
+  "ASCE Journal of Infrastructure Systems",
+  "Journal of Asian Architecture and Building Engineering",
+  "Journal of Construction in Developing Countries",
+  "International Journal of Disaster Resilience in the Built Environment",
+  "International Journal of Built Environment and Sustainability",
+  "Frontiers in Sustainability",
+  "Journal of Engineering, Design and Technology",
+  "International Group for Lean Construction",
+  "Jurnal Teknik Sipil, FTSL ITB",
+  "Civil Engineering Dimension, Petra University",
+];
+
 export function Experience() {
   return (
     <section
@@ -108,7 +123,8 @@ export function Experience() {
             >
               IAMKRI
             </a>
-            , and ongoing collaboration with practice.
+            , review work for journals and conferences, and collaboration with
+            practice.
           </p>
         </div>
 
@@ -205,6 +221,25 @@ export function Experience() {
             </li>
           ))}
         </ol>
+
+        <div className="mt-4 border-t border-border pt-12">
+          <h3 className="font-display text-sm font-semibold uppercase tracking-[0.08em] text-subtle">
+            Reviewer
+          </h3>
+          <p className="mt-2 max-w-2xl text-sm text-muted">
+            Journals and conferences I review for, when asked. A small part of
+            keeping the conversation in the field careful and useful.
+          </p>
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {reviewOutlets.map((name) => (
+              <li key={name}>
+                <span className="inline-flex rounded-full border border-border bg-surface px-3.5 py-1.5 text-sm text-ink">
+                  {name}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
