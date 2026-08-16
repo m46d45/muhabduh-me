@@ -16,8 +16,11 @@ export function VisitorCounter() {
     let cancelled = false;
 
     async function run() {
+      // Count this visit first so the footer is not starved by other pills.
       const already = sessionAlreadyHit(VIEW_KEY);
-      const n = await fetchCount(VIEW_KEY, already ? "get" : "up");
+      const n = await fetchCount(VIEW_KEY, already ? "get" : "up", {
+        priority: true,
+      });
       if (!cancelled) {
         setCount(n ?? 0);
         if (!already && n !== null) markSessionHit(VIEW_KEY);

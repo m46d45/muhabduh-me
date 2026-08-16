@@ -84,6 +84,7 @@ export function TrackedLink({
   const key = `click-${trackId}`;
 
   useEffect(() => {
+    if (!showStats) return;
     let cancelled = false;
     void fetchCount(key, "get").then((n) => {
       if (!cancelled) setCount(n ?? 0);
@@ -91,7 +92,7 @@ export function TrackedLink({
     return () => {
       cancelled = true;
     };
-  }, [key]);
+  }, [key, showStats]);
 
   async function onClick(_e: MouseEvent<HTMLAnchorElement>) {
     const n = await recordLinkClick(trackId);
