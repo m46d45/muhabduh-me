@@ -1,5 +1,6 @@
 import { ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { TrackedLink } from "@/components/portfolio/link-stats";
 
 type Role = {
   period: string;
@@ -75,20 +76,72 @@ const affiliations = [
   },
 ];
 
-const reviewOutlets = [
-  "Automation in Construction",
-  "International Journal of Construction Management",
-  "ASCE Journal of Infrastructure Systems",
-  "Journal of Asian Architecture and Building Engineering",
-  "Journal of Construction in Developing Countries",
-  "International Journal of Disaster Resilience in the Built Environment",
-  "International Journal of Built Environment and Sustainability",
-  "Frontiers in Sustainability",
-  "Journal of Engineering, Design and Technology",
-  "International Group for Lean Construction",
-  "Jurnal Teknik Sipil, FTSL ITB",
-  "Civil Engineering Dimension, Petra University",
+const reviewGroups = [
+  {
+    heading: "International journals",
+    items: [
+      {
+        name: "Automation in Construction",
+        href: "https://www.sciencedirect.com/journal/automation-in-construction",
+      },
+      {
+        name: "International Journal of Construction Management",
+        href: "https://www.tandfonline.com/journals/tjcm20",
+      },
+      {
+        name: "ASCE Journal of Infrastructure Systems",
+        href: "https://ascelibrary.org/journal/jitse4",
+      },
+      {
+        name: "Journal of Asian Architecture and Building Engineering",
+        href: "https://www.tandfonline.com/journals/tabe20",
+      },
+      {
+        name: "Journal of Construction in Developing Countries",
+        href: "https://web.usm.my/jcdc/",
+      },
+      {
+        name: "International Journal of Disaster Resilience in the Built Environment",
+        href: "https://www.emeraldgrouppublishing.com/journal/ijdrbe",
+      },
+      {
+        name: "International Journal of Built Environment and Sustainability",
+        href: "https://ijbes.utm.my/",
+      },
+      {
+        name: "Frontiers in Sustainability",
+        href: "https://www.frontiersin.org/journals/sustainability",
+      },
+      {
+        name: "Journal of Engineering, Design and Technology",
+        href: "https://www.emerald.com/jedt",
+      },
+    ],
+  },
+  {
+    heading: "National journals",
+    items: [
+      {
+        name: "Jurnal Teknik Sipil, FTSL ITB",
+        href: "https://journals.itb.ac.id/index.php/jts/",
+      },
+      {
+        name: "Civil Engineering Dimension, Petra University",
+        href: "https://ced.petra.ac.id/",
+      },
+    ],
+  },
+  {
+    heading: "Conferences",
+    items: [
+      {
+        name: "International Group for Lean Construction",
+        href: "https://iglc.net/",
+      },
+    ],
+  },
 ];
+
 
 export function Experience() {
   return (
@@ -230,15 +283,33 @@ export function Experience() {
             Journals and conferences I review for, when asked. A small part of
             keeping the conversation in the field careful and useful.
           </p>
-          <ul className="mt-5 flex flex-wrap gap-2">
-            {reviewOutlets.map((name) => (
-              <li key={name}>
-                <span className="inline-flex rounded-full border border-border bg-surface px-3.5 py-1.5 text-sm text-ink">
-                  {name}
-                </span>
-              </li>
+          <div className="mt-8 space-y-8">
+            {reviewGroups.map((group) => (
+              <div key={group.heading}>
+                <h4 className="text-xs font-semibold uppercase tracking-[0.08em] text-accent">
+                  {group.heading}
+                </h4>
+                <ul className="mt-3 flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <li key={item.name}>
+                      <TrackedLink
+                        href={item.href}
+                        trackId={`reviewer-${item.name
+                          .slice(0, 28)
+                          .replace(/\W+/g, "-")
+                          .toLowerCase()}`}
+                        showStats={false}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3.5 py-1.5 text-sm text-ink transition-colors hover:border-accent/40 hover:text-accent"
+                      >
+                        {item.name}
+                        <ExternalLink className="h-3 w-3 shrink-0 opacity-50" />
+                      </TrackedLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     </section>
