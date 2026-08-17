@@ -16,6 +16,7 @@ const links = [
   { href: "#research", label: "Research", id: "research" },
   { href: "#teaching", label: "Teaching", id: "teaching" },
   { href: "#networks", label: "Networks", id: "networks" },
+  { href: "#projects", label: "Projects", id: "projects" },
   { href: "#software", label: "Software", id: "software" },
   { href: "#articles", label: "Publications", id: "articles" },
 ] as const;
@@ -32,11 +33,6 @@ const SECTION_ORDER = [
   "articles",
   "contact",
 ] as const;
-
-function toNavId(sectionId: string): string {
-  if (sectionId === "projects") return "research";
-  return sectionId;
-}
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -63,7 +59,7 @@ export function Nav() {
         current = SECTION_ORDER[SECTION_ORDER.length - 1];
       }
 
-      return toNavId(current);
+      return current;
     }
 
     function onScroll() {
