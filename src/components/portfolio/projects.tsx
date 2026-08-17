@@ -5,6 +5,14 @@ import { recordLinkClick } from "@/components/portfolio/link-stats";
 
 const projects = [
   {
+    id: "lc-mpbi",
+    title: "LC-MPBI",
+    description:
+      "The Lean Construction Market Penetration Benchmarking Initiative — a shared effort to measure lean adoption by country, using one method. I help coordinate.",
+    tags: ["Lean construction", "Benchmarking", "Coordinator"],
+    href: "https://lc-mpbi.vercel.app/",
+  },
+  {
     id: "book-infra-id",
     title: "Construction & Infrastructure Management in Indonesia",
     description:
@@ -30,6 +38,7 @@ const projects = [
   },
 ];
 
+
 export function Projects() {
   return (
     <section
@@ -42,7 +51,7 @@ export function Projects() {
             Projects
           </p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-            Books and gatherings
+            Books, gatherings, and programmes
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
             A few books, conferences, and programs I am part of — alongside
@@ -50,7 +59,7 @@ export function Projects() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
           {projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}
