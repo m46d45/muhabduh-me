@@ -38,7 +38,7 @@ export const networks: NetworkItem[] = [
     kind: "collaboration",
     description:
       "A collaborative research network linking Indonesian and Australian colleagues on construction topics.",
-    website: "https://sway.cloud.microsoft/k5tRy7iEV1wXrlKu?ref=Link",
+    website: "https://www.ia-crc.net/",
   },
   {
     name: "K2R Neo",
