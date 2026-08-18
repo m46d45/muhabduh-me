@@ -37,7 +37,7 @@ export function Hero() {
                 }}
               >
                 <ContactRound className="h-4 w-4" />
-                Save contact
+                Save contact to phone
               </a>
             </Button>
             <Button asChild size="lg">
