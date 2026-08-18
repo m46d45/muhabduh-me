@@ -190,12 +190,12 @@ export function Contact() {
             </div>
 
             <a
-              href="/qr-muhabduh.png"
-              download="muhabduh-id-qr.png"
+              href="/qr-muhabduh.svg"
+              download="muhabduh-id-qr.svg"
               className="mt-5 flex items-center gap-4 rounded-xl border border-border bg-surface p-4 shadow-soft transition-colors hover:border-accent/30"
             >
               <img
-                src="/qr-muhabduh.png"
+                src="/qr-muhabduh.svg"
                 alt="QR code linking to muhabduh.id"
                 width={80}
                 height={80}
