@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Abduh;Muhamad;;;
+FN:Muhamad Abduh
+ORG:Institut Teknologi Bandung;Faculty of Civil and Environmental Engineering
+TITLE:Professor of Civil Engineering
+TEL;TYPE=CELL,VOICE:+62811200142
+TEL;TYPE=WORK,VOICE:+62222504952
+EMAIL;TYPE=INTERNET,WORK:abduh@itb.ac.id
+URL:https://muhabduh.id
+ADR;TYPE=WORK:;;Jl. Ganesa No. 10;Bandung;Jawa Barat;;Indonesia
+NOTE:Don't be afraid to care.
+END:VCARD

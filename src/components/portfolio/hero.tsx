@@ -1,5 +1,6 @@
-import { ArrowDown, ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowDown, ArrowRight, ContactRound, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { recordLinkClick } from "@/components/portfolio/link-stats";
 
 export function Hero() {
   return (
@@ -28,6 +29,17 @@ export function Hero() {
             practitioners along the way.
           </p>
           <div className="fade-up stagger-4 mt-9 flex flex-wrap items-center gap-3">
+            <Button asChild size="lg" className="md:hidden">
+              <a
+                href="/muhamad-abduh.vcf"
+                onClick={() => {
+                  void recordLinkClick("save-contact");
+                }}
+              >
+                <ContactRound className="h-4 w-4" />
+                Save contact
+              </a>
+            </Button>
             <Button asChild size="lg">
               <a href="#research">
                 View research
@@ -45,6 +57,9 @@ export function Hero() {
               </a>
             </Button>
           </div>
+          <p className="fade-up stagger-4 mt-3 text-xs text-subtle md:hidden">
+            Saves my name, email, and phone numbers to your contacts.
+          </p>
           <a
             href="#bio"
             className="fade-up stagger-4 mt-14 inline-flex items-center gap-2 text-sm text-subtle transition-colors hover:text-muted"
