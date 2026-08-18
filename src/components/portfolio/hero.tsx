@@ -8,7 +8,7 @@ export function Hero() {
       id="top"
       className="section-pad relative flex min-h-[100svh] items-center pb-20 pt-28"
     >
-      <div className="container-narrow relative grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+      <div className="container-narrow relative grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
         <div className="order-2 lg:order-1">
           <div className="fade-up rule-accent mb-6" />
           <p className="fade-up mb-4 text-sm font-semibold tracking-[0.08em] uppercase text-accent">
@@ -29,17 +29,6 @@ export function Hero() {
             practitioners along the way.
           </p>
           <div className="fade-up stagger-4 mt-9 flex flex-wrap items-center gap-3">
-            <Button asChild size="lg" className="md:hidden">
-              <a
-                href="/muhamad-abduh.vcf"
-                onClick={() => {
-                  void recordLinkClick("save-contact");
-                }}
-              >
-                <ContactRound className="h-4 w-4" />
-                Save contact to phone
-              </a>
-            </Button>
             <Button asChild size="lg">
               <a href="#research">
                 View research
@@ -57,9 +46,6 @@ export function Hero() {
               </a>
             </Button>
           </div>
-          <p className="fade-up stagger-4 mt-3 text-xs text-subtle md:hidden">
-            Saves my name, email, and phone numbers to your contacts.
-          </p>
           <a
             href="#bio"
             className="fade-up stagger-4 mt-14 inline-flex items-center gap-2 text-sm text-subtle transition-colors hover:text-muted"
@@ -69,7 +55,7 @@ export function Hero() {
           </a>
         </div>
 
-        <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
+        <div className="order-1 flex flex-col items-center lg:order-2 lg:items-end">
           <div className="fade-up stagger-2 relative">
             <div
               className="absolute -inset-3 rounded-[1.5rem] bg-accent/15"
@@ -85,9 +71,25 @@ export function Hero() {
                 alt="Portrait of Muhamad Abduh"
                 width={420}
                 height={520}
-                className="aspect-[4/5] w-64 object-cover object-top sm:w-72 lg:w-80"
+                className="aspect-[4/5] w-56 object-cover object-top sm:w-72 lg:w-80"
               />
             </div>
+          </div>
+          <div className="relative z-10 mt-5 flex w-full max-w-xs flex-col items-center md:hidden">
+            <Button asChild size="lg" className="w-full">
+              <a
+                href="/muhamad-abduh.vcf"
+                onClick={() => {
+                  void recordLinkClick("save-contact");
+                }}
+              >
+                <ContactRound className="h-4 w-4" />
+                Save contact to phone
+              </a>
+            </Button>
+            <p className="mt-2 text-center text-xs text-subtle">
+              Saves my name, email, and phone numbers to your contacts.
+            </p>
           </div>
         </div>
       </div>
