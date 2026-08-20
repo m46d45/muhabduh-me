@@ -57,6 +57,15 @@ const apps: SoftApp[] = [
     appUrl: "https://parade-tim-kerja.vercel.app/",
     trackId: "software-parade-tim-kerja-vercel",
   },
+  {
+    id: "pkprb",
+    title: "PKPRB",
+    description:
+      "Alignment map of disaster risk profiles and higher-education support for infrastructure resilience.",
+    note: "Vercel",
+    appUrl: "https://pkprb.vercel.app/",
+    trackId: "software-pkprb-vercel",
+  },
 ];
 
 export function Software() {
