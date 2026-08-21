@@ -188,28 +188,6 @@ export function Contact() {
                 </a>
               ))}
             </div>
-
-            <a
-              href="/qr-muhabduh.svg"
-              download="muhabduh-id-qr.svg"
-              className="mt-5 flex items-center gap-4 rounded-xl border border-border bg-surface p-4 shadow-soft transition-colors hover:border-accent/30"
-            >
-              <img
-                src="/qr-muhabduh.svg"
-                alt="QR code linking to muhabduh.id"
-                width={80}
-                height={80}
-                className="h-20 w-20 rounded-md border border-border bg-white p-1"
-              />
-              <span className="min-w-0">
-                <span className="block font-display text-sm font-semibold text-ink">
-                  QR code for this site
-                </span>
-                <span className="mt-1 block text-xs leading-relaxed text-muted">
-                  Points to muhabduh.id — download to print or share.
-                </span>
-              </span>
-            </a>
           </div>
 
           <form
