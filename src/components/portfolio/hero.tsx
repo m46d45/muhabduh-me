@@ -88,7 +88,7 @@ export function Hero() {
               </a>
             </Button>
             <p className="mt-2 text-center text-xs text-subtle">
-              Saves my name, email, and phone numbers to your contacts.
+              Saves my name, email, and phone number to your contacts.
             </p>
           </div>
         </div>
