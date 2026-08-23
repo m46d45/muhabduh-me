@@ -10,43 +10,25 @@ type SoftApp = {
   trackId: string;
 };
 
-/** Live teaching tools on Vercel — short blurbs only. */
+/** Live teaching tools on Vercel — short blurbs only. Newest first. */
 const apps: SoftApp[] = [
   {
-    id: "neo-cyclone",
-    title: "Neo-CYCLONE",
+    id: "siapkerja-lps",
+    title: "SiapKerja!",
     description:
-      "AI-assisted CYCLONE modeling and simulation for construction operations (Halpin).",
+      "Last Planner System teaching simulation for a type-36 house: master plan through daily huddle.",
     note: "Vercel",
-    appUrl: "https://neo-cyclone.vercel.app/",
-    trackId: "software-neo-cyclone-vercel",
+    appUrl: "https://siapkerja-lps.vercel.app/",
+    trackId: "software-siapkerja-lps-vercel",
   },
   {
-    id: "mp2k",
-    title: "MP2K",
+    id: "pkprb",
+    title: "PKPRB",
     description:
-      "Multi-mode project production (onsite · near-site · far supply) for PPM teaching.",
+      "Alignment map of disaster risk profiles and higher-education support for infrastructure resilience.",
     note: "Vercel",
-    appUrl: "https://mp2k.vercel.app/",
-    trackId: "software-mp2k-vercel",
-  },
-  {
-    id: "siklops",
-    title: "SiklOps",
-    description:
-      "Discrete-event simulation of cyclic construction operations, simple → complex.",
-    note: "Vercel",
-    appUrl: "https://siklops.vercel.app/",
-    trackId: "software-siklops-vercel",
-  },
-  {
-    id: "rusun-takt",
-    title: "Rusun Takt",
-    description:
-      "Lean takt simulation for a three-storey rusun: push vs JIT, zones, and waiting waste.",
-    note: "Vercel",
-    appUrl: "https://rusun-takt.vercel.app/",
-    trackId: "software-rusun-takt-vercel",
+    appUrl: "https://pkprb.vercel.app/",
+    trackId: "software-pkprb-vercel",
   },
   {
     id: "parade-tim-kerja",
@@ -58,13 +40,40 @@ const apps: SoftApp[] = [
     trackId: "software-parade-tim-kerja-vercel",
   },
   {
-    id: "pkprb",
-    title: "PKPRB",
+    id: "rusun-takt",
+    title: "Rusun Takt",
     description:
-      "Alignment map of disaster risk profiles and higher-education support for infrastructure resilience.",
+      "Lean takt simulation for a three-storey rusun: push vs JIT, zones, and waiting waste.",
     note: "Vercel",
-    appUrl: "https://pkprb.vercel.app/",
-    trackId: "software-pkprb-vercel",
+    appUrl: "https://rusun-takt.vercel.app/",
+    trackId: "software-rusun-takt-vercel",
+  },
+  {
+    id: "siklops",
+    title: "SiklOps",
+    description:
+      "Discrete-event simulation of cyclic construction operations, simple → complex.",
+    note: "Vercel",
+    appUrl: "https://siklops.vercel.app/",
+    trackId: "software-siklops-vercel",
+  },
+  {
+    id: "mp2k",
+    title: "MP2K",
+    description:
+      "Multi-mode project production (onsite · near-site · far supply) for PPM teaching.",
+    note: "Vercel",
+    appUrl: "https://mp2k.vercel.app/",
+    trackId: "software-mp2k-vercel",
+  },
+  {
+    id: "neo-cyclone",
+    title: "Neo-CYCLONE",
+    description:
+      "AI-assisted CYCLONE modeling and simulation for construction operations (Halpin).",
+    note: "Vercel",
+    appUrl: "https://neo-cyclone.vercel.app/",
+    trackId: "software-neo-cyclone-vercel",
   },
 ];
 
