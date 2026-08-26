@@ -4,6 +4,7 @@ import { Hero } from "@/components/portfolio/hero";
 import { About } from "@/components/portfolio/about";
 import { Mantra } from "@/components/portfolio/mantra";
 import { News } from "@/components/portfolio/news";
+import { Calendar } from "@/components/portfolio/calendar";
 import { Experience } from "@/components/portfolio/experience";
 import { Research } from "@/components/portfolio/research";
 import { Teaching } from "@/components/portfolio/teaching";
@@ -27,6 +28,7 @@ function PortfolioPage() {
         <About />
         <Mantra />
         <News />
+        <Calendar />
         <Experience />
         <Research />
         <Teaching />
