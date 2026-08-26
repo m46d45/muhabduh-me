@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 const links = [
   { href: "#bio", label: "About", id: "bio" },
   { href: "#news", label: "News", id: "news" },
-  { href: "#calendar", label: "Calendar", id: "calendar" },
   { href: "#experience", label: "Experience", id: "experience" },
   { href: "#research", label: "Research", id: "research" },
   { href: "#teaching", label: "Teaching", id: "teaching" },
@@ -20,12 +19,12 @@ const links = [
   { href: "#projects", label: "Projects", id: "projects" },
   { href: "#software", label: "Software", id: "software" },
   { href: "#articles", label: "Publications", id: "articles" },
+  { href: "#calendar", label: "Calendar", id: "calendar" },
 ] as const;
 
 const SECTION_ORDER = [
   "bio",
   "news",
-  "calendar",
   "experience",
   "research",
   "teaching",
@@ -33,6 +32,7 @@ const SECTION_ORDER = [
   "projects",
   "software",
   "articles",
+  "calendar",
   "contact",
 ] as const;
 

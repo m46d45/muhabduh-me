@@ -4,7 +4,6 @@ import { Hero } from "@/components/portfolio/hero";
 import { About } from "@/components/portfolio/about";
 import { Mantra } from "@/components/portfolio/mantra";
 import { News } from "@/components/portfolio/news";
-import { Calendar } from "@/components/portfolio/calendar";
 import { Experience } from "@/components/portfolio/experience";
 import { Research } from "@/components/portfolio/research";
 import { Teaching } from "@/components/portfolio/teaching";
@@ -12,6 +11,7 @@ import { Networks } from "@/components/portfolio/networks";
 import { Projects } from "@/components/portfolio/projects";
 import { Software } from "@/components/portfolio/software";
 import { Articles } from "@/components/portfolio/articles";
+import { Calendar } from "@/components/portfolio/calendar";
 import { Contact } from "@/components/portfolio/contact";
 import { Footer } from "@/components/portfolio/footer";
 
@@ -28,7 +28,6 @@ function PortfolioPage() {
         <About />
         <Mantra />
         <News />
-        <Calendar />
         <Experience />
         <Research />
         <Teaching />
@@ -36,6 +35,7 @@ function PortfolioPage() {
         <Projects />
         <Software />
         <Articles />
+        <Calendar />
         <Contact />
       </main>
       <Footer />
