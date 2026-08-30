@@ -1,4 +1,5 @@
-import { GraduationCap, Users, Mic2 } from "lucide-react";
+import { ExternalLink, GraduationCap, Mic2, Users } from "lucide-react";
+import { TrackedLink } from "@/components/portfolio/link-stats";
 
 const itbCourses = [
   "Design and Analysis of Construction Operations",
@@ -26,6 +27,39 @@ const itbCourses = [
   "Civil Engineering Systems",
   "Independent Study in Civil Engineering",
   "IT in Construction",
+];
+
+const iceCourses = [
+  {
+    id: "ice-mok",
+    title: "Introduction to Construction Operations Management",
+    native: "Pengenalan Manajemen Operasi Konstruksi",
+    description:
+      "A short course on construction operations as the production layer after project management.",
+    href: "https://icecenter.itb.ac.id/courses/pengenalan-manajemen-operasi-konstruksi/",
+    trackId: "teaching-ice-mok",
+    note: "3 hours",
+  },
+  {
+    id: "ice-lean",
+    title: "Introduction to Lean Construction",
+    native: "Pengenalan Konstruksi Ramping",
+    description:
+      "A short course on lean construction as a way to look at delay, cost, and quality on site.",
+    href: "https://icecenter.itb.ac.id/courses/pengenalan-konstruksi-ramping/",
+    trackId: "teaching-ice-lean",
+    note: "2 hours",
+  },
+  {
+    id: "ice-sim",
+    title: "Introduction to Construction Operations Simulation",
+    native: "Pengenalan Simulasi Operasi Konstruksi",
+    description:
+      "A short course on simulating construction operations for design and field evaluation.",
+    href: "https://icecenter.itb.ac.id/courses/pengenalan-simulasi-operasi-konstruksi/",
+    trackId: "teaching-ice-sim",
+    note: "2 hours",
+  },
 ];
 
 const teaching = [
@@ -124,6 +158,57 @@ export function Teaching() {
               </li>
             ))}
           </ul>
+        </div>
+
+        <div className="mt-14">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <h3 className="font-display text-sm font-semibold uppercase tracking-[0.08em] text-subtle">
+                ICE Center
+              </h3>
+              <p className="mt-2 max-w-xl text-sm text-muted">
+                Short public courses with ITB Continuing Education, for
+                practitioners who want a first look at operations, lean
+                construction, and simulation.
+              </p>
+            </div>
+            <TrackedLink
+              href="https://icecenter.itb.ac.id/profile/abduhitb-ac-id/"
+              trackId="teaching-ice-profile"
+              className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
+            >
+              Instructor profile
+              <ExternalLink className="h-3.5 w-3.5" />
+            </TrackedLink>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {iceCourses.map((course) => (
+              <article
+                key={course.id}
+                className="flex flex-col rounded-xl border border-border bg-surface p-5 shadow-soft sm:p-6"
+              >
+                <span className="w-fit rounded-full border border-accent/25 bg-teal-wash px-2.5 py-0.5 text-xs font-medium text-accent">
+                  {course.note}
+                </span>
+                <h4 className="mt-3 font-display text-lg font-semibold tracking-tight text-ink">
+                  {course.title}
+                </h4>
+                <p className="mt-1 text-xs text-subtle">{course.native}</p>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
+                  {course.description}
+                </p>
+                <div className="mt-5">
+                  <TrackedLink href={course.href} trackId={course.trackId}>
+                    <span className="inline-flex items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent/90">
+                      Open
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </span>
+                  </TrackedLink>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
