@@ -165,9 +165,8 @@ export function News() {
               Publications in {year}
             </h2>
             <p className="mt-3 text-muted leading-relaxed">
-              Papers, articles, and books from this year as they appear on
-              Google Scholar. Last year’s items step aside when the calendar
-              turns.
+              Papers, articles, and books from this year. Last year’s items
+              step aside when the calendar turns.
             </p>
           </div>
           <TrackedScholarLink />

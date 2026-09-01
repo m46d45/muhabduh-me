@@ -1,10 +1,10 @@
 /**
- * News — papers / articles / books from Google Scholar for the CURRENT YEAR.
+ * News — papers / articles / books for the CURRENT YEAR.
  *
  * Rules:
  * - Newest first.
  * - Only items whose `year` matches the current calendar year are shown.
- * - When a new Scholar item appears, add it here and push.
+ * - When a new item appears, add it here and push.
  */
 export type NewsItem = {
   /** ISO date for sorting (YYYY-MM-DD). Newer = higher priority. */
@@ -19,6 +19,17 @@ export type NewsItem = {
 };
 
 export const newsItems: NewsItem[] = [
+  {
+    date: "2026-08-30",
+    title:
+      "Readiness for sensing technologies and data analytics in multi-hazard disaster risk reduction: a case study from Greater Bandung, Indonesia",
+    kind: "paper",
+    venue: "Sustainable and Resilient Infrastructure",
+    year: "2026",
+    authors:
+      "RD Wirahadikusumah, M Abduh, P Kusumaningrum, D Apoji, MA Viqolbi, I Amalia",
+    href: "https://doi.org/10.1080/23789689.2026.2723803",
+  },
   {
     date: "2026-07-21",
     title: "Lean construction in developing countries: the case of Indonesia",
