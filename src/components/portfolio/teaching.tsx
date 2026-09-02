@@ -29,7 +29,17 @@ const itbCourses = [
   "IT in Construction",
 ];
 
-const iceCourses = [
+type IceCourse = {
+  id: string;
+  title: string;
+  native: string;
+  description: string;
+  href: string;
+  trackId: string;
+  note: string;
+};
+
+const iceIntro: IceCourse[] = [
   {
     id: "ice-mok",
     title: "Introduction to Construction Operations Management",
@@ -62,6 +72,69 @@ const iceCourses = [
   },
 ];
 
+const iceSeries: IceCourse[] = [
+  {
+    id: "ice-seri-01",
+    title: "Parade Tim Kerja",
+    native: "Simulasi Konstruksi Ramping Seri 01",
+    description:
+      "Parade-of-trades zone-flow for learning variability, WIP, and batch handoff.",
+    href: "https://icecenter.itb.ac.id/courses/simulasi-konstruksi-ramping-seri-01-parade-tim-kerja/",
+    trackId: "teaching-ice-seri-01",
+    note: "Series 01 · 2 hours",
+  },
+  {
+    id: "ice-seri-02",
+    title: "SiklOps",
+    native: "Simulasi Konstruksi Ramping Seri 02",
+    description:
+      "Discrete-event simulation of cyclic construction operations, simple → complex.",
+    href: "https://icecenter.itb.ac.id/courses/simulasi-konstruksi-ramping-seri-02-siklus-operasi/",
+    trackId: "teaching-ice-seri-02",
+    note: "Series 02 · 2 hours",
+  },
+  {
+    id: "ice-seri-03",
+    title: "Neo-CYCLONE",
+    native: "Simulasi Konstruksi Ramping Seri 03",
+    description:
+      "AI-assisted CYCLONE modeling and simulation for construction operations (Halpin).",
+    href: "https://icecenter.itb.ac.id/courses/simulasi-konstruksi-ramping-seri-03-neo-cyclone/",
+    trackId: "teaching-ice-seri-03",
+    note: "Series 03 · 2 hours",
+  },
+  {
+    id: "ice-seri-04",
+    title: "SiapKerja!",
+    native: "Simulasi Konstruksi Ramping Seri 04",
+    description:
+      "Last Planner System teaching simulation for a type-36 house: master plan through daily huddle.",
+    href: "https://icecenter.itb.ac.id/courses/simulasi-konstruksi-ramping-seri-04-siapkerja/",
+    trackId: "teaching-ice-seri-04",
+    note: "Series 04 · 2 hours",
+  },
+  {
+    id: "ice-seri-05",
+    title: "Rusun Takt",
+    native: "Simulasi Konstruksi Ramping Seri 05",
+    description:
+      "Lean takt simulation for a three-storey rusun: push vs JIT, zones, and waiting waste.",
+    href: "https://icecenter.itb.ac.id/courses/simulasi-konstruksi-ramping-seri-05-rusun-takt/",
+    trackId: "teaching-ice-seri-05",
+    note: "Series 05 · 2 hours",
+  },
+  {
+    id: "ice-seri-06",
+    title: "MP2K",
+    native: "Simulasi Konstruksi Ramping Seri 06",
+    description:
+      "Multi-mode project production (onsite · near-site · far supply) for PPM teaching.",
+    href: "https://icecenter.itb.ac.id/courses/simulasi-konstruksi-ramping-seri-06-mp2k/",
+    trackId: "teaching-ice-seri-06",
+    note: "Series 06 · 2 hours",
+  },
+];
+
 const teaching = [
   {
     icon: GraduationCap,
@@ -91,6 +164,38 @@ const teaching = [
     ],
   },
 ];
+
+function IceCourseGrid({ courses }: { courses: IceCourse[] }) {
+  return (
+    <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      {courses.map((course) => (
+        <article
+          key={course.id}
+          className="flex flex-col rounded-xl border border-border bg-surface p-5 shadow-soft sm:p-6"
+        >
+          <span className="w-fit rounded-full border border-accent/25 bg-teal-wash px-2.5 py-0.5 text-xs font-medium text-accent">
+            {course.note}
+          </span>
+          <h4 className="mt-3 font-display text-lg font-semibold tracking-tight text-ink">
+            {course.title}
+          </h4>
+          <p className="mt-1 text-xs text-subtle">{course.native}</p>
+          <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
+            {course.description}
+          </p>
+          <div className="mt-5">
+            <TrackedLink href={course.href} trackId={course.trackId}>
+              <span className="inline-flex items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent/90">
+                Open
+                <ExternalLink className="h-3.5 w-3.5" />
+              </span>
+            </TrackedLink>
+          </div>
+        </article>
+      ))}
+    </div>
+  );
+}
 
 export function Teaching() {
   return (
@@ -167,9 +272,9 @@ export function Teaching() {
                 ICE Center
               </h3>
               <p className="mt-2 max-w-xl text-sm text-muted">
-                Short public courses with ITB Continuing Education, for
-                practitioners who want a first look at operations, lean
-                construction, and simulation.
+                Short public courses with ITB Continuing Education — first
+                looks at operations and lean construction, then a six-part
+                simulation series with the browser tools.
               </p>
             </div>
             <TrackedLink
@@ -182,33 +287,19 @@ export function Teaching() {
             </TrackedLink>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {iceCourses.map((course) => (
-              <article
-                key={course.id}
-                className="flex flex-col rounded-xl border border-border bg-surface p-5 shadow-soft sm:p-6"
-              >
-                <span className="w-fit rounded-full border border-accent/25 bg-teal-wash px-2.5 py-0.5 text-xs font-medium text-accent">
-                  {course.note}
-                </span>
-                <h4 className="mt-3 font-display text-lg font-semibold tracking-tight text-ink">
-                  {course.title}
-                </h4>
-                <p className="mt-1 text-xs text-subtle">{course.native}</p>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
-                  {course.description}
-                </p>
-                <div className="mt-5">
-                  <TrackedLink href={course.href} trackId={course.trackId}>
-                    <span className="inline-flex items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-medium text-accent-fg transition-colors hover:bg-accent/90">
-                      Open
-                      <ExternalLink className="h-3.5 w-3.5" />
-                    </span>
-                  </TrackedLink>
-                </div>
-              </article>
-            ))}
-          </div>
+          <h4 className="mt-8 font-display text-base font-semibold tracking-tight text-ink">
+            Introductions
+          </h4>
+          <IceCourseGrid courses={iceIntro} />
+
+          <h4 className="mt-10 font-display text-base font-semibold tracking-tight text-ink">
+            Lean construction simulation series
+          </h4>
+          <p className="mt-2 max-w-xl text-sm text-muted">
+            Six short courses, each paired with a live simulation in the
+            browser.
+          </p>
+          <IceCourseGrid courses={iceSeries} />
         </div>
       </div>
     </section>
