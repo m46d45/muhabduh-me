@@ -35,7 +35,7 @@ const roles: Role[] = [
     logoSrc: "/orgs/iamkri-logo.png",
     logoAlt: "IAMKRI logo",
     description:
-      "I help convene a national community of lean construction practice — learning with members, sharing experience, and supporting capacity building where I can.",
+      "I help convene a national community of lean construction practice — this year including SNKR 2026 with AKI — learning with members and supporting capacity building where I can.",
     current: true,
   },
   {
