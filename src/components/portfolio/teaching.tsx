@@ -158,7 +158,7 @@ const teaching = [
     icon: Mic2,
     title: "Seminars & shared learning",
     items: [
-      "National seminars on lean construction and related policy themes",
+      "SNKR 2026, the national lean construction seminar, with IAMKRI and AKI",
       "Participation in conferences such as ConCERN and GOBUILD",
       "Sharing notes on more sustainable and productive construction",
     ],
