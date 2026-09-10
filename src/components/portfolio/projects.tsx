@@ -5,6 +5,14 @@ import { recordLinkClick } from "@/components/portfolio/link-stats";
 
 const projects = [
   {
+    id: "snkr-2026",
+    title: "SNKR 2026",
+    description:
+      "Seminar Nasional Konstruksi Ramping — a national gathering on lean construction for Indonesia’s capital projects. 5–6 October 2026 at HK Tower, Jakarta, with AKI. I help convene it through IAMKRI.",
+    tags: ["Seminar", "Lean construction", "IAMKRI"],
+    href: "https://s.id/LinkPendaftaranPesertaSNKR2026",
+  },
+  {
     id: "lc-mpbi",
     title: "LC-MPBI",
     description:
