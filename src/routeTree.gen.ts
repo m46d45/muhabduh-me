@@ -13,6 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CvRouteImport } from './routes/cv'
+import { Route as ExperienceRouteImport } from './routes/experience'
+import { Route as NetworksRouteImport } from './routes/networks'
+import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PublicationsRouteImport } from './routes/publications'
 import { Route as ResearchRouteImport } from './routes/research'
 import { Route as TeachingRouteImport } from './routes/teaching'
@@ -36,6 +39,21 @@ const ContactRoute = ContactRouteImport.update({
 const CvRoute = CvRouteImport.update({
   id: '/cv',
   path: '/cv',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExperienceRoute = ExperienceRouteImport.update({
+  id: '/experience',
+  path: '/experience',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NetworksRoute = NetworksRouteImport.update({
+  id: '/networks',
+  path: '/networks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PublicationsRoute = PublicationsRouteImport.update({
@@ -64,6 +82,9 @@ export interface FileRoutesByFullPath {
   '/calendar': typeof CalendarRoute
   '/contact': typeof ContactRoute
   '/cv': typeof CvRoute
+  '/experience': typeof ExperienceRoute
+  '/networks': typeof NetworksRoute
+  '/projects': typeof ProjectsRoute
   '/publications': typeof PublicationsRoute
   '/research': typeof ResearchRoute
   '/teaching': typeof TeachingRoute
@@ -74,6 +95,9 @@ export interface FileRoutesByTo {
   '/calendar': typeof CalendarRoute
   '/contact': typeof ContactRoute
   '/cv': typeof CvRoute
+  '/experience': typeof ExperienceRoute
+  '/networks': typeof NetworksRoute
+  '/projects': typeof ProjectsRoute
   '/publications': typeof PublicationsRoute
   '/research': typeof ResearchRoute
   '/teaching': typeof TeachingRoute
@@ -85,6 +109,9 @@ export interface FileRoutesById {
   '/calendar': typeof CalendarRoute
   '/contact': typeof ContactRoute
   '/cv': typeof CvRoute
+  '/experience': typeof ExperienceRoute
+  '/networks': typeof NetworksRoute
+  '/projects': typeof ProjectsRoute
   '/publications': typeof PublicationsRoute
   '/research': typeof ResearchRoute
   '/teaching': typeof TeachingRoute
@@ -97,6 +124,9 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/contact'
     | '/cv'
+    | '/experience'
+    | '/networks'
+    | '/projects'
     | '/publications'
     | '/research'
     | '/teaching'
@@ -107,6 +137,9 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/contact'
     | '/cv'
+    | '/experience'
+    | '/networks'
+    | '/projects'
     | '/publications'
     | '/research'
     | '/teaching'
@@ -117,6 +150,9 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/contact'
     | '/cv'
+    | '/experience'
+    | '/networks'
+    | '/projects'
     | '/publications'
     | '/research'
     | '/teaching'
@@ -128,6 +164,9 @@ export interface RootRouteChildren {
   CalendarRoute: typeof CalendarRoute
   ContactRoute: typeof ContactRoute
   CvRoute: typeof CvRoute
+  ExperienceRoute: typeof ExperienceRoute
+  NetworksRoute: typeof NetworksRoute
+  ProjectsRoute: typeof ProjectsRoute
   PublicationsRoute: typeof PublicationsRoute
   ResearchRoute: typeof ResearchRoute
   TeachingRoute: typeof TeachingRoute
@@ -162,6 +201,27 @@ declare module '@tanstack/react-router' {
       path: '/cv'
       fullPath: '/cv'
       preLoaderRoute: typeof CvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/experience': {
+      id: '/experience'
+      path: '/experience'
+      fullPath: '/experience'
+      preLoaderRoute: typeof ExperienceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/networks': {
+      id: '/networks'
+      path: '/networks'
+      fullPath: '/networks'
+      preLoaderRoute: typeof NetworksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/publications': {
@@ -200,6 +260,9 @@ const rootRouteChildren: RootRouteChildren = {
   CalendarRoute: CalendarRoute,
   ContactRoute: ContactRoute,
   CvRoute: CvRoute,
+  ExperienceRoute: ExperienceRoute,
+  NetworksRoute: NetworksRoute,
+  ProjectsRoute: ProjectsRoute,
   PublicationsRoute: PublicationsRoute,
   ResearchRoute: ResearchRoute,
   TeachingRoute: TeachingRoute,

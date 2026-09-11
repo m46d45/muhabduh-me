@@ -7,7 +7,13 @@ const cards = [
     to: "/cv" as const,
     label: "CV",
     title: "Curriculum vitae",
-    blurb: "Formal biodata, roles, and awards — English, on-site.",
+    blurb: "Formal biodata, education, roles, and awards.",
+  },
+  {
+    to: "/experience" as const,
+    label: "Experience",
+    title: "Roles & reviewing",
+    blurb: "Current roles, affiliations, and selected reviewing.",
   },
   {
     to: "/publications" as const,
@@ -24,14 +30,26 @@ const cards = [
   {
     to: "/research" as const,
     label: "Research",
-    title: "Themes & projects",
-    blurb: "Current studies, projects, and networks.",
+    title: "Current studies",
+    blurb: "Studies in progress this year — not the publication list.",
+  },
+  {
+    to: "/projects" as const,
+    label: "Projects",
+    title: "Books & programmes",
+    blurb: "SNKR, LC-MPBI, ConCERN, GOBUILD, and related work.",
+  },
+  {
+    to: "/networks" as const,
+    label: "Networks",
+    title: "Communities",
+    blurb: "Forums, societies, and collaboration networks.",
   },
   {
     to: "/tools" as const,
     label: "Tools",
     title: "Simulation software",
-    blurb: "SiapKerja!, SiklOps, Neo-CYCLONE.",
+    blurb: "SiapKerja!, SiklOps, Neo-CYCLONE, and more.",
   },
   {
     to: "/calendar" as const,
