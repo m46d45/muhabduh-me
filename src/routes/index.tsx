@@ -4,6 +4,7 @@ import { Hero } from "@/components/portfolio/hero";
 import { About } from "@/components/portfolio/about";
 import { Mantra } from "@/components/portfolio/mantra";
 import { News } from "@/components/portfolio/news";
+import { HomeCalendarTeaser } from "@/components/portfolio/home-calendar-teaser";
 import { HomeHighlights } from "@/components/portfolio/home-highlights";
 import { Contact } from "@/components/portfolio/contact";
 
@@ -18,6 +19,7 @@ function HomePage() {
       <About />
       <Mantra />
       <News />
+      <HomeCalendarTeaser />
       <HomeHighlights />
       <Contact />
     </SiteShell>

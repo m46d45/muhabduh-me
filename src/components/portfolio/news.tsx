@@ -87,9 +87,7 @@ function NewsRow({ item, index }: { item: NewsItem; index: number }) {
           <h3 className="mt-2 font-display text-base font-semibold tracking-tight text-ink transition-colors group-hover:text-accent sm:text-lg">
             {item.title}
           </h3>
-          {item.authors && (
-            <p className="mt-1.5 text-sm text-muted">{item.authors}</p>
-          )}
+          {/* Authors omitted on home spotlight — see Publications */}
         </div>
         <ArrowUpRight className="hidden h-4 w-4 shrink-0 text-subtle transition-colors group-hover:text-accent sm:mt-1 sm:block" />
       </a>
@@ -99,13 +97,13 @@ function NewsRow({ item, index }: { item: NewsItem; index: number }) {
 
 export function News() {
   const year = currentNewsYear();
-  const items = getNewsSpotlight(3);
+  const items = getNewsSpotlight(2);
   if (items.length === 0) return null;
 
   return (
     <section
       id="news"
-      className="section-pad border-t border-border py-20 sm:py-24"
+      className="section-pad border-t border-border py-14 sm:py-16"
     >
       <div className="container-narrow">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -113,17 +111,16 @@ export function News() {
             <p className="text-sm font-semibold tracking-[0.08em] uppercase text-accent">
               News
             </p>
-            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
               What's new
             </h2>
-            <p className="mt-3 text-muted leading-relaxed">
-              Recent works and activities I took part in ({year}) — not the full
-              seminar calendar. More papers live in the{" "}
+            <p className="mt-3 text-sm text-muted leading-relaxed sm:text-base">
+              A short spotlight for {year}. Full list in{" "}
               <Link
                 to="/publications"
                 className="text-accent underline-offset-2 hover:underline"
               >
-                publications archive
+                Publications
               </Link>
               .
             </p>
