@@ -1,44 +1,29 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Nav } from "@/components/portfolio/nav";
+import { SiteShell } from "@/components/layout/site-shell";
 import { Hero } from "@/components/portfolio/hero";
 import { About } from "@/components/portfolio/about";
 import { Mantra } from "@/components/portfolio/mantra";
 import { News } from "@/components/portfolio/news";
-import { Experience } from "@/components/portfolio/experience";
-import { Research } from "@/components/portfolio/research";
-import { Teaching } from "@/components/portfolio/teaching";
+import { HomeHighlights } from "@/components/portfolio/home-highlights";
 import { Networks } from "@/components/portfolio/networks";
 import { Projects } from "@/components/portfolio/projects";
-import { Software } from "@/components/portfolio/software";
-import { Articles } from "@/components/portfolio/articles";
 import { Calendar } from "@/components/portfolio/calendar";
-import { Contact } from "@/components/portfolio/contact";
-import { Footer } from "@/components/portfolio/footer";
 
 export const Route = createFileRoute("/")({
-  component: PortfolioPage,
+  component: HomePage,
 });
 
-function PortfolioPage() {
+function HomePage() {
   return (
-    <div className="min-h-svh">
-      <Nav />
-      <main>
-        <Hero />
-        <About />
-        <Mantra />
-        <News />
-        <Experience />
-        <Research />
-        <Teaching />
-        <Networks />
-        <Projects />
-        <Software />
-        <Articles />
-        <Calendar />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <SiteShell homeScrollSpy>
+      <Hero />
+      <About />
+      <Mantra />
+      <News />
+      <HomeHighlights />
+      <Networks />
+      <Projects />
+      <Calendar />
+    </SiteShell>
   );
 }

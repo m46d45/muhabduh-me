@@ -78,7 +78,7 @@ const affiliations = [
 
 const reviewGroups = [
   {
-    heading: "International journals",
+    heading: "Selected journals",
     items: [
       {
         name: "Automation in Construction",
@@ -93,37 +93,12 @@ const reviewGroups = [
         href: "https://ascelibrary.org/journal/jitse4",
       },
       {
-        name: "Journal of Asian Architecture and Building Engineering",
-        href: "https://www.tandfonline.com/journals/tabe20",
-      },
-      {
         name: "Journal of Construction in Developing Countries",
         href: "https://web.usm.my/jcdc/",
       },
       {
-        name: "International Journal of Disaster Resilience in the Built Environment",
-        href: "https://www.emeraldgrouppublishing.com/journal/ijdrbe",
-      },
-      {
-        name: "International Journal of Built Environment and Sustainability",
-        href: "https://ijbes.utm.my/",
-      },
-      {
-        name: "Journal of Engineering, Design and Technology",
-        href: "https://www.emerald.com/jedt",
-      },
-    ],
-  },
-  {
-    heading: "National journals",
-    items: [
-      {
         name: "Jurnal Teknik Sipil, FTSL ITB",
         href: "https://journals.itb.ac.id/index.php/jts/",
-      },
-      {
-        name: "Civil Engineering Dimension, Petra University",
-        href: "https://ced.petra.ac.id/",
       },
     ],
   },
@@ -273,11 +248,10 @@ export function Experience() {
 
         <div className="mt-4 border-t border-border pt-12">
           <h3 className="font-display text-sm font-semibold uppercase tracking-[0.08em] text-subtle">
-            Reviewer
+            Selected reviewer service
           </h3>
           <p className="mt-2 max-w-2xl text-sm text-muted">
-            Journals and conferences I review for, when asked. A small part of
-            keeping the conversation in the field careful and useful.
+            A short sample of journals and conferences I review for when asked.
           </p>
           <div className="mt-8 space-y-8">
             {reviewGroups.map((group) => (

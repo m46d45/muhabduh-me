@@ -80,13 +80,13 @@ const apps: SoftApp[] = [
 export function Software() {
   return (
     <section
-      id="software"
+      id="tools"
       className="section-pad border-t border-border bg-bg-deep/40 py-24 sm:py-28"
     >
       <div className="container-narrow">
         <div className="max-w-2xl">
           <p className="text-sm font-semibold tracking-[0.08em] uppercase text-accent">
-            Software
+            Tools
           </p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
             Simulation tools

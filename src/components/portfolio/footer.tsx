@@ -1,4 +1,4 @@
-import { VisitorCounter } from "@/components/portfolio/visitor-counter";
+import { Link } from "@tanstack/react-router";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -18,7 +18,12 @@ export function Footer() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-4 text-sm">
-          <VisitorCounter />
+          <Link
+            to="/cv"
+            className="text-muted transition-colors hover:text-accent"
+          >
+            CV
+          </Link>
           <a
             href="https://www.itb.ac.id"
             target="_blank"
@@ -36,15 +41,7 @@ export function Footer() {
             iamkri.id
           </a>
           <a
-            href="https://linktr.ee/muhabduh"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted transition-colors hover:text-accent"
-          >
-            Linktree
-          </a>
-          <a
-            href="#top"
+            href="/#top"
             className="text-muted transition-colors hover:text-accent"
           >
             Back to top
