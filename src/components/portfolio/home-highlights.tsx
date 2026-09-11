@@ -56,7 +56,7 @@ const cards = [
     to: "/tools" as const,
     label: "Tools",
     title: "Simulation software",
-    blurb: "SiapKerja!, SiklOps, Neo-CYCLONE, and more.",
+    blurb: "Pinjem100, SiapKerja!, SiklOps, Neo-CYCLONE, and more.",
   },
 ];
 
