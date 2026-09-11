@@ -65,13 +65,24 @@ export function SiteNav({ homeScrollSpy = false }: { homeScrollSpy?: boolean }) 
           </span>
         </Link>
 
-        {/* Hybrid A: home keeps a minimal header — section doors live in Explore */}
+        {/* Home: minimal chrome + hamburger for all pages. Other pages: full desktop nav. */}
         {isHome ? (
-          <Button asChild size="sm">
-            <Link to="/contact" onClick={closeMenu}>
-              Contact
-            </Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button asChild size="sm" className="hidden sm:inline-flex">
+              <Link to="/contact" onClick={closeMenu}>
+                Contact
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+            >
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+          </div>
         ) : (
           <>
             <nav
@@ -129,11 +140,16 @@ export function SiteNav({ homeScrollSpy = false }: { homeScrollSpy?: boolean }) 
         )}
       </div>
 
-      {!isHome && open && (
-        <div className="border-t border-border bg-bg/98 backdrop-blur-md xl:hidden">
+      {open && (
+        <div
+          className={cn(
+            "border-t border-border bg-bg/98 backdrop-blur-md",
+            !isHome && "xl:hidden",
+          )}
+        >
           <nav
             className="container-narrow section-pad flex flex-col gap-0.5 py-3"
-            aria-label="Mobile"
+            aria-label={isHome ? "Site" : "Mobile"}
           >
             <Link
               to="/"
@@ -147,6 +163,13 @@ export function SiteNav({ homeScrollSpy = false }: { homeScrollSpy?: boolean }) 
             >
               Home
             </Link>
+            <a
+              href="/#bio"
+              onClick={closeMenu}
+              className="rounded-md px-3 py-3 text-base text-muted transition-colors hover:bg-surface hover:text-ink"
+            >
+              About
+            </a>
             {links.map((link) => {
               const isActive = pathname === link.to;
               return (
