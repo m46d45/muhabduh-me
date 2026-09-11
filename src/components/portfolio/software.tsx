@@ -13,6 +13,15 @@ type SoftApp = {
 /** Live teaching tools on Vercel — short blurbs only. Newest first. */
 const apps: SoftApp[] = [
   {
+    id: "pinjem100",
+    title: "Pinjem100",
+    description:
+      "Virtual lab for construction project cash: earnings vs receipts, RAB/Gantt as cash flow, portfolio and borrowing.",
+    note: "Vercel",
+    appUrl: "https://pinjem100.vercel.app/",
+    trackId: "software-pinjem100-vercel",
+  },
+  {
     id: "siapkerja-lps",
     title: "SiapKerja!",
     description:
