@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { VisitorCounter } from "@/components/portfolio/visitor-counter";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -18,6 +19,7 @@ export function Footer() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-4 text-sm">
+          <VisitorCounter />
           <Link
             to="/cv"
             className="text-muted transition-colors hover:text-accent"
