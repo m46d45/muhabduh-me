@@ -25,7 +25,7 @@ const cards = [
     to: "/research" as const,
     label: "Research",
     title: "Themes & projects",
-    blurb: "Themes, projects, and research networks.",
+    blurb: "Current studies, projects, and networks.",
   },
   {
     to: "/tools" as const,
