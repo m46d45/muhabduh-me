@@ -5,9 +5,7 @@ import { About } from "@/components/portfolio/about";
 import { Mantra } from "@/components/portfolio/mantra";
 import { News } from "@/components/portfolio/news";
 import { HomeHighlights } from "@/components/portfolio/home-highlights";
-import { Networks } from "@/components/portfolio/networks";
-import { Projects } from "@/components/portfolio/projects";
-import { Calendar } from "@/components/portfolio/calendar";
+import { Contact } from "@/components/portfolio/contact";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -15,15 +13,13 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   return (
-    <SiteShell homeScrollSpy>
+    <SiteShell>
       <Hero />
       <About />
       <Mantra />
       <News />
       <HomeHighlights />
-      <Networks />
-      <Projects />
-      <Calendar />
+      <Contact />
     </SiteShell>
   );
 }

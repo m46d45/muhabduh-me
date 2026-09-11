@@ -1,42 +1,44 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { cn } from "@/lib/utils";
 
 const cards = [
   {
     to: "/cv" as const,
     label: "CV",
     title: "Curriculum vitae",
-    blurb: "Education, roles, and awards — English, on-site.",
+    blurb: "Formal biodata, roles, and awards — English, on-site.",
   },
   {
     to: "/publications" as const,
     label: "Publications",
     title: "Books & works archive",
-    blurb: "Books plus a growable paper/chapter archive with year filter.",
+    blurb: "Works archive and books with year filter.",
   },
   {
     to: "/teaching" as const,
     label: "Teaching",
     title: "Courses & ICE",
-    blurb: "Core ITB courses and short ICE introductions.",
+    blurb: "Core ITB courses and ICE programmes.",
   },
   {
     to: "/research" as const,
     label: "Research",
-    title: "Current studies",
-    blurb: "In-progress work this year, with Scholar and ORCID.",
+    title: "Themes & projects",
+    blurb: "Themes, projects, and research networks.",
   },
   {
     to: "/tools" as const,
     label: "Tools",
     title: "Simulation software",
-    blurb: "Browser tools for lean and operations teaching.",
+    blurb: "SiapKerja!, SiklOps, Neo-CYCLONE.",
   },
   {
-    to: "/contact" as const,
-    label: "Contact",
-    title: "Get in touch",
-    blurb: "Email, LinkedIn, ORCID, ITB staff page, and Zoom.",
+    to: "/calendar" as const,
+    label: "Calendar",
+    title: "Seminars & conferences",
+    blurb: "Public calendar — easy to find and subscribe.",
+    highlight: true,
   },
 ];
 
@@ -55,7 +57,8 @@ export function HomeHighlights() {
             Sections of this site
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            A shorter home page — open a section for the full story.
+            Menu doors live here on the home page — open a section for the full
+            story.
           </p>
         </div>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -63,7 +66,10 @@ export function HomeHighlights() {
             <Link
               key={card.to}
               to={card.to}
-              className="group flex flex-col rounded-xl border border-border bg-surface p-6 shadow-soft transition-colors hover:border-accent/35"
+              className={cn(
+                "group flex flex-col rounded-xl border border-border bg-surface p-6 shadow-soft transition-colors hover:border-accent/35",
+                card.highlight && "ring-2 ring-accent/45 ring-offset-2 ring-offset-bg",
+              )}
             >
               <span className="text-xs font-semibold uppercase tracking-[0.08em] text-accent">
                 {card.label}
