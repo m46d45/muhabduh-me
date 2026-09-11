@@ -109,10 +109,6 @@ const reviewGroups = [
         href: "https://ijbes.utm.my/",
       },
       {
-        name: "Frontiers in Sustainability",
-        href: "https://www.frontiersin.org/journals/sustainability",
-      },
-      {
         name: "Journal of Engineering, Design and Technology",
         href: "https://www.emerald.com/jedt",
       },
