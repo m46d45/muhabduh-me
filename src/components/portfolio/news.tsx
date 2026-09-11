@@ -1,7 +1,7 @@
 import { ArrowUpRight, Newspaper } from "lucide-react";
 import {
   currentNewsYear,
-  getLatestNews,
+  getNewsSpotlight,
   type NewsItem,
 } from "@/data/news";
 import { authorRoleFromAuthors, type AuthorRole } from "@/data/works";
@@ -13,6 +13,7 @@ const kindLabel: Record<NewsItem["kind"], string> = {
   article: "Article",
   book: "Book",
   chapter: "Chapter",
+  activity: "Activity",
 };
 
 function formatWhen(iso: string): string {
@@ -48,7 +49,8 @@ function RoleBadge({ role }: { role?: AuthorRole }) {
 
 function NewsRow({ item, index }: { item: NewsItem; index: number }) {
   const trackId = newsTrackId(item);
-  const role = authorRoleFromAuthors(item.authors);
+  const role =
+    item.kind === "activity" ? undefined : authorRoleFromAuthors(item.authors);
 
   return (
     <li>
@@ -97,7 +99,7 @@ function NewsRow({ item, index }: { item: NewsItem; index: number }) {
 
 export function News() {
   const year = currentNewsYear();
-  const items = getLatestNews();
+  const items = getNewsSpotlight(3);
   if (items.length === 0) return null;
 
   return (
@@ -112,11 +114,11 @@ export function News() {
               News
             </p>
             <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Publications in {year}
+              What's new
             </h2>
             <p className="mt-3 text-muted leading-relaxed">
-              Papers, articles, and books from this year. Older items live in
-              the{" "}
+              Recent works and activities I took part in ({year}) — not the full
+              seminar calendar. More papers live in the{" "}
               <Link
                 to="/publications"
                 className="text-accent underline-offset-2 hover:underline"
