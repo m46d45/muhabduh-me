@@ -9,6 +9,7 @@ import {
 
 const VIEW_KEY = "portfolio-views";
 
+/** Small footer-only view tally for the site owner’s own notes. */
 export function VisitorCounter() {
   const [count, setCount] = useState<number | null>(null);
 
@@ -16,7 +17,6 @@ export function VisitorCounter() {
     let cancelled = false;
 
     async function run() {
-      // Count this visit first so the footer is not starved by other pills.
       const already = sessionAlreadyHit(VIEW_KEY);
       const n = await fetchCount(VIEW_KEY, already ? "get" : "up", {
         priority: true,
@@ -35,14 +35,14 @@ export function VisitorCounter() {
 
   return (
     <span
-      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-bg-deep/80 px-2.5 py-1 text-sm text-muted"
-      title="Approximate site views (once per visit session)"
+      className="inline-flex items-center gap-1 text-[0.7rem] text-subtle"
+      title="Approximate site views (once per visit session) — personal note"
     >
-      <Eye className="h-3.5 w-3.5 shrink-0 text-accent" aria-hidden />
-      <span className="font-mono tabular-nums font-medium text-ink">
+      <Eye className="h-3 w-3 shrink-0 opacity-70" aria-hidden />
+      <span className="font-mono tabular-nums">
         {count === null ? "…" : formatCount(count)}
       </span>
-      <span className="text-subtle">views</span>
+      <span className="opacity-80">views</span>
     </span>
   );
 }
