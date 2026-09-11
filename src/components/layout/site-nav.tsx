@@ -6,9 +6,12 @@ import { Button } from "@/components/ui/button";
 
 const links = [
   { to: "/cv", label: "CV" },
+  { to: "/experience", label: "Experience" },
   { to: "/publications", label: "Publications" },
   { to: "/teaching", label: "Teaching" },
   { to: "/research", label: "Research" },
+  { to: "/projects", label: "Projects" },
+  { to: "/networks", label: "Networks" },
   { to: "/tools", label: "Tools" },
   { to: "/calendar", label: "Calendar" },
   { to: "/contact", label: "Contact" },
@@ -86,7 +89,7 @@ export function SiteNav({ homeScrollSpy = false }: { homeScrollSpy?: boolean }) 
         ) : (
           <>
             <nav
-              className="hidden items-center gap-0 xl:flex"
+              className="hidden items-center gap-0 2xl:flex"
               aria-label="Primary"
             >
               {links.map((link) => {
@@ -128,7 +131,7 @@ export function SiteNav({ homeScrollSpy = false }: { homeScrollSpy?: boolean }) 
               <Button
                 variant="ghost"
                 size="icon"
-                className="xl:hidden"
+                className="2xl:hidden"
                 aria-label={open ? "Close menu" : "Open menu"}
                 aria-expanded={open}
                 onClick={() => setOpen((v) => !v)}
@@ -144,7 +147,7 @@ export function SiteNav({ homeScrollSpy = false }: { homeScrollSpy?: boolean }) 
         <div
           className={cn(
             "border-t border-border bg-bg/98 backdrop-blur-md",
-            !isHome && "xl:hidden",
+            !isHome && "2xl:hidden",
           )}
         >
           <nav
