@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { ArrowUpRight, Eye } from "lucide-react";
-import { fetchCount, formatCount } from "@/lib/counter";
+import { ArrowUpRight } from "lucide-react";
 import { recordLinkClick } from "@/components/portfolio/link-stats";
 
 const projects = [
@@ -46,7 +44,6 @@ const projects = [
   },
 ];
 
-
 export function Projects() {
   return (
     <section
@@ -85,17 +82,6 @@ function ProjectCard({
   index: number;
 }) {
   const trackId = `project-${project.id}`;
-  const [clicks, setClicks] = useState<number | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    void fetchCount(`click-${trackId}`, "get").then((n) => {
-      if (!cancelled) setClicks(n ?? 0);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [trackId]);
 
   return (
     <article className="group flex flex-col rounded-xl border border-border bg-surface p-6 shadow-soft transition-colors duration-200 hover:border-accent/30 sm:p-7">
@@ -124,23 +110,14 @@ function ProjectCard({
         href={project.href}
         target="_blank"
         rel="noopener noreferrer"
-        onClick={async () => {
-          const n = await recordLinkClick(trackId);
-          if (n !== null) setClicks(n);
-          else setClicks((c) => (c ?? 0) + 1);
+        onClick={() => {
+          void recordLinkClick(trackId);
         }}
         className="mt-5 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-accent hover:underline underline-offset-2"
       >
         Open link
         <ArrowUpRight className="h-3.5 w-3.5" />
       </a>
-      <span className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-border bg-bg-deep/80 px-2.5 py-1 text-xs text-muted">
-        <Eye className="h-3.5 w-3.5 shrink-0 text-accent" aria-hidden />
-        <span className="font-mono tabular-nums font-medium text-ink">
-          {clicks === null ? "…" : formatCount(clicks)}
-        </span>
-        <span className="text-subtle">clicks</span>
-      </span>
     </article>
   );
 }

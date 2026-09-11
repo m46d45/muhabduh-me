@@ -1,4 +1,5 @@
 import { ArrowDown, ArrowRight, ContactRound, ExternalLink } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { recordLinkClick } from "@/components/portfolio/link-stats";
 
@@ -6,7 +7,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="section-pad relative flex min-h-[100svh] items-center pb-20 pt-28"
+      className="section-pad relative flex min-h-[88svh] items-center pb-16 pt-28"
     >
       <div className="container-narrow relative grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
         <div className="order-2 lg:order-1">
@@ -18,24 +19,26 @@ export function Hero() {
             Muhamad Abduh
           </h1>
 
-          <p className="fade-up stagger-2 mt-6 max-w-lg font-display text-2xl font-medium italic leading-snug tracking-tight text-ink sm:text-3xl sm:leading-snug">
-            Don't be afraid to care...
-          </p>
-
-          <p className="fade-up stagger-3 mt-5 max-w-xl text-lg text-muted leading-relaxed">
+          <p className="fade-up stagger-2 mt-5 max-w-xl text-lg text-muted leading-relaxed">
             I teach and do research in civil engineering at Institut Teknologi
             Bandung, with a focus on lean construction, sustainability, and
             construction management — learning with students, colleagues, and
             practitioners along the way.
           </p>
-          <div className="fade-up stagger-4 mt-9 flex flex-wrap items-center gap-3">
+          <div className="fade-up stagger-3 mt-9 flex flex-wrap items-center gap-3">
             <Button asChild size="lg">
-              <a href="#research">
+              <Link to="/research">
                 View research
                 <ArrowRight className="h-4 w-4" />
-              </a>
+              </Link>
             </Button>
             <Button asChild variant="secondary" size="lg">
+              <Link to="/cv">
+                Curriculum vitae
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild variant="ghost" size="lg">
               <a
                 href="https://scholar.google.com/citations?user=DctmufgAAAAJ&hl=en"
                 target="_blank"
@@ -68,7 +71,7 @@ export function Hero() {
             <div className="relative overflow-hidden rounded-xl border border-border bg-surface shadow-soft">
               <img
                 src="/portrait.jpg"
-                alt="Portrait of Muhamad Abduh"
+                alt="Portrait of Muhamad Abduh, professor of civil engineering at ITB"
                 width={420}
                 height={520}
                 className="aspect-[4/5] w-56 object-cover object-top sm:w-72 lg:w-80"

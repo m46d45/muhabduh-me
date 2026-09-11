@@ -74,7 +74,7 @@ export function TrackedLink({
   trackId,
   className,
   children,
-  showStats = true,
+  showStats = false,
   statsClassName,
   target = "_blank",
   rel = "noopener noreferrer",

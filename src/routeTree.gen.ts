@@ -10,33 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CvRouteImport } from './routes/cv'
+import { Route as PublicationsRouteImport } from './routes/publications'
+import { Route as ResearchRouteImport } from './routes/research'
+import { Route as TeachingRouteImport } from './routes/teaching'
+import { Route as ToolsRouteImport } from './routes/tools'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CvRoute = CvRouteImport.update({
+  id: '/cv',
+  path: '/cv',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicationsRoute = PublicationsRouteImport.update({
+  id: '/publications',
+  path: '/publications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchRoute = ResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeachingRoute = TeachingRouteImport.update({
+  id: '/teaching',
+  path: '/teaching',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsRoute = ToolsRouteImport.update({
+  id: '/tools',
+  path: '/tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
+  '/cv': typeof CvRoute
+  '/publications': typeof PublicationsRoute
+  '/research': typeof ResearchRoute
+  '/teaching': typeof TeachingRoute
+  '/tools': typeof ToolsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
+  '/cv': typeof CvRoute
+  '/publications': typeof PublicationsRoute
+  '/research': typeof ResearchRoute
+  '/teaching': typeof TeachingRoute
+  '/tools': typeof ToolsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
+  '/cv': typeof CvRoute
+  '/publications': typeof PublicationsRoute
+  '/research': typeof ResearchRoute
+  '/teaching': typeof TeachingRoute
+  '/tools': typeof ToolsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/contact'
+    | '/cv'
+    | '/publications'
+    | '/research'
+    | '/teaching'
+    | '/tools'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/contact'
+    | '/cv'
+    | '/publications'
+    | '/research'
+    | '/teaching'
+    | '/tools'
+  id:
+    | '__root__'
+    | '/'
+    | '/contact'
+    | '/cv'
+    | '/publications'
+    | '/research'
+    | '/teaching'
+    | '/tools'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContactRoute: typeof ContactRoute
+  CvRoute: typeof CvRoute
+  PublicationsRoute: typeof PublicationsRoute
+  ResearchRoute: typeof ResearchRoute
+  TeachingRoute: typeof TeachingRoute
+  ToolsRoute: typeof ToolsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +130,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cv': {
+      id: '/cv'
+      path: '/cv'
+      fullPath: '/cv'
+      preLoaderRoute: typeof CvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/publications': {
+      id: '/publications'
+      path: '/publications'
+      fullPath: '/publications'
+      preLoaderRoute: typeof PublicationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research': {
+      id: '/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof ResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teaching': {
+      id: '/teaching'
+      path: '/teaching'
+      fullPath: '/teaching'
+      preLoaderRoute: typeof TeachingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools': {
+      id: '/tools'
+      path: '/tools'
+      fullPath: '/tools'
+      preLoaderRoute: typeof ToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContactRoute: ContactRoute,
+  CvRoute: CvRoute,
+  PublicationsRoute: PublicationsRoute,
+  ResearchRoute: ResearchRoute,
+  TeachingRoute: TeachingRoute,
+  ToolsRoute: ToolsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

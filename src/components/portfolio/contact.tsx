@@ -14,18 +14,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
-const socials = [
+const ORCID = "https://orcid.org/0000-0001-6926-6665";
+
+/** Primary row — email, LinkedIn, ORCID, ITB staff, Zoom */
+const primary = [
   {
     label: "Email",
     href: "mailto:abduh@itb.ac.id",
     icon: Mail,
     value: "abduh@itb.ac.id",
-  },
-  {
-    label: "Website",
-    href: "https://muhabduh.id",
-    icon: ExternalLink,
-    value: "muhabduh.id",
   },
   {
     label: "LinkedIn",
@@ -34,48 +31,53 @@ const socials = [
     value: "linkedin.com/in/muhamad-abduh",
   },
   {
+    label: "ORCID",
+    href: ORCID,
+    icon: ExternalLink,
+    value: "0000-0001-6926-6665",
+  },
+  {
+    label: "ITB staff page",
+    href: "https://www.itb.ac.id/staff/view/muhamad-abduh-stw",
+    icon: ExternalLink,
+    value: "itb.ac.id/staff",
+  },
+  {
+    label: "Zoom room",
+    href: "https://itb-ac-id.zoom.us/my/abduh",
+    icon: ExternalLink,
+    value: "itb-ac-id.zoom.us/my/abduh",
+  },
+];
+
+/** Demoted from primary row */
+const socialMore = [
+  {
     label: "Instagram",
     href: "https://instagram.com/abduh.muhamad",
     icon: Instagram,
-    value: "@abduh.muhamad",
   },
   {
     label: "YouTube",
     href: "https://www.youtube.com/channel/UC4iziTaKqYp_lCNwE-IUiNQ",
     icon: Youtube,
-    value: "YouTube channel",
   },
   {
     label: "Facebook",
     href: "https://www.facebook.com/mabdas",
     icon: Facebook,
-    value: "facebook.com/mabdas",
   },
   {
     label: "X (Twitter)",
     href: "https://x.com/mabdas",
     icon: ExternalLink,
-    value: "@mabdas",
   },
 ];
 
 const moreLinks = [
-  {
-    label: "ITB",
-    href: "https://www.itb.ac.id",
-  },
-  {
-    label: "IAMKRI",
-    href: "https://iamkri.id",
-  },
-  {
-    label: "Linktree",
-    href: "https://linktr.ee/muhabduh",
-  },
-  {
-    label: "ITB staff page",
-    href: "https://www.itb.ac.id/staff/view/muhamad-abduh-stw",
-  },
+  { label: "ITB", href: "https://www.itb.ac.id" },
+  { label: "IAMKRI", href: "https://iamkri.id" },
+  { label: "Linktree", href: "https://linktr.ee/muhabduh" },
   {
     label: "Google Scholar",
     href: "https://scholar.google.com/citations?user=DctmufgAAAAJ&hl=en",
@@ -83,10 +85,6 @@ const moreLinks = [
   {
     label: "WhatsApp",
     href: "https://api.whatsapp.com/send?phone=62811200142",
-  },
-  {
-    label: "Zoom room",
-    href: "https://itb-ac-id.zoom.us/my/abduh",
   },
 ];
 
@@ -100,6 +98,11 @@ export function Contact() {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !message.trim()) {
       toast.error("Please fill in all fields.");
+      return;
+    }
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+    if (!emailOk) {
+      toast.error("Please enter a valid email address.");
       return;
     }
     setSending(true);
@@ -132,20 +135,14 @@ export function Contact() {
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
             Happy to hear about teaching, research, or collaboration. Email is
-            usually the easiest way to reach me. Website:{" "}
-            <a
-              href="https://muhabduh.id"
-              className="font-medium text-accent underline-offset-2 hover:underline"
-            >
-              muhabduh.id
-            </a>
-            .
+            usually the easiest way to reach me. Office: CIBE Building, 6th
+            floor, room 0604, Jl. Ganesha No. 10, Bandung 40132.
           </p>
         </div>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
           <div className="space-y-3">
-            {socials.map((item) => {
+            {primary.map((item) => {
               const Icon = item.icon;
               return (
                 <a
@@ -173,6 +170,29 @@ export function Contact() {
                 </a>
               );
             })}
+
+            <div className="pt-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.08em] text-subtle">
+                Also on
+              </p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {socialMore.map((link) => {
+                  const Icon = link.icon;
+                  return (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5 text-xs text-muted transition-colors hover:border-accent/40 hover:text-accent"
+                    >
+                      <Icon className="h-3 w-3" />
+                      {link.label}
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
 
             <div className="flex flex-wrap gap-2 pt-3">
               {moreLinks.map((link) => (

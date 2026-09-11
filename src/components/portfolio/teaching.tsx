@@ -1,32 +1,17 @@
 import { ExternalLink, GraduationCap, Mic2, Users } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { TrackedLink } from "@/components/portfolio/link-stats";
 
-const itbCourses = [
-  "Design and Analysis of Construction Operations",
-  "Engineering Economy",
-  "Construction Cost Estimating",
-  "Computing in Civil Engineering",
-  "Sustainable Construction",
-  "Lean Construction",
-  "Construction Business Management",
-  "Infrastructure Management",
-  "Construction Management",
-  "Infrastructure Operations Management",
-  "Construction Operations Management",
-  "Project Production Management",
-  "Project Management",
-  "Transportation Project Management",
-  "Construction Methods",
-  "Research Methods",
-  "Introduction to Infrastructure Engineering",
-  "Construction Productivity",
-  "Construction Supply Chains",
-  "Infrastructure Engineering and Design",
-  "Infrastructure Management Information Systems",
-  "Project Planning and Control Systems",
-  "Civil Engineering Systems",
-  "Independent Study in Civil Engineering",
-  "IT in Construction",
+/** Core courses shown on the main Teaching UI (~6–8). */
+const coreCourses: { title: string; level: "UG" | "S2" | "UG/S2" }[] = [
+  { title: "Lean Construction", level: "UG/S2" },
+  { title: "Design and Analysis of Construction Operations", level: "UG/S2" },
+  { title: "Construction Operations Management", level: "S2" },
+  { title: "Sustainable Construction", level: "UG/S2" },
+  { title: "Construction Cost Estimating", level: "UG" },
+  { title: "Project Production Management", level: "S2" },
+  { title: "Construction Supply Chains", level: "S2" },
+  { title: "Engineering Economy", level: "UG" },
 ];
 
 type IceCourse = {
@@ -69,69 +54,6 @@ const iceIntro: IceCourse[] = [
     href: "https://icecenter.itb.ac.id/courses/pengenalan-simulasi-operasi-konstruksi/",
     trackId: "teaching-ice-sim",
     note: "2 hours",
-  },
-];
-
-const iceSeries: IceCourse[] = [
-  {
-    id: "ice-seri-01",
-    title: "Parade Tim Kerja",
-    native: "Simulasi Konstruksi Ramping Seri 01",
-    description:
-      "Parade-of-trades zone-flow for learning variability, WIP, and batch handoff.",
-    href: "https://icecenter.itb.ac.id/courses/simulasi-konstruksi-ramping-seri-01-parade-tim-kerja/",
-    trackId: "teaching-ice-seri-01",
-    note: "Series 01 · 2 hours",
-  },
-  {
-    id: "ice-seri-02",
-    title: "SiklOps",
-    native: "Simulasi Konstruksi Ramping Seri 02",
-    description:
-      "Discrete-event simulation of cyclic construction operations, simple → complex.",
-    href: "https://icecenter.itb.ac.id/courses/simulasi-konstruksi-ramping-seri-02-siklus-operasi/",
-    trackId: "teaching-ice-seri-02",
-    note: "Series 02 · 2 hours",
-  },
-  {
-    id: "ice-seri-03",
-    title: "Neo-CYCLONE",
-    native: "Simulasi Konstruksi Ramping Seri 03",
-    description:
-      "AI-assisted CYCLONE modeling and simulation for construction operations (Halpin).",
-    href: "https://icecenter.itb.ac.id/courses/simulasi-konstruksi-ramping-seri-03-neo-cyclone/",
-    trackId: "teaching-ice-seri-03",
-    note: "Series 03 · 2 hours",
-  },
-  {
-    id: "ice-seri-04",
-    title: "SiapKerja!",
-    native: "Simulasi Konstruksi Ramping Seri 04",
-    description:
-      "Last Planner System teaching simulation for a type-36 house: master plan through daily huddle.",
-    href: "https://icecenter.itb.ac.id/courses/simulasi-konstruksi-ramping-seri-04-siapkerja/",
-    trackId: "teaching-ice-seri-04",
-    note: "Series 04 · 2 hours",
-  },
-  {
-    id: "ice-seri-05",
-    title: "Rusun Takt",
-    native: "Simulasi Konstruksi Ramping Seri 05",
-    description:
-      "Lean takt simulation for a three-storey rusun: push vs JIT, zones, and waiting waste.",
-    href: "https://icecenter.itb.ac.id/courses/simulasi-konstruksi-ramping-seri-05-rusun-takt/",
-    trackId: "teaching-ice-seri-05",
-    note: "Series 05 · 2 hours",
-  },
-  {
-    id: "ice-seri-06",
-    title: "MP2K",
-    native: "Simulasi Konstruksi Ramping Seri 06",
-    description:
-      "Multi-mode project production (onsite · near-site · far supply) for PPM teaching.",
-    href: "https://icecenter.itb.ac.id/courses/simulasi-konstruksi-ramping-seri-06-mp2k/",
-    trackId: "teaching-ice-seri-06",
-    note: "Series 06 · 2 hours",
   },
 ];
 
@@ -249,16 +171,20 @@ export function Teaching() {
 
         <div className="mt-14">
           <h3 className="font-display text-sm font-semibold uppercase tracking-[0.08em] text-subtle">
-            Courses at ITB
+            Core courses at ITB
           </h3>
           <p className="mt-2 text-sm text-muted">
-            Faculty of Civil and Environmental Engineering
+            Faculty of Civil and Environmental Engineering — selected
+            undergraduate (UG) and graduate (S2) offerings.
           </p>
           <ul className="mt-5 flex flex-wrap gap-2">
-            {itbCourses.map((course) => (
-              <li key={course}>
-                <span className="inline-flex rounded-full border border-border bg-surface px-3.5 py-1.5 text-sm text-ink">
-                  {course}
+            {coreCourses.map((course) => (
+              <li key={course.title}>
+                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 text-sm text-ink">
+                  {course.title}
+                  <span className="rounded-full bg-teal-wash px-1.5 py-0.5 text-[0.65rem] font-medium text-accent">
+                    {course.level}
+                  </span>
                 </span>
               </li>
             ))}
@@ -273,8 +199,15 @@ export function Teaching() {
               </h3>
               <p className="mt-2 max-w-xl text-sm text-muted">
                 Short public courses with ITB Continuing Education — first
-                looks at operations and lean construction, then a six-part
-                simulation series with the browser tools.
+                looks at operations and lean construction. Browser simulation
+                tools live under{" "}
+                <Link
+                  to="/tools"
+                  className="font-medium text-accent underline-offset-2 hover:underline"
+                >
+                  Tools
+                </Link>
+                .
               </p>
             </div>
             <TrackedLink
@@ -292,14 +225,17 @@ export function Teaching() {
           </h4>
           <IceCourseGrid courses={iceIntro} />
 
-          <h4 className="mt-10 font-display text-base font-semibold tracking-tight text-ink">
-            Lean construction simulation series
-          </h4>
-          <p className="mt-2 max-w-xl text-sm text-muted">
-            Six short courses, each paired with a live simulation in the
-            browser.
+          <p className="mt-8 text-sm text-muted">
+            Lean construction simulation series (Parade Tim Kerja, SiklOps,
+            Neo-CYCLONE, SiapKerja!, Rusun Takt, MP2K) — open the live tools on{" "}
+            <Link
+              to="/tools"
+              className="font-medium text-accent underline-offset-2 hover:underline"
+            >
+              Tools / Software
+            </Link>
+            .
           </p>
-          <IceCourseGrid courses={iceSeries} />
         </div>
       </div>
     </section>

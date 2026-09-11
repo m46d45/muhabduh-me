@@ -47,11 +47,4 @@ export const networks: NetworkItem[] = [
       "A digital platform for learning lean construction — courses and materials for students and practitioners.",
     website: "https://k2r-neo.net/",
   },
-  {
-    name: "Perjalanan Elsie",
-    kind: "media",
-    description:
-      "A YouTube channel sharing stories and journeys — personal notes along the way.",
-    youtube: "https://www.youtube.com/channel/UC2ZCAipLxzopbjjVQ-CYWMw",
-  },
 ];
