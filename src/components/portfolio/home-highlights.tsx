@@ -28,6 +28,13 @@ const cards = [
     blurb: "Core ITB courses and ICE programmes.",
   },
   {
+    to: "/calendar" as const,
+    label: "Calendar",
+    title: "Seminars & conferences",
+    blurb: "Public calendar — easy to find and subscribe.",
+    highlight: true,
+  },
+  {
     to: "/research" as const,
     label: "Research",
     title: "Current studies",
@@ -50,13 +57,6 @@ const cards = [
     label: "Tools",
     title: "Simulation software",
     blurb: "SiapKerja!, SiklOps, Neo-CYCLONE, and more.",
-  },
-  {
-    to: "/calendar" as const,
-    label: "Calendar",
-    title: "Seminars & conferences",
-    blurb: "Public calendar — easy to find and subscribe.",
-    highlight: true,
   },
 ];
 
