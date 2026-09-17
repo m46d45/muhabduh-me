@@ -79,6 +79,10 @@ const moreLinks = [
   { label: "IAMKRI", href: "https://iamkri.id" },
   { label: "Linktree", href: "https://linktr.ee/muhabduh" },
   {
+    label: "ITB Scholar",
+    href: "https://scholar.itb.ac.id/profile/muhamad-abduh_40559",
+  },
+  {
     label: "Google Scholar",
     href: "https://scholar.google.com/citations?user=DctmufgAAAAJ&hl=en",
   },

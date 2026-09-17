@@ -80,6 +80,15 @@ export function About() {
                   Google Scholar profile
                   <ExternalLink className="h-3 w-3" />
                 </TrackedLink>
+                <br />
+                <TrackedLink
+                  href="https://scholar.itb.ac.id/profile/muhamad-abduh_40559"
+                  trackId="about-itb-scholar"
+                  className="mt-1 inline-flex items-center gap-1 font-medium text-ink hover:text-accent"
+                >
+                  ITB Scholar profile
+                  <ExternalLink className="h-3 w-3" />
+                </TrackedLink>
               </li>
               <li>
                 <span className="text-subtle">ORCID</span>
