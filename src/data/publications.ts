@@ -17,14 +17,26 @@ export type PublicationItem = {
 
 export const publications: PublicationItem[] = [
   {
-    title: "Construction and Infrastructure Management in Indonesia",
+    title:
+      "Construction and Infrastructure Management in Indonesia — Volume 1",
     kind: "book",
-    venue: "ITB Press · two volumes, open access",
+    venue: "ITB Press · open access",
     year: "2026",
     summary:
-      "Two volumes on knowledge and practice of construction and infrastructure management in Indonesia, from the ITB CIM research group. I served as deputy editor. Volume 1 and Volume 2 are both available as open-access flipbooks.",
+      "Education and research in CIM, from faculty members of the ITB Construction and Infrastructure Management research group. I served as deputy editor of the series.",
     href: "https://www.itbpress.id/buku-gratis/#flipbook-df_50498",
-    cover: "/covers/cim-indonesia.jpg",
+    cover: "/covers/cim-indonesia-vol1.jpg",
+  },
+  {
+    title:
+      "Construction and Infrastructure Management in Indonesia — Volume 2",
+    kind: "book",
+    venue: "ITB Press · open access",
+    year: "2026",
+    summary:
+      "The impact of CIM education and research, written with ITB CIM alumni. A companion to Volume 1, not a continuation of the same chapters.",
+    href: "https://www.itbpress.id/buku-gratis/#flipbook-df_50560",
+    cover: "/covers/cim-indonesia-vol2.jpg",
   },
   {
     title:

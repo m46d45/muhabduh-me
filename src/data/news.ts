@@ -42,7 +42,19 @@ export type NewsItem = {
 export const newsItems: NewsItem[] = [
   {
     date: "2026-09-11",
-    title: "Construction and Infrastructure Management in Indonesia (Volumes 1–2)",
+    title:
+      "Construction and Infrastructure Management in Indonesia — Volume 2",
+    kind: "book",
+    venue: "ITB Press",
+    year: "2026",
+    authors: "CIM research group, ITB (M Abduh, deputy editor)",
+    href: "https://www.itbpress.id/buku-gratis/#flipbook-df_50560",
+    source: "manual",
+  },
+  {
+    date: "2026-09-11",
+    title:
+      "Construction and Infrastructure Management in Indonesia — Volume 1",
     kind: "book",
     venue: "ITB Press",
     year: "2026",
