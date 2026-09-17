@@ -52,7 +52,7 @@ export const works: WorkItem[] = [
     date: "2026-09-11",
     year: "2026",
     title:
-      "Construction and Infrastructure Management in Indonesia — Volume 2",
+      "Construction and Infrastructure Management in Indonesia — Volume 2: Infrastructure Management",
     kind: "book",
     venue: "ITB Press",
     authors: "CIM research group, ITB (M Abduh, deputy editor)",
@@ -63,7 +63,7 @@ export const works: WorkItem[] = [
     date: "2026-09-11",
     year: "2026",
     title:
-      "Construction and Infrastructure Management in Indonesia — Volume 1",
+      "Construction and Infrastructure Management in Indonesia — Volume 1: Construction",
     kind: "book",
     venue: "ITB Press",
     authors: "CIM research group, ITB (M Abduh, deputy editor)",
