@@ -19,14 +19,6 @@ const projects = [
     href: "https://lc-mpbi.vercel.app/",
   },
   {
-    id: "book-infra-id",
-    title: "Construction & Infrastructure Management in Indonesia",
-    description:
-      "A book project still in progress on construction and infrastructure management in the Indonesian context — written for students and practitioners.",
-    tags: ["Book project", "Infrastructure", "Indonesia"],
-    href: "https://sway.cloud.microsoft/H23UaNMXsSvoJTqL?ref=Link",
-  },
-  {
     id: "concern-2026",
     title: "ConCERN 2026",
     description:

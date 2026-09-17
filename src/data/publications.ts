@@ -17,6 +17,16 @@ export type PublicationItem = {
 
 export const publications: PublicationItem[] = [
   {
+    title: "Construction and Infrastructure Management in Indonesia",
+    kind: "book",
+    venue: "ITB Press · two volumes, open access",
+    year: "2026",
+    summary:
+      "Two volumes on knowledge and practice of construction and infrastructure management in Indonesia, from the ITB CIM research group. I served as deputy editor. Volume 1 and Volume 2 are both available as open-access flipbooks.",
+    href: "https://www.itbpress.id/buku-gratis/#flipbook-df_50498",
+    cover: "/covers/cim-indonesia.jpg",
+  },
+  {
     title:
       "Research Companion to Advances in the Construction Industry in the Global South",
     kind: "book",

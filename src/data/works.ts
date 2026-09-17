@@ -49,6 +49,15 @@ function doiHref(doi: string): string {
 export const works: WorkItem[] = [
   // —— 2026 from news.ts (venues + authors known) ——
   {
+    date: "2026-09-11",
+    year: "2026",
+    title: "Construction and Infrastructure Management in Indonesia (Volumes 1–2)",
+    kind: "book",
+    venue: "ITB Press",
+    authors: "CIM research group, ITB (M Abduh, deputy editor)",
+    authorRole: "co",
+    href: "https://www.itbpress.id/buku-gratis/#flipbook-df_50498",
+  },  {
     date: "2026-08-30",
     year: "2026",
     title:
