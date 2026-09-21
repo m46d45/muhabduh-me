@@ -1,10 +1,13 @@
 import { useState, type FormEvent } from "react";
 import {
+  Check,
+  Copy,
   ExternalLink,
   Facebook,
   Instagram,
   Linkedin,
   Mail,
+  MessageCircle,
   Send,
   Youtube,
 } from "lucide-react";
@@ -15,14 +18,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
 const ORCID = "https://orcid.org/0000-0001-6926-6665";
+const EMAIL = "abduh@itb.ac.id";
+const WHATSAPP = "https://api.whatsapp.com/send?phone=62811200142";
 
 /** Primary row — email, LinkedIn, ORCID, ITB staff, Zoom */
 const primary = [
   {
     label: "Email",
-    href: "mailto:abduh@itb.ac.id",
+    href: `mailto:${EMAIL}`,
     icon: Mail,
-    value: "abduh@itb.ac.id",
+    value: EMAIL,
   },
   {
     label: "LinkedIn",
@@ -86,10 +91,6 @@ const moreLinks = [
     label: "Google Scholar",
     href: "https://scholar.google.com/citations?user=DctmufgAAAAJ&hl=en",
   },
-  {
-    label: "WhatsApp",
-    href: "https://api.whatsapp.com/send?phone=62811200142",
-  },
 ];
 
 export function Contact() {
@@ -97,6 +98,18 @@ export function Contact() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      toast.success("Email copied.");
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast.error(`Could not copy — ${EMAIL}`);
+    }
+  }
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -114,7 +127,7 @@ export function Contact() {
     const body = encodeURIComponent(
       `${message.trim()}\n\n— ${name.trim()}\n${email.trim()}`,
     );
-    window.location.href = `mailto:abduh@itb.ac.id?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
     window.setTimeout(() => {
       setSending(false);
       setName("");
@@ -142,6 +155,28 @@ export function Contact() {
             usually the easiest way to reach me. Office: CIBE Building, 6th
             floor, room 0604, Jl. Ganesha No. 10, Bandung 40132.
           </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <Button type="button" variant="secondary" size="sm" onClick={copyEmail}>
+              {copied ? (
+                <Check className="h-3.5 w-3.5" />
+              ) : (
+                <Copy className="h-3.5 w-3.5" />
+              )}
+              {copied ? "Copied" : "Copy email"}
+            </Button>
+            <Button asChild variant="secondary" size="sm">
+              <a href={`mailto:${EMAIL}`}>
+                <Mail className="h-3.5 w-3.5" />
+                {EMAIL}
+              </a>
+            </Button>
+            <Button asChild variant="secondary" size="sm">
+              <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="h-3.5 w-3.5" />
+                WhatsApp
+              </a>
+            </Button>
+          </div>
         </div>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
@@ -266,7 +301,8 @@ export function Contact() {
                 <Send className="h-4 w-4" />
               </Button>
               <p className="text-xs text-subtle">
-                Opens your email app to send to abduh@itb.ac.id.
+                Opens your email app to send to {EMAIL}. If nothing opens, use
+                Copy email or WhatsApp above.
               </p>
             </div>
           </form>

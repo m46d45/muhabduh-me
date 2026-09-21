@@ -1,7 +1,8 @@
 /**
- * Growable works / publications archive.
- * Seeded from news.ts (current-year papers), books in publications.ts,
- * and ORCID highlights (orcid-works-summary.json). Do not invent DOIs.
+ * Growable works / publications archive — single source of truth for papers,
+ * chapters, conferences, and books listed on Publications and (for the current
+ * year) Home News. Seeded from ORCID highlights and curated DOIs; books also
+ * appear in publications.ts with covers. Do not invent DOIs.
  *
  * authorRole: first if authors start with M Abduh / sole Abduh; co otherwise
  * when Abduh appears later. Omit when authors unknown.
@@ -47,7 +48,7 @@ function doiHref(doi: string): string {
 
 /** Seeded archive — newest first. Deduped by title+year. */
 export const works: WorkItem[] = [
-  // —— 2026 from news.ts (venues + authors known) ——
+  // —— Current year (also drives Home News via news.ts) ——
   {
     date: "2026-09-11",
     year: "2026",
@@ -69,7 +70,8 @@ export const works: WorkItem[] = [
     authors: "CIM research group, ITB (M Abduh, deputy editor)",
     authorRole: "co",
     href: "https://www.itbpress.id/buku-gratis/#flipbook-df_50498",
-  },  {
+  },
+  {
     date: "2026-08-30",
     year: "2026",
     title:
