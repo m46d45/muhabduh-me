@@ -7,9 +7,20 @@ import { News } from "@/components/portfolio/news";
 import { HomeCalendarTeaser } from "@/components/portfolio/home-calendar-teaser";
 import { HomeHighlights } from "@/components/portfolio/home-highlights";
 import { Contact } from "@/components/portfolio/contact";
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_TITLE,
+  pageHead,
+} from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
+  head: () =>
+    pageHead({
+      title: DEFAULT_TITLE,
+      description: DEFAULT_DESCRIPTION,
+      path: "/",
+    }),
 });
 
 function HomePage() {

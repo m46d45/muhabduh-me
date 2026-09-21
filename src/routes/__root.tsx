@@ -7,19 +7,7 @@ import {
 } from "@tanstack/react-router";
 import { Toaster } from "sonner";
 import appCss from "@/styles.css?url";
-import {
-  DEFAULT_DESCRIPTION,
-  DEFAULT_TITLE,
-  jsonLdScript,
-  pageHead,
-  personJsonLd,
-} from "@/lib/seo";
-
-const homeSeo = pageHead({
-  title: DEFAULT_TITLE,
-  description: DEFAULT_DESCRIPTION,
-  path: "/",
-});
+import { jsonLdScript, personJsonLd } from "@/lib/seo";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -31,11 +19,9 @@ export const Route = createRootRoute({
       },
       { name: "theme-color", content: "#f4f1ea" },
       { name: "author", content: "Muhamad Abduh" },
-      ...homeSeo.meta,
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      ...homeSeo.links,
       { rel: "icon", href: "/favicon.ico", sizes: "any" },
       { rel: "icon", href: "/favicon-32.png", type: "image/png", sizes: "32x32" },
       { rel: "icon", href: "/favicon-16.png", type: "image/png", sizes: "16x16" },
