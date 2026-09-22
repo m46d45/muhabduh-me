@@ -1,19 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/layout/site-shell";
 import { Experience } from "@/components/portfolio/experience";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/experience")({
   component: ExperienceRoute,
-  head: () => ({
-    meta: [
-      { title: "Experience — Muhamad Abduh" },
-      {
-        name: "description",
-        content:
-          "Roles, affiliations, and selected reviewing — Muhamad Abduh.",
-      },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Experience — Muhamad Abduh",
+      description:
+        "Roles, affiliations, and selected reviewing — Muhamad Abduh.",
+      path: "/experience",
+    }),
 });
 
 function ExperienceRoute() {

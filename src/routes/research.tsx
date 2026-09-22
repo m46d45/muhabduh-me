@@ -1,18 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/layout/site-shell";
 import { Research } from "@/components/portfolio/research";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/research")({
   component: ResearchRoute,
-  head: () => ({
-    meta: [
-      { title: "Research — Muhamad Abduh" },
-      {
-        name: "description",
-        content: "Current studies and research themes — Muhamad Abduh.",
-      },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Research — Muhamad Abduh",
+      description:
+        "Current studies and research themes in lean and sustainable construction — Muhamad Abduh, ITB.",
+      path: "/research",
+    }),
 });
 
 function ResearchRoute() {

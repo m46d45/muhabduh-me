@@ -17,7 +17,7 @@ const links = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
-export function SiteNav({ homeScrollSpy = false }: { homeScrollSpy?: boolean }) {
+export function SiteNav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -30,7 +30,7 @@ export function SiteNav({ homeScrollSpy = false }: { homeScrollSpy?: boolean }) 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [homeScrollSpy]);
+  }, []);
 
   useEffect(() => {
     if (open) document.body.style.overflow = "hidden";
