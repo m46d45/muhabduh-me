@@ -13,6 +13,15 @@ type SoftApp = {
 /** Live teaching tools on Vercel — short blurbs only. Newest first. */
 const apps: SoftApp[] = [
   {
+    id: "peta-scp",
+    title: "Peta SCP",
+    description:
+      "Learning map of Indonesian construction demand, supply, and the 2024 market, read as clusters with public sources.",
+    note: "Vercel",
+    appUrl: "https://peta-scp.vercel.app/",
+    trackId: "software-peta-scp-vercel",
+  },
+  {
     id: "pinjem100",
     title: "Pinjem100",
     description:
@@ -101,8 +110,8 @@ export function Software() {
             Simulation tools
           </h2>
           <p className="mt-4 text-muted leading-relaxed">
-            Browser-based tools for teaching construction production and lean
-            practice.
+            Browser-based tools for teaching construction production, markets,
+            and lean practice.
           </p>
         </div>
 
