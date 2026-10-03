@@ -17,7 +17,7 @@ const profileResources = [
     id: "media-photos",
     label: "Photos for media",
     blurb: "Photographs for invitations, media, and institutional use.",
-    href: "https://itbdsti-my.sharepoint.com/:f:/g/personal/abduh_itb_ac_id/IgA-gX8rVSybToQJ1AGVwmGBAXhfgIrRto_M3Q9aknVxoDs?e=yKpbPt",
+    href: "https://itbdsti-my.sharepoint.com/:f:/g/personal/abduh_itb_ac_id/IgA-gX8rVSybToQJ1AGVwmGBAXhfgIrRto_M3Q9aknVxoDs?e=LbWbXT",
     icon: Images,
     internal: false,
   },
