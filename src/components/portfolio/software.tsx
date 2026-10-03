@@ -14,7 +14,7 @@ type SoftApp = {
 const apps: SoftApp[] = [
   {
     id: "peta-scp",
-    title: "Peta SCP",
+    title: "Peta SCP Konstruksi Indonesia",
     description:
       "Learning map of Indonesian construction demand, supply, and the 2024 market, read as clusters with public sources.",
     note: "Vercel",

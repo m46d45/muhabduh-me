@@ -56,7 +56,7 @@ const cards = [
     to: "/tools" as const,
     label: "Tools",
     title: "Simulation software",
-    blurb: "Peta SCP, Pinjem100, SiapKerja!, Neo-CYCLONE, and more.",
+    blurb: "Peta SCP Konstruksi Indonesia, Pinjem100, SiapKerja!, Neo-CYCLONE, and more.",
   },
 ];
 
