@@ -13,6 +13,13 @@ export type NetworkItem = {
 
 export const networks: NetworkItem[] = [
   {
+    name: "LCI Community",
+    kind: "collaboration",
+    description:
+      "A light international framework among national and regional Lean Construction institutes — who speaks for which country, a quarterly meeting, and room for shared work.",
+    website: "https://lci-community.vercel.app/",
+  },
+  {
     name: "ICF — Indonesia Construction Forum",
     kind: "forum",
     description:

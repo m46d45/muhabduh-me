@@ -50,7 +50,7 @@ const cards = [
     to: "/networks" as const,
     label: "Networks",
     title: "Communities",
-    blurb: "Forums, societies, and collaboration networks.",
+    blurb: "LCI Community, forums, societies, and collaboration networks.",
   },
   {
     to: "/tools" as const,
