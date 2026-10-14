@@ -17,7 +17,7 @@ export const networks: NetworkItem[] = [
     kind: "collaboration",
     description:
       "A light international framework among national and regional Lean Construction institutes — who speaks for which country, a quarterly meeting, and room for shared work.",
-    website: "https://lci-international.vercel.app/",
+    website: "https://lci-international.net/",
   },
   {
     name: "ICF — Indonesia Construction Forum",
