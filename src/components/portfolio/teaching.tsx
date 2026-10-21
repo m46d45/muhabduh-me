@@ -1,18 +1,7 @@
 import { ExternalLink, GraduationCap, Mic2, Users } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { TrackedLink } from "@/components/portfolio/link-stats";
-
-/** Core courses shown on the main Teaching UI (~6–8). */
-const coreCourses: { title: string; level: "UG" | "S2" | "UG/S2" }[] = [
-  { title: "Lean Construction", level: "UG/S2" },
-  { title: "Design and Analysis of Construction Operations", level: "UG/S2" },
-  { title: "Construction Operations Management", level: "S2" },
-  { title: "Sustainable Construction", level: "UG/S2" },
-  { title: "Construction Cost Estimating", level: "UG" },
-  { title: "Project Production Management", level: "S2" },
-  { title: "Construction Supply Chains", level: "S2" },
-  { title: "Engineering Economy", level: "UG" },
-];
+import { coreCourses } from "@/data/courses.mjs";
 
 type IceCourse = {
   id: string;
@@ -156,6 +145,7 @@ function IceCourseGrid({ courses }: { courses: IceCourse[] }) {
       {courses.map((course) => (
         <article
           key={course.id}
+          id={course.id}
           className="flex flex-col rounded-xl border border-border bg-surface p-5 shadow-soft sm:p-6"
         >
           <span className="w-fit rounded-full border border-accent/25 bg-teal-wash px-2.5 py-0.5 text-xs font-medium text-accent">
@@ -242,7 +232,7 @@ export function Teaching() {
           </p>
           <ul className="mt-5 flex flex-wrap gap-2">
             {coreCourses.map((course) => (
-              <li key={course.title}>
+              <li key={course.id} id={course.id}>
                 <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3.5 py-1.5 text-sm text-ink">
                   {course.title}
                   <span className="rounded-full bg-teal-wash px-1.5 py-0.5 text-[0.65rem] font-medium text-accent">

@@ -51,6 +51,8 @@ function Cover({ item }: { item: PublicationItem }) {
         alt={`Cover of ${item.title}`}
         width={96}
         height={144}
+        loading="lazy"
+        decoding="async"
         className="h-36 w-24 shrink-0 rounded-sm object-cover shadow-soft ring-1 ring-border/80"
       />
     );

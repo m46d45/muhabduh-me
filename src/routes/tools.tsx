@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/layout/site-shell";
 import { Software } from "@/components/portfolio/software";
+import { fetchToolPosts } from "@/lib/content/api";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/tools")({
+  loader: () => fetchToolPosts(),
   component: ToolsRoute,
   head: () =>
     pageHead({
@@ -15,10 +17,11 @@ export const Route = createFileRoute("/tools")({
 });
 
 function ToolsRoute() {
+  const { postsByTool } = Route.useLoaderData();
   return (
     <SiteShell>
       <div className="pt-10">
-        <Software />
+        <Software postsByTool={postsByTool} />
       </div>
     </SiteShell>
   );

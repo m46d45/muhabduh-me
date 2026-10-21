@@ -1,4 +1,21 @@
 {
+  "redirects": [
+    {
+      "source": "/news",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/bertanya",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/bertanya/:slug",
+      "destination": "/blog/:slug",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/muhamad-abduh.vcf",
@@ -10,6 +27,15 @@
         {
           "key": "Content-Disposition",
           "value": "inline; filename=\"Muhamad-Abduh.vcf\""
+        }
+      ]
+    },
+    {
+      "source": "/rss.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/rss+xml; charset=utf-8"
         }
       ]
     }

@@ -14,6 +14,10 @@ export type PageSeo = {
   /** Path starting with /, e.g. /research */
   path?: string;
   image?: string;
+  /** Open Graph type. Defaults to website. */
+  type?: "website" | "article";
+  /** Open Graph locale, e.g. id_ID. */
+  locale?: string;
 };
 
 export function absoluteUrl(path = "/"): string {
@@ -27,13 +31,17 @@ export function pageHead({
   description,
   path = "/",
   image = `${SITE_URL}/portrait.jpg`,
+  type = "website",
+  locale = "en_US",
 }: PageSeo) {
   const url = absoluteUrl(path);
   return {
     meta: [
       { title },
       { name: "description", content: description },
-      { property: "og:type", content: "website" },
+      { property: "og:type", content: type },
+      { property: "og:locale", content: locale },
+      { property: "og:site_name", content: SITE_NAME },
       { property: "og:url", content: url },
       { property: "og:title", content: title },
       { property: "og:description", content: description },

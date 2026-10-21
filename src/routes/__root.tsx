@@ -4,6 +4,7 @@ import {
   createRootRoute,
   HeadContent,
   Scripts,
+  useRouterState,
 } from "@tanstack/react-router";
 import { Toaster } from "sonner";
 import appCss from "@/styles.css?url";
@@ -30,19 +31,6 @@ export const Route = createRootRoute({
         href: "/apple-touch-icon.png",
         sizes: "180x180",
       },
-      {
-        rel: "preconnect",
-        href: "https://fonts.googleapis.com",
-      },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&display=swap",
-      },
     ],
     scripts: [jsonLdScript(personJsonLd())],
   }),
@@ -50,16 +38,21 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const lang = /^\/(blog|topik|publikasi|riset)(\/|$)/.test(pathname) ? "id" : "en";
   return (
-    <RootDocument>
+    <RootDocument lang={lang}>
       <Outlet />
     </RootDocument>
   );
 }
 
-function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+function RootDocument({
+  children,
+  lang,
+}: Readonly<{ children: ReactNode; lang: "en" | "id" }>) {
   return (
-    <html lang="en" className="antialiased">
+    <html lang={lang} className="antialiased">
       <head>
         <HeadContent />
       </head>

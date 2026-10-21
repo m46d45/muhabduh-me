@@ -19,7 +19,7 @@ export function Hero() {
             />
             <div className="relative overflow-hidden rounded-xl border border-border bg-surface shadow-soft">
               <img
-                src="/portrait.jpg"
+                src="/portrait-display.jpg"
                 alt="Portrait of Muhamad Abduh, professor of civil engineering at ITB"
                 width={420}
                 height={520}
@@ -109,7 +109,7 @@ export function Hero() {
             />
             <div className="relative overflow-hidden rounded-xl border border-border bg-surface shadow-soft">
               <img
-                src="/portrait.jpg"
+                src="/portrait-display.jpg"
                 alt="Portrait of Muhamad Abduh, professor of civil engineering at ITB"
                 width={420}
                 height={520}

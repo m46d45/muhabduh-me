@@ -15,11 +15,20 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CvRouteImport } from './routes/cv'
 import { Route as ExperienceRouteImport } from './routes/experience'
 import { Route as NetworksRouteImport } from './routes/networks'
+import { Route as NewsRouteImport } from './routes/news'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PublicationsRouteImport } from './routes/publications'
+import { Route as PublikasiRouteImport } from './routes/publikasi'
 import { Route as ResearchRouteImport } from './routes/research'
+import { Route as RisetRouteImport } from './routes/riset'
+import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
 import { Route as TeachingRouteImport } from './routes/teaching'
 import { Route as ToolsRouteImport } from './routes/tools'
+import { Route as BertanyaIndexRouteImport } from './routes/bertanya/index'
+import { Route as BertanyaSlugRouteImport } from './routes/bertanya/$slug'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as TopikTopikRouteImport } from './routes/topik/$topik'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -51,6 +60,11 @@ const NetworksRoute = NetworksRouteImport.update({
   path: '/networks',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
@@ -61,9 +75,24 @@ const PublicationsRoute = PublicationsRouteImport.update({
   path: '/publications',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PublikasiRoute = PublikasiRouteImport.update({
+  id: '/publikasi',
+  path: '/publikasi',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResearchRoute = ResearchRouteImport.update({
   id: '/research',
   path: '/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RisetRoute = RisetRouteImport.update({
+  id: '/riset',
+  path: '/riset',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RssDotxmlRoute = RssDotxmlRouteImport.update({
+  id: '/rss.xml',
+  path: '/rss.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TeachingRoute = TeachingRouteImport.update({
@@ -76,6 +105,31 @@ const ToolsRoute = ToolsRouteImport.update({
   path: '/tools',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BertanyaIndexRoute = BertanyaIndexRouteImport.update({
+  id: '/bertanya/',
+  path: '/bertanya/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BertanyaSlugRoute = BertanyaSlugRouteImport.update({
+  id: '/bertanya/$slug',
+  path: '/bertanya/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TopikTopikRoute = TopikTopikRouteImport.update({
+  id: '/topik/$topik',
+  path: '/topik/$topik',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -84,11 +138,20 @@ export interface FileRoutesByFullPath {
   '/cv': typeof CvRoute
   '/experience': typeof ExperienceRoute
   '/networks': typeof NetworksRoute
+  '/news': typeof NewsRoute
   '/projects': typeof ProjectsRoute
   '/publications': typeof PublicationsRoute
+  '/publikasi': typeof PublikasiRoute
   '/research': typeof ResearchRoute
+  '/riset': typeof RisetRoute
+  '/rss.xml': typeof RssDotxmlRoute
   '/teaching': typeof TeachingRoute
   '/tools': typeof ToolsRoute
+  '/bertanya/$slug': typeof BertanyaSlugRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/topik/$topik': typeof TopikTopikRoute
+  '/bertanya/': typeof BertanyaIndexRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -97,11 +160,20 @@ export interface FileRoutesByTo {
   '/cv': typeof CvRoute
   '/experience': typeof ExperienceRoute
   '/networks': typeof NetworksRoute
+  '/news': typeof NewsRoute
   '/projects': typeof ProjectsRoute
   '/publications': typeof PublicationsRoute
+  '/publikasi': typeof PublikasiRoute
   '/research': typeof ResearchRoute
+  '/riset': typeof RisetRoute
+  '/rss.xml': typeof RssDotxmlRoute
   '/teaching': typeof TeachingRoute
   '/tools': typeof ToolsRoute
+  '/bertanya/$slug': typeof BertanyaSlugRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/topik/$topik': typeof TopikTopikRoute
+  '/bertanya': typeof BertanyaIndexRoute
+  '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -111,11 +183,20 @@ export interface FileRoutesById {
   '/cv': typeof CvRoute
   '/experience': typeof ExperienceRoute
   '/networks': typeof NetworksRoute
+  '/news': typeof NewsRoute
   '/projects': typeof ProjectsRoute
   '/publications': typeof PublicationsRoute
+  '/publikasi': typeof PublikasiRoute
   '/research': typeof ResearchRoute
+  '/riset': typeof RisetRoute
+  '/rss.xml': typeof RssDotxmlRoute
   '/teaching': typeof TeachingRoute
   '/tools': typeof ToolsRoute
+  '/bertanya/$slug': typeof BertanyaSlugRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/topik/$topik': typeof TopikTopikRoute
+  '/bertanya/': typeof BertanyaIndexRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -126,11 +207,20 @@ export interface FileRouteTypes {
     | '/cv'
     | '/experience'
     | '/networks'
+    | '/news'
     | '/projects'
     | '/publications'
+    | '/publikasi'
     | '/research'
+    | '/riset'
+    | '/rss.xml'
     | '/teaching'
     | '/tools'
+    | '/bertanya/$slug'
+    | '/blog/$slug'
+    | '/topik/$topik'
+    | '/bertanya/'
+    | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -139,11 +229,20 @@ export interface FileRouteTypes {
     | '/cv'
     | '/experience'
     | '/networks'
+    | '/news'
     | '/projects'
     | '/publications'
+    | '/publikasi'
     | '/research'
+    | '/riset'
+    | '/rss.xml'
     | '/teaching'
     | '/tools'
+    | '/bertanya/$slug'
+    | '/blog/$slug'
+    | '/topik/$topik'
+    | '/bertanya'
+    | '/blog'
   id:
     | '__root__'
     | '/'
@@ -152,11 +251,20 @@ export interface FileRouteTypes {
     | '/cv'
     | '/experience'
     | '/networks'
+    | '/news'
     | '/projects'
     | '/publications'
+    | '/publikasi'
     | '/research'
+    | '/riset'
+    | '/rss.xml'
     | '/teaching'
     | '/tools'
+    | '/bertanya/$slug'
+    | '/blog/$slug'
+    | '/topik/$topik'
+    | '/bertanya/'
+    | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -166,11 +274,20 @@ export interface RootRouteChildren {
   CvRoute: typeof CvRoute
   ExperienceRoute: typeof ExperienceRoute
   NetworksRoute: typeof NetworksRoute
+  NewsRoute: typeof NewsRoute
   ProjectsRoute: typeof ProjectsRoute
   PublicationsRoute: typeof PublicationsRoute
+  PublikasiRoute: typeof PublikasiRoute
   ResearchRoute: typeof ResearchRoute
+  RisetRoute: typeof RisetRoute
+  RssDotxmlRoute: typeof RssDotxmlRoute
   TeachingRoute: typeof TeachingRoute
   ToolsRoute: typeof ToolsRoute
+  BertanyaSlugRoute: typeof BertanyaSlugRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  TopikTopikRoute: typeof TopikTopikRoute
+  BertanyaIndexRoute: typeof BertanyaIndexRoute
+  BlogIndexRoute: typeof BlogIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -217,6 +334,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NetworksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/news': {
+      id: '/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects': {
       id: '/projects'
       path: '/projects'
@@ -231,11 +355,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/publikasi': {
+      id: '/publikasi'
+      path: '/publikasi'
+      fullPath: '/publikasi'
+      preLoaderRoute: typeof PublikasiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/research': {
       id: '/research'
       path: '/research'
       fullPath: '/research'
       preLoaderRoute: typeof ResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/riset': {
+      id: '/riset'
+      path: '/riset'
+      fullPath: '/riset'
+      preLoaderRoute: typeof RisetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rss.xml': {
+      id: '/rss.xml'
+      path: '/rss.xml'
+      fullPath: '/rss.xml'
+      preLoaderRoute: typeof RssDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/teaching': {
@@ -252,6 +397,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bertanya/': {
+      id: '/bertanya/'
+      path: '/bertanya'
+      fullPath: '/bertanya/'
+      preLoaderRoute: typeof BertanyaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bertanya/$slug': {
+      id: '/bertanya/$slug'
+      path: '/bertanya/$slug'
+      fullPath: '/bertanya/$slug'
+      preLoaderRoute: typeof BertanyaSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/topik/$topik': {
+      id: '/topik/$topik'
+      path: '/topik/$topik'
+      fullPath: '/topik/$topik'
+      preLoaderRoute: typeof TopikTopikRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -262,11 +442,20 @@ const rootRouteChildren: RootRouteChildren = {
   CvRoute: CvRoute,
   ExperienceRoute: ExperienceRoute,
   NetworksRoute: NetworksRoute,
+  NewsRoute: NewsRoute,
   ProjectsRoute: ProjectsRoute,
   PublicationsRoute: PublicationsRoute,
+  PublikasiRoute: PublikasiRoute,
   ResearchRoute: ResearchRoute,
+  RisetRoute: RisetRoute,
+  RssDotxmlRoute: RssDotxmlRoute,
   TeachingRoute: TeachingRoute,
   ToolsRoute: ToolsRoute,
+  BertanyaSlugRoute: BertanyaSlugRoute,
+  BlogSlugRoute: BlogSlugRoute,
+  TopikTopikRoute: TopikTopikRoute,
+  BertanyaIndexRoute: BertanyaIndexRoute,
+  BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

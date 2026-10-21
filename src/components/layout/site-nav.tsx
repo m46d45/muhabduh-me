@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 const links = [
+  { to: "/blog", label: "Blog" },
   { to: "/cv", label: "CV" },
   { to: "/experience", label: "Experience" },
   { to: "/publications", label: "Publications" },

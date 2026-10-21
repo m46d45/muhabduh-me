@@ -21,6 +21,12 @@ export function Footer() {
         <div className="flex flex-wrap items-center gap-4 text-sm">
           <VisitorCounter />
           <Link
+            to="/blog"
+            className="text-muted transition-colors hover:text-accent"
+          >
+            Blog
+          </Link>
+          <Link
             to="/cv"
             className="text-muted transition-colors hover:text-accent"
           >
