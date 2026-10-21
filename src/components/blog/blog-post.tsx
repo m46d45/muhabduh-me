@@ -5,10 +5,12 @@ type Paper = {
   title: string;
   year: string;
   venue: string;
-  href: string;
+  href: string | null;
   authors: string | null;
   doi: string | null;
   summary: string | null;
+  verified: boolean;
+  status: string | null;
 };
 
 type LinkItem = {
@@ -28,6 +30,7 @@ export type BlogPostView = {
   title: string;
   description: string;
   date: string;
+  draft: boolean;
   html: string;
   topics: { slug: string; name: string }[];
   papers: Paper[];
@@ -56,7 +59,13 @@ export function BlogPost({ post }: { post: BlogPostView }) {
             Memulai dengan Bertanya
           </Link>
           <span aria-hidden> · </span>
-          <time dateTime={post.date}>{formatDate(post.date)}</time>
+          {post.draft ? (
+            <span className="font-semibold uppercase tracking-wide text-accent">
+              Draf
+            </span>
+          ) : (
+            <time dateTime={post.date}>{formatDate(post.date)}</time>
+          )}
         </p>
         <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
           {post.title}
@@ -89,16 +98,27 @@ export function BlogPost({ post }: { post: BlogPostView }) {
             <ul className="mt-4 space-y-4">
               {post.papers.map((paper) => (
                 <li key={paper.id}>
-                  <a
-                    href={paper.href}
-                    className="font-medium text-ink underline-offset-2 hover:text-accent hover:underline"
-                  >
-                    {paper.title}
-                  </a>
+                  {paper.href ? (
+                    <a
+                      href={paper.href}
+                      className="font-medium text-ink underline-offset-2 hover:text-accent hover:underline"
+                    >
+                      {paper.title}
+                    </a>
+                  ) : (
+                    <p className="font-medium text-ink">{paper.title}</p>
+                  )}
                   <p className="mt-1 text-sm text-muted">
-                    {paper.year} · {paper.venue}
+                    {paper.year ? `${paper.year} · ` : ""}
+                    {paper.venue}
                     {paper.authors ? ` · ${paper.authors}` : ""}
+                    {paper.status === "in-press" ? " · dalam proses terbit" : ""}
                   </p>
+                  {paper.verified ? null : (
+                    <p className="mt-1 text-sm text-muted">
+                      Entri ini belum terverifikasi, jadi tidak masuk daftar publikasi.
+                    </p>
+                  )}
                   {paper.doi ? (
                     <p className="mt-1 text-sm">
                       <a

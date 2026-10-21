@@ -10,11 +10,13 @@ export type PaperRecord = {
   year: string;
   venue: string;
   kind: string;
-  href: string;
+  href: string | null;
   authors: string | null;
   doi: string | null;
   summary: string | null;
   topics: string[];
+  verified: boolean;
+  status: string | null;
   posts: { slug: string; title: string }[];
 };
 

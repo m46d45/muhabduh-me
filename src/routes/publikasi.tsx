@@ -5,7 +5,7 @@ import { fetchPapers } from "@/lib/content/api";
 import { pageHead } from "@/lib/seo";
 
 const description =
-  "Daftar karya Muhamad Abduh yang sudah tercantum di situs, dengan DOI hanya bila sudah tercatat.";
+  "Karya Muhamad Abduh yang sudah terverifikasi: DOI cocok, tercatat di ORCID, atau buku yang sudah ada di situs.";
 
 export const Route = createFileRoute("/publikasi")({
   loader: () => fetchPapers(),
@@ -25,7 +25,7 @@ function PublikasiRoute() {
     <SiteShell>
       <PaperList
         heading="Publikasi"
-        lede="Karya yang sudah ada di situs. DOI ditampilkan hanya bila sudah tercatat. Kalimat manfaat untuk praktisi dan topik belum diisi di data — bagian itu menyusul, tanpa perkiraan."
+        lede="Yang tampil di sini sudah terverifikasi: DOI-nya dicocokkan, tercatat di ORCID, atau berupa buku yang sudah ada di situs. Entri yang belum terverifikasi tetap ada di berkas data, tetapi tidak ditampilkan. Judul dan DOI tidak diubah."
         papers={data.papers}
       />
     </SiteShell>

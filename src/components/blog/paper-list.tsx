@@ -6,7 +6,7 @@ export type PaperRow = {
   year: string;
   venue: string;
   kind: string;
-  href: string;
+  href: string | null;
   authors: string | null;
   doi: string | null;
   summary: string | null;
@@ -16,6 +16,7 @@ export type PaperRow = {
 
 const kindLabel: Record<string, string> = {
   paper: "Paper",
+  journal: "Jurnal",
   chapter: "Bab",
   conference: "Konferensi",
   book: "Buku",
@@ -47,12 +48,17 @@ export function PaperList({
           {papers.map((paper) => (
             <li key={paper.id} id={paper.id} className="py-6">
               <p className="text-xs uppercase tracking-wide text-subtle">
-                {paper.year} · {kindLabel[paper.kind] ?? paper.kind}
+                {paper.year ? `${paper.year} · ` : ""}
+                {kindLabel[paper.kind] ?? paper.kind}
               </p>
               <h2 className="mt-1 font-display text-lg font-semibold text-ink">
-                <a href={paper.href} className="hover:text-accent">
-                  {paper.title}
-                </a>
+                {paper.href ? (
+                  <a href={paper.href} className="hover:text-accent">
+                    {paper.title}
+                  </a>
+                ) : (
+                  paper.title
+                )}
               </h2>
               <p className="mt-1 text-sm text-muted">{paper.venue}</p>
               {paper.authors ? (

@@ -11,6 +11,7 @@ export type PostCard = {
   description: string;
   date: string;
   topics: string[];
+  draft?: boolean;
 };
 
 export type BlogLink = {

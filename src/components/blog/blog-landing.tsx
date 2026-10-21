@@ -80,9 +80,22 @@ export function BlogLanding({
           </p>
         ) : (
           <ol className="mt-6 divide-y divide-border border-y border-border">
+            {posts.every((post) => post.draft) ? (
+              <li className="py-4 text-sm leading-relaxed text-muted">
+                Tulisan di bawah ini masih draf. Mereka tampil di pratinjau dan
+                belum masuk situs yang sudah terbit.
+              </li>
+            ) : null}
             {posts.map((post) => (
               <li key={post.slug} className="py-5">
-                <p className="text-xs text-subtle">{formatDate(post.date)}</p>
+                <p className="text-xs text-subtle">
+                  {post.draft ? (
+                    <span className="mr-2 font-semibold uppercase tracking-wide text-accent">
+                      Draf
+                    </span>
+                  ) : null}
+                  {formatDate(post.date)}
+                </p>
                 <h3 className="mt-1 font-display text-xl font-semibold tracking-tight text-ink">
                   <Link
                     to="/blog/$slug"

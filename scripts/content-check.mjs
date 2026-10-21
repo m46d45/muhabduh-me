@@ -10,79 +10,115 @@ import {
 import { renderQuestionPng } from "./og-image.mjs";
 
 const root = process.cwd();
-const works = fs.readFileSync(path.join(root, "src/data/works.ts"), "utf8");
-const publications = fs.readFileSync(
-  path.join(root, "src/data/publications.ts"),
-  "utf8",
-);
-const corpus = `${works}\n${publications}`;
 
 function fail(message) {
   throw new Error(`[content-check] ${message}`);
 }
 
 const papers = readPapers(root);
-if (papers.length < 26) fail(`publikasi.yaml hanya ${papers.length} karya`);
+if (papers.length !== 151) fail(`papers.yaml harus 151 karya, ketemu ${papers.length}`);
+const verified = papers.filter((paper) => paper.verified);
+const hidden = papers.filter((paper) => !paper.verified);
+if (verified.length !== 61) fail(`karya terverifikasi harus 61, ketemu ${verified.length}`);
+if (hidden.length !== 90) fail(`karya tersembunyi harus 90, ketemu ${hidden.length}`);
 
-for (const paper of papers) {
-  if (!corpus.includes(paper.title)) {
-    fail(`judul tidak ada di data situs: ${paper.title}`);
-  }
-  if (paper.doi) {
-    if (!works.includes(paper.doi)) fail(`DOI tidak ada di works.ts: ${paper.doi}`);
-    const expected = `https://doi.org/${paper.doi}`;
-    if (paper.href !== expected && !corpus.includes(paper.href)) {
-      fail(`href DOI tidak cocok: ${paper.id}`);
-    }
-  } else if (!corpus.includes(paper.href)) {
-    fail(`href tidak ada di data situs: ${paper.href}`);
-  }
-  if (paper.authors && !corpus.includes(paper.authors)) {
-    fail(`penulis tidak ada di data situs: ${paper.id}`);
-  }
-  if (paper.summary && !corpus.includes(paper.summary)) {
-    fail(`ringkasan tidak ada di data situs: ${paper.id}`);
-  }
+const locked = {
+  "2026-introducing-production-system-thinking-into-construction": {
+    title:
+      "Introducing production system thinking into construction management education: a multi-level framework based on the Indonesian context",
+    doi: "10.1080/15623599.2026.2690041",
+  },
+  "2026-revealing-lean-aligned-practices-in-indonesian": {
+    title:
+      "Revealing Lean-aligned practices in Indonesian small contractors: a preliminary study",
+    doi: "10.24928/2026/0153",
+  },
+  "2026-parade-tim-kerja-simulasi-dampak-variabilitas": {
+    title:
+      "Parade Tim Kerja: Simulasi Dampak Variabilitas dan Rancangan Zona Kerja pada Durasi Proyek",
+    doi: null,
+  },
+};
+for (const [id, expect] of Object.entries(locked)) {
+  const paper = papers.find((item) => item.id === id);
+  if (!paper) fail(`paper hilang: ${id}`);
+  if (paper.title !== expect.title) fail(`judul berubah: ${id}`);
+  if (paper.doi !== expect.doi) fail(`DOI berubah: ${id}`);
 }
 
 const published = buildSite(root, { tools, courses }, { includeDrafts: false });
 const withDrafts = buildSite(root, { tools, courses }, { includeDrafts: true });
 
+if (published.papers.length !== 61) {
+  fail(`halaman publikasi memuat ${published.papers.length} karya, harus 61`);
+}
+if (published.papers.some((paper) => !paper.verified)) {
+  fail("halaman publikasi memuat karya yang belum terverifikasi");
+}
+if (published.papers.some((paper) => paper.id.startsWith("2026-parade-tim-kerja"))) {
+  fail("Parade Tim Kerja yang belum terverifikasi masuk daftar");
+}
+
 if (published.posts.length !== 0) {
   fail(`tulisan terbit harus 0, ketemu ${published.posts.length}`);
 }
-if (published.drafts.length !== 1) {
-  fail(`harus ada tepat satu draf, ketemu ${published.drafts.length}`);
-}
-const draft = withDrafts.posts.find((post) => post.draft);
-if (!draft) fail("draf tidak terbaca");
-if (published.posts.some((post) => post.slug === draft.slug)) {
-  fail("draf masuk daftar terbit");
+if (published.drafts.length !== 4) {
+  fail(`harus ada 4 draf, ketemu ${published.drafts.length}`);
 }
 
-const draftTitle = "Pertanyaan contoh yang belum ditulis?";
-if (draft.title !== draftTitle) fail("judul draf berubah");
+const sampleSlugs = [
+  "01-parade-tim-kerja",
+  "02-kompetensi-aliran-kerja",
+  "03-kontraktor-kecil-lean",
+];
+if (withDrafts.posts.length !== 3) {
+  fail(`pratinjau harus memuat 3 draf, ketemu ${withDrafts.posts.length}`);
+}
+for (const slug of sampleSlugs) {
+  if (!withDrafts.posts.some((post) => post.slug === slug && post.draft)) {
+    fail(`draf pratinjau hilang: ${slug}`);
+  }
+  if (published.posts.some((post) => post.slug === slug)) {
+    fail(`draf masuk daftar terbit: ${slug}`);
+  }
+}
+if (withDrafts.posts.some((post) => post.slug === "draf-contoh")) {
+  fail("berkas contoh format ikut pratinjau");
+}
 
-const paper = withDrafts.papers.find(
-  (item) => item.id === "lean-construction-developing-countries-2026",
+const paradePost = withDrafts.posts.find((post) => post.slug === "01-parade-tim-kerja");
+const educationPost = withDrafts.posts.find(
+  (post) => post.slug === "02-kompetensi-aliran-kerja",
 );
-const tool = withDrafts.tools.find((item) => item.id === "siapkerja-lps");
-const course = withDrafts.courses.find((item) => item.id === "ice-lean");
-if (!paper?.posts.some((post) => post.slug === draft.slug)) {
-  fail("paper tidak menaut balik ke draf saat includeDrafts");
+const smallPost = withDrafts.posts.find((post) => post.slug === "03-kontraktor-kecil-lean");
+if (paradePost.papers[0]?.id !== "2026-parade-tim-kerja-simulasi-dampak-variabilitas") {
+  fail("tulisan parade tidak menaut ke paper sumber");
 }
-if (!tool?.posts.some((post) => post.slug === draft.slug)) {
-  fail("alat tidak menaut balik ke draf saat includeDrafts");
+if (paradePost.papers[0]?.verified !== false) fail("paper parade seharusnya belum terverifikasi");
+if (!paradePost.tools.some((tool) => tool.id === "parade-tim-kerja")) {
+  fail("tulisan parade tidak menaut ke alat");
 }
-if (!course?.posts.some((post) => post.slug === draft.slug)) {
-  fail("kuliah tidak menaut balik ke draf saat includeDrafts");
+if (
+  educationPost.papers[0]?.doi !== "10.1080/15623599.2026.2690041" ||
+  educationPost.papers[0]?.verified !== true
+) {
+  fail("tulisan pendidikan tidak menaut ke paper sumber");
 }
-if (!draft.papers.some((item) => item.id === paper.id)) fail("draf tidak menaut ke paper");
-if (!draft.tools.some((item) => item.id === "siapkerja-lps")) fail("draf tidak menaut ke alat");
-if (!draft.courses.some((item) => item.id === "ice-lean")) fail("draf tidak menaut ke kuliah");
-if (!draft.lean) fail("draf lean harus menaut IAMKRI/LCI");
-if (draft.ogImage !== `https://muhabduh.id/og/blog/${draft.slug}.png`) {
-  fail("og image draf tidak menunjuk ke /blog");
+if (
+  smallPost.papers[0]?.doi !== "10.24928/2026/0153" ||
+  smallPost.papers[0]?.verified !== true
+) {
+  fail("tulisan kontraktor kecil tidak menaut ke paper sumber");
+}
+const educationPaper = withDrafts.papers.find(
+  (paper) => paper.id === "2026-introducing-production-system-thinking-into-construction",
+);
+if (!educationPaper?.posts.some((post) => post.slug === educationPost.slug)) {
+  fail("paper pendidikan tidak menaut balik ke draf");
+}
+const paradeTool = withDrafts.tools.find((tool) => tool.id === "parade-tim-kerja");
+if (!paradeTool?.posts.some((post) => post.slug === paradePost.slug)) {
+  fail("alat parade tidak menaut balik ke draf");
 }
 
 for (const list of [published.papers, published.tools, published.courses]) {
@@ -91,14 +127,18 @@ for (const list of [published.papers, published.tools, published.courses]) {
   }
 }
 
+const sampleTitles = withDrafts.posts.map((post) => post.title);
 const rss = (await import("../src/lib/content/graph.mjs")).renderRss(published);
 assertRssWellFormed(rss);
 if (rss.includes("<item>")) fail("RSS terbit berisi item");
-if (rss.includes(draftTitle)) fail("RSS memuat judul draf");
+for (const title of sampleTitles) {
+  if (rss.includes(title)) fail("RSS memuat judul draf");
+}
+if (rss.includes("Pertanyaan contoh")) fail("RSS memuat berkas contoh");
 if (!rss.includes("https://muhabduh.id/blog")) fail("RSS tidak menunjuk ke /blog");
 if (rss.includes("/bertanya")) fail("RSS masih menunjuk ke /bertanya");
 
-const png = renderQuestionPng(draftTitle);
+const png = renderQuestionPng(sampleTitles[0]);
 if (!png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) {
   fail("OG bukan PNG");
 }
@@ -106,14 +146,15 @@ if (png.length < 2000) fail("OG terlalu kecil");
 fs.mkdirSync(path.join(root, "screenshots"), { recursive: true });
 fs.writeFileSync(path.join(root, "screenshots", "og-draft-question.png"), png);
 
+const ogPosts = process.env.VERCEL_ENV === "preview" ? withDrafts.posts : published.posts;
 const ogDir = path.join(root, "public/og/blog");
 fs.mkdirSync(ogDir, { recursive: true });
 for (const name of fs.readdirSync(ogDir)) {
-  if (!published.posts.some((post) => name === `${post.slug}.png`)) {
+  if (!ogPosts.some((post) => name === `${post.slug}.png`)) {
     fs.unlinkSync(path.join(ogDir, name));
   }
 }
-for (const post of published.posts) {
+for (const post of ogPosts) {
   fs.writeFileSync(
     path.join(ogDir, `${post.slug}.png`),
     renderQuestionPng(post.title),
@@ -121,5 +162,5 @@ for (const post of published.posts) {
 }
 
 console.log(
-  `[content-check] ok — ${papers.length} karya, ${published.posts.length} tulisan terbit, 1 draf dikecualikan`,
+  `[content-check] ok — ${papers.length} karya (${verified.length} tampil), ${published.posts.length} tulisan terbit, ${withDrafts.posts.length} draf pratinjau`,
 );

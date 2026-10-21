@@ -3,11 +3,12 @@ title: "Pertanyaan contoh yang belum ditulis?"
 description: "Berkas contoh format. Bukan tulisan, dan tidak masuk daftar terbit."
 date: "2026-10-21"
 draft: true
+preview: false
 topics:
   - lean
   - pendidikan
 papers:
-  - lean-construction-developing-countries-2026
+  - 2026-lean-construction-in-developing-countries-the
 tools:
   - siapkerja-lps
 courses:

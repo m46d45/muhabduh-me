@@ -102,39 +102,59 @@ function splitFrontmatter(raw, where) {
   return { data, body };
 }
 
+const PAPER_KINDS = ["journal", "conference", "book", "chapter", "paper", "article"];
+
+/** Keep the five public topic slugs. Other tags stay in the file and are not pages. */
+function publicTopics(value) {
+  if (value == null) return [];
+  if (!Array.isArray(value)) return [];
+  const slugs = [];
+  for (const entry of value) {
+    const raw = String(entry).trim().toLowerCase();
+    const topic = TOPICS.find(
+      (item) => item.slug === raw || item.name.toLowerCase() === raw,
+    );
+    if (topic && !slugs.includes(topic.slug)) slugs.push(topic.slug);
+  }
+  return slugs;
+}
+
 export function readPapers(root) {
-  const file = path.join(root, "data", "publikasi.yaml");
-  if (!fs.existsSync(file)) fail("data/publikasi.yaml tidak ada");
+  const file = path.join(root, "data", "papers.yaml");
+  if (!fs.existsSync(file)) fail("data/papers.yaml tidak ada");
   let data;
   try {
     data = parseYaml(fs.readFileSync(file, "utf8"));
   } catch (error) {
-    fail(`publikasi.yaml rusak (${error instanceof Error ? error.message : error})`);
+    fail(`papers.yaml rusak (${error instanceof Error ? error.message : error})`);
   }
-  if (!Array.isArray(data)) fail("publikasi.yaml harus berupa daftar");
+  if (!Array.isArray(data)) fail("papers.yaml harus berupa daftar");
   const seen = new Set();
   return data.map((entry, index) => {
-    const where = `publikasi.yaml#${index + 1}`;
+    const where = `papers.yaml#${index + 1}`;
     if (!entry || typeof entry !== "object") fail(`${where} bukan peta`);
     const id = asString(entry.id, `${where} id`);
     if (!SLUG_RE.test(id)) fail(`${where}: id "${id}" bukan slug`);
     if (seen.has(id)) fail(`id publikasi ganda: ${id}`);
     seen.add(id);
-    const kind = asString(entry.kind, `${where} kind`);
-    if (!["paper", "chapter", "conference", "book", "article"].includes(kind)) {
-      fail(`${where}: kind "${kind}" tidak dikenal`);
-    }
+    const kind = asString(entry.type ?? entry.kind, `${where} type`);
+    if (!PAPER_KINDS.includes(kind)) fail(`${where}: type "${kind}" tidak dikenal`);
+    const title = asString(entry.title, `${where} title`);
+    const doi = asOptionalString(entry.doi);
+    const href = asOptionalString(entry.url ?? entry.href);
     return {
       id,
-      title: asString(entry.title, `${where} title`),
-      year: asString(entry.year, `${where} year`),
-      venue: asString(entry.venue, `${where} venue`),
+      title,
+      year: entry.year == null || entry.year === "" ? "" : asString(entry.year, `${where} year`),
+      venue: asOptionalString(entry.venue) ?? "",
       kind,
-      href: asString(entry.href, `${where} href`),
+      href,
       authors: asOptionalString(entry.authors),
-      doi: asOptionalString(entry.doi),
+      doi,
       summary: asOptionalString(entry.ringkasan ?? entry.summary),
-      topics: normalizeTopics(entry.topik ?? entry.topics, where),
+      topics: publicTopics(entry.topics ?? entry.topik),
+      verified: entry.verified === true,
+      status: asOptionalString(entry.status),
     };
   });
 }
@@ -174,6 +194,7 @@ export function readPosts(root) {
       description,
       date: asDateString(data.date, `${where} date`),
       draft: data.draft === true,
+      preview: data.preview !== false,
       topics,
       paperIds: list(data.papers, "papers"),
       toolIds: list(data.tools, "tools"),
@@ -209,7 +230,7 @@ export function buildSite(root, catalogs, options = {}) {
   for (const post of allPosts) {
     const where = `content/blog/${post.slug}.md`;
     for (const id of post.paperIds) {
-      if (!paperById.has(id)) fail(`${where}: papers id "${id}" tidak ada di publikasi.yaml`);
+      if (!paperById.has(id)) fail(`${where}: papers id "${id}" tidak ada di papers.yaml`);
     }
     for (const id of post.toolIds) {
       if (!toolById.has(id)) fail(`${where}: tools id "${id}" tidak ada`);
@@ -220,7 +241,10 @@ export function buildSite(root, catalogs, options = {}) {
   }
 
   const visible = allPosts
-    .filter((post) => includeDrafts || !post.draft)
+    .filter((post) => {
+      if (!post.draft) return true;
+      return includeDrafts && post.preview !== false;
+    })
     .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.slug.localeCompare(b.slug)));
 
   const posts = visible.map((post) => {
@@ -254,12 +278,14 @@ export function buildSite(root, catalogs, options = {}) {
     };
   });
 
-  const papersOut = papers.map((paper) => ({
-    ...paper,
-    posts: posts
-      .filter((post) => post.paperIds.includes(paper.id))
-      .map((post) => ({ slug: post.slug, title: post.title })),
-  }));
+  const papersOut = papers
+    .filter((paper) => paper.verified)
+    .map((paper) => ({
+      ...paper,
+      posts: posts
+        .filter((post) => post.paperIds.includes(paper.id))
+        .map((post) => ({ slug: post.slug, title: post.title })),
+    }));
 
   const toolsOut = catalogs.tools.map((tool) => ({
     id: tool.id,

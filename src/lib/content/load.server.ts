@@ -3,12 +3,10 @@ import { tools } from "@/data/tools.mjs";
 import { buildSite, renderRss, topicBySlug } from "./graph.mjs";
 import type { PostCard, TopicCard } from "./types";
 
-function site(includeDrafts = false) {
-  return buildSite(
-    process.cwd(),
-    { tools, courses },
-    { includeDrafts },
-  );
+function site() {
+  return buildSite(process.cwd(), { tools, courses }, {
+    includeDrafts: process.env.VERCEL_ENV === "preview",
+  });
 }
 
 function toCard(post: {
@@ -17,6 +15,7 @@ function toCard(post: {
   description: string;
   date: string;
   topics: string[];
+  draft?: boolean;
 }): PostCard {
   return {
     slug: post.slug,
@@ -24,6 +23,7 @@ function toCard(post: {
     description: post.description,
     date: post.date,
     topics: post.topics,
+    draft: post.draft === true,
   };
 }
 
@@ -44,12 +44,13 @@ export function blogIndex(): { topics: TopicCard[]; posts: PostCard[] } {
 export function postBySlug(slug: string) {
   const graph = site();
   const post = graph.posts.find((item) => item.slug === slug);
-  if (!post || post.draft) return null;
+  if (!post) return null;
   return {
     slug: post.slug,
     title: post.title,
     description: post.description,
     date: post.date,
+    draft: post.draft,
     html: post.html,
     topics: post.topics.map((slugName) => {
       const topic = topicBySlug(slugName);
@@ -65,6 +66,8 @@ export function postBySlug(slug: string) {
       authors: paper.authors,
       doi: paper.doi,
       summary: paper.summary,
+      verified: paper.verified,
+      status: paper.status,
     })),
     tools: post.tools,
     courses: post.courses,

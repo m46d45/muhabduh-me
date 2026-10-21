@@ -6,7 +6,7 @@ type Paper = {
   title: string;
   year: string;
   venue: string;
-  href: string;
+  href: string | null;
   doi: string | null;
   posts: { slug: string; title: string }[];
 };
@@ -66,18 +66,22 @@ export function TopicPage({
         <h2 className="mt-12 font-display text-xl font-semibold text-ink">Publikasi</h2>
         {papers.length === 0 ? (
           <p className="mt-3 text-sm text-muted">
-            Belum ada karya yang ditandai topik ini. Penandaan menyusul di data,
-            tidak diisi perkiraan.
+            Belum ada karya terverifikasi pada topik ini.
           </p>
         ) : (
           <ul className="mt-4 space-y-4">
             {papers.map((paper) => (
               <li key={paper.id}>
-                <a href={paper.href} className="font-medium text-ink hover:text-accent">
-                  {paper.title}
-                </a>
+                {paper.href ? (
+                  <a href={paper.href} className="font-medium text-ink hover:text-accent">
+                    {paper.title}
+                  </a>
+                ) : (
+                  <p className="font-medium text-ink">{paper.title}</p>
+                )}
                 <p className="text-sm text-muted">
-                  {paper.year} · {paper.venue}
+                  {paper.year ? `${paper.year} · ` : ""}
+                  {paper.venue}
                 </p>
               </li>
             ))}

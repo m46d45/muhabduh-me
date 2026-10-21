@@ -5,7 +5,7 @@ import { fetchPapers } from "@/lib/content/api";
 import { pageHead } from "@/lib/seo";
 
 const description =
-  "Karya penelitian Muhamad Abduh yang menjadi sumber seri blog. Pertanyaan riset menyusul di data, tidak diisi perkiraan.";
+  "Karya terverifikasi yang menjadi sumber seri blog. Entri yang belum terverifikasi tidak ditampilkan.";
 
 export const Route = createFileRoute("/riset")({
   loader: () => fetchPapers(),
@@ -25,7 +25,7 @@ function RisetRoute() {
     <SiteShell>
       <PaperList
         heading="Riset"
-        lede="Daftar yang sama dengan halaman publikasi, dipakai blog sebagai sumber. Pertanyaan riset dan manfaat bagi pembaca belum ditulis di data. Studi yang sedang berjalan tetap ada di halaman Research."
+        lede="Daftar yang sama dengan halaman publikasi: hanya karya terverifikasi. Studi yang sedang berjalan tetap ada di halaman Research."
         papers={data.papers}
       />
     </SiteShell>
