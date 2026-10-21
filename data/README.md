@@ -31,7 +31,7 @@ Generated on 21 Oct 2026 (WIB) on the box. Files: `papers.json` and `papers.yaml
 - Total: 151 ({'book': 8, 'journal': 35, 'chapter': 18, 'conference': 90})
 - With DOI: 49 (all resolve in Crossref)
 - Not on site (on_site=false): 120
-- Unverified: 90 (mostly Scholar-only items without a DOI, plus Parade, which is in press)
+- Unverified: 89 (mostly Scholar-only items without a DOI). Parade Tim Kerja is verified, in press, and has no DOI.
 - Linked to a blog week: 17
 - Topics: {'teknologi': 31, 'lean': 14, 'pendidikan': 11, 'simulasi': 10, 'keberlanjutan': 40, 'ketahanan-bencana': 16, 'kontraktor-kecil': 13, 'pengadaan-berkelanjutan': 10, 'rantai-pasok': 31}
 
@@ -45,7 +45,7 @@ ORCID and Scholar were matched by normalized title. Scholar's internal duplicate
 - "Surjamanto.(2012). Kajian Reuse Material Bangunan Dalam Konsep Sustainable Construction di Indonesia": Scholar citation-string duplicate of #4
 
 ## Gaps / open issues
-- Parade Tim Kerja: authors not in any scanned source. LoA not inspected (status in-press, verified=false).
+- Parade Tim Kerja: author Muhamad Abduh, accepted KoNTekS 20, in press, verified, no DOI yet.
 - 2006 EASEC items: ORCID says 2006 but the venue name says EASEC 2010 (the site omits them). Kept ORCID's year.
 - TPL/IJCM: Scholar 2025 vs Crossref 2024. Set to 2024.
 - JTS items 10.5614/jts.2005.12.3.6 and jts.2004.11.4.2: Crossref issued year 2010 vs the volume year. Source year kept.

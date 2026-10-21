@@ -19,8 +19,8 @@ const papers = readPapers(root);
 if (papers.length !== 151) fail(`papers.yaml harus 151 karya, ketemu ${papers.length}`);
 const verified = papers.filter((paper) => paper.verified);
 const hidden = papers.filter((paper) => !paper.verified);
-if (verified.length !== 61) fail(`karya terverifikasi harus 61, ketemu ${verified.length}`);
-if (hidden.length !== 90) fail(`karya tersembunyi harus 90, ketemu ${hidden.length}`);
+if (verified.length !== 62) fail(`karya terverifikasi harus 62, ketemu ${verified.length}`);
+if (hidden.length !== 89) fail(`karya tersembunyi harus 89, ketemu ${hidden.length}`);
 
 const locked = {
   "2026-introducing-production-system-thinking-into-construction": {
@@ -49,15 +49,19 @@ for (const [id, expect] of Object.entries(locked)) {
 const published = buildSite(root, { tools, courses }, { includeDrafts: false });
 const withDrafts = buildSite(root, { tools, courses }, { includeDrafts: true });
 
-if (published.papers.length !== 61) {
-  fail(`halaman publikasi memuat ${published.papers.length} karya, harus 61`);
+if (published.papers.length !== 62) {
+  fail(`halaman publikasi memuat ${published.papers.length} karya, harus 62`);
 }
 if (published.papers.some((paper) => !paper.verified)) {
   fail("halaman publikasi memuat karya yang belum terverifikasi");
 }
-if (published.papers.some((paper) => paper.id.startsWith("2026-parade-tim-kerja"))) {
-  fail("Parade Tim Kerja yang belum terverifikasi masuk daftar");
-}
+const paradeListed = published.papers.find(
+  (paper) => paper.id === "2026-parade-tim-kerja-simulasi-dampak-variabilitas",
+);
+if (!paradeListed) fail("Parade Tim Kerja yang sudah terverifikasi tidak masuk daftar");
+if (paradeListed.authors !== "Muhamad Abduh") fail("penulis Parade berubah");
+if (paradeListed.doi !== null) fail("Parade belum punya DOI");
+if (paradeListed.status !== "in-press") fail("status Parade berubah");
 
 if (published.posts.length !== 0) {
   fail(`tulisan terbit harus 0, ketemu ${published.posts.length}`);
@@ -94,7 +98,9 @@ const smallPost = withDrafts.posts.find((post) => post.slug === "03-kontraktor-k
 if (paradePost.papers[0]?.id !== "2026-parade-tim-kerja-simulasi-dampak-variabilitas") {
   fail("tulisan parade tidak menaut ke paper sumber");
 }
-if (paradePost.papers[0]?.verified !== false) fail("paper parade seharusnya belum terverifikasi");
+if (paradePost.papers[0]?.verified !== true) fail("paper parade seharusnya terverifikasi");
+if (paradePost.papers[0]?.authors !== "Muhamad Abduh") fail("tulisan parade tidak memuat penulis");
+if (paradePost.papers[0]?.doi != null) fail("tulisan parade tidak boleh punya DOI");
 if (!paradePost.tools.some((tool) => tool.id === "parade-tim-kerja")) {
   fail("tulisan parade tidak menaut ke alat");
 }

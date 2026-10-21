@@ -31,6 +31,13 @@ function asString(value, where) {
 function asOptionalString(value) {
   if (value == null || value === "") return null;
   if (typeof value === "number" && Number.isFinite(value)) return String(value);
+  if (Array.isArray(value)) {
+    const names = value
+      .filter((item) => typeof item === "string")
+      .map((item) => item.trim())
+      .filter(Boolean);
+    return names.length ? names.join(", ") : null;
+  }
   if (typeof value !== "string") return null;
   const trimmed = value.trim();
   return trimmed || null;

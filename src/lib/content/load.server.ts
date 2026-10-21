@@ -122,6 +122,7 @@ export function papersPage() {
       doi: paper.doi,
       summary: paper.summary,
       topics: paper.topics,
+      status: paper.status,
       posts: paper.posts,
     })),
   };

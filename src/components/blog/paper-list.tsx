@@ -11,6 +11,7 @@ export type PaperRow = {
   doi: string | null;
   summary: string | null;
   topics: string[];
+  status: string | null;
   posts: { slug: string; title: string }[];
 };
 
@@ -50,6 +51,7 @@ export function PaperList({
               <p className="text-xs uppercase tracking-wide text-subtle">
                 {paper.year ? `${paper.year} · ` : ""}
                 {kindLabel[paper.kind] ?? paper.kind}
+                {paper.status === "in-press" ? " · dalam proses terbit" : ""}
               </p>
               <h2 className="mt-1 font-display text-lg font-semibold text-ink">
                 {paper.href ? (
