@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 
 export type PaperRow = {
@@ -28,10 +29,12 @@ export function PaperList({
   heading,
   lede,
   papers,
+  note,
 }: {
   heading: string;
   lede: string;
   papers: PaperRow[];
+  note?: ReactNode;
 }) {
   return (
     <article className="section-pad pb-20 pt-28">
@@ -45,6 +48,7 @@ export function PaperList({
           {heading}
         </h1>
         <p className="mt-4 max-w-2xl text-muted leading-relaxed">{lede}</p>
+        {note}
         <ul className="mt-10 divide-y divide-border border-y border-border">
           {papers.map((paper) => (
             <li key={paper.id} id={paper.id} className="py-6">

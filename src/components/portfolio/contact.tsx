@@ -91,6 +91,10 @@ const moreLinks = [
     label: "Google Scholar",
     href: "https://scholar.google.com/citations?user=DctmufgAAAAJ&hl=en",
   },
+  {
+    label: "ResearchGate",
+    href: "https://www.researchgate.net/profile/Muhamad-Abduh-2",
+  },
 ];
 
 export function Contact() {
@@ -153,7 +157,17 @@ export function Contact() {
           <p className="mt-4 text-muted leading-relaxed">
             Happy to hear about teaching, research, or collaboration. Email is
             usually the easiest way to reach me. Office: CIBE Building, 6th
-            floor, room 0604, Jl. Ganesha No. 10, Bandung 40132.
+            floor, room 0604, Jl. Ganesha No. 10, Bandung 40132. If you cannot
+            access one of my papers, you can request a copy on{" "}
+            <a
+              href="https://www.researchgate.net/profile/Muhamad-Abduh-2"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-accent underline-offset-2 hover:underline"
+            >
+              ResearchGate
+            </a>
+            .
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             <Button type="button" variant="secondary" size="sm" onClick={copyEmail}>
