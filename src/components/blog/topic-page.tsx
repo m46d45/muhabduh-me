@@ -32,10 +32,10 @@ export function TopicPage({
   tools: Tool[];
 }) {
   return (
-    <article className="section-pad pb-20 pt-28">
+    <article lang="id" className="section-pad pb-20 pt-28">
       <div className="container-narrow">
         <p className="text-sm text-subtle">
-          <Link to="/blog" className="text-accent hover:underline">
+          <Link to="/blog" lang="en" className="text-accent hover:underline">
             Blog
           </Link>
         </p>

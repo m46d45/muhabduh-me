@@ -52,7 +52,7 @@ function formatDate(iso: string) {
 
 export function BlogPost({ post }: { post: BlogPostView }) {
   return (
-    <article className="section-pad pb-20 pt-28">
+    <article lang="id" className="section-pad pb-20 pt-28">
       <div className="container-narrow max-w-3xl">
         <p className="text-sm text-subtle">
           <Link to="/blog" className="text-accent hover:underline">
