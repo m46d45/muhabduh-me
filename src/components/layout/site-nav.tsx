@@ -47,6 +47,7 @@ export function SiteNav() {
 
   return (
     <header
+      lang="en"
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-250",
         scrolled

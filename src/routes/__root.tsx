@@ -39,7 +39,9 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
-  const lang = /^\/(blog|topik|publikasi|riset)(\/|$)/.test(pathname) ? "id" : "en";
+  // Blog and topic pages mark their articles lang="id". The document stays
+  // English so the nav and footer are not announced as Indonesian.
+  const lang = /^\/(publikasi|riset)(\/|$)/.test(pathname) ? "id" : "en";
   return (
     <RootDocument lang={lang}>
       <Outlet />

@@ -13,12 +13,17 @@ function formatDate(iso: string) {
 
 export function BlogLanding({ topics, posts }: { topics: TopicCard[]; posts: PostCard[] }) {
   return (
-    <article className="section-pad pb-20 pt-28">
+    <article lang="id" className="section-pad pb-20 pt-28">
       <div className="container-narrow">
-        <p className="text-sm font-semibold tracking-[0.08em] uppercase text-accent">Blog</p>
+        <p lang="en" className="text-sm font-semibold tracking-[0.08em] uppercase text-accent">
+          Blog
+        </p>
         <h1 className="mt-3 max-w-3xl font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
           Memulai dengan Bertanya
         </h1>
+        <p lang="en" className="mt-3 max-w-2xl text-sm leading-relaxed text-subtle">
+          Essays in Bahasa Indonesia for practitioners and students in Indonesia.
+        </p>
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted">
           Setiap tulisan dalam seri ini berangkat dari satu pertanyaan yang saya temui di proyek
           konstruksi, di ruang kuliah, atau saat membaca data lapangan. Jawabannya saya susun dari
