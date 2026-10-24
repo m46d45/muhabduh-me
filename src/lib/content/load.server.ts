@@ -1,12 +1,45 @@
 import { courses } from "@/data/courses.mjs";
 import { tools } from "@/data/tools.mjs";
-import { buildSite, renderRss, topicBySlug } from "./graph.mjs";
+import { buildSiteFromSources, renderRss, topicBySlug } from "./graph.mjs";
 import type { PostCard, TopicCard } from "./types";
 
+/**
+ * Content is read from the module graph, not from `process.cwd()`.
+ * Prerender runs in the repo and can see `data/` and `content/`. The deployed
+ * server function cannot: Vercel does not trace those `fs` paths, so a runtime
+ * read throws `[content] data/papers.yaml tidak ada` and the client error
+ * boundary replaces the prerendered page.
+ */
+const paperFiles = import.meta.glob("../../../data/papers.yaml", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
+
+const postFiles = import.meta.glob("../../../content/blog/*.md", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
+
 function site() {
-  return buildSite(process.cwd(), { tools, courses }, {
-    includeDrafts: process.env.VERCEL_ENV === "preview",
-  });
+  const papersYaml = Object.values(paperFiles).find(
+    (value): value is string => typeof value === "string",
+  );
+  if (!papersYaml) throw new Error("[content] data/papers.yaml tidak ada");
+  const posts = Object.entries(postFiles)
+    .flatMap(([file, text]) => {
+      const name = file.split("/").pop();
+      return typeof text === "string" && name ? [{ name, text }] : [];
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
+  return buildSiteFromSources(
+    { papersYaml, posts },
+    { tools, courses },
+    {
+      includeDrafts: process.env.VERCEL_ENV === "preview",
+    },
+  );
 }
 
 function toCard(post: {
@@ -34,8 +67,7 @@ export function blogIndex(): { topics: TopicCard[]; posts: PostCard[] } {
       slug: topic.slug,
       name: topic.name,
       blurb: topic.blurb,
-      postCount: graph.posts.filter((post) => post.topics.includes(topic.slug))
-        .length,
+      postCount: graph.posts.filter((post) => post.topics.includes(topic.slug)).length,
     })),
     posts: graph.posts.map(toCard),
   };

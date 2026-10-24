@@ -53,9 +53,7 @@ export function normalizeTopics(value, where) {
   const slugs = [];
   for (const entry of value) {
     const raw = String(entry).trim().toLowerCase();
-    const topic = TOPICS.find(
-      (item) => item.slug === raw || item.name.toLowerCase() === raw,
-    );
+    const topic = TOPICS.find((item) => item.slug === raw || item.name.toLowerCase() === raw);
     if (!topic) {
       fail(
         `${where}: topik "${entry}" tidak dikenal. Pilih dari: ${TOPICS.map((item) => item.slug).join(", ")}`,
@@ -118,20 +116,16 @@ function publicTopics(value) {
   const slugs = [];
   for (const entry of value) {
     const raw = String(entry).trim().toLowerCase();
-    const topic = TOPICS.find(
-      (item) => item.slug === raw || item.name.toLowerCase() === raw,
-    );
+    const topic = TOPICS.find((item) => item.slug === raw || item.name.toLowerCase() === raw);
     if (topic && !slugs.includes(topic.slug)) slugs.push(topic.slug);
   }
   return slugs;
 }
 
-export function readPapers(root) {
-  const file = path.join(root, "data", "papers.yaml");
-  if (!fs.existsSync(file)) fail("data/papers.yaml tidak ada");
+function parsePapersYaml(text) {
   let data;
   try {
-    data = parseYaml(fs.readFileSync(file, "utf8"));
+    data = parseYaml(text);
   } catch (error) {
     fail(`papers.yaml rusak (${error instanceof Error ? error.message : error})`);
   }
@@ -166,49 +160,73 @@ export function readPapers(root) {
   });
 }
 
+export function readPapers(root) {
+  const file = path.join(root, "data", "papers.yaml");
+  if (!fs.existsSync(file)) fail("data/papers.yaml tidak ada");
+  return parsePapersYaml(fs.readFileSync(file, "utf8"));
+}
+
+function parsePostFile(name, raw) {
+  const slug = name.slice(0, -3);
+  const where = `content/blog/${name}`;
+  if (!SLUG_RE.test(slug)) fail(`${where}: nama berkas bukan slug`);
+  const { data, body } = splitFrontmatter(raw, where);
+  if (data.slug != null && String(data.slug) !== slug) {
+    fail(`${where}: slug frontmatter harus sama dengan nama berkas`);
+  }
+  const title = asString(data.title, `${where} title`);
+  if (!title.includes("?")) fail(`${where}: judul harus berbentuk pertanyaan`);
+  const description = asString(data.description, `${where} description`);
+  if (description.length > 220) fail(`${where}: description lebih dari satu kalimat`);
+  const topics = normalizeTopics(data.topics ?? data.topik, where);
+  if (topics.length < 1 || topics.length > 4) {
+    fail(`${where}: isi 1–4 topik`);
+  }
+  const list = (value, label) => {
+    if (value == null) return [];
+    if (!Array.isArray(value)) fail(`${where}: ${label} harus daftar`);
+    return value.map((item) => asString(item, `${where} ${label}`));
+  };
+  return {
+    slug,
+    title,
+    description,
+    date: asDateString(data.date, `${where} date`),
+    draft: data.draft === true,
+    preview: data.preview !== false,
+    topics,
+    paperIds: list(data.papers, "papers"),
+    toolIds: list(data.tools, "tools"),
+    courseIds: list(data.courses, "courses"),
+    html: renderMarkdown(body.trim()),
+  };
+}
+
 export function readPosts(root) {
   const dir = path.join(root, "content", "blog");
   if (!fs.existsSync(dir)) return [];
-  const files = fs
+  return fs
     .readdirSync(dir)
     .filter((name) => name.endsWith(".md"))
-    .sort();
-  return files.map((name) => {
-    const slug = name.slice(0, -3);
-    const where = `content/blog/${name}`;
-    if (!SLUG_RE.test(slug)) fail(`${where}: nama berkas bukan slug`);
-    const raw = fs.readFileSync(path.join(dir, name), "utf8");
-    const { data, body } = splitFrontmatter(raw, where);
-    if (data.slug != null && String(data.slug) !== slug) {
-      fail(`${where}: slug frontmatter harus sama dengan nama berkas`);
-    }
-    const title = asString(data.title, `${where} title`);
-    if (!title.includes("?")) fail(`${where}: judul harus berbentuk pertanyaan`);
-    const description = asString(data.description, `${where} description`);
-    if (description.length > 220) fail(`${where}: description lebih dari satu kalimat`);
-    const topics = normalizeTopics(data.topics ?? data.topik, where);
-    if (topics.length < 1 || topics.length > 4) {
-      fail(`${where}: isi 1–4 topik`);
-    }
-    const list = (value, label) => {
-      if (value == null) return [];
-      if (!Array.isArray(value)) fail(`${where}: ${label} harus daftar`);
-      return value.map((item) => asString(item, `${where} ${label}`));
-    };
-    return {
-      slug,
-      title,
-      description,
-      date: asDateString(data.date, `${where} date`),
-      draft: data.draft === true,
-      preview: data.preview !== false,
-      topics,
-      paperIds: list(data.papers, "papers"),
-      toolIds: list(data.tools, "tools"),
-      courseIds: list(data.courses, "courses"),
-      html: renderMarkdown(body.trim()),
-    };
-  });
+    .sort()
+    .map((name) => parsePostFile(name, fs.readFileSync(path.join(dir, name), "utf8")));
+}
+
+function readSources(root) {
+  const file = path.join(root, "data", "papers.yaml");
+  if (!fs.existsSync(file)) fail("data/papers.yaml tidak ada");
+  const dir = path.join(root, "content", "blog");
+  const posts = fs.existsSync(dir)
+    ? fs
+        .readdirSync(dir)
+        .filter((name) => name.endsWith(".md"))
+        .sort()
+        .map((name) => ({
+          name,
+          text: fs.readFileSync(path.join(dir, name), "utf8"),
+        }))
+    : [];
+  return { papersYaml: fs.readFileSync(file, "utf8"), posts };
 }
 
 function card(post) {
@@ -222,14 +240,14 @@ function card(post) {
 }
 
 /**
- * @param {string} root
- * @param {{ tools: {id: string, title: string, appUrl?: string}[], courses: {id: string, title: string, href: string}[] }} catalogs
+ * @param {{ papersYaml: string, posts: { name: string, text: string }[] }} sources
+ * @param {{ tools: {id: string, title: string, appUrl?: string, topics?: string[]}[], courses: {id: string, title: string, href: string}[] }} catalogs
  * @param {{ includeDrafts?: boolean }} [options]
  */
-export function buildSite(root, catalogs, options = {}) {
+export function buildSiteFromSources(sources, catalogs, options = {}) {
   const includeDrafts = options.includeDrafts === true;
-  const papers = readPapers(root);
-  const allPosts = readPosts(root);
+  const papers = parsePapersYaml(sources.papersYaml);
+  const allPosts = sources.posts.map((post) => parsePostFile(post.name, post.text));
   const paperById = new Map(papers.map((paper) => [paper.id, paper]));
   const toolById = new Map(catalogs.tools.map((tool) => [tool.id, tool]));
   const courseById = new Map(catalogs.courses.map((course) => [course.id, course]));
@@ -258,8 +276,7 @@ export function buildSite(root, catalogs, options = {}) {
     const related = visible
       .filter(
         (other) =>
-          other.slug !== post.slug &&
-          other.topics.some((topic) => post.topics.includes(topic)),
+          other.slug !== post.slug && other.topics.some((topic) => post.topics.includes(topic)),
       )
       .slice(0, 3)
       .map(card);
@@ -323,6 +340,15 @@ export function buildSite(root, catalogs, options = {}) {
     courses: coursesOut,
     drafts: allPosts.filter((post) => post.draft).map(card),
   };
+}
+
+/**
+ * @param {string} root
+ * @param {{ tools: {id: string, title: string, appUrl?: string, topics?: string[]}[], courses: {id: string, title: string, href: string}[] }} catalogs
+ * @param {{ includeDrafts?: boolean }} [options]
+ */
+export function buildSite(root, catalogs, options = {}) {
+  return buildSiteFromSources(readSources(root), catalogs, options);
 }
 
 export function renderRss(site) {

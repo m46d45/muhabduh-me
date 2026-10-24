@@ -69,6 +69,18 @@ export type SiteGraph = {
 
 export function topicBySlug(slug: string): TopicInfo | null;
 
+export function buildSiteFromSources(
+  sources: {
+    papersYaml: string;
+    posts: { name: string; text: string }[];
+  },
+  catalogs: {
+    tools: { id: string; title: string; appUrl?: string; topics?: string[] }[];
+    courses: { id: string; title: string; href: string }[];
+  },
+  options?: { includeDrafts?: boolean },
+): SiteGraph;
+
 export function buildSite(
   root: string,
   catalogs: {
