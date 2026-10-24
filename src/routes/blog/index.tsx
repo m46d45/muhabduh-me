@@ -5,7 +5,7 @@ import { fetchBlogIndex } from "@/lib/content/api";
 import { pageHead } from "@/lib/seo";
 
 const description =
-  "Seri Memulai dengan Bertanya: setiap tulisan dimulai dari satu pertanyaan yang berangkat dari situasi penelitian Muhamad Abduh.";
+  "Setiap tulisan dalam seri ini berangkat dari satu pertanyaan yang saya temui di proyek konstruksi, di ruang kuliah, atau saat membaca data lapangan. Jawabannya saya susun dari penelitian yang sudah saya kerjakan, dengan bahasa yang mudah diikuti praktisi, mahasiswa, dan pembaca umum.";
 
 export const Route = createFileRoute("/blog/")({
   loader: () => fetchBlogIndex(),

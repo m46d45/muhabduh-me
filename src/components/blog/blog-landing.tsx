@@ -11,37 +11,20 @@ function formatDate(iso: string) {
   });
 }
 
-export function BlogLanding({
-  topics,
-  posts,
-}: {
-  topics: TopicCard[];
-  posts: PostCard[];
-}) {
+export function BlogLanding({ topics, posts }: { topics: TopicCard[]; posts: PostCard[] }) {
   return (
     <article className="section-pad pb-20 pt-28">
       <div className="container-narrow">
-        <p className="text-sm font-semibold tracking-[0.08em] uppercase text-accent">
-          Blog
-        </p>
+        <p className="text-sm font-semibold tracking-[0.08em] uppercase text-accent">Blog</p>
         <h1 className="mt-3 max-w-3xl font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
           Memulai dengan Bertanya
         </h1>
-        <div className="mt-6 max-w-2xl space-y-4 text-base leading-relaxed text-muted">
-          <p>
-            Seri ini menuliskan penelitian Muhamad Abduh supaya lebih mudah
-            diikuti. Setiap tulisan dimulai dari satu pertanyaan.
-          </p>
-          <p>
-            Pertanyaan itu berangkat dari situasi di penelitian Abduh sendiri —
-            di proyek, di kelas, atau di data lapangan — bukan dari slogan, dan
-            bukan untuk memamerkan paper.
-          </p>
-          <p>
-            Nama seri terinspirasi cara Socrates bertanya. Ini bukan kutipan
-            Socrates.
-          </p>
-        </div>
+        <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted">
+          Setiap tulisan dalam seri ini berangkat dari satu pertanyaan yang saya temui di proyek
+          konstruksi, di ruang kuliah, atau saat membaca data lapangan. Jawabannya saya susun dari
+          penelitian yang sudah saya kerjakan, dengan bahasa yang mudah diikuti praktisi, mahasiswa,
+          dan pembaca umum.
+        </p>
 
         <h2 className="mt-14 font-display text-2xl font-semibold tracking-tight text-ink">
           Kategori
@@ -54,16 +37,10 @@ export function BlogLanding({
                 params={{ topik: topic.slug }}
                 className="block rounded-xl border border-border bg-surface p-5 shadow-soft transition-colors hover:border-accent/30"
               >
-                <span className="font-display text-lg font-semibold text-ink">
-                  {topic.name}
-                </span>
-                <span className="mt-1 block text-sm leading-relaxed text-muted">
-                  {topic.blurb}
-                </span>
+                <span className="font-display text-lg font-semibold text-ink">{topic.name}</span>
+                <span className="mt-1 block text-sm leading-relaxed text-muted">{topic.blurb}</span>
                 <span className="mt-3 block text-xs font-medium text-accent">
-                  {topic.postCount === 0
-                    ? "Belum ada tulisan"
-                    : `${topic.postCount} tulisan`}
+                  {topic.postCount === 0 ? "Segera terbit" : `${topic.postCount} tulisan`}
                 </span>
               </Link>
             </li>
@@ -71,19 +48,19 @@ export function BlogLanding({
         </ul>
 
         <h2 className="mt-14 font-display text-2xl font-semibold tracking-tight text-ink">
-          Tulisan dan pembaruan
+          Tulisan terbaru
         </h2>
         {posts.length === 0 ? (
           <p className="mt-4 max-w-2xl text-muted leading-relaxed">
-            Belum ada tulisan terbit. Pembaruan akan muncul di daftar ini
-            setelah sebuah tulisan disetujui dan masuk repositori.
+            Tulisan pertama sedang saya siapkan. Ikuti pembaruannya lewat RSS atau lihat daftar
+            publikasi.
           </p>
         ) : (
           <ol className="mt-6 divide-y divide-border border-y border-border">
             {posts.every((post) => post.draft) ? (
               <li className="py-4 text-sm leading-relaxed text-muted">
-                Tulisan di bawah ini masih draf. Mereka tampil di pratinjau dan
-                belum masuk situs yang sudah terbit.
+                Tulisan di bawah ini masih draf. Mereka tampil di pratinjau dan belum masuk situs
+                yang sudah terbit.
               </li>
             ) : null}
             {posts.map((post) => (
@@ -97,11 +74,7 @@ export function BlogLanding({
                   {formatDate(post.date)}
                 </p>
                 <h3 className="mt-1 font-display text-xl font-semibold tracking-tight text-ink">
-                  <Link
-                    to="/blog/$slug"
-                    params={{ slug: post.slug }}
-                    className="hover:text-accent"
-                  >
+                  <Link to="/blog/$slug" params={{ slug: post.slug }} className="hover:text-accent">
                     {post.title}
                   </Link>
                 </h3>
@@ -114,10 +87,7 @@ export function BlogLanding({
         )}
 
         <p className="mt-8 text-sm text-muted">
-          <a
-            href="/rss.xml"
-            className="font-medium text-accent underline-offset-2 hover:underline"
-          >
+          <a href="/rss.xml" className="font-medium text-accent underline-offset-2 hover:underline">
             Langganan lewat RSS
           </a>
           <span aria-hidden> · </span>

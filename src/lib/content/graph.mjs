@@ -377,7 +377,7 @@ export function renderRss(site) {
   <channel>
     <title>Memulai dengan Bertanya — Muhamad Abduh</title>
     <link>${site.siteUrl}/blog</link>
-    <description>Seri tulisan Muhamad Abduh. Setiap tulisan dimulai dari satu pertanyaan yang berangkat dari situasi penelitian.</description>
+    <description>Setiap tulisan dalam seri ini berangkat dari satu pertanyaan yang saya temui di proyek konstruksi, di ruang kuliah, atau saat membaca data lapangan. Jawabannya saya susun dari penelitian yang sudah saya kerjakan, dengan bahasa yang mudah diikuti praktisi, mahasiswa, dan pembaca umum.</description>
     <language>id</language>
     <lastBuildDate>${xmlEscape(last)}</lastBuildDate>
     <atom:link href="${site.siteUrl}/rss.xml" rel="self" type="application/rss+xml"/>
