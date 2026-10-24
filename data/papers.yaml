@@ -1,0 +1,3028 @@
+- id: 2026-construction-and-infrastructure-management-in-indonesia
+  title: 'Construction and Infrastructure Management in Indonesia — Volume 1: Construction'
+  year: 2026
+  venue: ITB Press
+  type: book
+  authors: CIM research group, ITB (M Abduh, deputy editor)
+  doi: null
+  url: https://muhabduh.id/publications
+  status: published
+  topics: []
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - site
+  verified: true
+  note: Listed on muhabduh.id Books section; not in ORCID/Scholar scan
+- id: 2026-construction-and-infrastructure-management-in-indonesia-2
+  title: 'Construction and Infrastructure Management in Indonesia — Volume 2: Infrastructure
+    Management'
+  year: 2026
+  venue: ITB Press
+  type: book
+  authors: CIM research group, ITB (M Abduh, deputy editor)
+  doi: null
+  url: https://muhabduh.id/publications
+  status: published
+  topics: []
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - site
+  verified: true
+  note: Listed on muhabduh.id Books section; not in ORCID/Scholar scan
+- id: 2026-evaluating-the-quality-of-publicly-available
+  title: Evaluating the quality of publicly available construction technology data
+    in Indonesia
+  year: 2026
+  venue: Construction Economics and Building
+  type: journal
+  authors: AT Putri, TK Chan, B Soemardi, M Abduh
+  doi: 10.5130/h4g1we40
+  url: https://doi.org/10.5130/h4g1we40
+  status: published
+  topics:
+  - teknologi
+  on_site: true
+  blog_weeks:
+  - 12
+  related_posts: []
+  source:
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2026-introducing-production-system-thinking-into-construction
+  title: 'Introducing production system thinking into construction management education:
+    a multi-level framework based on the Indonesian context'
+  year: 2026
+  venue: International Journal of Construction Management
+  type: journal
+  authors: M Abduh, RD Wirahadikusumah, BW Soemardi, A Martina
+  doi: 10.1080/15623599.2026.2690041
+  url: https://doi.org/10.1080/15623599.2026.2690041
+  status: published
+  topics:
+  - lean
+  - pendidikan
+  on_site: true
+  blog_weeks:
+  - 2
+  related_posts: []
+  source:
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2026-lean-construction-in-developing-countries-the
+  title: 'Lean construction in developing countries: the case of Indonesia'
+  year: 2026
+  venue: Research Companion to Advances in the Construction Industry in the Global
+    South
+  type: chapter
+  authors: M Abduh
+  doi: 10.4337/9781035349029.00029
+  url: https://doi.org/10.4337/9781035349029.00029
+  status: published
+  topics:
+  - lean
+  on_site: true
+  blog_weeks:
+  - 4
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: 'Merged Scholar duplicate: "22. Lean construction in developing countries:
+    the case of Indonesia" (, None)'
+- id: 2026-parade-tim-kerja-simulasi-dampak-variabilitas
+  title: 'Parade Tim Kerja: Simulasi Dampak Variabilitas dan Rancangan Zona Kerja
+    pada Durasi Proyek'
+  year: 2026
+  venue: Konferensi Nasional Teknik Sipil (KoNTekS) 20
+  type: conference
+  authors:
+  - Muhamad Abduh
+  doi: null
+  url: null
+  status: in-press
+  topics:
+  - lean
+  - simulasi
+  on_site: false
+  blog_weeks:
+  - 1
+  related_posts: []
+  source:
+  - manuscript
+  verified: true
+  note: 'Accepted KoNTekS 20, LoA 316/LOA/KONTEKS-2026/X/2026 dated 15 Oct 2026; in
+    press. Source: mapping file + manuscript /workspace/slides/parade-konteks-WHDnL9/paper.md
+    (not read here). Author list not confirmed in sources scanned.; Unverified by
+    me: LoA itself not inspected Penulis tunggal Muhamad Abduh (FTSL ITB), dikonfirmasi
+    Red dari naskah diterima KoNTekS 20.'
+- id: 2026-pilot-application-of-a-sustainable-and
+  title: 'Pilot application of a sustainable and disaster-resilient infrastructure
+    assessment framework: Evidence from Bandung, Indonesia'
+  year: 2026
+  venue: 'Jàmbá: Journal of Disaster Risk Studies'
+  type: journal
+  authors: A Firdaus, KS Pribadi, M Abduh, SA Sagala
+  doi: 10.4102/jamba.v18i1.2034
+  url: https://doi.org/10.4102/jamba.v18i1.2034
+  status: published
+  topics:
+  - keberlanjutan
+  - ketahanan-bencana
+  on_site: true
+  blog_weeks:
+  - 11
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2026-readiness-for-sensing-technologies-and-data
+  title: 'Readiness for sensing technologies and data analytics in multi-hazard disaster
+    risk reduction: a case study from Greater Bandung, Indonesia'
+  year: 2026
+  venue: Sustainable and Resilient Infrastructure
+  type: journal
+  authors: R. Wirahadikusumah, M. Abduh, P. Kusumaningrum, D. Apoji, M. A. Viqolbi,
+    I. Amalia
+  doi: 10.1080/23789689.2026.2723803
+  url: https://doi.org/10.1080/23789689.2026.2723803
+  status: published
+  topics:
+  - keberlanjutan
+  - ketahanan-bencana
+  - teknologi
+  on_site: true
+  blog_weeks:
+  - 11
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2026-research-companion-to-advances-in-the
+  title: Research Companion to Advances in the Construction Industry in the Global
+    South
+  year: 2026
+  venue: Edward Elgar · Elgar Companions to the Built Environment
+  type: book
+  authors: null
+  doi: null
+  url: https://muhabduh.id/publications
+  status: published
+  topics: []
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - site
+  verified: true
+  note: Listed on muhabduh.id Books section; not in ORCID/Scholar scan
+- id: 2026-revealing-lean-aligned-practices-in-indonesian
+  title: 'Revealing Lean-aligned practices in Indonesian small contractors: a preliminary
+    study'
+  year: 2026
+  venue: Annual Conference of the International Group for Lean Construction
+  type: conference
+  authors: M Abduh, B Hasiholan, E Puri, A Wirdianto, H Linas, P Nainggolan
+  doi: 10.24928/2026/0153
+  url: https://doi.org/10.24928/2026/0153
+  status: published
+  topics:
+  - lean
+  - kontraktor-kecil
+  on_site: true
+  blog_weeks:
+  - 3
+  related_posts: []
+  source:
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2026-selecting-life-cycle-cost-indicators-for
+  title: 'Selecting Life Cycle Cost Indicators for Sustainable Public Procurement:
+    A Fuzzy Delphi Consensus from Indonesia'
+  year: 2026
+  venue: Sustainability
+  type: journal
+  authors: DS Panjaitan, A Cakravastia, YA Hidayat, M Abduh
+  doi: 10.3390/su18157560
+  url: https://doi.org/10.3390/su18157560
+  status: published
+  topics:
+  - pengadaan-berkelanjutan
+  - keberlanjutan
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2025-developing-the-conceptual-framework-of-an
+  title: Developing the conceptual framework of an integrated information systems
+    for Indonesian construction industry
+  year: 2025
+  venue: Built Environment Project and Asset Management
+  type: journal
+  authors: W Setiawan, M Abduh, BW Soemardi, AI Kistijantoro
+  doi: 10.1108/bepam-03-2024-0060
+  url: https://doi.org/10.1108/bepam-03-2024-0060
+  status: published
+  topics:
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: null
+- id: 2025-paradigma-sistem-produksi-untuk-perbaikan-pendidikan
+  title: Paradigma Sistem Produksi Untuk Perbaikan Pendidikan Sektor Konstruksi Di
+    Indonesia
+  year: 2025
+  venue: Konferensi Nasional Teknik Sipil 3 (6), 1173-1184
+  type: conference
+  authors: M Abduh, BW Soemardi, RD Wirahadikusumah, A Martina
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:kuK5TVdYjLIC
+  status: published
+  topics:
+  - lean
+  - pendidikan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2025-rehabilitation-and-reconstruction-cost-drivers-in
+  title: 'Rehabilitation and reconstruction cost drivers in earthquake-affected buildings:
+    a damage-level-based analysis in Indonesia'
+  year: 2025
+  venue: Bulletin of Earthquake Engineering
+  type: journal
+  authors: R Milyardi, KS Pribadi, M Abduh, I Meilano, E Lim, H Hs, A Ansyari
+  doi: 10.1007/s10518-025-02243-5
+  url: https://doi.org/10.1007/s10518-025-02243-5
+  status: published
+  topics:
+  - ketahanan-bencana
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2025-sensitivity-analysis-of-engineering-demand-parameters
+  title: 'Sensitivity analysis of engineering demand parameters: Empirical and analytical
+    approaches to structural loss estimation'
+  year: 2025
+  venue: Journal of Rehabilitation in Civil Engineering 13 (4), 25-46
+  type: journal
+  authors: R Milyardi, KS Pribadi, M Abduh, I Meilano, E Lim, R Wirahadikusumah, ...
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:hMsQuOkrut0C
+  status: published
+  topics:
+  - ketahanan-bencana
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2025-terang-seismic-loss-estimation-tool-for
+  title: 'TERANG: Seismic loss estimation tool for school buildings'
+  year: 2025
+  venue: Software Impacts
+  type: journal
+  authors: R Milyardi, KS Pribadi, M Abduh, I Meilano, E Lim
+  doi: 10.1016/j.simpa.2025.100773
+  url: https://doi.org/10.1016/j.simpa.2025.100773
+  status: published
+  topics:
+  - ketahanan-bencana
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: 'Merged Scholar duplicate: "TERANG: Toolbox for Earthquake Loss Estimation
+    in Indonesian School Buildings" (, None)'
+- id: 2024-development-of-a-building-repair-time
+  title: Development of a Building Repair Time Component for the Disaster Losses Estimate
+    in the Mamuju Earthquake
+  year: 2024
+  venue: Lecture Notes in Civil Engineering
+  type: chapter
+  authors: Roi Milyardi, Aden Firdaus, Krishna S. Pribadi, Muhamad Abduh, Irwan Meilano,
+    Erwin Lim, Reini D. Wirahadikusumah, Patria Kusumaningrum, Eliza R. Puri, Husain
+    Hs
+  doi: 10.1007/978-981-97-1972-3_157
+  url: https://doi.org/10.1007/978-981-97-1972-3_157
+  status: published
+  topics:
+  - ketahanan-bencana
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2024-development-of-the-conceptual-business-model
+  title: Development of the conceptual business model of a third-party logistics provider
+    for Indonesian small contractors
+  year: 2024
+  venue: International Journal of Construction Management
+  type: journal
+  authors: F Maisarah, M Abduh, R Wirahadikusumah, A Cakravastia
+  doi: 10.1080/15623599.2024.2313385
+  url: https://doi.org/10.1080/15623599.2024.2313385
+  status: published
+  topics:
+  - rantai-pasok
+  - kontraktor-kecil
+  on_site: false
+  blog_weeks:
+  - 7
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: Crossref issued year 2024 differs from source year 2025; Year set to 2024
+    per Crossref (online 2024); Scholar lists 2025, IJCM vol 25(2)
+- id: 2024-manajemen-operasi-konstruksi-untuk-peningkatan-kinerja
+  title: Manajemen Operasi Konstruksi untuk Peningkatan Kinerja Proyek Konstruksi
+    di Indonesia
+  year: 2024
+  venue: FGB ITB · ITB Press
+  type: book
+  authors: null
+  doi: null
+  url: https://muhabduh.id/publications
+  status: published
+  topics: []
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - site
+  verified: true
+  note: Listed on muhabduh.id Books section; not in ORCID/Scholar scan
+- id: 2024-seni-dan-filosofi-konstruksi-ramping-the
+  title: Seni dan Filosofi Konstruksi Ramping (The Art and Philosophy of Lean Construction)
+  year: 2024
+  venue: Indonesian translation · original by Do, D. (2024)
+  type: book
+  authors: 'Translator: M. Abduh'
+  doi: null
+  url: https://muhabduh.id/publications
+  status: published
+  topics:
+  - lean
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - site
+  verified: true
+  note: Listed on muhabduh.id Books section; not in ORCID/Scholar scan; Translation
+    of Do, D. (2024); not original authorship
+- id: 2024-the-state-of-sustainable-and-disaster
+  title: The state of sustainable and disaster-resilient infrastructure in Indonesia
+  year: 2024
+  venue: 'IOP Conference Series: Earth and Environmental Science'
+  type: journal
+  authors: A Firdaus, KS Pribadi, M Abduh
+  doi: 10.1088/1755-1315/1314/1/012007
+  url: https://doi.org/10.1088/1755-1315/1314/1/012007
+  status: published
+  topics:
+  - keberlanjutan
+  - ketahanan-bencana
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: null
+- id: 2023-biaya-implementasi-smk-3-pada-proyek
+  title: BIAYA IMPLEMENTASI SMK 3 PADA PROYEK REKONSTRUKSI BANGUNAN GEDUNG TERDAMPAK
+    GEMPA BUMI MAMUJU-MAJENE
+  year: 2023
+  venue: Konferensi Nasional Teknik Sipil (KoNTekS)
+  type: journal
+  authors: Roi Milyardi, Krishna S. Pribadi, Muhamad Abduh, Irwan Meilano, Erwin Lim,
+    Reini D. Wirahadikusumah, Patria Kusumaningrum, Eliza R. Puri, Husain Hs
+  doi: 10.62603/konteks.v1i5.87
+  url: https://doi.org/10.62603/konteks.v1i5.87
+  status: published
+  topics:
+  - ketahanan-bencana
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: Crossref issued year 2024 differs from source year 2023
+- id: 2023-comparative-study-of-construction-industry-growth
+  title: Comparative study of construction industry growth and GDP growth in ASEAN
+    countries
+  year: 2023
+  venue: AIP Conference Proceedings
+  type: conference
+  authors: W Setiawan, M Abduh
+  doi: 10.1063/5.0124751
+  url: https://doi.org/10.1063/5.0124751
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: null
+- id: 2023-conceptual-framework-for-sustainable-procurement-of
+  title: Conceptual framework for sustainable procurement of construction works
+  year: 2023
+  venue: International Journal of Procurement Management
+  type: journal
+  authors: YA Messah, M Abduh, RD Wirahadikusumah
+  doi: 10.1504/ijpm.2021.10045020
+  url: https://doi.org/10.1504/ijpm.2021.10045020
+  status: published
+  topics:
+  - pengadaan-berkelanjutan
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: Crossref issued year 2021 differs from source year 2023
+- id: 2023-konsepsi-kembaran-digital-untuk-transformasi-digital
+  title: Konsepsi Kembaran Digital untuk Transformasi Digital Sektor Konstruksi
+  year: 2023
+  venue: 'Buku Konstruksi Indonesia 2023: Transformasi Digital Sektor Konstruksi untuk …'
+  type: chapter
+  authors: M Abduh, BW Soemardi
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:ML0RJ9NH7IQC
+  status: published
+  topics:
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2023-maturity-of-procurement-units-for-public
+  title: Maturity of procurement units for public construction projects in Indonesia
+  year: 2023
+  venue: International Journal of Construction Management
+  type: journal
+  authors: M Abduh, SN Sukardi, RD Wirahadikusumah, CZ Oktaviani, SN Bahagia
+  doi: 10.1080/15623599.2022.2046941
+  url: https://doi.org/10.1080/15623599.2022.2046941
+  status: published
+  topics:
+  - pengadaan-berkelanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: Crossref issued year 2022 differs from source year 2023
+- id: 2023-promoting-humanitarian-engineering-approaches-for-earthquake
+  title: Promoting Humanitarian Engineering Approaches for Earthquake-Resilient Housing
+    in Indonesia
+  year: 2023
+  venue: Advances in Environmental Engineering and Green Technologies
+  type: chapter
+  authors: Krishna Suryanto Pribadi, Muhamad Abduh, Patria Kusumaningrum, Budi Hasiholan,
+    Reini D. Wirahadikusumah, Roi Milyardi
+  doi: 10.4018/978-1-6684-5619-4.ch012
+  url: https://doi.org/10.4018/978-1-6684-5619-4.ch012
+  status: published
+  topics:
+  - ketahanan-bencana
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2023-structural-equation-model-sem-of-the
+  title: Structural equation model (SEM) of the factors affecting sustainable procurement
+    for construction work
+  year: 2023
+  venue: International Journal of Construction Management
+  type: journal
+  authors: Y Messah, R Wirahadikusumah, M Abduh
+  doi: 10.1080/15623599.2022.2049488
+  url: https://doi.org/10.1080/15623599.2022.2049488
+  status: published
+  topics:
+  - pengadaan-berkelanjutan
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: Crossref issued year 2022 differs from source year 2023
+- id: 2023-sustainable-and-resilient-infrastructure-policy-implementation
+  title: Sustainable and resilient infrastructure policy implementation in Indonesia
+  year: 2023
+  venue: Available at SSRN 4326521
+  type: journal
+  authors: KS Pribadi, M Abduh, A Firdaus
+  doi: 10.2139/ssrn.4326521
+  url: https://doi.org/10.2139/ssrn.4326521
+  status: published
+  topics:
+  - keberlanjutan
+  - ketahanan-bencana
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: SSRN preprint (posted-content), not a peer-reviewed journal article
+- id: 2022-construction-supply-chain
+  title: Construction supply chain
+  year: 2022
+  venue: Construction in Indonesia
+  type: chapter
+  authors: M Abduh, TK Chan
+  doi: 10.1201/9781003149866-5
+  url: https://doi.org/10.1201/9781003149866-5
+  status: published
+  topics:
+  - rantai-pasok
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: null
+- id: 2022-education-training-and-certification
+  title: Education, training, and certification
+  year: 2022
+  venue: Construction in Indonesia
+  type: chapter
+  authors: M Abduh, KS Pribadi, BW Soemardi, TK Chan
+  doi: 10.1201/9781003149866-8
+  url: https://doi.org/10.1201/9781003149866-8
+  status: published
+  topics:
+  - pendidikan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: null
+- id: 2021-implementasi-last-planner-system-di-indonesia
+  title: 'Implementasi Last Planner System di Indonesia (Studi Kasus: 2 Perusahaan
+    BUMN Konstruksi)'
+  year: 2021
+  venue: Konferensi Nasional Teknik Sipil
+  type: conference
+  authors: NLA Indrayani, B Hasiholan, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:tkaPQYYpVKoC
+  status: published
+  topics:
+  - lean
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2021-learning-from-past-earthquake-disasters-the
+  title: 'Learning from past earthquake disasters: The need for knowledge management
+    system to enhance infrastructure resilience in Indonesia'
+  year: 2021
+  venue: International Journal of Disaster Risk Reduction
+  type: journal
+  authors: K.S. Pribadi, M. Abduh, R.D. Wirahadikusumah, N.R. Hanifa, M. Irsyam, P.
+    Kusumaningrum, E. Puri
+  doi: 10.1016/j.ijdrr.2021.102424
+  url: https://doi.org/10.1016/j.ijdrr.2021.102424
+  status: published
+  topics:
+  - ketahanan-bencana
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: null
+- id: 2021-penyelenggaraan-proyek-konstruksi-terintegrasi
+  title: Penyelenggaraan Proyek Konstruksi Terintegrasi
+  year: 2021
+  venue: 'Buku Konstruksi Indonesia 2021: Era Baru Konstruksi, Berkarya Menuju …'
+  type: chapter
+  authors: PD Muhamad Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:_Re3VWB3Y0AC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2021-profil-program-studi-teknik-sipil-tahun
+  title: Profil Program Studi Teknik Sipil Tahun 2020
+  year: 2021
+  venue: Jurnal Teknik Sipil
+  type: journal
+  authors: Muhamad Abduh
+  doi: 10.5614/jts.2021.28.1.1
+  url: https://doi.org/10.5614/jts.2021.28.1.1
+  status: published
+  topics:
+  - pendidikan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: null
+- id: 2020-analysis-of-natm-tunneling-method-using
+  title: Analysis of NATM tunneling method using CYCLONE modeling and simulation tools
+  year: 2020
+  venue: 'IOP Conference Series: Materials Science and Engineering'
+  type: conference
+  authors: B B Nataadiningrat, A W Prabowo, I M A B Rasmawan, A T Putri, M Abduh,
+    R D Wirahadikusumah
+  doi: 10.1088/1757-899x/933/1/012002
+  url: https://doi.org/10.1088/1757-899x/933/1/012002
+  status: published
+  topics:
+  - simulasi
+  - teknologi
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2020-construction-performance-analysis-in-the-project
+  title: Construction Performance Analysis in the Project Delivery of Toll Road Concession
+  year: 2020
+  venue: Jurnal Teknik Sipil
+  type: journal
+  authors: R Milyardi, RD Wirahadikusumah, M Abduh, BH Siregar
+  doi: 10.5614/jts.2020.27.1.5
+  url: https://doi.org/10.5614/jts.2020.27.1.5
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: null
+- id: 2020-construction-supply-chains-for-strategic-materials
+  title: Construction supply chains for strategic materials of building contractors
+    in the Greater Bandung areas
+  year: 2020
+  venue: Lecture Notes in Civil Engineering
+  type: chapter
+  authors: I Made Bhisma Pranandya, F Maisarah, M Abduh
+  doi: 10.1007/978-981-16-7924-7_68
+  url: https://doi.org/10.1007/978-981-16-7924-7_68
+  status: published
+  topics:
+  - rantai-pasok
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: Crossref issued year 2022 differs from source year 2020
+- id: 2020-cost-structure-identification-for-third-party
+  title: Cost structure identification for third-party logistics services in construction
+    projects
+  year: 2020
+  venue: Lecture Notes in Civil Engineering
+  type: chapter
+  authors: FSCS Maisarah, M Abduh
+  doi: 10.1007/978-981-16-7924-7_71
+  url: https://doi.org/10.1007/978-981-16-7924-7_71
+  status: published
+  topics:
+  - rantai-pasok
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: Crossref issued year 2022 differs from source year 2020
+- id: 2020-framework-for-sustainable-procurement-identifying-elements
+  title: Framework for Sustainable procurement-Identifying Elements for Construction
+    Works
+  year: 2020
+  venue: Applied Mechanics and Materials
+  type: journal
+  authors: R Wirahadikusumah, M Abduh, Y Messah
+  doi: 10.4028/www.scientific.net/amm.897.245
+  url: https://doi.org/10.4028/www.scientific.net/amm.897.245
+  status: published
+  topics:
+  - pengadaan-berkelanjutan
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: null
+- id: 2020-kinerja-jasa-konstruksi-indonesia
+  title: Kinerja Jasa Konstruksi Indonesia
+  year: 2020
+  venue: '20 Tahun LPJK: Konstruksi Indonesia 2001-2020, Editor: Biemo W. Soemardi …'
+  type: chapter
+  authors: M Abduh, BW Soemardi, A Suraji
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:ZfRJV9d4-WMC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2020-studi-struktur-dan-perilaku-rantai-pasok
+  title: STUDI STRUKTUR DAN PERILAKU RANTAI PASOK KOMODITAS STRATEGIS PADA KONTRAKTOR
+    KECIL BIDANG BANGUNAN GEDUNG DI BANDUNG RAYAI
+  year: 2020
+  venue: STRUKTUR DAN PERILAKU RANTAI PASOK KOMODITAS STRATEGIS PADA PROYEK BANGUNAN …
+  type: conference
+  authors: I Pranandya, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:VOx2b1Wkg3QC
+  status: published
+  topics:
+  - rantai-pasok
+  - kontraktor-kecil
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: 'Merged Scholar duplicate: "STRUKTUR DAN PERILAKU RANTAI PASOK KOMODITAS STRATEGIS
+    PADA PROYEK BANGUNAN GEDUNG DI BANDUNG RAYA" (, None); Type inferred from Scholar
+    venue string; No DOI found (ORCID/Crossref title search); metadata from Google
+    Scholar only'
+- id: 2020-small-sized-contractors-strategies-of-construction
+  title: Small-sized contractors' strategies of construction material purchasing in
+    road rehabilitation projects
+  year: 2020
+  venue: 'IOP Conference Series: Materials Science and Engineering'
+  type: conference
+  authors: SCS Maisarah, R Irfanto, M Abduh
+  doi: 10.1088/1757-899x/933/1/012025
+  url: https://doi.org/10.1088/1757-899x/933/1/012025
+  status: published
+  topics:
+  - rantai-pasok
+  - kontraktor-kecil
+  on_site: true
+  blog_weeks:
+  - 6
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2020-technology-assessment-in-indonesian-construction-industry
+  title: Technology Assessment in Indonesian Construction Industry
+  year: 2020
+  venue: 'IOP Conference Series: Materials Science and Engineering'
+  type: conference
+  authors: BW Soemardi, B Kusuma, M Abduh
+  doi: 10.1088/1757-899x/849/1/012077
+  url: https://doi.org/10.1088/1757-899x/849/1/012077
+  status: published
+  topics:
+  - teknologi
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2020-the-study-of-sustainable-procurement-in
+  title: The study of sustainable procurement in the procurement of ready mixed concrete
+    supplier
+  year: 2020
+  venue: 'IOP Conference Series: Earth and Environmental Science'
+  type: conference
+  authors: T Setiadi, M Abduh
+  doi: 10.1088/1755-1315/520/1/012004
+  url: https://doi.org/10.1088/1755-1315/520/1/012004
+  status: published
+  topics:
+  - pengadaan-berkelanjutan
+  - keberlanjutan
+  on_site: true
+  blog_weeks:
+  - 9
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2019-faktor-faktor-yang-mempengaruhi-tingkat-kompetisi
+  title: Faktor-faktor yang Mempengaruhi Tingkat Kompetisi Kontraktor Kecil di Bidang
+    Pembangunan Infrastruktur di Wilayah Bandung Raya
+  year: 2019
+  venue: 'Konferensi Nasional Teknik Sipil ke-13 (KoNTekS-13), Volume I: Struktur …'
+  type: conference
+  authors: A Prabowo, FSCS Maisarah, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:vDijr-p_gm4C
+  status: published
+  topics:
+  - kontraktor-kecil
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2019-indonesian-contractors-practices-towards-sustainable-procurement
+  title: Indonesian contractors’ practices towards sustainable procurement principles
+    for green building projects
+  year: 2019
+  venue: MATEC Web of Conferences
+  type: journal
+  authors: SN Sukardi, M Abduh
+  doi: 10.1051/matecconf/201927005009
+  url: https://doi.org/10.1051/matecconf/201927005009
+  status: published
+  topics:
+  - pengadaan-berkelanjutan
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: null
+- id: 2019-introducing-sustainability-principles-into-the-procurement
+  title: Introducing sustainability principles into the procurement of construction
+    works–case of Indonesian developers
+  year: 2019
+  venue: International Journal of Construction Management
+  type: journal
+  authors: R Wirahadikusumah, M Abduh, Y Messah, M Aulia
+  doi: 10.1080/15623599.2019.1599559
+  url: https://doi.org/10.1080/15623599.2019.1599559
+  status: published
+  topics:
+  - pengadaan-berkelanjutan
+  - keberlanjutan
+  on_site: true
+  blog_weeks:
+  - 8
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2019-metode-kajian-struktur-dan-perilaku-rantai
+  title: Metode Kajian Struktur dan Perilaku Rantai Pasok Komoditas Strategis Untuk
+    Proyek Infrastruktur Jalan Pada Kontraktor Kecil di Bandung Raya
+  year: 2019
+  venue: Konferensi Nasional Pascasarjana Teknik Sipil (KNPTS) 19, Fakultas Teknik …
+  type: conference
+  authors: Serenita, FSCS Maisarah, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:URolC5Kub84C
+  status: published
+  topics:
+  - rantai-pasok
+  - pendidikan
+  - kontraktor-kecil
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: 'Merged Scholar duplicate: "METODE KAJIAN STRUKTUR DAN PERILAKU RANTAI PASOK
+    KOMODITAS STRATEGIS UNTUK PROYEK INFRASTRUKTUR JALAN PADA KONTRAKTOR KECIL DI
+    BANDUNG RAYA" (, None); Type inferred from Scholar venue string; No DOI found
+    (ORCID/Crossref title search); metadata from Google Scholar only'
+- id: 2019-persepsi-praktisi-konstruksi-terhadap-layanan-logistik
+  title: Persepsi Praktisi Konstruksi Terhadap Layanan Logistik Pihak Ketiga dalam
+    Rantai Pasok Konstruksi
+  year: 2019
+  venue: 'Konferensi Nasional Teknik Sipil ke-13 (KoNTekS-13), Volume I: Struktur …'
+  type: conference
+  authors: FSCS Maisarah, HE Kusumaa, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:uWiczbcajpAC
+  status: published
+  topics:
+  - rantai-pasok
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2019-purchasing-strategy-of-small-sized-contractors
+  title: Purchasing Strategy of Small-sized Contractors for Building Projects in the
+    Greater Bandung Areas
+  year: 2019
+  venue: 'IOP Conference Series: Materials Science and Engineering'
+  type: conference
+  authors: R Irfanto, F Maisarah, M Abduh
+  doi: 10.1088/1757-899x/650/1/012004
+  url: https://doi.org/10.1088/1757-899x/650/1/012004
+  status: published
+  topics:
+  - rantai-pasok
+  - kontraktor-kecil
+  on_site: true
+  blog_weeks:
+  - 6
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2019-small-sized-contractors-capacity-and-competitiveness
+  title: 'Small-sized contractor’s capacity and competitiveness: Indonesia case for
+    road rehabilitation projects'
+  year: 2019
+  venue: 43RD AUBEA 62
+  type: conference
+  authors: M Abduh, A Prabowo, F Maisarah
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:q3oQSFYPqjQC
+  status: published
+  topics:
+  - kontraktor-kecil
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2018-analisis-operasi-tunneling-dengan-metode-natm
+  title: Analisis Operasi Tunneling dengan Metode NATM pada Proyek Pembangunan jalan
+    Tol Cisumdawu
+  year: 2018
+  venue: 'Konfrensi Nasional Teknik Sipil 12 (KoNTekS 12): ''Penerapan Teknologi …'
+  type: conference
+  authors: M Abduh, RD Wirahadikusumah, M Iqbal, NA A., VR L.
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:EkHepimYqZsC
+  status: published
+  topics:
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2018-conceptual-business-models-of-strategic-logistics
+  title: Conceptual business models of strategic logistics services for small-sized
+    contractors
+  year: 2018
+  venue: The fourth Australasia and South-East Asia structural engineering and …
+  type: conference
+  authors: M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:Y5dfb0dijaUC
+  status: published
+  topics:
+  - rantai-pasok
+  - kontraktor-kecil
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2018-development-of-environmental-criteria-for-ready
+  title: 'Development of Environmental Criteria for Ready-Mixed Concrete in Indonesia:
+    ''Sustainable Structures for Future Generation'''
+  year: 2018
+  venue: Regional Conference in Civil Engineering (RCCE), Department of Civil and …
+  type: conference
+  authors: M Abduh, A Danurendro
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:VLnqNzywnoUC
+  status: published
+  topics:
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2018-framework-development-methodology-for-sustainable-procurement
+  title: Framework Development Methodology for Sustainable Procurement of Construction
+    Works in Indonesia
+  year: 2018
+  venue: MATEC Web of Conferences
+  type: conference
+  authors: M Abduh, RD Wirahadikusumah, Y Messah
+  doi: 10.1051/matecconf/201820302014
+  url: https://doi.org/10.1051/matecconf/201820302014
+  status: published
+  topics:
+  - pengadaan-berkelanjutan
+  - keberlanjutan
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2018-kajian-komoditas-strategis-pada-proyek-bangunan
+  title: Kajian Komoditas Strategis pada Proyek Bangunan Gedung untuk Kontraktor Kecil
+    di Bandung Raya
+  year: 2018
+  venue: '5th Andalas Civil Engineering (ACE) Conference 2018: ''Inovasi Penyediaan …'
+  type: conference
+  authors: R Irfanto, FSCS Maisarah, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:zLWjf1WUPmwC
+  status: published
+  topics:
+  - rantai-pasok
+  - kontraktor-kecil
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2018-metoda-identifikasi-komoditas-strategis-untuk-kontraktor
+  title: Metoda Identifikasi Komoditas Strategis untuk Kontraktor Kecil di Bandung
+    Raya
+  year: 2018
+  venue: Prosiding Konferensi Nasional Pascasarjana Teknik Sipil (KNPTS), 19-26
+  type: conference
+  authors: R Irfanto, F Maisarah, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:5ugPr518TE4C
+  status: published
+  topics:
+  - rantai-pasok
+  - pendidikan
+  - kontraktor-kecil
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2018-peningkatan-kompetensi-perancangan-bagi-sarjana-teknik
+  title: PENINGKATAN KOMPETENSI PERANCANGAN BAGI SARJANA TEKNIK SIPIL ITB
+  year: 2018
+  venue: 'Konfrensi Nasional Teknik Sipil 12 (KoNTekS 12): ‘Penerapan Teknologi …'
+  type: conference
+  authors: M Abduh, BW Soemardi, A Aryanto
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:D_sINldO8mEC
+  status: published
+  topics:
+  - pendidikan
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2018-parameter-penentuan-potensi-entitas-penyedia-layanan
+  title: Parameter Penentuan Potensi Entitas Penyedia Layanan Logistik Strategis untuk
+    Kontraktor Kecil di Indonesia
+  year: 2018
+  venue: 'Seminar Nasional Teknik Sipil dan Perencanaan (SEMSINA) 2018: ''Infrastruktur …'
+  type: conference
+  authors: FSC Maisarah, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:epqYDVWIO7EC
+  status: published
+  topics:
+  - rantai-pasok
+  - kontraktor-kecil
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2018-praktik-analisa-biaya-daur-hidup-pada
+  title: Praktik Analisa Biaya Daur Hidup pada Proyek Gedung Hijau di Indonesia
+  year: 2018
+  venue: 'Seminar Nasional dan Pameran HAKI 2018: ''Gempa, Kegagalan Konstruksi …'
+  type: conference
+  authors: M Abduh, AR Halida
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:ipzZ9siozwsC
+  status: published
+  topics:
+  - keberlanjutan
+  - ketahanan-bencana
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2018-tipologi-joint-operation-pada-proyek-konstruksi
+  title: Tipologi joint operation pada proyek konstruksi di Indonesia
+  year: 2018
+  venue: Prosiding Konferensi Nasional Pascasarjana Teknik Sipil (KNPTS). Dipetik
+    18
+  type: conference
+  authors: A Jayady, KS Pribadi, M Abduh, N Bahagia
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:uLbwQdceFCQC
+  status: published
+  topics:
+  - pendidikan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2017-analysis-of-the-cinapel-bridges-construction
+  title: Analysis of the Cinapel Bridge’s Construction Operations using Simulation
+  year: 2017
+  venue: IPTEK Journal of Proceedings Series
+  type: journal
+  authors: M Abduh, S Halvireski, C Delfani, R Irfanto, RD Wirahadikusumah
+  doi: 10.12962/j23546026.y2017i6.3259
+  url: https://doi.org/10.12962/j23546026.y2017i6.3259
+  status: published
+  topics:
+  - simulasi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: null
+- id: 2017-estimasi-durasi-proyek-pembangunan-terminal-petikemas
+  title: Estimasi Durasi Proyek Pembangunan Terminal Petikemas Kalibaru
+  year: 2017
+  venue: Konferensi Nasional Teknik Sipil 11, Universitas Tarumanagara, Jakarta …
+  type: conference
+  authors: D Setyowati, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:uc_IGeMz5qoC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: 'Merged Scholar duplicate: "ESTIMASI DURASI PROYEK PEMBANGUNAN TERMINAL PETIKEMAS
+    KALIBARU" (, None); Type inferred from Scholar venue string; No DOI found (ORCID/Crossref
+    title search); metadata from Google Scholar only'
+- id: 2017-konsep-dan-penerapan-pengadaan-berkelanjutan-untuk
+  title: Konsep dan penerapan pengadaan berkelanjutan untuk proyek konstruksi–Studi
+    literatur
+  year: 2017
+  venue: Prosiding Konferensi Nasional Inovasi Lingkungan Terbangun
+  type: conference
+  authors: Y Messah, R Wirahadikusumah, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:5awf1xo2G04C
+  status: published
+  topics:
+  - pengadaan-berkelanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2017-simulation-of-tunneling-construction-methods-of
+  title: Simulation of tunneling construction methods of the Cisumdawu toll road
+  year: 2017
+  venue: AIP Conference Proceedings
+  type: conference
+  authors: M Abduh, SN Sukardi, MRL Ola, A Ariesty, RD Wirahadikusumah
+  doi: 10.1063/1.5011583
+  url: https://doi.org/10.1063/1.5011583
+  status: published
+  topics:
+  - simulasi
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2017-success-indicators-of-knowledge-transfer-for
+  title: Success indicators of knowledge transfer for the transferee on the construction
+    joint venture in Indonesia
+  year: 2017
+  venue: SIBE 2017, The Third International Conference on Sustainable Infrastructure …
+  type: conference
+  authors: A Jayady, KS Pribadi, M Abduh, SN Bahagia
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:LPZeul_q3PIC
+  status: published
+  topics:
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2017-the-sustainable-infrastructure-through-the-construction
+  title: The Sustainable Infrastructure through the Construction Supply Chain Carbon
+    Footprint Approach
+  year: 2017
+  venue: Procedia Engineering
+  type: conference
+  authors: PF Marzuki, M Abduh, R Driejana
+  doi: 10.1016/j.proeng.2017.01.339
+  url: https://doi.org/10.1016/j.proeng.2017.01.339
+  status: published
+  topics:
+  - rantai-pasok
+  - keberlanjutan
+  on_site: true
+  blog_weeks:
+  - 10
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2016-indonesian-theme-paper
+  title: Indonesian Theme Paper
+  year: 2016
+  venue: null
+  type: conference
+  authors: M Abduh, JS Juwana
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:ILKRHgRFtOwC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2016-performance-of-request-for-information-rfi
+  title: PERFORMANCE OF REQUEST FOR INFORMATION (RFI) MANAGEMENT
+  year: 2016
+  venue: Proceedings of International Structural Engineering and Construction
+  type: journal
+  authors: M ABDUH, F ADAM
+  doi: 10.14455/isec.res.2016.172
+  url: https://doi.org/10.14455/isec.res.2016.172
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: null
+- id: 2016-studi-pengaruh-sistem-pembayaran-tenaga-kerja
+  title: Studi pengaruh sistem pembayaran tenaga kerja terhadap motivasi pekerja konstruksi
+  year: 2016
+  venue: Prosiding Seminar Nasional Teknik Sipil
+  type: conference
+  authors: AR Halida, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:geHnlv5EZngC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2016-sustainable-construction-policies-and-market-in
+  title: Sustainable Construction Policies and Market In Indonesia
+  year: 2016
+  venue: 21th Asia Construct Conference 2016, Tokyo Japan
+  type: conference
+  authors: M Abduh, JS Juwana
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:uJ-U7cs_P_0C
+  status: published
+  topics:
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2015-identification-of-source-factors-of-carbon
+  title: Identification of source factors of carbon dioxide (CO2) emissions in concreting
+    of reinforced concrete
+  year: 2015
+  venue: Procedia Engineering
+  type: conference
+  authors: PF Marzuki, M Abduh, R Driejana
+  doi: 10.1016/j.proeng.2015.11.107
+  url: https://doi.org/10.1016/j.proeng.2015.11.107
+  status: published
+  topics:
+  - keberlanjutan
+  on_site: true
+  blog_weeks:
+  - 10
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2015-kajian-proses-pengadaan-subkontraktor-dan-supplier
+  title: Kajian proses pengadaan subkontraktor dan supplier rantai pasok konstruksi
+    untuk mendukung pelaksanaan bangunan hijau
+  year: 2015
+  venue: Proceedings of 9th Konferensi Nasional Teknik Sipil (KoNTekS 9), Makassar …
+  type: conference
+  authors: P Herdianti, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:abG-DnoFyZgC
+  status: published
+  topics:
+  - rantai-pasok
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2015-sengketa-dalam-penyelenggaraan-konstruksi-di-indonesia
+  title: 'Sengketa dalam Penyelenggaraan Konstruksi di Indonesia: Penyebab dan Penyelesaiannya'
+  year: 2015
+  venue: Accessed at 4th of Nov
+  type: conference
+  authors: P Soekirno, RD Wirahadikusumah, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:vRqMK49ujn8C
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2015-study-on-flow-improvement-of-brick
+  title: Study on Flow Improvement of Brick Laying Operations in a Residential Construction
+    Project
+  year: 2015
+  venue: InCIEC 2014
+  type: chapter
+  authors: M Abduh, A Pratama
+  doi: 10.1007/978-981-287-290-6_12
+  url: https://doi.org/10.1007/978-981-287-290-6_12
+  status: published
+  topics:
+  - lean
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: null
+- id: 2014-arah-kebijakan-konsolidasi-konstruksi-indonesia
+  title: Arah Kebijakan Konsolidasi Konstruksi Indonesia
+  year: 2014
+  venue: 'Buku Konstruksi Indonesia 2014: Konsolidasi Industri Konstruksi Indonesia …'
+  type: chapter
+  authors: PD Muhamad Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:tKAzc9rXhukC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2014-emission-based-simulation-for-selecting-concreting
+  title: Emission-based Simulation for Selecting Concreting Operation's Method
+  year: 2014
+  venue: Conference for Civil Engineering Research Networks 2014 (ConCERN 2014)
+  type: conference
+  authors: DM Octavia, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:j8SEvjWlNXcC
+  status: published
+  topics:
+  - keberlanjutan
+  - simulasi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2014-green-construction-supply-chains-for-supporting
+  title: 'Green Construction Supply Chains for Supporting Green Buildings in Indonesia:
+    Initial Findings and Future Developments'
+  year: 2014
+  venue: Proceedings of the CIB 2014 Conference, Kandalama, Sri Lanka, 4-7
+  type: conference
+  authors: M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:fQNAKQ3IYiAC
+  status: published
+  topics:
+  - rantai-pasok
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2014-green-construction-assessment-model-for-improving
+  title: Green construction assessment model for improving sustainable practices of
+    the indonesian government construction projects
+  year: 2014
+  venue: '22nd Annual Conference of the International Group for Lean Construction:
+    Understanding and Improving Project Based Production, IGLC 2014'
+  type: conference
+  authors: M Abduh, WI Ervianto, D Chomistriana, A Rahardjo
+  doi: null
+  url: http://www.scopus.com/inward/record.url?eid=2-s2.0-84923379665&partnerID=MN8TOARS
+  status: published
+  topics:
+  - lean
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  verified: true
+  note: 'Merged Scholar duplicate: "Green Construction Assesment Model for Improving
+    Sustainable Practices of the Indonesian Government Construction Project" (IGLC
+    22nd Annual Conference of the International Group for lean Construction …, 2014)'
+- id: 2014-harmonizing-the-indonesian-construction-resources-supply
+  title: Harmonizing the Indonesian construction resources supply chain
+  year: 2014
+  venue: Asia Construct Conference
+  type: conference
+  authors: M Abduh, KS Pribadi
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:u9iWguZQMMsC
+  status: published
+  topics:
+  - rantai-pasok
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2014-kepuasan-wakil-pemilik-proyek-terhadap-kualitas
+  title: Kepuasan Wakil Pemilik Proyek Terhadap Kualitas Layanan Kontraktor
+  year: 2014
+  venue: 'Seminar Nasional Teknik Sipil X-2014: ''Inovasi Struktur dalam Menunjang …'
+  type: conference
+  authors: H Prawenti, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:0KyAp5RtaNEC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2014-peran-rantai-pasok-material-konstruksi-terhadap
+  title: Peran Rantai Pasok Material Konstruksi Terhadap Upaya Penurunan Emisi Karbon
+    Dioksida pada Industri Konstruks
+  year: 2014
+  venue: Seminar Nasional Teknik Sipil X- 2014 dengan Topik Inovasi Struktur dalam …
+  type: conference
+  authors: Hermawan, PF Marzuki, M Abduh, R Driejana
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:yB1At4FlUx8C
+  status: published
+  topics:
+  - rantai-pasok
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2014-project-delivery-system-for-green-building
+  title: Project Delivery System for Green Building Projcets in Indonesia
+  year: 2014
+  venue: Conference for Civil Engineering Research Networks 2014 (ConCERN 2014), 67-71
+  type: conference
+  authors: M Abduh, Falen, Rezza
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:fEOibwPWpKIC
+  status: published
+  topics:
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2013-a-study-of-joint-operation-scheme
+  title: A Study of Joint Operation Scheme in Indonesia
+  year: 2013
+  venue: 'Prosiding: The 6TH Civil Engineering Confrence in The Asian Region, 20-22'
+  type: conference
+  authors: A Jayady, KS Pribadi, M Abduh, SN Bahagia
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:tOudhMTPpwUC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2013-cost-index-model-for-bridge-construction
+  title: Cost Index Model for Bridge Construction in Indonesia
+  year: 2013
+  venue: 17th Pacific Association of Quantity Surveyors (PAQS) Congress. Theme …
+  type: chapter
+  authors: M Abduh, C Octavia
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:evX43VCCuoAC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2013-holistic-approach-for-green-construction-in
+  title: Holistic Approach for Green Construction in Indonesia
+  year: 2013
+  venue: SB13 Manila Conference Sustainable Buildings, Infrastructures and …
+  type: chapter
+  authors: M Abduh, I Imran
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:35r97b3x0nAC
+  status: published
+  topics:
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2013-identifikasi-indikator-green-construction-pada-proyek
+  title: Identifikasi Indikator Green Construction Pada Proyek Konstruksi Bangunan
+    Gedung di Indonesia
+  year: 2013
+  venue: Seminar Nasional Teknik Sipil
+  type: conference
+  authors: WI Ervianto, BW Soemardi, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:WbkHhVStYXYC
+  status: published
+  topics:
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2013-identifikasi-rantai-pasok-baja-ringan-untuk
+  title: Identifikasi Rantai Pasok Baja Ringan Untuk Mendukung Pembangunan Rumah Tahan
+    Gempa Di Indonesia (271K)
+  year: 2013
+  venue: null
+  type: conference
+  authors: A Andreas, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:p2g8aNsByqUC
+  status: published
+  topics:
+  - rantai-pasok
+  - ketahanan-bencana
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2013-peran-life-cycle-analysis-lca-pada
+  title: Peran Life Cycle Analysis (LCA) Pada Material Kontruksi Dalama Upaya Menurunkan
+    Dampak Emisi Kabon Dioksida Pada Efek Gas Rumah Kaca
+  year: 2013
+  venue: Universitas Sebelas Maret, Surakarta
+  type: conference
+  authors: H Hermawan, FM Puti, A Muhamad
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:738O_yMBCRsC
+  status: published
+  topics:
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: 'Merged Scholar duplicate: "Peran Life Cycle Analysis (LCA) Pada Material
+    Konstruksi Dalam Upaya Menurunkan Dampak Emisi Karbon Dioksida Pada Efek Gas Rumah
+    Kaca" (Konf. Nas. Tek. Sipil 7, 24-26, 2013); Type inferred from Scholar venue
+    string; No DOI found (ORCID/Crossref title search); metadata from Google Scholar
+    only'
+- id: 2013-perkembangan-joint-operation-di-indonesia
+  title: Perkembangan Joint Operation di Indonesia
+  year: 2013
+  venue: 'Prosiding: Seminar Nasional Teknik Sipil IX, Institut Teknologi Sepuluh …'
+  type: conference
+  authors: A Jayady, KS Pribadi, M Abduh, SN Bahagia
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:eJXPG6dFmWUC
+  status: published
+  topics:
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: 'Merged Scholar duplicate: "“Perkembangan Joint Operation pada Proyek Infrastruktur
+    di Indonesia" (Teknik Sipil ITB Bandung, 2013); Type inferred from Scholar venue
+    string; No DOI found (ORCID/Crossref title search); metadata from Google Scholar
+    only'
+- id: 2013-the-need-of-green-construction-supply
+  title: The need of green construction supply chain management for delivering sustainable
+    construction in Indonesia
+  year: 2013
+  venue: Second International Conference on Sustainable Infrastructure and Built …
+  type: conference
+  authors: M Abduh, BW Soemardi, A Cakravastia
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:SdhP9T11ey4C
+  status: published
+  topics:
+  - rantai-pasok
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2012-green-construction-in-indonesia-developments-issues
+  title: 'Green construction in Indonesia: developments, issues, and challenges'
+  year: 2012
+  venue: Proceedings of Asia Construction, 10-11
+  type: conference
+  authors: M Abduh, RD Wirahadikusumah, D Chomistriana
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:eq2jaN3J8jMC
+  status: published
+  topics:
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2012-indonesian-construction-supply-chains-cost-structure
+  title: 'Indonesian construction supply chains cost structure and factors: A case
+    study of two projects'
+  year: 2012
+  venue: Journal of Civil Engineering and Management
+  type: journal
+  authors: M Abduh, BW Soemardi, RD Wirahadikusumah
+  doi: 10.3846/13923730.2012.671259
+  url: https://doi.org/10.3846/13923730.2012.671259
+  status: published
+  topics:
+  - rantai-pasok
+  on_site: true
+  blog_weeks:
+  - 5
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2012-kajian-reuse-material-bangunan-dalam-konsep
+  title: Kajian Reuse Material Bangunan dalam Konsep Sustainable Construction di Indonesia
+  year: 2012
+  venue: Jurnal Teknik Sipil 12 (1), 18-27
+  type: journal
+  authors: WI Ervianto, BW Soemardi, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:Tiz5es2fbqcC
+  status: published
+  topics:
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2012-kajian-sistem-assessment-proses-konstruksi-pada
+  title: Kajian sistem assessment proses konstruksi pada greenship rating tool
+  year: 2012
+  venue: KoNTekS 6, 111-120
+  type: conference
+  authors: M Abduh, RT Fauzi
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:1sJd4Hv_s6UC
+  status: published
+  topics:
+  - keberlanjutan
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2012-kontribusi-konstruksi-hijau-pada-penciptaan-gedung
+  title: Kontribusi Konstruksi Hijau pada Penciptaan Gedung yang Ramah Lingkungan
+  year: 2012
+  venue: Seminar dan Pameran HAKI 2012, Konsep Green Buiding & Bangunan Tahan Gempa …
+  type: conference
+  authors: M Abduh, RT Fauzi
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:9Nmd_mFXekcC
+  status: published
+  topics:
+  - keberlanjutan
+  - ketahanan-bencana
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2012-pengelolaan-bangunan-habis-pakai-dalam-aspek
+  title: Pengelolaan Bangunan Habis Pakai dalam Aspek Sustainability
+  year: 2012
+  venue: KoNTekS 6, Pemeliharaan dan Perawatan Bangunan Sipil dan Lingkungan dalam …
+  type: conference
+  authors: WI Ervianto, BW Soemardi, M Abduh, Suryamanto
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:nrtMV_XWKgEC
+  status: published
+  topics:
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2012-rantai-pasok-konstruksi-indonesia
+  title: Rantai Pasok Konstruksi Indonesia
+  year: 2012
+  venue: Harmonisasi Rantai Pasok Konstruksi, 42-57
+  type: chapter
+  authors: M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:dQ2og3OwTAUC
+  status: published
+  topics:
+  - rantai-pasok
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2011-pengembangan-model-assessment-green-construction-pada
+  title: Pengembangan Model Assessment Green Construction Pada Proses Konstruksi Untuk
+    Proyek Konstruksi di Indonesia
+  year: 2011
+  venue: Konferensi Nasional Pascasarjana Teknik Sipil, Institut Teknologi Bandung …
+  type: conference
+  authors: WI Ervianto, BW Soemardi, M Abduh, Suryamanto
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:XiSMed-E-HIC
+  status: published
+  topics:
+  - keberlanjutan
+  - pendidikan
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: 'Merged Scholar duplicate: "Pengembangan Model Assessment Green Construction
+    Pada Proses Konstruksi Untuk Proyek Konstruksi" (Prosiding Konferensi Nasional
+    Pascasarjana Teknik Sipil (KNPTS) 1998, 2011); Type inferred from Scholar venue
+    string; No DOI found (ORCID/Crossref title search); metadata from Google Scholar
+    only'
+- id: 2010-bab-3-konstruksi-ramping-usaha-perbaikan
+  title: 'Bab 3: Konstruksi Ramping, Usaha Perbaikan Proses Konstruksi untuk Keunggulan
+    Kompetitif'
+  year: 2010
+  venue: Konstruksi Indonesia 2010, Gagasan, Teknologi dan Produk Konstruksi Bernilai …
+  type: chapter
+  authors: PD Muhamad Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:7T2F9Uy0os0C
+  status: published
+  topics:
+  - lean
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2010-model-kontrak-harga-satuan-jangka-panjang
+  title: Model Kontrak Harga Satuan Jangka Panjang Pekerjaan Konstruksi Pemeliharaan
+    Gedung Pendidikan Tinggi
+  year: 2010
+  venue: Konferensi Nasional Teknik Sipil 4 (KoNTekS 4), M201-M208
+  type: conference
+  authors: M Abduh, N Hidayati, DN Hidayah
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:XD-gHx7UXLsC
+  status: published
+  topics:
+  - pendidikan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: 'Merged Scholar duplicate: "MODEL KONTRAK HARGA SATUAN JANGKA PANJANG PEKERJAAN
+    KONSTRUKSI PEMELIHARAAN GEDUNG PENDIDIKAN TINGGI" (, None); Type inferred from
+    Scholar venue string; No DOI found (ORCID/Crossref title search); metadata from
+    Google Scholar only'
+- id: 2010-pengelolaan-faktor-non-personil-untuk-pencegahan
+  title: Pengelolaan faktor non-personil untuk pencegahan kecelakaan kerja konstruksi
+  year: 2010
+  venue: 'Bali: Konferensi Nasional Teknik Sipil 4'
+  type: conference
+  authors: M Abduh, RJ Sahputra, B Boris
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:P5F9QuxV20EC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2010-reinforcing-the-role-of-owners-in
+  title: Reinforcing the role of owners in the supply chains of highway construction
+    projects
+  year: 2010
+  venue: Proceedings of the First Makassar International Conference on Civil …
+  type: conference
+  authors: RD Wirahadikusumah, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:HoB7MX3m0LUC
+  status: published
+  topics:
+  - rantai-pasok
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2010-resources-optimization-of-the-earthmoving-operation
+  title: Resources Optimization of the Earthmoving Operation Using Simulation
+  year: 2010
+  venue: 5th Civil Engineering Conference in the Asian Region and Australasian …
+  type: conference
+  authors: M Abduh, A Pratama, N Iskandar
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:3s1wT3WcHBgC
+  status: published
+  topics:
+  - simulasi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2010-simulation-of-construction-operation-search-for
+  title: 'Simulation of construction operation: search for a practical and effective
+    simulation system for construction practitioners'
+  year: 2010
+  venue: Proceeding of the First Makassar International Conference on Civil …
+  type: conference
+  authors: M Abduh, F Shanti, A Pratama
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:SeFeTyx0c_EC
+  status: published
+  topics:
+  - simulasi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2010-strategic-issues-towards-implementing-sustainable-construction
+  title: Strategic Issues Towards Implementing Sustainable Construction in Indonesia
+  year: 2010
+  venue: 2nd International Seminar on Tropical Eco Settlements, Green Infrastructure …
+  type: chapter
+  authors: RD Wirahadikusumah, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:2KloaMYe4IUC
+  status: published
+  topics:
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2009-biaya-penyimpanan-pada-proyek-konstruksi-studi
+  title: 'Biaya Penyimpanan pada Proyek Konstruksi (Studi Kasus: Penyimpanan Besi
+    Beton pada Proyek Konstruksi)'
+  year: 2009
+  venue: KoNTeks 3, Kemajuan Teknologi dan Implementasinya dalam Rekayasa Sipil dan …
+  type: conference
+  authors: R Utami, M Abduh, BW Soemardi, Wirahadikusumah, R D
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:t7zJ5fGR-2UC
+  status: published
+  topics:
+  - rantai-pasok
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: 'Merged Scholar duplicate: "BIAYA PENYIMPANAN PADA PROYEK KONSTRUKSI" (, None);
+    Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title search);
+    metadata from Google Scholar only'
+- id: 2009-biaya-transportasi-material-besi-beton-pada
+  title: Biaya Transportasi Material Besi Beton pada Proyek Konstruksi
+  year: 2009
+  venue: KoNTekS 3, Kemajuan Teknologi dan Implementasinya dalam Rekayasa Sipil dan …
+  type: conference
+  authors: Pathurachman, M Abduh, BW Soemardi, RD Wirahadikusumah
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:z_wVstp3MssC
+  status: published
+  topics:
+  - rantai-pasok
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2009-improving-construction-industry-performance-through-value
+  title: 'Improving construction industry performance through value chain integration:
+    Case of Indonesia'
+  year: 2009
+  venue: Asia Construct Conference
+  type: conference
+  authors: RD Wirahadikusumah, M Abduh, DZ Arifin
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:L7CI7m0gUJcC
+  status: published
+  topics:
+  - rantai-pasok
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2008-gambaran-kinerja-supply-chain-pada-proyek
+  title: Gambaran Kinerja Supply Chain pada Proyek Konstruksi Bangunan Gedung
+  year: 2008
+  venue: Jurnal Teknologi 4, 258-269
+  type: journal
+  authors: CZO Reini D. Wirahadikusumah, Biemo W. Soemardi, Muhamad Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:tzM49s52ZIMC
+  status: published
+  topics:
+  - rantai-pasok
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2008-kesenjangan-antar-kompetensi-pendidikan-tinggi-dengan
+  title: Kesenjangan antar kompetensi pendidikan tinggi dengan kompetensi keahlian
+    konstruksi
+  year: 2008
+  venue: Prosiding Konferensi NAsional Teknik Sipil 2
+  type: conference
+  authors: M Abduh, WS Biemo, DW Reini
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:NJ774b8OgUMC
+  status: published
+  topics:
+  - pendidikan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2007-inovasi-teknologi-dan-sistem-beton-pracetak
+  title: 'Inovasi Teknologi dan Sistem Beton Pracetak di Indonesia: Sebuah Analisa
+    Rantai Nilai'
+  year: 2007
+  venue: Seminar dan Pameran HAKI
+  type: conference
+  authors: M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:pqnbT2bcN3wC
+  status: published
+  topics:
+  - rantai-pasok
+  - teknologi
+  on_site: false
+  blog_weeks:
+  - 12
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2007-konsep-earned-value-untuk-pengelolaan-proyek
+  title: Konsep Earned Value untuk Pengelolaan Proyek Konstruksi
+  year: 2007
+  venue: Institut Teknologi Bandung
+  type: chapter
+  authors: BW Soemardi, M ABDUH, RDWDANN PUJOARTANTO
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:yD5IFk8b50cC
+  status: published
+  topics:
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: 'Merged Scholar duplicate: "Konsep Earned Value untuk Pengelolaan Proyek Konstruksi,
+    Buku Referensi, Konstruksi: Industri, Pengelolaan dan Rekayasa" (Bandung: Penerbit
+    ITB, 2007); Type approximated: report/monograph listed by Scholar; Type inferred
+    from Scholar venue string; Scholar lists both as ITB 2007 item and as chapter
+    in "Konstruksi: Industri, Pengelolaan dan Rekayasa" (Penerbit ITB); treated as
+    one chapter; No DOI found (ORCID/Crossref title search); metadata from Google
+    Scholar only'
+- id: 2007-konstuksi-ramping-untuk-mencapai-konstruksi-yang
+  title: Konstuksi Ramping Untuk Mencapai Konstruksi yang berkelanjutan
+  year: 2007
+  venue: Seminar Nasional, 213-225
+  type: conference
+  authors: M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:xtRiw3GOFMkC
+  status: published
+  topics:
+  - lean
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2007-pelajaran-dari-gempa-yogyakarta-pentingnya-peran
+  title: 'Pelajaran dari Gempa Yogyakarta: Pentingnya Peran Rantai Nilai dan Rantai
+    Pasok dalam Konstruksi'
+  year: 2007
+  venue: Seminar Nasional Teknik Sipil III
+  type: conference
+  authors: M Abduh, BW Soemardi, I Imran
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:JQOojiI6XY0C
+  status: published
+  topics:
+  - rantai-pasok
+  - ketahanan-bencana
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2007-sistem-informasi-kinerja-industri-konstruksi-indonesia
+  title: 'SISTEM INFORMASI KINERJA INDUSTRI KONSTRUKSI INDONESIA: KEBUTUHAN AKAN BENCHMARKING
+    DAN INTEGRASI INFORMASI'
+  year: 2007
+  venue: Konferensi Nasional Teknik Sipil 1 (KoNTekS 1), 265-274
+  type: conference
+  authors: M Abduh, BW Soemardi, RD Wirahadikusumah
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:zA6iFVUQeVQC
+  status: published
+  topics:
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2007-spreadsheet-application-for-small-enterprises-in
+  title: Spreadsheet Application for Small Enterprises in Managing Construction Projects
+  year: 2007
+  venue: Proceedings of the 1st International Conference of European Asian Civil …
+  type: conference
+  authors: M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:rO6llkc54NcC
+  status: published
+  topics:
+  - kontraktor-kecil
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2007-the-disputes-in-the-construction-project
+  title: The disputes in the Construction Project in Indonesia
+  year: 2007
+  venue: Construction, Industrial, Management, and Engineering 10
+  type: conference
+  authors: P Soekirno, R Wirahadikusumah, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:_Ybze24A_UAC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2006-beberapa-pelajaran-dari-gempa-yogyakarta-tinjauan
+  title: Beberapa Pelajaran dari Gempa Yogyakarta; Tinjauan Kinerja Struktur Bangunan
+    Gedung
+  year: 2006
+  venue: Jurnal HAKI 7 (1), 1-13
+  type: journal
+  authors: I Imran, M Suarjana, D Hoedajanto, B Soemardi, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:2P1L_qKh6hAC
+  status: published
+  topics:
+  - ketahanan-bencana
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2006-development-of-construction-service-performance-evaluation
+  title: Development of Construction Service Performance Evaluation Model
+  year: 2006
+  venue: null
+  type: conference
+  authors: BW SOEMARDI, RB WIRAHADIKUSUMAH, M ABDUH
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:dfsIfKJdRG4C
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2006-development-of-indonesian-building-cost-index
+  title: Development of indonesian building cost index
+  year: 2006
+  venue: Construction and Professional Practices - Proceedings of the 10th East Asia-Pacific
+    Conference on Structural Engineering and Construction, EASEC 2010
+  type: conference
+  authors: null
+  doi: null
+  url: http://www.scopus.com/inward/record.url?eid=2-s2.0-84886675799&partnerID=MN8TOARS
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  verified: true
+  note: null
+- id: 2006-development-of-web-based-bridge-information
+  title: Development of web-based bridge information system
+  year: 2006
+  venue: 'Real Structures: Bridges and Tall Buildings - Proceedings of the 10th East
+    Asia-Pacific Conference on Structural Engineering and Construction, EASEC 2010'
+  type: conference
+  authors: null
+  doi: null
+  url: http://www.scopus.com/inward/record.url?eid=2-s2.0-84886707826&partnerID=MN8TOARS
+  status: published
+  topics:
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  verified: true
+  note: null
+- id: 2006-indonesian-contractors-readiness-towards-lean-construction
+  title: Indonesian contractors' readiness towards lean construction
+  year: 2006
+  venue: 'Understanding and Managing the Construction Process: Theory and Practice
+    - 14th Annual Conference of the International Group for Lean Construction, IGLC-14'
+  type: conference
+  authors: M Abduh, HA Roza
+  doi: null
+  url: http://www.scopus.com/inward/record.url?eid=2-s2.0-84866096605&partnerID=MN8TOARS
+  status: published
+  topics:
+  - lean
+  on_site: false
+  blog_weeks:
+  - 4
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  verified: true
+  note: null
+- id: 2006-pengembangan-model-estimasi-biaya-parameter-pada
+  title: Pengembangan Model Estimasi Biaya Parameter Pada Proyek Pembangunan Gedung
+    Negara
+  year: 2006
+  venue: Parametric Cost Estimation Model for State Buildings International Civil …
+  type: conference
+  authors: D Riswan, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:b0M2c_1WBrUC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2006-pengembangan-sistem-earned-value-untuk-pengelolaan
+  title: Pengembangan Sistem Earned Value untuk Pengelolaan Proyek Konstruksi di Indonesia
+  year: 2006
+  venue: Laporan Hasil Riset, ITB
+  type: book
+  authors: BW Soemardi, RD Wirahadikusumah, M Abduh, N Pujoartanto
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:sSrBHYA8nusC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: 'Type approximated: report/monograph listed by Scholar; Type inferred from
+    Scholar venue string; No DOI found (ORCID/Crossref title search); metadata from
+    Google Scholar only'
+- id: 2006-pengembangan-model-penilaian-kinerja-jasa-konstruksi
+  title: Pengembangan model penilaian kinerja jasa konstruksi
+  year: 2006
+  venue: Prosiding Conference on Toward Sustainability Civil Engineering Practice …
+  type: journal
+  authors: BW Soemardi, RD Wirahadikusumah, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:5Ul4iDaHHb8C
+  status: published
+  topics:
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2006-the-application-of-merit-point-system
+  title: The application of merit-point system for selecting contractors in Indonesia
+  year: 2006
+  venue: Construction and Professional Practices - Proceedings of the 10th East Asia-Pacific
+    Conference on Structural Engineering and Construction, EASEC 2010
+  type: conference
+  authors: M ABDUH, RD WIRAHADIKUSUMAH
+  doi: null
+  url: http://www.scopus.com/inward/record.url?eid=2-s2.0-84886649226&partnerID=MN8TOARS
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  verified: true
+  note: null
+- id: 2006-toward-lean-construction-an-agenda-for
+  title: 'Toward lean construction: An agenda for Indonesian contractors'
+  year: 2006
+  venue: Construction and Professional Practices - Proceedings of the 10th East Asia-Pacific
+    Conference on Structural Engineering and Construction, EASEC 2010
+  type: conference
+  authors: null
+  doi: null
+  url: http://www.scopus.com/inward/record.url?eid=2-s2.0-84886692340&partnerID=MN8TOARS
+  status: published
+  topics:
+  - lean
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  verified: true
+  note: null
+- id: 2005-konstruksi-ramping-memaksimalkan-value-dan-meminimalkan
+  title: 'Konstruksi Ramping: Memaksimalkan Value dan Meminimalkan Waste'
+  year: 2005
+  venue: Fakultas Teknik Sipil dan Lingkungan, Institut Teknologi Bandung
+  type: book
+  authors: M ABDUH
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:ZHo1McVdvXMC
+  status: published
+  topics:
+  - lean
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: 'Type approximated: report/monograph listed by Scholar; Type inferred from
+    Scholar venue string; No DOI found (ORCID/Crossref title search); metadata from
+    Google Scholar only'
+- id: 2005-model-penilaian-kewajaran-harga-penawaran-kontraktor
+  title: Model Penilaian Kewajaran Harga Penawaran Kontraktor dengan Sistem Evaluasi
+    Nilai
+  year: 2005
+  venue: Jurnal Teknik Sipil
+  type: journal
+  authors: M Abduh, RD Wirahadikusumah
+  doi: 10.5614/jts.2005.12.3.6
+  url: https://doi.org/10.5614/jts.2005.12.3.6
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: Crossref issued year 2010 differs from source year 2005
+- id: 2004-electronic-networking-technologies-in-construction
+  title: Electronic Networking Technologies in construction
+  year: 2004
+  venue: Journal of Construction Research
+  type: journal
+  authors: M Abduh, MJ Skibniewski
+  doi: 10.1142/s1609945104000036
+  url: https://doi.org/10.1142/s1609945104000036
+  status: published
+  topics:
+  - teknologi
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2004-faktor-faktor-keberhasilan-kritis-pengelolaan-teknologi
+  title: Faktor-faktor Keberhasilan Kritis Pengelolaan Teknologi Informasi pada Kontraktor
+    di Indonesia
+  year: 2004
+  venue: Jurnal Teknik Sipil
+  type: journal
+  authors: H Hikmawati, M Abduh
+  doi: 10.5614/jts.2004.11.4.2
+  url: https://doi.org/10.5614/jts.2004.11.4.2
+  status: published
+  topics:
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: 'Merged Scholar duplicate: "Faktor-faktor Keberhasilan Kritis Pengelolaan
+    Teknologi Informasi pada Kontraktor di Indonesia" (, None); Crossref issued year
+    2010 differs from source year 2004'
+- id: 2003-metoda-kontrak-inovatif-untuk-peningkatan-kualitas
+  title: 'Metoda Kontrak Inovatif untuk Peningkatan Kualitas Jalan: Peluang dan Tantangan'
+  year: 2003
+  venue: Pola Manajemen Proyek untuk Kondisi Berjalan dan Masa Depan, Jakarta, Indonesia
+  type: conference
+  authors: R Wirahadikusumah, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:08ZZubdj9fEC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2003-utility-assessment-of-electronic-networking-technologies
+  title: Utility assessment of electronic networking technologies for design-build
+    projects
+  year: 2003
+  venue: Automation in Construction
+  type: journal
+  authors: M Abduh, MJ Skibniewski
+  doi: 10.1016/s0926-5805(02)00042-0
+  url: https://doi.org/10.1016/s0926-5805(02)00042-0
+  status: published
+  topics:
+  - teknologi
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2002-optimal-configuration-of-electronic-networking-technologies
+  title: Optimal configuration of electronic networking technologies for supporting
+    d/b projects
+  year: 2002
+  venue: Journal of Civil Engineering and Management
+  type: journal
+  authors: M Abduh, MJ Skibniewski
+  doi: 10.1080/13923730.2002.10531284
+  url: https://doi.org/10.1080/13923730.2002.10531284
+  status: published
+  topics:
+  - teknologi
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - orcid
+  - scholar
+  - site
+  verified: true
+  note: null
+- id: 2002-utility-of-internet-based-applications-in
+  title: Utility of internet-based applications in construction
+  year: 2002
+  venue: International Journal of Construction Management
+  type: journal
+  authors: M Abduh, MJ Skibniewski
+  doi: 10.1080/15623599.2002.10773031
+  url: https://doi.org/10.1080/15623599.2002.10773031
+  status: published
+  topics:
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: true
+  note: null
+- id: 2002-web-based-project-management-applications-in
+  title: Web-based Project Management Applications in Construction
+  year: 2002
+  venue: Proceeding of APEC Construction, Bali, 27-28
+  type: conference
+  authors: M Abduh, BW Soemardi
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:u_35RYKgDlwC
+  status: published
+  topics:
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 2000-web-based-project-management-for-construction
+  title: 'Web-based project management for construction: search for utility assessment
+    tools'
+  year: 2000
+  venue: 'International Conference on Construction Information Technology 2000: INCITE …'
+  type: conference
+  authors: MJ Skibniewski, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:vV6vV6tmYwMC
+  status: published
+  topics:
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: 1999-utility-assessment-of-electronic-networking-technologies
+  title: Utility Assessment of Electronic Networking Technologies In Construction
+  year: 1999
+  venue: Eighth International Conference on Durability of Building Materials and …
+  type: conference
+  authors: M Abduh, MJ Skibniewski
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&pagesize=100&citation_for_view=DctmufgAAAAJ:M05iB0D1s5AC
+  status: published
+  topics:
+  - teknologi
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  - site
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only
+- id: nd-construction-industry-management-engineering-2nd-edition
+  title: 'Construction: Industry, Management & Engineering — 2nd Edition'
+  year: null
+  venue: ITB Press
+  type: book
+  authors: null
+  doi: null
+  url: https://muhabduh.id/publications
+  status: published
+  topics: []
+  on_site: true
+  blog_weeks: []
+  related_posts: []
+  source:
+  - site
+  verified: true
+  note: Listed on muhabduh.id Books section; not in ORCID/Scholar scan; Edition year
+    not given on site; Year missing in source
+- id: nd-dampak-kompleksitas-pemodelan-dalam-simulasi-operasi
+  title: DAMPAK KOMPLEKSITAS PEMODELAN DALAM SIMULASI OPERASI KONSTRUKSI CFG PILE
+  year: null
+  venue: null
+  type: conference
+  authors: A Tanadi, C Suagiat, G Otslan, S Maulani, M Abduh, B Hasiholan
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:hkOj_22Ku90C
+  status: published
+  topics:
+  - simulasi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only; Year missing in source
+- id: nd-identifikasi-struktur-biaya-rantai-pasok-material
+  title: IDENTIFIKASI STRUKTUR BIAYA RANTAI PASOK MATERIAL HIJAU
+  year: null
+  venue: null
+  type: conference
+  authors: AH Hanafi, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:CHSYGLWDkRkC
+  status: published
+  topics:
+  - rantai-pasok
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only; Year missing in source
+- id: nd-indonesian-contractorsperformance-in-managing-it-critical
+  title: 'INDONESIAN CONTRACTORS’PERFORMANCE IN MANAGING IT: CRITICAL SUCCESS FACTORS,
+    ASSESSMENT MODEL, AND BENCHMARKING SYSTEM'
+  year: null
+  venue: null
+  type: conference
+  authors: M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:cFHS6HbyZ2cC
+  status: published
+  topics:
+  - teknologi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only; Year missing in source
+- id: nd-infrastructure-development-challenges-and-mitigation-the
+  title: 'INFRASTRUCTURE DEVELOPMENT CHALLENGES AND MITIGATION: THE CASE OF INDONESIA'
+  year: null
+  venue: null
+  type: conference
+  authors: M ABDUH, I IMRAN, D KOESTIJANTO
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:Z5m8FVwuT1cC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only; Year missing in source
+- id: nd-keandalan-formula-kekuatan-tekan-rata-rata
+  title: KEANDALAN FORMULA KEKUATAN TEKAN RATA-RATA PERLU BETON NORMAL BERDASARKAN
+    SNI 03-2847-2002
+  year: null
+  venue: null
+  type: conference
+  authors: M Abduh, Y Lukiman
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:fPk4N6BV_jEC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only; Year missing in source
+- id: nd-kompleksitas-pemodelan-dalam-simulasi-operasi-konstruksi
+  title: 'KOMPLEKSITAS PEMODELAN DALAM SIMULASI OPERASI KONSTRUKSI: KASUS PEKERJAAN
+    CFG PILE'
+  year: null
+  venue: null
+  type: conference
+  authors: G Otslan, A Tanadi, C Suagiat, S Maulani, B Hasiholan, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:UHK10RUVsp4C
+  status: published
+  topics:
+  - simulasi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only; Year missing in source
+- id: nd-life-cycle-analysis-lca-emisi-karbon
+  title: LIFE CYCLE ANALYSIS (LCA) EMISI KARBON DIOKSIDA PADA PROYEK KONSTRUKSI (STUDI
+    KASUS PADA BANGUNAN TINGKAT TINGGI)
+  year: null
+  venue: null
+  type: conference
+  authors: PFM Hermawan, M Abduh, R Driejana
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:l7t_Zn2s7bgC
+  status: published
+  topics:
+  - keberlanjutan
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only; Year missing in source
+- id: nd-sifat-proteksi-beton-mutu-tinggi-terhadap
+  title: SIFAT PROTEKSI BETON MUTU TINGGI TERHADAP RADIASI GAMMA 0,661 MeVl
+  year: null
+  venue: null
+  type: conference
+  authors: D Suraatmadja, R Rukmantara, I Imran, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:f2IySw72cVMC
+  status: published
+  topics: []
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only; Year missing in source
+- id: nd-struktur-biaya-purchasing-besi-beton-pada
+  title: STRUKTUR BIAYA PURCHASING BESI BETON PADA PERUSAHAAN KONTRAKTOR
+  year: null
+  venue: null
+  type: conference
+  authors: RA Setiawan, M Abduh, BW Soemardi, RD Wirahadikusumah
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:dshw04ExmUIC
+  status: published
+  topics:
+  - rantai-pasok
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only; Year missing in source
+- id: nd-survei-tingkat-utilisasi-simulasi-untuk-operasi
+  title: SURVEI TINGKAT UTILISASI SIMULASI UNTUK OPERASI KONSTRUKSI BERULANG
+  year: null
+  venue: null
+  type: conference
+  authors: FS CSM, M Abduh
+  doi: null
+  url: https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DctmufgAAAAJ&cstart=100&pagesize=100&citation_for_view=DctmufgAAAAJ:UxriW0iASnsC
+  status: published
+  topics:
+  - simulasi
+  on_site: false
+  blog_weeks: []
+  related_posts: []
+  source:
+  - scholar
+  verified: false
+  note: Type inferred from Scholar venue string; No DOI found (ORCID/Crossref title
+    search); metadata from Google Scholar only; Year missing in source

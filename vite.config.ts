@@ -1,9 +1,12 @@
+import fs from "node:fs";
+import path from "node:path";
 import type { Plugin } from "vite";
 import { defineConfig } from "vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import { nitro } from "nitro/vite";
+import { TOPICS } from "./src/lib/content/topics.mjs";
 
 /**
  * Finish PGLite bootstrap during dev-server setup (before traffic). Vite awaits
@@ -119,6 +122,41 @@ function authPopupPlugin(): Plugin {
   };
 }
 
+/**
+ * Nitro's Vercel preset writes the SSR bundle to
+ * `node_modules/.nitro/vite/services/ssr/index.js` and does not emit
+ * `dist/server/server.js`. TanStack Start's prerender preview imports that
+ * path. Copy the bundle into place after the SSR environment build and before
+ * the prerender preview starts.
+ */
+function prerenderServerEntryPlugin(): Plugin {
+  return {
+    name: "app-builder:prerender-server-entry",
+    apply: "build",
+    buildApp: {
+      order: "post",
+      async handler() {
+        const srcDir = path.resolve("node_modules/.nitro/vite/services/ssr");
+        const srcFile = path.join(srcDir, "index.js");
+        if (!fs.existsSync(srcFile)) return;
+        const destDir = path.resolve("dist/server");
+        fs.mkdirSync(destDir, { recursive: true });
+        // Chunks import "../index.js". The prerender preview imports "server.js"
+        // (basename of the TanStack server entry). One module instance serves both.
+        fs.copyFileSync(srcFile, path.join(destDir, "index.js"));
+        fs.writeFileSync(
+          path.join(destDir, "server.js"),
+          'export { default } from "./index.js";\n',
+        );
+        const assets = path.join(srcDir, "assets");
+        if (fs.existsSync(assets)) {
+          fs.cpSync(assets, path.join(destDir, "assets"), { recursive: true });
+        }
+      },
+    },
+  };
+}
+
 // `0.0.0.0:8080` is the live-preview contract — don't change host/port.
 // Keep `nitro` gated to `build` (the Vercel deploy target): enabled in dev it
 // opens a second dev-server port, which breaks the single-port preview.
@@ -136,8 +174,32 @@ export default defineConfig(({ command }) => ({
     // Before tanstackStart so /auth/popup never falls through to the SPA.
     authPopupPlugin(),
     tailwindcss(),
-    tanstackStart(),
-    ...(command === "build" ? [nitro({ preset: "vercel" })] : []),
+    tanstackStart({
+      prerender: {
+        enabled: true,
+        crawlLinks: true,
+        failOnError: true,
+        filter: ({ path }) => {
+          if (path.includes("#")) return false;
+          const pathname = (path.split(/[?#]/)[0] ?? path).replace(/\/+$/, "") || "/";
+          if (pathname === "/news" || pathname.startsWith("/bertanya")) return false;
+          if (pathname === "/rss.xml") return true;
+          if (/\.[a-z0-9]+$/i.test(pathname)) return false;
+          return true;
+        },
+      },
+      pages: [
+        { path: "/" },
+        { path: "/blog" },
+        { path: "/publikasi" },
+        { path: "/riset" },
+        { path: "/rss.xml" },
+        ...TOPICS.map((topic) => ({ path: `/topik/${topic.slug}` })),
+      ],
+    }),
+    ...(command === "build"
+      ? [prerenderServerEntryPlugin(), nitro({ preset: "vercel" })]
+      : []),
     viteReact(),
   ],
 }));

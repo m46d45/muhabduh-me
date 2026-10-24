@@ -51,6 +51,46 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://muhabduh.id/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://muhabduh.id/topik/lean</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://muhabduh.id/topik/rantai-pasok</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://muhabduh.id/topik/pengadaan-berkelanjutan</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://muhabduh.id/topik/ketahanan-bencana</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://muhabduh.id/topik/pendidikan</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://muhabduh.id/publikasi</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://muhabduh.id/riset</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://muhabduh.id/contact</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
