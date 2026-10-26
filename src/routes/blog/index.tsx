@@ -4,20 +4,23 @@ import { BlogLanding } from "@/components/blog/blog-landing";
 import { fetchBlogIndex } from "@/lib/content/api";
 import { pageHead } from "@/lib/seo";
 
-const description =
-  "Seri Memulai dengan Bertanya: setiap tulisan dimulai dari satu pertanyaan yang berangkat dari situasi penelitian Muhamad Abduh.";
+const description = "Memulai dengan Bertanya";
 
 export const Route = createFileRoute("/blog/")({
   loader: () => fetchBlogIndex(),
-  head: () => {
+  head: ({ loaderData }) => {
     const head = pageHead({
       title: "Blog — Memulai dengan Bertanya",
       description,
       path: "/blog",
       locale: "id_ID",
     });
+    const previewOnly = loaderData?.posts?.some((post) => post.draft) ?? false;
     return {
       ...head,
+      meta: previewOnly
+        ? [...head.meta, { name: "robots", content: "noindex, nofollow" }]
+        : head.meta,
       links: [
         ...(head.links ?? []),
         {

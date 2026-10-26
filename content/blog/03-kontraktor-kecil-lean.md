@@ -2,6 +2,7 @@
 title: "Jangan-jangan kontraktor kecil kita sudah lean tanpa sadar?"
 description: "Pada 20 kontraktor kecil di Jakarta dan Bandung, sebagian praktik sudah sejalan dengan lean walaupun tidak disebut lean."
 date: "2026-10-21"
+status: draft
 draft: true
 topics:
   - lean

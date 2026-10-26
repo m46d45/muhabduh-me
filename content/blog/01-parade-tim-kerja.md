@@ -2,6 +2,7 @@
 title: "Kenapa proyek tetap terlambat, padahal kemampuan rata-rata timnya sama?"
 description: "Simulasi kelas Parade Tim Kerja menunjukkan durasi proyek bisa memanjang walau kemampuan rata-rata setiap tim sama."
 date: "2026-10-21"
+status: draft
 draft: true
 topics:
   - lean

@@ -50,12 +50,22 @@ export function TopicPage({
         ) : (
           <ul className="mt-4 space-y-3">
             {posts.map((post) => (
-              <li key={post.slug}>
+              <li key={post.slug} className={post.image ? "flex items-center gap-3" : undefined}>
+                {post.image ? (
+                  <img
+                    src={post.image}
+                    alt=""
+                    width={64}
+                    height={64}
+                    className="h-14 w-14 shrink-0 rounded-md border border-border object-cover"
+                  />
+                ) : null}
                 <Link
                   to="/blog/$slug"
                   params={{ slug: post.slug }}
                   className="font-medium text-ink hover:text-accent"
                 >
+                  {post.draft ? "Draf · " : ""}
                   {post.title}
                 </Link>
               </li>

@@ -2,6 +2,7 @@
 title: "Pertanyaan contoh yang belum ditulis?"
 description: "Berkas contoh format. Bukan tulisan, dan tidak masuk daftar terbit."
 date: "2026-10-21"
+status: draft
 draft: true
 preview: false
 topics:

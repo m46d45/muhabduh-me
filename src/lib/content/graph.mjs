@@ -183,7 +183,6 @@ export function readPosts(root) {
       fail(`${where}: slug frontmatter harus sama dengan nama berkas`);
     }
     const title = asString(data.title, `${where} title`);
-    if (!title.includes("?")) fail(`${where}: judul harus berbentuk pertanyaan`);
     const description = asString(data.description, `${where} description`);
     if (description.length > 220) fail(`${where}: description lebih dari satu kalimat`);
     const topics = normalizeTopics(data.topics ?? data.topik, where);
@@ -195,14 +194,31 @@ export function readPosts(root) {
       if (!Array.isArray(value)) fail(`${where}: ${label} harus daftar`);
       return value.map((item) => asString(item, `${where} ${label}`));
     };
+    const status = asOptionalString(data.status);
+    if (status && status !== "draft" && status !== "published") {
+      fail(`${where}: status harus draft atau published`);
+    }
+    const draft = status === "published" ? false : status === "draft" ? true : data.draft === true;
+    if (!draft && !title.includes("?")) {
+      fail(`${where}: judul terbit harus berbentuk pertanyaan`);
+    }
+    const image = asOptionalString(data.image);
+    if (image) {
+      if (!image.startsWith("/") || image.includes("..") || image.includes("\\")) {
+        fail(`${where}: image harus path publik yang diawali /`);
+      }
+      const file = path.join(root, "public", image.slice(1));
+      if (!fs.existsSync(file)) fail(`${where}: berkas image tidak ada (${image})`);
+    }
     return {
       slug,
       title,
       description,
       date: asDateString(data.date, `${where} date`),
-      draft: data.draft === true,
+      draft,
       preview: data.preview !== false,
       topics,
+      image,
       paperIds: list(data.papers, "papers"),
       toolIds: list(data.tools, "tools"),
       courseIds: list(data.courses, "courses"),
@@ -218,6 +234,8 @@ function card(post) {
     description: post.description,
     date: post.date,
     topics: post.topics,
+    draft: post.draft === true,
+    image: post.image ?? null,
   };
 }
 

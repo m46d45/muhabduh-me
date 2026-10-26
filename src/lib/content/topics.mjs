@@ -7,17 +7,17 @@ export const TOPICS = [
   },
   {
     slug: "rantai-pasok",
-    name: "Rantai pasok",
+    name: "Rantai Pasok",
     blurb: "Material, biaya, dan aliran pasok konstruksi.",
   },
   {
     slug: "pengadaan-berkelanjutan",
-    name: "Pengadaan berkelanjutan",
+    name: "Pengadaan Berkelanjutan",
     blurb: "Membeli dengan memperhitungkan dampak yang lebih panjang.",
   },
   {
     slug: "ketahanan-bencana",
-    name: "Ketahanan bencana",
+    name: "Ketahanan Bencana",
     blurb: "Kesiapan infrastruktur menghadapi bencana.",
   },
   {
