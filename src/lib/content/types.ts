@@ -12,6 +12,8 @@ export type PostCard = {
   date: string;
   topics: string[];
   draft?: boolean;
+  /** Square illustration under public/, or null when the post has none. */
+  image?: string | null;
 };
 
 export type BlogLink = {

@@ -2,6 +2,7 @@
 title: "Kenapa lulusan teknik sipil jarang diajari cara mengatur aliran kerja?"
 description: "Pemangku kepentingan menilai kompetensi sistem produksi paling dibutuhkan, sekaligus paling kurang diajarkan di pendidikan teknik sipil."
 date: "2026-10-21"
+status: draft
 draft: true
 topics:
   - pendidikan

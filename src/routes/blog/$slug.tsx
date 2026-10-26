@@ -12,7 +12,7 @@ export const Route = createFileRoute("/blog/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [] };
-    return pageHead({
+    const head = pageHead({
       title: `${loaderData.title} — Memulai dengan Bertanya`,
       description: loaderData.description,
       path: `/blog/${loaderData.slug}`,
@@ -20,6 +20,11 @@ export const Route = createFileRoute("/blog/$slug")({
       type: "article",
       locale: "id_ID",
     });
+    if (!loaderData.draft) return head;
+    return {
+      ...head,
+      meta: [...head.meta, { name: "robots", content: "noindex, nofollow" }],
+    };
   },
   component: BlogPostRoute,
 });

@@ -66,8 +66,8 @@ if (paradeListed.status !== "in-press") fail("status Parade berubah");
 if (published.posts.length !== 0) {
   fail(`tulisan terbit harus 0, ketemu ${published.posts.length}`);
 }
-if (published.drafts.length !== 4) {
-  fail(`harus ada 4 draf, ketemu ${published.drafts.length}`);
+if (published.drafts.length !== 7) {
+  fail(`harus ada 7 draf, ketemu ${published.drafts.length}`);
 }
 
 const sampleSlugs = [
@@ -75,9 +75,37 @@ const sampleSlugs = [
   "02-kompetensi-aliran-kerja",
   "03-kontraktor-kecil-lean",
 ];
-if (withDrafts.posts.length !== 3) {
-  fail(`pratinjau harus memuat 3 draf, ketemu ${withDrafts.posts.length}`);
+if (withDrafts.posts.length !== 6) {
+  fail(`pratinjau harus memuat 6 draf, ketemu ${withDrafts.posts.length}`);
 }
+for (const slug of [
+  "els-opini-01-parade-tim-kerja",
+  "els-opini-03-kontraktor-kecil-lean",
+  "edu-pasangan-kuliah-dan-simulasi",
+]) {
+  const post = withDrafts.posts.find((item) => item.slug === slug);
+  if (!post?.draft) fail(`draf bank hilang dari pratinjau: ${slug}`);
+  if (published.posts.some((item) => item.slug === slug)) {
+    fail(`draf bank masuk daftar terbit: ${slug}`);
+  }
+}
+const opiniParade = withDrafts.posts.find(
+  (post) => post.slug === "els-opini-01-parade-tim-kerja",
+);
+const opiniSmall = withDrafts.posts.find(
+  (post) => post.slug === "els-opini-03-kontraktor-kecil-lean",
+);
+if (opiniParade?.papers[0]?.id !== "2026-parade-tim-kerja-simulasi-dampak-variabilitas") {
+  fail("opini parade tidak menaut ke paper sumber");
+}
+if (opiniSmall?.papers[0]?.doi !== "10.24928/2026/0153") {
+  fail("opini kontraktor kecil tidak menaut ke paper sumber");
+}
+const eduPost = withDrafts.posts.find(
+  (post) => post.slug === "edu-pasangan-kuliah-dan-simulasi",
+);
+if (!eduPost?.topics.includes("pendidikan")) fail("draf Edu bukan topik pendidikan");
+if (eduPost?.image) fail("draf tanpa ilustrasi tidak boleh punya gambar");
 for (const slug of sampleSlugs) {
   if (!withDrafts.posts.some((post) => post.slug === slug && post.draft)) {
     fail(`draf pratinjau hilang: ${slug}`);

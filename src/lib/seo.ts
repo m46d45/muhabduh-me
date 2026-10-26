@@ -30,7 +30,7 @@ export function pageHead({
   title,
   description,
   path = "/",
-  image = `${SITE_URL}/portrait.jpg`,
+  image = `${SITE_URL}/portrait-640.jpg`,
   type = "website",
   locale = "en_US",
 }: PageSeo) {
@@ -65,7 +65,7 @@ export function personJsonLd(): Record<string, unknown> {
     givenName: "Muhamad",
     familyName: "Abduh",
     url: SITE_URL,
-    image: `${SITE_URL}/portrait.jpg`,
+    image: `${SITE_URL}/portrait-640.jpg`,
     jobTitle: "Professor of Civil Engineering",
     worksFor: {
       "@type": "CollegeOrUniversity",

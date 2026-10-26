@@ -3,6 +3,40 @@ import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { recordLinkClick } from "@/components/portfolio/link-stats";
 
+function Portrait({ className }: { className: string }) {
+  return (
+    <picture>
+      <source srcSet="/portrait-640.avif" type="image/avif" />
+      <source srcSet="/portrait-640.webp" type="image/webp" />
+      <img
+        src="/portrait-640.jpg"
+        alt="Portrait of Muhamad Abduh, professor of civil engineering at ITB"
+        width={640}
+        height={800}
+        decoding="async"
+        fetchPriority="high"
+        className={className}
+      />
+    </picture>
+  );
+}
+
+function SaveContact({ className }: { className?: string }) {
+  return (
+    <Button asChild size="lg" className={className}>
+      <a
+        href="/muhamad-abduh.vcf"
+        onClick={() => {
+          void recordLinkClick("save-contact");
+        }}
+      >
+        <ContactRound className="h-4 w-4" />
+        Save contact
+      </a>
+    </Button>
+  );
+}
+
 export function Hero() {
   return (
     <section
@@ -18,13 +52,7 @@ export function Hero() {
               aria-hidden
             />
             <div className="relative overflow-hidden rounded-xl border border-border bg-surface shadow-soft">
-              <img
-                src="/portrait-display.jpg"
-                alt="Portrait of Muhamad Abduh, professor of civil engineering at ITB"
-                width={420}
-                height={520}
-                className="aspect-[4/5] w-36 object-cover object-top"
-              />
+              <Portrait className="aspect-[4/5] w-36 object-cover object-top" />
             </div>
           </div>
           <h1 className="mt-4 text-center font-display text-2xl font-semibold tracking-tight text-ink">
@@ -33,17 +61,7 @@ export function Hero() {
           <p className="mt-1 text-center text-xs font-semibold tracking-[0.06em] uppercase text-accent">
             Professor · Civil Engineering · ITB
           </p>
-          <Button asChild size="lg" className="mt-4 w-full max-w-xs">
-            <a
-              href="/muhamad-abduh.vcf"
-              onClick={() => {
-                void recordLinkClick("save-contact");
-              }}
-            >
-              <ContactRound className="h-4 w-4" />
-              Save contact to phone
-            </a>
-          </Button>
+          <SaveContact className="mt-4 w-full max-w-xs" />
           <p className="mt-1.5 text-center text-xs text-subtle">
             Saves name, email, and phone to your contacts.
           </p>
@@ -57,6 +75,7 @@ export function Hero() {
           <h1 className="fade-up stagger-1 hidden font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl md:block lg:text-[3.5rem] lg:leading-[1.1]">
             Muhamad Abduh
           </h1>
+          <SaveContact className="fade-up stagger-2 mt-5 hidden md:inline-flex" />
 
           <p className="fade-up stagger-2 mt-2 max-w-xl text-base text-muted leading-relaxed md:mt-5 md:text-lg">
             I teach and do research in civil engineering at Institut Teknologi
@@ -108,13 +127,7 @@ export function Hero() {
               aria-hidden
             />
             <div className="relative overflow-hidden rounded-xl border border-border bg-surface shadow-soft">
-              <img
-                src="/portrait-display.jpg"
-                alt="Portrait of Muhamad Abduh, professor of civil engineering at ITB"
-                width={420}
-                height={520}
-                className="aspect-[4/5] w-56 object-cover object-top sm:w-72 lg:w-80"
-              />
+              <Portrait className="aspect-[4/5] w-56 object-cover object-top sm:w-72 lg:w-80" />
             </div>
           </div>
         </div>
