@@ -37,7 +37,8 @@ function site() {
     { papersYaml, posts },
     { tools, courses },
     {
-      includeDrafts: process.env.VERCEL_ENV === "preview",
+      includeDrafts:
+        process.env.VERCEL_ENV === "preview" || process.env.BLOG_PREVIEW === "1",
     },
   );
 }
@@ -49,6 +50,7 @@ function toCard(post: {
   date: string;
   topics: string[];
   draft?: boolean;
+  image?: string | null;
 }): PostCard {
   return {
     slug: post.slug,
@@ -57,6 +59,7 @@ function toCard(post: {
     date: post.date,
     topics: post.topics,
     draft: post.draft === true,
+    image: post.image ?? null,
   };
 }
 
@@ -83,6 +86,7 @@ export function postBySlug(slug: string) {
     description: post.description,
     date: post.date,
     draft: post.draft,
+    image: post.image ?? null,
     html: post.html,
     topics: post.topics.map((slugName) => {
       const topic = topicBySlug(slugName);

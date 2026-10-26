@@ -26,6 +26,7 @@ export type PostRecord = {
   description: string;
   date: string;
   draft: boolean;
+  image: string | null;
   topics: string[];
   paperIds: string[];
   toolIds: string[];
@@ -40,6 +41,8 @@ export type PostRecord = {
     description: string;
     date: string;
     topics: string[];
+    draft?: boolean;
+    image?: string | null;
   }[];
   lean: boolean;
   ogImage: string;

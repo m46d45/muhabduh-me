@@ -4,6 +4,7 @@ import {
   fetchCount,
   formatCount,
   markSessionHit,
+  runWhenIdle,
   sessionAlreadyHit,
 } from "@/lib/counter";
 
@@ -18,18 +19,19 @@ export function VisitorCounter() {
 
     async function run() {
       const already = sessionAlreadyHit(VIEW_KEY);
-      const n = await fetchCount(VIEW_KEY, already ? "get" : "up", {
-        priority: true,
-      });
+      const n = await fetchCount(VIEW_KEY, already ? "get" : "up");
       if (!cancelled) {
         setCount(n ?? 0);
         if (!already && n !== null) markSessionHit(VIEW_KEY);
       }
     }
 
-    void run();
+    const stop = runWhenIdle(() => {
+      void run();
+    });
     return () => {
       cancelled = true;
+      stop();
     };
   }, []);
 

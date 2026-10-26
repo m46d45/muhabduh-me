@@ -31,6 +31,8 @@ export type BlogPostView = {
   description: string;
   date: string;
   draft: boolean;
+  /** Optional square illustration. Absent means no image slot at all. */
+  image?: string | null;
   html: string;
   topics: { slug: string; name: string }[];
   papers: Paper[];
@@ -67,9 +69,25 @@ export function BlogPost({ post }: { post: BlogPostView }) {
             <time dateTime={post.date}>{formatDate(post.date)}</time>
           )}
         </p>
-        <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-          {post.title}
-        </h1>
+        <div className={post.image ? "mt-3 flex items-start gap-4" : "mt-3"}>
+          {/*
+            Optional square illustration from front matter `image`.
+            Spec (README, Ilustrasi tulisan): WebP, 800×800, subject centered,
+            under 80 KB, in public/blog/. No image means this slot is omitted.
+          */}
+          {post.image ? (
+            <img
+              src={post.image}
+              alt=""
+              width={96}
+              height={96}
+              className="h-20 w-20 shrink-0 rounded-lg border border-border object-cover sm:h-24 sm:w-24"
+            />
+          ) : null}
+          <h1 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            {post.title}
+          </h1>
+        </div>
         <p className="mt-4 text-lg leading-relaxed text-muted">{post.description}</p>
         <ul className="mt-4 flex flex-wrap gap-2">
           {post.topics.map((topic) => (

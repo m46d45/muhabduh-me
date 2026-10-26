@@ -21,15 +21,6 @@ export function BlogLanding({ topics, posts }: { topics: TopicCard[]; posts: Pos
         <h1 className="mt-3 max-w-3xl font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
           Memulai dengan Bertanya
         </h1>
-        <p lang="en" className="mt-3 max-w-2xl text-sm leading-relaxed text-subtle">
-          Essays in Bahasa Indonesia for practitioners and students in Indonesia.
-        </p>
-        <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted">
-          Setiap tulisan dalam seri ini berangkat dari satu pertanyaan yang saya temui di proyek
-          konstruksi, di ruang kuliah, atau saat membaca data lapangan. Jawabannya saya susun dari
-          penelitian yang sudah saya kerjakan, dengan bahasa yang mudah diikuti praktisi, mahasiswa,
-          dan pembaca umum.
-        </p>
 
         <h2 className="mt-14 font-display text-2xl font-semibold tracking-tight text-ink">
           Kategori
@@ -70,22 +61,39 @@ export function BlogLanding({ topics, posts }: { topics: TopicCard[]; posts: Pos
             ) : null}
             {posts.map((post) => (
               <li key={post.slug} className="py-5">
-                <p className="text-xs text-subtle">
-                  {post.draft ? (
-                    <span className="mr-2 font-semibold uppercase tracking-wide text-accent">
-                      Draf
-                    </span>
+                <div className={post.image ? "flex items-start gap-4" : undefined}>
+                  {post.image ? (
+                    <img
+                      src={post.image}
+                      alt=""
+                      width={80}
+                      height={80}
+                      className="h-16 w-16 shrink-0 rounded-md border border-border object-cover sm:h-20 sm:w-20"
+                    />
                   ) : null}
-                  {formatDate(post.date)}
-                </p>
-                <h3 className="mt-1 font-display text-xl font-semibold tracking-tight text-ink">
-                  <Link to="/blog/$slug" params={{ slug: post.slug }} className="hover:text-accent">
-                    {post.title}
-                  </Link>
-                </h3>
-                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-                  {post.description}
-                </p>
+                  <div>
+                    <p className="text-xs text-subtle">
+                      {post.draft ? (
+                        <span className="mr-2 font-semibold uppercase tracking-wide text-accent">
+                          Draf · pratinjau saja
+                        </span>
+                      ) : null}
+                      {formatDate(post.date)}
+                    </p>
+                    <h3 className="mt-1 font-display text-xl font-semibold tracking-tight text-ink">
+                      <Link
+                        to="/blog/$slug"
+                        params={{ slug: post.slug }}
+                        className="hover:text-accent"
+                      >
+                        {post.title}
+                      </Link>
+                    </h3>
+                    <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+                      {post.description}
+                    </p>
+                  </div>
+                </div>
               </li>
             ))}
           </ol>
