@@ -124,3 +124,39 @@ export function markSessionHit(key: string): void {
 export function formatCount(n: number): string {
   return new Intl.NumberFormat("en-US").format(n);
 }
+
+/**
+ * Run a counter call only after the browser is idle.
+ * Nothing here runs during render or the first paint.
+ */
+export function runWhenIdle(task: () => void): () => void {
+  if (typeof window === "undefined") return () => {};
+  let started = false;
+  const start = () => {
+    if (started) return;
+    started = true;
+    cleanup();
+    const idle = window.requestIdleCallback;
+    if (typeof idle === "function") {
+      const id = idle(() => task(), { timeout: 5000 });
+      cancel = () => window.cancelIdleCallback?.(id);
+    } else {
+      const id = window.setTimeout(task, 1);
+      cancel = () => window.clearTimeout(id);
+    }
+  };
+  let cancel = () => {};
+  const timer = window.setTimeout(start, 3000);
+  const onInteract = () => start();
+  window.addEventListener("pointerdown", onInteract, { once: true, passive: true });
+  window.addEventListener("keydown", onInteract, { once: true });
+  function cleanup() {
+    window.clearTimeout(timer);
+    window.removeEventListener("pointerdown", onInteract);
+    window.removeEventListener("keydown", onInteract);
+  }
+  return () => {
+    cleanup();
+    cancel();
+  };
+}
