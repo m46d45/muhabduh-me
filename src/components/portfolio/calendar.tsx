@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CalendarDays, Download, ExternalLink, Eye } from "lucide-react";
 import { recordLinkClick } from "@/components/portfolio/link-stats";
-import { fetchCount, formatCount } from "@/lib/counter";
+import { fetchCount, formatCount, runWhenIdle } from "@/lib/counter";
 
 const CAL_ID =
   "d379728b75d6aec0cb1e51eb00305b9cac17df9d6bb46fc34480bd01212bd044@group.calendar.google.com";
@@ -19,11 +19,14 @@ function IcsDownload() {
 
   useEffect(() => {
     let cancelled = false;
-    void fetchCount(`click-${ICS_TRACK_ID}`, "get").then((n) => {
-      if (!cancelled) setCount(n ?? 0);
+    const stop = runWhenIdle(() => {
+      void fetchCount(`click-${ICS_TRACK_ID}`, "get").then((n) => {
+        if (!cancelled) setCount(n ?? 0);
+      });
     });
     return () => {
       cancelled = true;
+      stop();
     };
   }, []);
 

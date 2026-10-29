@@ -18,13 +18,19 @@ export function Hero() {
               aria-hidden
             />
             <div className="relative overflow-hidden rounded-xl border border-border bg-surface shadow-soft">
-              <img
-                src="/portrait-display.jpg"
-                alt="Portrait of Muhamad Abduh, professor of civil engineering at ITB"
-                width={420}
-                height={520}
-                className="aspect-[4/5] w-36 object-cover object-top"
-              />
+              <picture>
+                <source srcSet="/portrait-640.avif" type="image/avif" />
+                <source srcSet="/portrait-640.webp" type="image/webp" />
+                <img
+                  src="/portrait-640.jpg"
+                  alt="Portrait of Muhamad Abduh, professor of civil engineering at ITB"
+                  width={640}
+                  height={800}
+                  decoding="async"
+                  fetchPriority="high"
+                  className="aspect-[4/5] w-36 object-cover object-top"
+                />
+              </picture>
             </div>
           </div>
           <h1 className="mt-4 text-center font-display text-2xl font-semibold tracking-tight text-ink">
@@ -108,13 +114,19 @@ export function Hero() {
               aria-hidden
             />
             <div className="relative overflow-hidden rounded-xl border border-border bg-surface shadow-soft">
-              <img
-                src="/portrait-display.jpg"
-                alt="Portrait of Muhamad Abduh, professor of civil engineering at ITB"
-                width={420}
-                height={520}
-                className="aspect-[4/5] w-56 object-cover object-top sm:w-72 lg:w-80"
-              />
+              <picture>
+                <source srcSet="/portrait-640.avif" type="image/avif" />
+                <source srcSet="/portrait-640.webp" type="image/webp" />
+                <img
+                  src="/portrait-640.jpg"
+                  alt="Portrait of Muhamad Abduh, professor of civil engineering at ITB"
+                  width={640}
+                  height={800}
+                  decoding="async"
+                  fetchPriority="high"
+                  className="aspect-[4/5] w-56 object-cover object-top sm:w-72 lg:w-80"
+                />
+              </picture>
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import {
   fetchCount,
   formatCount,
   markSessionHit,
+  runWhenIdle,
   sessionAlreadyHit,
 } from "@/lib/counter";
 import { cn } from "@/lib/utils";
@@ -19,11 +20,14 @@ export function LinkStats({ trackId, className }: LinkStatsProps) {
 
   useEffect(() => {
     let cancelled = false;
-    void fetchCount(key, "get").then((n) => {
-      if (!cancelled) setCount(n ?? 0);
+    const stop = runWhenIdle(() => {
+      void fetchCount(key, "get").then((n) => {
+        if (!cancelled) setCount(n ?? 0);
+      });
     });
     return () => {
       cancelled = true;
+      stop();
     };
   }, [key]);
 
@@ -86,11 +90,14 @@ export function TrackedLink({
   useEffect(() => {
     if (!showStats) return;
     let cancelled = false;
-    void fetchCount(key, "get").then((n) => {
-      if (!cancelled) setCount(n ?? 0);
+    const stop = runWhenIdle(() => {
+      void fetchCount(key, "get").then((n) => {
+        if (!cancelled) setCount(n ?? 0);
+      });
     });
     return () => {
       cancelled = true;
+      stop();
     };
   }, [key, showStats]);
 
