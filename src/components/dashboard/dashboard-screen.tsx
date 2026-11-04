@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { DECISION_CHOICES, OTHER_DECISION } from "@/lib/dashboard/decisions";
+import { PROJECT_STATUSES, STATUS_TAB, type StatusView } from "@/lib/dashboard/projects";
 import type {
   AgendaItem,
   DashboardPayload,
   DecisionView,
-  ProyekItem,
   TenggatItem,
 } from "@/lib/dashboard/types";
 
@@ -46,6 +47,17 @@ function formatDay(dateKey: string): string {
     weekday: "long",
     day: "numeric",
     month: "long",
+  }).format(date);
+}
+
+function formatDue(dateKey: string): string {
+  const date = new Date(`${dateKey}T12:00:00+07:00`);
+  if (Number.isNaN(date.getTime())) return dateKey;
+  return new Intl.DateTimeFormat("id-ID", {
+    timeZone: "Asia/Jakarta",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
   }).format(date);
 }
 
@@ -223,30 +235,6 @@ function DashboardView({
   onLogout: () => void;
   onChanged: () => Promise<void>;
 }) {
-  const cards = [
-    { label: "Keputusan terbuka", value: payload.kartu.keputusanTerbuka, hint: "Menunggu Bapak" },
-    {
-      label: "Tenggat minggu ini",
-      value: payload.kartu.tenggatMingguIni,
-      hint: "Senin–Minggu, WIB",
-    },
-    {
-      label: "Agenda hari ini",
-      value: payload.kartu.agendaHariIni,
-      hint:
-        payload.kartu.bentrok == null
-          ? "Belum ada snapshot"
-          : payload.kartu.bentrok === 0
-            ? "Tanpa bentrok"
-            : `${payload.kartu.bentrok} bentrok`,
-    },
-    {
-      label: "Tertahan / Dorman",
-      value: payload.kartu.tertahanDorman,
-      hint: "Perlu didorong atau ditutup",
-    },
-  ];
-
   return (
     <div>
       <header className="flex flex-wrap items-end justify-between gap-4">
@@ -275,36 +263,15 @@ function DashboardView({
         </div>
       ) : null}
 
-      <section className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4" aria-label="Ringkasan">
-        {cards.map((card) => (
-          <article
-            key={card.label}
-            className="rounded-lg border border-border bg-surface p-4 shadow-soft"
-          >
-            <h2 className="text-xs font-medium uppercase tracking-wide text-subtle">
-              {card.label}
-            </h2>
-            <p className="mt-2 font-display text-3xl text-ink">
-              {card.value == null ? "—" : card.value}
-            </p>
-            <p className="mt-1 text-sm text-muted">{card.hint}</p>
-          </article>
-        ))}
-      </section>
-
-      <div className="mt-8 grid gap-8 lg:grid-cols-2">
-        <AgendaSection items={payload.agenda} clashes={payload.bentrok} />
-        <DeadlineSection items={payload.tenggat} />
-      </div>
-
-      <LookaheadSection items={payload.lookahead} />
-      <ProjectSection items={payload.proyek} />
       <DecisionSection
         items={payload.keputusan}
         sheetUrl={safeHref(payload.tautanSheet)}
         columns={payload.kolom}
         onChanged={onChanged}
       />
+      <AgendaSection items={payload.agenda} clashes={payload.bentrok} />
+      <HorizonSection tenggat={payload.tenggat} lookahead={payload.lookahead} />
+      <ProjectSection items={payload.statusProyek} onChanged={onChanged} />
     </div>
   );
 }
@@ -326,7 +293,7 @@ function AgendaSection({
   clashes: { a: string; b: string }[];
 }) {
   return (
-    <section>
+    <section id="agenda-hari-ini" data-section="agenda-hari-ini" className="mt-8">
       <SectionTitle
         title="Agenda hari ini"
         hint="Judul singkat dan jam. Detail rahasia tidak ditampilkan."
@@ -360,30 +327,49 @@ function AgendaSection({
   );
 }
 
-function DeadlineSection({ items }: { items: TenggatItem[] }) {
+function HorizonSection({
+  tenggat,
+  lookahead,
+}: {
+  tenggat: TenggatItem[];
+  lookahead: AgendaItem[];
+}) {
   return (
-    <section>
-      <SectionTitle title="Tenggat minggu ini" hint="Yang jatuh temponya ada di minggu berjalan." />
-      {items.length === 0 ? (
-        <Empty>Tidak ada tenggat minggu ini.</Empty>
-      ) : (
-        <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface">
-          {items.map((item, index) => (
-            <li key={`${item.judul}-${item.jatuhTempo}-${index}`} className="px-4 py-3">
-              <p className="text-ink">{item.judul}</p>
-              <p className="text-sm text-muted">
-                {item.jatuhTempo ?? "Tanggal menyusul"}
-                {item.proyek ? ` · ${item.proyek}` : ""}
-              </p>
-            </li>
-          ))}
-        </ul>
-      )}
+    <section id="tenggat-lookahead" data-section="tenggat-lookahead" className="mt-8">
+      <SectionTitle
+        title="Tenggat & look-ahead"
+        hint="Tenggat minggu ini, lalu agenda 14 hari ke depan. Waktu WIB."
+      />
+      <h3 className="text-sm font-medium text-subtle">Tenggat minggu ini</h3>
+      <div className="mt-2">
+        <DeadlineList items={tenggat} />
+      </div>
+      <h3 className="mt-5 text-sm font-medium text-subtle">14 hari ke depan</h3>
+      <div className="mt-2">
+        <LookaheadList items={lookahead} />
+      </div>
     </section>
   );
 }
 
-function LookaheadSection({ items }: { items: AgendaItem[] }) {
+function DeadlineList({ items }: { items: TenggatItem[] }) {
+  if (items.length === 0) return <Empty>Tidak ada tenggat minggu ini.</Empty>;
+  return (
+    <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface">
+      {items.map((item, index) => (
+        <li key={`${item.judul}-${item.jatuhTempo}-${index}`} className="px-4 py-3">
+          <p className="text-ink">{item.judul}</p>
+          <p className="text-sm text-muted">
+            {item.jatuhTempo ? formatDue(item.jatuhTempo) : "Tanggal menyusul"}
+            {item.proyek ? ` · ${item.proyek}` : ""}
+          </p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function LookaheadList({ items }: { items: AgendaItem[] }) {
   const groups = new Map<string, AgendaItem[]>();
   for (const item of items) {
     const key = item.tanggal ?? "tanpa-tanggal";
@@ -391,78 +377,147 @@ function LookaheadSection({ items }: { items: AgendaItem[] }) {
     list.push(item);
     groups.set(key, list);
   }
+  if (items.length === 0) return <Empty>Tidak ada agenda dalam 14 hari ke depan.</Empty>;
   return (
-    <section className="mt-8">
-      <SectionTitle title="14 hari ke depan" hint="Dari hari ini sampai dua minggu, waktu WIB." />
-      {items.length === 0 ? (
-        <Empty>Tidak ada agenda dalam 14 hari ke depan.</Empty>
-      ) : (
-        <div className="space-y-5">
-          {[...groups.entries()].map(([key, group]) => (
-            <div key={key}>
-              <h3 className="text-sm font-medium text-subtle">
-                {key === "tanpa-tanggal" ? "Tanggal belum jelas" : formatDay(key)}
-              </h3>
-              <ul className="mt-2 divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface">
-                {group.map((item, index) => (
-                  <li key={`${key}-${item.judul}-${index}`} className="flex gap-4 px-4 py-3">
-                    <p className="w-28 shrink-0 text-sm font-medium text-accent">{clock(item)}</p>
-                    <p className="text-ink">{item.judul}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+    <div className="space-y-5">
+      {[...groups.entries()].map(([key, group]) => (
+        <div key={key}>
+          <h3 className="text-sm font-medium text-subtle">
+            {key === "tanpa-tanggal" ? "Tanggal belum jelas" : formatDay(key)}
+          </h3>
+          <ul className="mt-2 divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface">
+            {group.map((item, index) => (
+              <li key={`${key}-${item.judul}-${index}`} className="flex gap-4 px-4 py-3">
+                <p className="w-28 shrink-0 text-sm font-medium text-accent">{clock(item)}</p>
+                <p className="text-ink">{item.judul}</p>
+              </li>
+            ))}
+          </ul>
         </div>
+      ))}
+    </div>
+  );
+}
+
+function ProjectSection({
+  items,
+  onChanged,
+}: {
+  items: StatusView[];
+  onChanged: () => Promise<void>;
+}) {
+  return (
+    <section id="status-proyek" data-section="status-proyek" className="mt-8 pb-10">
+      <SectionTitle
+        title="Status proyek"
+        hint={`Nilai yang tersimpan di tab ${STATUS_TAB}. Pilih Aktif, Tertahan, Dorman, atau Selesai.`}
+      />
+      {items.length === 0 ? (
+        <Empty>Belum ada proyek untuk diubah statusnya.</Empty>
+      ) : (
+        <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface">
+          {items.map((item) => (
+            <ProjectRow key={item.nama} item={item} onChanged={onChanged} />
+          ))}
+        </ul>
       )}
     </section>
   );
 }
 
-function ProjectSection({ items }: { items: ProyekItem[] }) {
+function ProjectRow({ item, onChanged }: { item: StatusView; onChanged: () => Promise<void> }) {
+  const [status, setStatus] = useState(item.status ?? "");
+  const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const href = safeHref(item.tautan);
+  const selectId = `status-${item.nama.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+
+  useEffect(() => {
+    setStatus(item.status ?? "");
+  }, [item.status]);
+
+  async function onPick(next: string) {
+    if (!next || next === item.status) return;
+    setStatus(next);
+    setPending(true);
+    setSaved(false);
+    setError(null);
+    try {
+      const response = await fetch("/api/status-proyek", {
+        method: "POST",
+        headers: { "content-type": "application/json", accept: "application/json" },
+        body: JSON.stringify({ proyek: item.nama, status: next }),
+      });
+      const data = (await response.json()) as { ok: boolean; error?: string };
+      if (!response.ok || !data.ok) {
+        setStatus(item.status ?? "");
+        setError(data.error ?? "Status tidak tersimpan.");
+        return;
+      }
+      setSaved(true);
+      await onChanged();
+    } catch {
+      setStatus(item.status ?? "");
+      setError("Tidak terhubung. Coba lagi.");
+    } finally {
+      setPending(false);
+    }
+  }
+
+  const current = item.status ?? item.statusMentah ?? "Belum diisi";
+
   return (
-    <section className="mt-8">
-      <SectionTitle
-        title="Status proyek"
-        hint="Tertahan dan Dorman di atas, supaya yang macet kelihatan dulu."
-      />
-      {items.length === 0 ? (
-        <Empty>Belum ada proyek di snapshot.</Empty>
-      ) : (
-        <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface">
-          {items.map((item, index) => {
-            const href = safeHref(item.tautan);
-            return (
-              <li
-                key={`${item.nama}-${item.kategori}-${index}`}
-                className="flex items-start justify-between gap-3 px-4 py-3"
-              >
-                <div className="min-w-0">
-                  <p className="text-ink">{item.nama}</p>
-                  {item.catatan ? <p className="text-sm text-muted">{item.catatan}</p> : null}
-                </div>
-                <div className="flex shrink-0 items-center gap-3">
-                  <span className="rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted">
-                    {item.kategori}
-                  </span>
-                  {href ? (
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-accent"
-                      aria-label={`Buka ${item.nama}`}
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                    </a>
-                  ) : null}
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </section>
+    <li className="flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="min-w-0">
+        <p className="text-ink">{item.nama}</p>
+        <p className="text-sm text-muted">
+          Saat ini: {current}
+          {item.diubah ? ` · diubah ${item.diubah}` : ""}
+          {item.snapshot && item.snapshot !== item.status
+            ? ` · snapshot pagi ${item.snapshot}`
+            : ""}
+        </p>
+        {error ? (
+          <p role="alert" className="text-sm font-medium text-ink">
+            {error}
+          </p>
+        ) : null}
+        {saved && !error ? <p className="text-sm text-accent">Tersimpan</p> : null}
+      </div>
+      <div className="flex shrink-0 items-center gap-3">
+        <label className="sr-only" htmlFor={selectId}>
+          Status {item.nama}
+        </label>
+        <select
+          id={selectId}
+          className="h-11 min-w-40 cursor-pointer rounded-md border border-border bg-surface px-3 text-sm text-fg"
+          value={status}
+          disabled={pending}
+          onChange={(event) => void onPick(event.target.value)}
+        >
+          <option value="" disabled>
+            Belum diisi
+          </option>
+          {PROJECT_STATUSES.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+        {href ? (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent"
+            aria-label={`Buka ${item.nama}`}
+          >
+            <ExternalLink className="h-4 w-4" />
+          </a>
+        ) : null}
+      </div>
+    </li>
   );
 }
 
@@ -478,8 +533,22 @@ function DecisionSection({
   onChanged: () => Promise<void>;
 }) {
   return (
-    <section className="mt-8 pb-8">
-      <SectionTitle title="Menunggu Bapak" hint="Keputusan dan Waktu WIB masih kosong." />
+    <section id="menunggu-bapak" data-section="menunggu-bapak" className="mt-8">
+      <SectionTitle
+        title="Menunggu Bapak"
+        hint="Diurutkan Mendesak, Penting, lalu Bisa nanti. Tiap kartu menampilkan label dan tenggat."
+      />
+      <details className="mb-4 text-sm text-muted">
+        <summary className="cursor-pointer text-accent">Aturan urutan</summary>
+        <p className="mt-2">
+          Tenggat diambil dari tanggal di judul. Kalau tahunnya tidak ditulis, dipakai tahun ini
+          atau tahun depan, mana yang lebih dekat ke hari ini. Kalau tidak ada tanggal, dipakai
+          tenggat snapshot pada proyek yang sama. Kalau judul menulis &quot;hari ini&quot;,
+          tenggatnya tanggal Muncul. Mendesak: tenggat hari ini atau sudah lewat, atau belum ada
+          tenggat dan item sudah muncul 7 hari atau lebih. Penting: tenggat 1–7 hari lagi, atau
+          muncul 3–6 hari tanpa tenggat. Selain itu: Bisa nanti.
+        </p>
+      </details>
       {items.length === 0 ? (
         <Empty>Tidak ada keputusan yang menunggu.</Empty>
       ) : (
@@ -524,10 +593,8 @@ function DecisionCard({
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const fieldId = `keputusan-${item.id || item.pertanyaan}`;
-  const other = "Keputusan lain";
-  const choices = (item.opsi.length >= 2 ? item.opsi : ["Setuju", "Tolak", "Tunda"]).filter(
-    (option) => option !== other,
-  );
+  const other = OTHER_DECISION;
+  const choices = DECISION_CHOICES;
   const keputusan = selected === other ? custom.trim() : selected;
   const canSave = selected !== "" && keputusan !== "";
 
@@ -559,9 +626,18 @@ function DecisionCard({
 
   return (
     <article className="rounded-lg border border-border bg-surface p-4 shadow-soft">
-      <div className="flex flex-wrap items-start justify-between gap-2">
+      <div className="flex flex-wrap items-center gap-2">
+        <ImportanceBadge level={item.penting} />
+        <p className="text-sm text-muted">
+          {item.tenggat ? `Tenggat ${formatDue(item.tenggat)}` : "Belum ada tenggat"}
+        </p>
+      </div>
+      <div className="mt-3 flex flex-wrap items-start justify-between gap-2">
         <div>
           <h3 className="font-display text-xl text-ink">{item.pertanyaan}</h3>
+          {item.munculLagi ? (
+            <p className="mt-1 text-sm text-accent">Muncul lagi setelah ditunda.</p>
+          ) : null}
           <p className="mt-1 text-sm text-muted">
             {[
               item.muncul ? `Muncul ${item.muncul}` : "",
@@ -641,11 +717,27 @@ function DecisionCard({
             </p>
           ) : null}
           <Button type="submit" disabled={pending || !canSave}>
-            {pending ? "Menyimpan…" : "Simpan keputusan"}
+            {pending ? "Menyimpan…" : "Simpan"}
           </Button>
         </form>
       )}
     </article>
+  );
+}
+
+function ImportanceBadge({ level }: { level: DecisionView["penting"] }) {
+  const className =
+    level === "Mendesak"
+      ? "bg-ink text-accent-fg"
+      : level === "Penting"
+        ? "bg-teal-wash text-ink"
+        : "bg-bg-deep text-muted";
+  return (
+    <span
+      className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${className}`}
+    >
+      {level}
+    </span>
   );
 }
 

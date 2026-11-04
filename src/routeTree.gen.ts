@@ -30,6 +30,7 @@ import { Route as ApiKeputusanRouteImport } from './routes/api/keputusan'
 import { Route as ApiLoginRouteImport } from './routes/api/login'
 import { Route as ApiLogoutRouteImport } from './routes/api/logout'
 import { Route as ApiSnapshotRouteImport } from './routes/api/snapshot'
+import { Route as ApiStatusProyekRouteImport } from './routes/api/status-proyek'
 import { Route as BertanyaIndexRouteImport } from './routes/bertanya/index'
 import { Route as BertanyaSlugRouteImport } from './routes/bertanya/$slug'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
@@ -141,6 +142,11 @@ const ApiSnapshotRoute = ApiSnapshotRouteImport.update({
   path: '/api/snapshot',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiStatusProyekRoute = ApiStatusProyekRouteImport.update({
+  id: '/api/status-proyek',
+  path: '/api/status-proyek',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BertanyaIndexRoute = BertanyaIndexRouteImport.update({
   id: '/bertanya/',
   path: '/bertanya/',
@@ -189,6 +195,7 @@ export interface FileRoutesByFullPath {
   '/api/login': typeof ApiLoginRoute
   '/api/logout': typeof ApiLogoutRoute
   '/api/snapshot': typeof ApiSnapshotRoute
+  '/api/status-proyek': typeof ApiStatusProyekRoute
   '/bertanya/$slug': typeof BertanyaSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/topik/$topik': typeof TopikTopikRoute
@@ -217,6 +224,7 @@ export interface FileRoutesByTo {
   '/api/login': typeof ApiLoginRoute
   '/api/logout': typeof ApiLogoutRoute
   '/api/snapshot': typeof ApiSnapshotRoute
+  '/api/status-proyek': typeof ApiStatusProyekRoute
   '/bertanya/$slug': typeof BertanyaSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/topik/$topik': typeof TopikTopikRoute
@@ -246,6 +254,7 @@ export interface FileRoutesById {
   '/api/login': typeof ApiLoginRoute
   '/api/logout': typeof ApiLogoutRoute
   '/api/snapshot': typeof ApiSnapshotRoute
+  '/api/status-proyek': typeof ApiStatusProyekRoute
   '/bertanya/$slug': typeof BertanyaSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/topik/$topik': typeof TopikTopikRoute
@@ -276,6 +285,7 @@ export interface FileRouteTypes {
     | '/api/login'
     | '/api/logout'
     | '/api/snapshot'
+    | '/api/status-proyek'
     | '/bertanya/$slug'
     | '/blog/$slug'
     | '/topik/$topik'
@@ -304,6 +314,7 @@ export interface FileRouteTypes {
     | '/api/login'
     | '/api/logout'
     | '/api/snapshot'
+    | '/api/status-proyek'
     | '/bertanya/$slug'
     | '/blog/$slug'
     | '/topik/$topik'
@@ -332,6 +343,7 @@ export interface FileRouteTypes {
     | '/api/login'
     | '/api/logout'
     | '/api/snapshot'
+    | '/api/status-proyek'
     | '/bertanya/$slug'
     | '/blog/$slug'
     | '/topik/$topik'
@@ -361,6 +373,7 @@ export interface RootRouteChildren {
   ApiLoginRoute: typeof ApiLoginRoute
   ApiLogoutRoute: typeof ApiLogoutRoute
   ApiSnapshotRoute: typeof ApiSnapshotRoute
+  ApiStatusProyekRoute: typeof ApiStatusProyekRoute
   BertanyaSlugRoute: typeof BertanyaSlugRoute
   BlogSlugRoute: typeof BlogSlugRoute
   TopikTopikRoute: typeof TopikTopikRoute
@@ -517,6 +530,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSnapshotRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/status-proyek': {
+      id: '/api/status-proyek'
+      path: '/api/status-proyek'
+      fullPath: '/api/status-proyek'
+      preLoaderRoute: typeof ApiStatusProyekRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/bertanya/': {
       id: '/bertanya/'
       path: '/bertanya'
@@ -577,6 +597,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiLoginRoute: ApiLoginRoute,
   ApiLogoutRoute: ApiLogoutRoute,
   ApiSnapshotRoute: ApiSnapshotRoute,
+  ApiStatusProyekRoute: ApiStatusProyekRoute,
   BertanyaSlugRoute: BertanyaSlugRoute,
   BlogSlugRoute: BlogSlugRoute,
   TopikTopikRoute: TopikTopikRoute,

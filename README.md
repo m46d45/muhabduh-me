@@ -120,18 +120,38 @@ Open rows are read from the live sheet (about a minute of cache), not from the s
 
 Column positions are not hard-coded. The header row is matched by name:
 
-| Field                            | Accepted headers                                                                                                                                                                                                                              |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ID                               | `ID`, `Kode`, `Kode keputusan`                                                                                                                                                                                                                |
-| Keputusan                        | header containing `Keputusan` or `Decision`                                                                                                                                                                                                   |
-| Waktu WIB                        | `Waktu WIB` or `Waktu`                                                                                                                                                                                                                        |
-| Catatan                          | `Tanggapan saya`, `Tanggapan`, `Catatan`, `Komentar`, `Comment`, `Notes`                                                                                                                                                                      |
-| Pertanyaan                       | `Judul`, `Pertanyaan`, `Question`, `Uraian`, `Deskripsi`, `Isu`, `Topik`, `Hal`, `Q`                                                                                                                                                          |
-| Muncul                           | `Muncul` (tanggal item muncul; ditampilkan di kartu)                                                                                                                                                                                          |
-| Opsi                             | Taken from `Judul`, not a sheet column. The clause after the last `;` or `:` (or a question shaped `A, B, atau C?`) is split on commas and `atau`. Fewer than two choices becomes `Setuju`, `Tolak`, `Tunda`. The page adds `Keputusan lain`. |
-| Proyek / Sumber / Lewat / Tautan | `Proyek`, `Sumber`, `Lewat`, `Tautan`                                                                                                                                                                                                         |
+| Field                            | Accepted headers                                                                                                                                                                                                                                                                                                                                                                               |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ID                               | `ID`, `Kode`, `Kode keputusan`                                                                                                                                                                                                                                                                                                                                                                 |
+| Keputusan                        | header containing `Keputusan` or `Decision`                                                                                                                                                                                                                                                                                                                                                    |
+| Waktu WIB                        | `Waktu WIB` or `Waktu`                                                                                                                                                                                                                                                                                                                                                                         |
+| Catatan                          | `Tanggapan saya`, `Tanggapan`, `Catatan`, `Komentar`, `Comment`, `Notes`                                                                                                                                                                                                                                                                                                                       |
+| Pertanyaan                       | `Judul`, `Pertanyaan`, `Question`, `Uraian`, `Deskripsi`, `Isu`, `Topik`, `Hal`, `Q`                                                                                                                                                                                                                                                                                                           |
+| Muncul                           | `Muncul` (tanggal item muncul; ditampilkan di kartu)                                                                                                                                                                                                                                                                                                                                           |
+| Opsi                             | The same five choices on every card: `Setuju, kerjakan`, `Tolak, jangan dikerjakan`, `Tunda, tanyakan lagi minggu depan`, `Sudah saya tangani sendiri`, `Abaikan / tidak relevan`, plus `Keputusan lain` with a text field. The old per-row menu inside `Judul` is not shown. The card title is the `Judul` stem, with a `?` added when it is missing, and a trailing `;` option list removed. |
+| Proyek / Sumber / Lewat / Tautan | `Proyek`, `Sumber`, `Lewat`, `Tautan`                                                                                                                                                                                                                                                                                                                                                          |
 
 The page lists the headers it actually used. A write fills Keputusan only while that cell and Waktu WIB are still empty, then writes `diputuskan via dashboard, DD MMM HH.MM WIB` into Waktu WIB and appends the comment to Tanggapan saya. If either cell is already filled, the API returns 409 and does not overwrite it.
+
+`Tunda, tanyakan lagi minggu depan` is the exception. It still writes Keputusan (that exact phrase), Tanggapan saya (the comment, if any), and Waktu WIB, but Waktu WIB is `tunda sampai YYYY-MM-DD · dicatat via dashboard, DD MMM HH.MM WIB`. The date is seven days after today in WIB. Until that date the card is hidden. On that date and after, the card is listed again even though the cells are filled, and the next save may replace them. Any other text in Waktu WIB still closes the row.
+
+### Urutan kepentingan
+
+Menunggu Bapak is sorted `Mendesak`, then `Penting`, then `Bisa nanti`. Each card shows that label and a due date.
+
+The due date is the earliest concrete date in Judul (`2026-11-25`, `25/11/2026`, or `8 Des` / `8 Desember 2026`). A missing year is this year or next year, whichever resulting date is closer to today WIB. If Judul says `hari ini` and has no date, the due date is Muncul, or today when Muncul cannot be parsed. If Judul still has no date, the earliest snapshot deadline for the same project name is used. Otherwise the card says there is no due date.
+
+- **Mendesak** — due today or earlier. With no due date: the Lewat column, the word `lewat` in Judul, or Muncul at least 7 days ago.
+- **Penting** — due in 1 to 7 days. With no due date: Muncul 3 to 6 days ago.
+- **Bisa nanti** — due later than 7 days, or Muncul within the last 2 days, or no date at all.
+
+Inside one band, the earlier due date comes first, then the older Muncul date, then the ID.
+
+### Status proyek
+
+The Status column on ResearchGate, Personal Website, LC Bibliometric, RagilE, Seri ICE, Rencana Paper, and Kuliah MBK is task progress (`Sudah`, `Belum`, and similar). It is not the project heartbeat.
+
+Project status is the tab **`Status Proyek`**, columns **`Proyek`**, **`Status`**, **`Diubah WIB`**. Status is one of `Aktif`, `Tertahan`, `Dorman`, `Selesai`. The dashboard creates that tab when it is missing and seeds those seven project names with an empty status. Changing the select writes Status and Diubah WIB (`DD MMM YYYY HH.MM WIB`) on that row. An empty Status means it has not been set. Heartbeat routines should read this tab, not the task Status columns.
 
 ### Environment variables
 

@@ -11,6 +11,7 @@ import {
   handlePostLogin,
   handlePostLogout,
   handlePostSnapshot,
+  handlePostStatusProyek,
   resetHandlerState,
 } from "@/lib/dashboard/handlers.server";
 
@@ -96,6 +97,19 @@ test("dashboard and write APIs reject missing auth", async () => {
     { now },
   );
   assert.equal(keputusan.status, 401);
+  const status = await handlePostStatusProyek(
+    new Request("https://www.muhabduh.id/api/status-proyek", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        origin: "https://www.muhabduh.id",
+        host: "www.muhabduh.id",
+      },
+      body: JSON.stringify({ proyek: "RagilE", status: "Aktif" }),
+    }),
+    { now },
+  );
+  assert.equal(status.status, 401);
   const snapshot = await handlePostSnapshot(
     new Request("https://www.muhabduh.id/api/snapshot", {
       method: "POST",
@@ -170,10 +184,11 @@ test("snapshot token stores only redacted JSON", async () => {
       bentrok: number;
       tertahanDorman: number;
     };
-    keputusan: { id: string; pertanyaan: string; opsi: string[] }[];
+    keputusan: { id: string; pertanyaan: string; opsi: string[]; penting: string }[];
     tenggat: { judul: string }[];
     lookahead: { judul: string }[];
     tautanSheet: string;
+    statusProyek: { nama: string }[];
   };
   assert.equal(containsSecretDeep(payload), false);
   assert.equal(payload.kartu.keputusanTerbuka, 2);
@@ -187,7 +202,22 @@ test("snapshot token stores only redacted JSON", async () => {
     payload.lookahead.some((item) => item.judul === "Terlalu jauh"),
     false,
   );
-  assert.deepEqual(payload.keputusan[0]?.opsi, ["Setuju", "Tolak", "Tunda"]);
+  assert.deepEqual(payload.keputusan[0]?.opsi, [
+    "Setuju, kerjakan",
+    "Tolak, jangan dikerjakan",
+    "Tunda, tanyakan lagi minggu depan",
+    "Sudah saya tangani sendiri",
+    "Abaikan / tidak relevan",
+  ]);
+  assert.equal(payload.keputusan[0]?.penting, "Bisa nanti");
+  assert.equal(
+    payload.statusProyek.some((item) => item.nama === "Bank soal"),
+    true,
+  );
+  assert.equal(
+    payload.statusProyek.some((item) => item.nama.includes("rahasia")),
+    false,
+  );
   assert.equal(payload.keputusan[1]?.pertanyaan, "Pertanyaan klien (rahasia)");
   assert.equal(payload.tautanSheet.includes("sheet-uji"), true);
 });
@@ -242,6 +272,69 @@ test("decision write refuses a filled cell and records a completion note", async
   assert.equal(updates[0]?.values[0]?.[0], "Ya");
   assert.match(JSON.stringify(updates), /diputuskan via dashboard/);
   assert.match(JSON.stringify(updates), /catatan bapak/);
+
+  updates.length = 0;
+  const deferred = await handlePostKeputusan(
+    new Request("https://www.muhabduh.id/api/keputusan", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        cookie,
+        origin: "https://www.muhabduh.id",
+        host: "www.muhabduh.id",
+      },
+      body: JSON.stringify({
+        id: "K-2",
+        keputusan: "Tunda, tanyakan lagi minggu depan",
+        komentar: "",
+      }),
+    }),
+    {
+      now,
+      sessions,
+      readSheet: async () => ({
+        values: [headers, ["K-2", "Riset", "Nanti?", "", "", "", ""]],
+        tab: "Keputusan",
+        sheetId: "sheet-uji",
+      }),
+      writeCells: async (next) => {
+        updates.push(...next);
+      },
+    },
+  );
+  assert.equal(deferred.status, 200);
+  assert.match(JSON.stringify(updates), /tunda sampai 2026-11-11/);
+});
+
+test("project status is written onto the status tab", async () => {
+  const cookie = await loginCookie();
+  const updates: { range: string; values: string[][] }[] = [];
+  const saved = await handlePostStatusProyek(
+    new Request("https://www.muhabduh.id/api/status-proyek", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        cookie,
+        origin: "https://www.muhabduh.id",
+        host: "www.muhabduh.id",
+      },
+      body: JSON.stringify({ proyek: "RagilE", status: "Tertahan" }),
+    }),
+    {
+      now,
+      sessions,
+      readStatus: async () => [
+        ["Proyek", "Status", "Diubah WIB"],
+        ["RagilE", "Aktif", ""],
+      ],
+      writeCells: async (next) => {
+        updates.push(...next);
+      },
+    },
+  );
+  assert.equal(saved.status, 200);
+  assert.equal(updates[0]?.values[0]?.[0], "Tertahan");
+  assert.match(updates[1]?.values[0]?.[0] ?? "", /WIB/);
 });
 
 test("logout revokes a copied cookie", async () => {

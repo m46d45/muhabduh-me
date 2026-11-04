@@ -1,8 +1,16 @@
 import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
-import { containsSecretDeep } from "@/lib/dashboard/secret";
+import { containsSecret, containsSecretDeep } from "@/lib/dashboard/secret";
 import { findClashes, isWithinLookahead, isWithinWeek, wibDateKey } from "@/lib/dashboard/time";
 import { ingestSnapshot, rehydrateSnapshot } from "@/lib/dashboard/redact";
 import { planDecisionWrite, readOpenDecisions } from "@/lib/dashboard/decisions";
+import {
+  SEED_PROJECTS,
+  STATUS_HEADERS,
+  STATUS_TAB,
+  mergeProjectStatus,
+  planProjectStatusWrite,
+  readStatusRows,
+} from "@/lib/dashboard/projects";
 import type { DecisionView } from "@/lib/dashboard/types";
 import type { SnapshotStore } from "@/lib/dashboard/types";
 import { hashProblem, verifyPassword } from "@/lib/dashboard/password.server";
@@ -23,7 +31,10 @@ import {
 } from "@/lib/dashboard/session.server";
 import type { DashboardPayload } from "@/lib/dashboard/types";
 import {
+  ensureSheetTab,
+  readNamedTab,
   readSheetValues,
+  sheetConfig,
   sheetEditUrl,
   writeSheetCells,
   SheetConfigError,
@@ -38,6 +49,7 @@ export type HandlerDeps = {
   sleep?: (ms: number) => Promise<void>;
   store?: SnapshotStore;
   readSheet?: () => Promise<{ values: string[][]; tab: string; sheetId: string }>;
+  readStatus?: () => Promise<string[][]>;
   writeCells?: (updates: { range: string; values: string[][] }[]) => Promise<void>;
   sessions?: SessionRegistry;
 };
@@ -300,7 +312,7 @@ export async function handleGetDashboard(
   let sheetReady = false;
   try {
     const sheet = deps.readSheet ? await deps.readSheet() : await readSheetValues();
-    const parsed = readOpenDecisions(sheet.values);
+    const parsed = readOpenDecisions(sheet.values, { today, tenggat });
     tautanSheet = sheetEditUrl(sheet.sheetId);
     if (!parsed.ok) {
       warnings.push(parsed.error);
@@ -330,6 +342,9 @@ export async function handleGetDashboard(
         lewat: item.lewat,
         rahasia: item.rahasia,
         terkunci: item.terkunci,
+        penting: item.penting,
+        tenggat: item.tenggat,
+        munculLagi: item.munculLagi,
       }));
       if (containsSecretDeep(keputusan)) {
         keputusan = [];
@@ -345,6 +360,24 @@ export async function handleGetDashboard(
         ? error.message
         : "Sheet tidak bisa dibaca.",
     );
+  }
+
+  let statusProyek: DashboardPayload["statusProyek"] = mergeProjectStatus(proyek, []).filter(
+    (item) => !containsSecret(item.nama),
+  );
+  try {
+    const statusValues = deps.readStatus ? await deps.readStatus() : await loadProjectStatusSheet();
+    if (statusValues) {
+      const parsedStatus = readStatusRows(statusValues);
+      if (!parsedStatus.ok) warnings.push(parsedStatus.error);
+      else {
+        statusProyek = mergeProjectStatus(proyek, parsedStatus.rows).filter(
+          (item) => !containsSecret(item.nama) && !containsSecret(item.diubah ?? ""),
+        );
+      }
+    }
+  } catch (error) {
+    warnings.push(error instanceof Error ? error.message : "Status proyek tidak bisa dibaca.");
   }
 
   const clashes = findClashes(agenda).map((pair) => ({ a: pair.a.judul, b: pair.b.judul }));
@@ -375,8 +408,20 @@ export async function handleGetDashboard(
     proyek,
     keputusan,
     tautanSheet,
+    statusProyek,
   };
   return json(payload);
+}
+
+async function loadProjectStatusSheet(): Promise<string[][] | null> {
+  const config = sheetConfig();
+  if (!config.ok) return null;
+  await ensureSheetTab(
+    STATUS_TAB,
+    [...STATUS_HEADERS],
+    SEED_PROJECTS.map((nama) => [nama, "", ""]),
+  );
+  return (await readNamedTab(STATUS_TAB, { fresh: true })).values;
 }
 
 export async function handlePostKeputusan(
@@ -413,6 +458,46 @@ export async function handlePostKeputusan(
     return json({ ok: true });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Keputusan tidak tersimpan.";
+    return fail(message, 503);
+  }
+}
+
+export async function handlePostStatusProyek(
+  request: Request,
+  deps: HandlerDeps = {},
+): Promise<Response> {
+  if (!sameOrigin(request)) return fail("Asal permintaan tidak dikenali.", 403);
+  const now = nowOf(deps);
+  const denied = await requireSession(request, now.getTime(), deps);
+  if (denied) return denied;
+  const body = await readBody(request, 8_000);
+  if (!body.ok) return body.response;
+  const record =
+    body.value && typeof body.value === "object" ? (body.value as Record<string, unknown>) : {};
+  const proyek = typeof record.proyek === "string" ? record.proyek : "";
+  const status = typeof record.status === "string" ? record.status.trim() : "";
+  if (containsSecret(proyek)) {
+    return fail("Nama proyek itu tidak disimpan dari halaman ini.", 422);
+  }
+  try {
+    const values = deps.readStatus ? await deps.readStatus() : await loadProjectStatusSheet();
+    if (!values) {
+      const config = sheetConfig();
+      return fail(config.ok ? "Status proyek tidak bisa dibaca." : config.error, 503);
+    }
+    const plan = planProjectStatusWrite({
+      values,
+      tab: STATUS_TAB,
+      proyek,
+      status,
+      now,
+    });
+    if (!plan.ok) return fail(plan.error, plan.status);
+    if (deps.writeCells) await deps.writeCells(plan.updates);
+    else await writeSheetCells(plan.updates);
+    return json({ ok: true });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Status proyek tidak tersimpan.";
     return fail(message, 503);
   }
 }
