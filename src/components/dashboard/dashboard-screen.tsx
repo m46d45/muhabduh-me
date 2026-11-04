@@ -479,10 +479,7 @@ function DecisionSection({
 }) {
   return (
     <section className="mt-8 pb-8">
-      <SectionTitle
-        title="Menunggu Bapak"
-        hint="Keputusan masih kosong dan Waktu WIB belum berisi catatan selesai."
-      />
+      <SectionTitle title="Menunggu Bapak" hint="Keputusan dan Waktu WIB masih kosong." />
       {items.length === 0 ? (
         <Empty>Tidak ada keputusan yang menunggu.</Empty>
       ) : (

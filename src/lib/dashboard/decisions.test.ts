@@ -12,10 +12,12 @@ import { completionNote } from "@/lib/dashboard/time";
 
 const headers = ["ID", "Proyek", "Pertanyaan", "Opsi", "Keputusan", "Waktu WIB", "Catatan"];
 
-test("open means an empty keputusan and no completion note", () => {
-  assert.equal(isDecisionOpen("", "4 Nov 08.00 WIB"), true);
-  assert.equal(isDecisionOpen("Ya", "4 Nov 08.00 WIB"), false);
-  assert.equal(isDecisionOpen("  ", "selesai dibahas"), false);
+test("open only when both Keputusan and Waktu WIB are empty", () => {
+  assert.equal(isDecisionOpen("", ""), true);
+  assert.equal(isDecisionOpen("  ", "  "), true);
+  assert.equal(isDecisionOpen("", "4 Nov 08.00 WIB"), false);
+  assert.equal(isDecisionOpen("Ya", ""), false);
+  assert.equal(isDecisionOpen("", "sudah dibalas Abduh…"), false);
   assert.equal(isDecisionOpen("", "diputuskan via dashboard, 04 Nov 09.00 WIB"), false);
 });
 
@@ -31,14 +33,19 @@ test("headers are discovered by name, including longer aliases", () => {
 test("confidential decision text is masked before it is served", () => {
   const read = readOpenDecisions([
     headers,
-    ["K-1", "Riset", "Lanjut kuliah?", "Ya | Tidak", "", "4 Nov 08.00 WIB", ""],
-    ["K-2", "Riset", "Sudah?", "", "Ya", "diputuskan via dashboard, 01 Nov 09.00 WIB", ""],
-    ["K-3", "INPEX", "Bahas Masela dan IDR?", "Tunda | Tolak", "", "4 Nov 08.00", ""],
-    ["K-OLNG-1", "Umum", "Jadwal", "", "", "4 Nov 09.00", ""],
+    ["K-1", "Riset", "Lanjut kuliah?", "Ya | Tidak", "", "", ""],
+    ["K-2", "Riset", "Sudah?", "", "Ya", "", ""],
+    ["K-3", "INPEX", "Bahas Masela dan IDR?", "Tunda | Tolak", "", "", ""],
+    ["K-OLNG-1", "Umum", "Jadwal", "", "", "", ""],
+    ["K-4", "Riset", "Sudah dibalas", "", "", "sudah dibalas Abduh…", ""],
   ]);
   assert.equal(read.ok, true);
   if (!read.ok) return;
   assert.equal(read.open.length, 3);
+  assert.equal(
+    read.open.some((item) => item.pertanyaan === "Sudah dibalas"),
+    false,
+  );
   const visible = read.open[0];
   assert.equal(visible?.id, "K-1");
   assert.deepEqual(visible?.opsi, ["Setuju", "Tolak", "Tunda"]);
@@ -70,10 +77,7 @@ test("a filled keputusan cell is not overwritten", () => {
   assert.equal(blocked.status, 409);
 
   const planned = planDecisionWrite({
-    values: [
-      headers,
-      ["K-1", "Riset", "Lanjut?", "Ya|Tidak", "", "4 Nov 08.00 WIB", "catatan lama"],
-    ],
+    values: [headers, ["K-1", "Riset", "Lanjut?", "Ya|Tidak", "", "", "catatan lama"]],
     tab: "Keputusan",
     id: "K-1",
     keputusan: "Ya",
@@ -107,7 +111,8 @@ test("live Keputusan headers use judul, tanggapan saya, and muncul", () => {
 
   const read = readOpenDecisions([
     liveHeaders,
-    ["K-1", "4 Nov 2026", "Lanjut kuliah?", "", "", "4 Nov 08.00 WIB", "Riset"],
+    ["K-1", "4 Nov 2026", "Lanjut kuliah?", "", "", "", "Riset"],
+    ["K-3", "29 Okt 2026", "Balasan", "", "", "sudah dibalas Abduh…", "Riset"],
     [
       "K-2",
       "1 Nov 2026",
@@ -121,6 +126,10 @@ test("live Keputusan headers use judul, tanggapan saya, and muncul", () => {
   assert.equal(read.ok, true);
   if (!read.ok) return;
   assert.equal(read.open.length, 1);
+  assert.equal(
+    read.open.some((item) => item.pertanyaan === "Balasan"),
+    false,
+  );
   assert.equal(read.open[0]?.pertanyaan, "Lanjut kuliah?");
   assert.equal(read.open[0]?.muncul, "4 Nov 2026");
   assert.equal(read.open[0]?.proyek, "Riset");
@@ -141,7 +150,7 @@ test("live Keputusan headers use judul, tanggapan saya, and muncul", () => {
   const planned = planDecisionWrite({
     values: [
       liveHeaders,
-      ["K-1", "4 Nov 2026", "Lanjut kuliah?", "", "tanggapan lama", "4 Nov 08.00 WIB", "Riset"],
+      ["K-1", "4 Nov 2026", "Lanjut kuliah?", "", "tanggapan lama", "", "Riset"],
     ],
     tab: "Keputusan",
     id: "K-1",
