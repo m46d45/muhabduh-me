@@ -120,17 +120,18 @@ Open rows are read from the live sheet (about a minute of cache), not from the s
 
 Column positions are not hard-coded. The header row is matched by name:
 
-| Field                            | Accepted headers                                                            |
-| -------------------------------- | --------------------------------------------------------------------------- |
-| ID                               | `ID`, `Kode`, `Kode keputusan`                                              |
-| Keputusan                        | header containing `Keputusan` or `Decision`                                 |
-| Waktu WIB                        | `Waktu WIB` or `Waktu`                                                      |
-| Catatan                          | `Catatan`, `Komentar`, `Comment`, `Notes`                                   |
-| Pertanyaan                       | `Pertanyaan`, `Question`, `Uraian`, `Deskripsi`, `Isu`, `Topik`, `Hal`, `Q` |
-| Opsi                             | `Opsi`, `Pilihan`, `Alternatif`, `Options` (split on `\|` or new lines)     |
-| Proyek / Sumber / Lewat / Tautan | `Proyek`, `Sumber`, `Lewat`, `Tautan`                                       |
+| Field                            | Accepted headers                                                                     |
+| -------------------------------- | ------------------------------------------------------------------------------------ |
+| ID                               | `ID`, `Kode`, `Kode keputusan`                                                       |
+| Keputusan                        | header containing `Keputusan` or `Decision`                                          |
+| Waktu WIB                        | `Waktu WIB` or `Waktu`                                                               |
+| Catatan                          | `Tanggapan saya`, `Tanggapan`, `Catatan`, `Komentar`, `Comment`, `Notes`             |
+| Pertanyaan                       | `Judul`, `Pertanyaan`, `Question`, `Uraian`, `Deskripsi`, `Isu`, `Topik`, `Hal`, `Q` |
+| Muncul                           | `Muncul` (tanggal item muncul; ditampilkan di kartu)                                 |
+| Opsi                             | `Opsi`, `Pilihan`, `Alternatif`, `Options` (split on `\|` or new lines)              |
+| Proyek / Sumber / Lewat / Tautan | `Proyek`, `Sumber`, `Lewat`, `Tautan`                                                |
 
-The page lists the headers it actually used. A write fills Keputusan, appends `diputuskan via dashboard, DD MMM HH.MM WIB` to Waktu WIB, and appends the comment to Catatan. If Keputusan is already filled, the API returns 409 and does not overwrite it.
+The page lists the headers it actually used. A write fills Keputusan only while that cell is still empty, appends `diputuskan via dashboard, DD MMM HH.MM WIB` to Waktu WIB, and appends the comment to Tanggapan saya. If Keputusan is already filled, the API returns 409 and does not overwrite it.
 
 ### Environment variables
 

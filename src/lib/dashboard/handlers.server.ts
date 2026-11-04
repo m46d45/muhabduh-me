@@ -274,6 +274,7 @@ export async function handleGetDashboard(
         pertanyaan: item.pertanyaan,
         opsi: item.opsi,
         sumber: item.sumber,
+        muncul: item.muncul,
         lewat: item.lewat,
         rahasia: item.rahasia,
         terkunci: item.terkunci,

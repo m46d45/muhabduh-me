@@ -91,6 +91,76 @@ test("a filled keputusan cell is not overwritten", () => {
   assert.equal(completionNote(now), "diputuskan via dashboard, 04 Nov 09.40 WIB");
 });
 
+const liveHeaders = ["ID", "Muncul", "Judul", "Keputusan", "Tanggapan saya", "Waktu WIB", "Proyek"];
+
+test("live Keputusan headers use judul, tanggapan saya, and muncul", () => {
+  const mapped = mapHeaders(liveHeaders);
+  assert.equal(mapped.names.id, "ID");
+  assert.equal(mapped.names.muncul, "Muncul");
+  assert.equal(mapped.names.pertanyaan, "Judul");
+  assert.equal(mapped.names.keputusan, "Keputusan");
+  assert.equal(mapped.names.catatan, "Tanggapan saya");
+  assert.equal(mapped.names.waktu, "Waktu WIB");
+  assert.equal(mapped.names.proyek, "Proyek");
+  assert.equal(mapHeaders(["ID", "Keputusan", "Tanggapan"]).names.catatan, "Tanggapan");
+
+  const read = readOpenDecisions([
+    liveHeaders,
+    ["K-1", "4 Nov 2026", "Lanjut kuliah?", "", "", "4 Nov 08.00 WIB", "Riset"],
+    [
+      "K-2",
+      "1 Nov 2026",
+      "Sudah",
+      "Ya",
+      "lama",
+      "diputuskan via dashboard, 01 Nov 09.00 WIB",
+      "Riset",
+    ],
+  ]);
+  assert.equal(read.ok, true);
+  if (!read.ok) return;
+  assert.equal(read.open.length, 1);
+  assert.equal(read.open[0]?.pertanyaan, "Lanjut kuliah?");
+  assert.equal(read.open[0]?.muncul, "4 Nov 2026");
+  assert.equal(read.open[0]?.proyek, "Riset");
+
+  const now = new Date("2026-11-04T02:40:00.000Z");
+  const blocked = planDecisionWrite({
+    values: [liveHeaders, ["K-2", "1 Nov 2026", "Sudah", "Ya", "", "4 Nov 08.00 WIB", "Riset"]],
+    tab: "Keputusan",
+    id: "K-2",
+    keputusan: "Tidak",
+    komentar: "jangan timpa",
+    now,
+  });
+  assert.equal(blocked.ok, false);
+  if (blocked.ok) return;
+  assert.equal(blocked.status, 409);
+
+  const planned = planDecisionWrite({
+    values: [
+      liveHeaders,
+      ["K-1", "4 Nov 2026", "Lanjut kuliah?", "", "tanggapan lama", "4 Nov 08.00 WIB", "Riset"],
+    ],
+    tab: "Keputusan",
+    id: "K-1",
+    keputusan: "Ya",
+    komentar: "setuju di rapat",
+    now,
+  });
+  assert.equal(planned.ok, true);
+  if (!planned.ok) return;
+  assert.equal(planned.updates[0]?.range, "'Keputusan'!D2");
+  assert.equal(planned.updates[0]?.values[0]?.[0], "Ya");
+  assert.equal(planned.updates[1]?.range, "'Keputusan'!F2");
+  assert.match(
+    planned.updates[1]?.values[0]?.[0] ?? "",
+    /diputuskan via dashboard, 04 Nov 09\.40 WIB/,
+  );
+  assert.equal(planned.updates[2]?.range, "'Keputusan'!E2");
+  assert.equal(planned.updates[2]?.values[0]?.[0], "tanggapan lama\nsetuju di rapat");
+});
+
 test("unknown headers produce a clear error and no row dump", () => {
   const read = readOpenDecisions([
     ["Foo", "Bar"],

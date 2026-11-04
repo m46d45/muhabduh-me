@@ -11,7 +11,8 @@ export type ColumnKey =
   | "sumber"
   | "opsi"
   | "lewat"
-  | "tautan";
+  | "tautan"
+  | "muncul";
 
 export type ColumnMap = Record<ColumnKey, number | null>;
 
@@ -19,13 +20,24 @@ const ALIASES: Record<ColumnKey, string[]> = {
   id: ["id", "kode", "kode keputusan", "no id"],
   keputusan: ["keputusan", "decision"],
   waktu: ["waktu wib", "waktu"],
-  catatan: ["catatan", "komentar", "comment", "notes", "note"],
-  pertanyaan: ["pertanyaan", "question", "uraian", "deskripsi", "isu", "topik", "hal", "q"],
+  catatan: ["tanggapan saya", "tanggapan", "catatan", "komentar", "comment", "notes", "note"],
+  pertanyaan: [
+    "judul",
+    "pertanyaan",
+    "question",
+    "uraian",
+    "deskripsi",
+    "isu",
+    "topik",
+    "hal",
+    "q",
+  ],
   proyek: ["proyek", "project", "nama proyek"],
   sumber: ["sumber", "source"],
   opsi: ["opsi keputusan", "opsi", "pilihan", "alternatif", "options"],
   lewat: ["lewat", "overdue", "terlambat"],
   tautan: ["tautan", "link", "url"],
+  muncul: ["muncul"],
 };
 
 export function normalizeHeader(value: string): string {
@@ -127,6 +139,7 @@ export type SheetDecision = {
   pertanyaan: string;
   opsi: string[];
   sumber: string;
+  muncul: string;
   lewat: boolean;
   rahasia: boolean;
   terkunci: boolean;
@@ -173,12 +186,14 @@ export function readOpenDecisions(values: string[][]): HeaderRead {
     const pertanyaan = cell(row, map.pertanyaan);
     const opsiRaw = cell(row, map.opsi);
     const sumber = cell(row, map.sumber);
+    const muncul = cell(row, map.muncul);
     const secret =
       containsSecret(id) ||
       containsSecret(proyek) ||
       containsSecret(pertanyaan) ||
       containsSecret(opsiRaw) ||
-      containsSecret(sumber);
+      containsSecret(sumber) ||
+      containsSecret(muncul);
     const locked = containsSecret(id);
     open.push({
       id: locked ? "" : id,
@@ -189,6 +204,7 @@ export function readOpenDecisions(values: string[][]): HeaderRead {
         : pertanyaan || "(Tanpa pertanyaan di kolom yang dikenali)",
       opsi: secret ? [] : parseOptions(opsiRaw),
       sumber: secret && containsSecret(sumber) ? "" : sumber,
+      muncul: containsSecret(muncul) ? "" : muncul,
       lewat: truthy(cell(row, map.lewat)),
       rahasia: secret,
       terkunci: locked,
@@ -258,7 +274,7 @@ export function planDecisionWrite(args: {
     return {
       ok: false,
       status: 422,
-      error: "Kolom Catatan tidak ditemukan, komentar tidak bisa disimpan.",
+      error: "Kolom Tanggapan saya tidak ditemukan, komentar tidak bisa disimpan.",
     };
   }
 

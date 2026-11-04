@@ -14,6 +14,7 @@ export type DecisionView = {
   pertanyaan: string;
   opsi: string[];
   sumber: string;
+  muncul: string;
   lewat: boolean;
   rahasia: boolean;
   terkunci: boolean;

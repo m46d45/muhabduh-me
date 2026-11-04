@@ -501,9 +501,10 @@ function DecisionSection({
         <details className="mt-4 text-sm text-muted">
           <summary className="cursor-pointer text-accent">Kolom Sheet yang dikenali</summary>
           <p className="mt-2">
-            ID: {columns.id ?? "—"} · Keputusan: {columns.keputusan ?? "—"} · Waktu:{" "}
-            {columns.waktu ?? "—"} · Catatan: {columns.catatan ?? "—"} · Pertanyaan:{" "}
-            {columns.pertanyaan ?? "—"} · Opsi: {columns.opsi ?? "—"}
+            ID: {columns.id ?? "—"} · Muncul: {columns.muncul ?? "—"} · Keputusan:{" "}
+            {columns.keputusan ?? "—"} · Waktu: {columns.waktu ?? "—"} · Tanggapan:{" "}
+            {columns.catatan ?? "—"} · Judul: {columns.pertanyaan ?? "—"} · Opsi:{" "}
+            {columns.opsi ?? "—"}
           </p>
         </details>
       ) : null}
@@ -557,7 +558,12 @@ function DecisionCard({
         <div>
           <h3 className="font-display text-xl text-ink">{item.pertanyaan}</h3>
           <p className="mt-1 text-sm text-muted">
-            {[item.proyek, item.sumber, item.lewat ? "Lewat waktu" : ""]
+            {[
+              item.muncul ? `Muncul ${item.muncul}` : "",
+              item.proyek,
+              item.sumber,
+              item.lewat ? "Lewat waktu" : "",
+            ]
               .filter(Boolean)
               .join(" · ") || "Tanpa proyek"}
           </p>
@@ -613,7 +619,7 @@ function DecisionCard({
               className="mt-2 min-h-24"
               value={comment}
               onChange={(event) => setComment(event.target.value)}
-              placeholder="Opsional, masuk ke kolom Catatan"
+              placeholder="Opsional, masuk ke kolom Tanggapan saya"
             />
           </div>
           {error ? (
