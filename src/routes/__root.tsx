@@ -39,9 +39,9 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
-  // Blog and topic pages mark their articles lang="id". The document stays
-  // English so the nav and footer are not announced as Indonesian.
-  const lang = /^\/(publikasi|riset)(\/|$)/.test(pathname) ? "id" : "en";
+  // Indonesian pages set the document language. Public nav and footer stay
+  // English everywhere else.
+  const lang = /^\/(publikasi|riset|dashboard)(\/|$)/.test(pathname) ? "id" : "en";
   return (
     <RootDocument lang={lang}>
       <Outlet />
@@ -49,10 +49,7 @@ function RootComponent() {
   );
 }
 
-function RootDocument({
-  children,
-  lang,
-}: Readonly<{ children: ReactNode; lang: "en" | "id" }>) {
+function RootDocument({ children, lang }: Readonly<{ children: ReactNode; lang: "en" | "id" }>) {
   return (
     <html lang={lang} className="antialiased">
       <head>

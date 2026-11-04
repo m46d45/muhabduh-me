@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CvRouteImport } from './routes/cv'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ExperienceRouteImport } from './routes/experience'
 import { Route as NetworksRouteImport } from './routes/networks'
 import { Route as NewsRouteImport } from './routes/news'
@@ -24,6 +25,11 @@ import { Route as RisetRouteImport } from './routes/riset'
 import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
 import { Route as TeachingRouteImport } from './routes/teaching'
 import { Route as ToolsRouteImport } from './routes/tools'
+import { Route as ApiDashboardRouteImport } from './routes/api/dashboard'
+import { Route as ApiKeputusanRouteImport } from './routes/api/keputusan'
+import { Route as ApiLoginRouteImport } from './routes/api/login'
+import { Route as ApiLogoutRouteImport } from './routes/api/logout'
+import { Route as ApiSnapshotRouteImport } from './routes/api/snapshot'
 import { Route as BertanyaIndexRouteImport } from './routes/bertanya/index'
 import { Route as BertanyaSlugRouteImport } from './routes/bertanya/$slug'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
@@ -48,6 +54,11 @@ const ContactRoute = ContactRouteImport.update({
 const CvRoute = CvRouteImport.update({
   id: '/cv',
   path: '/cv',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExperienceRoute = ExperienceRouteImport.update({
@@ -105,6 +116,31 @@ const ToolsRoute = ToolsRouteImport.update({
   path: '/tools',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiDashboardRoute = ApiDashboardRouteImport.update({
+  id: '/api/dashboard',
+  path: '/api/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiKeputusanRoute = ApiKeputusanRouteImport.update({
+  id: '/api/keputusan',
+  path: '/api/keputusan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiLoginRoute = ApiLoginRouteImport.update({
+  id: '/api/login',
+  path: '/api/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiLogoutRoute = ApiLogoutRouteImport.update({
+  id: '/api/logout',
+  path: '/api/logout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiSnapshotRoute = ApiSnapshotRouteImport.update({
+  id: '/api/snapshot',
+  path: '/api/snapshot',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BertanyaIndexRoute = BertanyaIndexRouteImport.update({
   id: '/bertanya/',
   path: '/bertanya/',
@@ -136,6 +172,7 @@ export interface FileRoutesByFullPath {
   '/calendar': typeof CalendarRoute
   '/contact': typeof ContactRoute
   '/cv': typeof CvRoute
+  '/dashboard': typeof DashboardRoute
   '/experience': typeof ExperienceRoute
   '/networks': typeof NetworksRoute
   '/news': typeof NewsRoute
@@ -147,6 +184,11 @@ export interface FileRoutesByFullPath {
   '/rss.xml': typeof RssDotxmlRoute
   '/teaching': typeof TeachingRoute
   '/tools': typeof ToolsRoute
+  '/api/dashboard': typeof ApiDashboardRoute
+  '/api/keputusan': typeof ApiKeputusanRoute
+  '/api/login': typeof ApiLoginRoute
+  '/api/logout': typeof ApiLogoutRoute
+  '/api/snapshot': typeof ApiSnapshotRoute
   '/bertanya/$slug': typeof BertanyaSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/topik/$topik': typeof TopikTopikRoute
@@ -158,6 +200,7 @@ export interface FileRoutesByTo {
   '/calendar': typeof CalendarRoute
   '/contact': typeof ContactRoute
   '/cv': typeof CvRoute
+  '/dashboard': typeof DashboardRoute
   '/experience': typeof ExperienceRoute
   '/networks': typeof NetworksRoute
   '/news': typeof NewsRoute
@@ -169,6 +212,11 @@ export interface FileRoutesByTo {
   '/rss.xml': typeof RssDotxmlRoute
   '/teaching': typeof TeachingRoute
   '/tools': typeof ToolsRoute
+  '/api/dashboard': typeof ApiDashboardRoute
+  '/api/keputusan': typeof ApiKeputusanRoute
+  '/api/login': typeof ApiLoginRoute
+  '/api/logout': typeof ApiLogoutRoute
+  '/api/snapshot': typeof ApiSnapshotRoute
   '/bertanya/$slug': typeof BertanyaSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/topik/$topik': typeof TopikTopikRoute
@@ -181,6 +229,7 @@ export interface FileRoutesById {
   '/calendar': typeof CalendarRoute
   '/contact': typeof ContactRoute
   '/cv': typeof CvRoute
+  '/dashboard': typeof DashboardRoute
   '/experience': typeof ExperienceRoute
   '/networks': typeof NetworksRoute
   '/news': typeof NewsRoute
@@ -192,6 +241,11 @@ export interface FileRoutesById {
   '/rss.xml': typeof RssDotxmlRoute
   '/teaching': typeof TeachingRoute
   '/tools': typeof ToolsRoute
+  '/api/dashboard': typeof ApiDashboardRoute
+  '/api/keputusan': typeof ApiKeputusanRoute
+  '/api/login': typeof ApiLoginRoute
+  '/api/logout': typeof ApiLogoutRoute
+  '/api/snapshot': typeof ApiSnapshotRoute
   '/bertanya/$slug': typeof BertanyaSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/topik/$topik': typeof TopikTopikRoute
@@ -205,6 +259,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/contact'
     | '/cv'
+    | '/dashboard'
     | '/experience'
     | '/networks'
     | '/news'
@@ -216,6 +271,11 @@ export interface FileRouteTypes {
     | '/rss.xml'
     | '/teaching'
     | '/tools'
+    | '/api/dashboard'
+    | '/api/keputusan'
+    | '/api/login'
+    | '/api/logout'
+    | '/api/snapshot'
     | '/bertanya/$slug'
     | '/blog/$slug'
     | '/topik/$topik'
@@ -227,6 +287,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/contact'
     | '/cv'
+    | '/dashboard'
     | '/experience'
     | '/networks'
     | '/news'
@@ -238,6 +299,11 @@ export interface FileRouteTypes {
     | '/rss.xml'
     | '/teaching'
     | '/tools'
+    | '/api/dashboard'
+    | '/api/keputusan'
+    | '/api/login'
+    | '/api/logout'
+    | '/api/snapshot'
     | '/bertanya/$slug'
     | '/blog/$slug'
     | '/topik/$topik'
@@ -249,6 +315,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/contact'
     | '/cv'
+    | '/dashboard'
     | '/experience'
     | '/networks'
     | '/news'
@@ -260,6 +327,11 @@ export interface FileRouteTypes {
     | '/rss.xml'
     | '/teaching'
     | '/tools'
+    | '/api/dashboard'
+    | '/api/keputusan'
+    | '/api/login'
+    | '/api/logout'
+    | '/api/snapshot'
     | '/bertanya/$slug'
     | '/blog/$slug'
     | '/topik/$topik'
@@ -272,6 +344,7 @@ export interface RootRouteChildren {
   CalendarRoute: typeof CalendarRoute
   ContactRoute: typeof ContactRoute
   CvRoute: typeof CvRoute
+  DashboardRoute: typeof DashboardRoute
   ExperienceRoute: typeof ExperienceRoute
   NetworksRoute: typeof NetworksRoute
   NewsRoute: typeof NewsRoute
@@ -283,6 +356,11 @@ export interface RootRouteChildren {
   RssDotxmlRoute: typeof RssDotxmlRoute
   TeachingRoute: typeof TeachingRoute
   ToolsRoute: typeof ToolsRoute
+  ApiDashboardRoute: typeof ApiDashboardRoute
+  ApiKeputusanRoute: typeof ApiKeputusanRoute
+  ApiLoginRoute: typeof ApiLoginRoute
+  ApiLogoutRoute: typeof ApiLogoutRoute
+  ApiSnapshotRoute: typeof ApiSnapshotRoute
   BertanyaSlugRoute: typeof BertanyaSlugRoute
   BlogSlugRoute: typeof BlogSlugRoute
   TopikTopikRoute: typeof TopikTopikRoute
@@ -318,6 +396,13 @@ declare module '@tanstack/react-router' {
       path: '/cv'
       fullPath: '/cv'
       preLoaderRoute: typeof CvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/experience': {
@@ -397,6 +482,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/dashboard': {
+      id: '/api/dashboard'
+      path: '/api/dashboard'
+      fullPath: '/api/dashboard'
+      preLoaderRoute: typeof ApiDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/keputusan': {
+      id: '/api/keputusan'
+      path: '/api/keputusan'
+      fullPath: '/api/keputusan'
+      preLoaderRoute: typeof ApiKeputusanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/login': {
+      id: '/api/login'
+      path: '/api/login'
+      fullPath: '/api/login'
+      preLoaderRoute: typeof ApiLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/logout': {
+      id: '/api/logout'
+      path: '/api/logout'
+      fullPath: '/api/logout'
+      preLoaderRoute: typeof ApiLogoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/snapshot': {
+      id: '/api/snapshot'
+      path: '/api/snapshot'
+      fullPath: '/api/snapshot'
+      preLoaderRoute: typeof ApiSnapshotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/bertanya/': {
       id: '/bertanya/'
       path: '/bertanya'
@@ -440,6 +560,7 @@ const rootRouteChildren: RootRouteChildren = {
   CalendarRoute: CalendarRoute,
   ContactRoute: ContactRoute,
   CvRoute: CvRoute,
+  DashboardRoute: DashboardRoute,
   ExperienceRoute: ExperienceRoute,
   NetworksRoute: NetworksRoute,
   NewsRoute: NewsRoute,
@@ -451,6 +572,11 @@ const rootRouteChildren: RootRouteChildren = {
   RssDotxmlRoute: RssDotxmlRoute,
   TeachingRoute: TeachingRoute,
   ToolsRoute: ToolsRoute,
+  ApiDashboardRoute: ApiDashboardRoute,
+  ApiKeputusanRoute: ApiKeputusanRoute,
+  ApiLoginRoute: ApiLoginRoute,
+  ApiLogoutRoute: ApiLogoutRoute,
+  ApiSnapshotRoute: ApiSnapshotRoute,
   BertanyaSlugRoute: BertanyaSlugRoute,
   BlogSlugRoute: BlogSlugRoute,
   TopikTopikRoute: TopikTopikRoute,
