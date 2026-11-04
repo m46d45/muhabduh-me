@@ -4,10 +4,12 @@ import { containsSecretDeep } from "@/lib/dashboard/secret";
 import type { CleanSnapshot } from "@/lib/dashboard/redact";
 import type { SnapshotStore } from "@/lib/dashboard/types";
 import { hashPassword } from "@/lib/dashboard/password.server";
+import { memorySessions, type SessionRegistry } from "@/lib/dashboard/sessions.server";
 import {
   handleGetDashboard,
   handlePostKeputusan,
   handlePostLogin,
+  handlePostLogout,
   handlePostSnapshot,
   resetHandlerState,
 } from "@/lib/dashboard/handlers.server";
@@ -44,6 +46,8 @@ function memoryStore(): SnapshotStore & { saved: CleanSnapshot | null } {
   };
 }
 
+let sessions: SessionRegistry = memorySessions();
+
 async function loginCookie(): Promise<string> {
   const response = await handlePostLogin(
     new Request("https://www.muhabduh.id/api/login", {
@@ -55,7 +59,7 @@ async function loginCookie(): Promise<string> {
       },
       body: JSON.stringify({ password }),
     }),
-    { now, sleep: async () => undefined },
+    { now, sleep: async () => undefined, sessions },
   );
   assert.equal(response.status, 200);
   const cookie = response.headers.get("set-cookie") ?? "";
@@ -70,6 +74,7 @@ test.beforeEach(() => {
   process.env.SNAPSHOT_TOKEN = snapshotToken;
   delete process.env.BLOB_READ_WRITE_TOKEN;
   delete process.env.SHEET_ID;
+  sessions = memorySessions();
   resetHandlerState();
 });
 
@@ -152,6 +157,7 @@ test("snapshot token stores only redacted JSON", async () => {
     new Request("https://www.muhabduh.id/api/dashboard", { headers: { cookie } }),
     {
       now,
+      sessions,
       store,
       readSheet: async () => sheet,
     },
@@ -202,6 +208,7 @@ test("decision write refuses a filled cell and records a completion note", async
     }),
     {
       now,
+      sessions,
       readSheet: async () => sheet,
       writeCells: async (next) => {
         updates.push(...next);
@@ -224,6 +231,7 @@ test("decision write refuses a filled cell and records a completion note", async
     }),
     {
       now,
+      sessions,
       readSheet: async () => sheet,
       writeCells: async (next) => {
         updates.push(...next);
@@ -234,4 +242,39 @@ test("decision write refuses a filled cell and records a completion note", async
   assert.equal(updates[0]?.values[0]?.[0], "Ya");
   assert.match(JSON.stringify(updates), /diputuskan via dashboard/);
   assert.match(JSON.stringify(updates), /catatan bapak/);
+});
+
+test("logout revokes a copied cookie", async () => {
+  const first = await loginCookie();
+  const second = await loginCookie();
+  const alive = await handleGetDashboard(
+    new Request("https://www.muhabduh.id/api/dashboard", { headers: { cookie: first } }),
+    { now, sessions },
+  );
+  assert.equal(alive.status, 200);
+
+  const logout = await handlePostLogout(
+    new Request("https://www.muhabduh.id/api/logout", {
+      method: "POST",
+      headers: {
+        cookie: first,
+        origin: "https://www.muhabduh.id",
+        host: "www.muhabduh.id",
+      },
+    }),
+    { now, sessions },
+  );
+  assert.equal(logout.status, 200);
+
+  const revoked = await handleGetDashboard(
+    new Request("https://www.muhabduh.id/api/dashboard", { headers: { cookie: first } }),
+    { now, sessions },
+  );
+  assert.equal(revoked.status, 401);
+
+  const other = await handleGetDashboard(
+    new Request("https://www.muhabduh.id/api/dashboard", { headers: { cookie: second } }),
+    { now, sessions },
+  );
+  assert.equal(other.status, 200);
 });

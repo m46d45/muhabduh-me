@@ -1,4 +1,4 @@
-import { createHash, timingSafeEqual } from "node:crypto";
+import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import { containsSecretDeep } from "@/lib/dashboard/secret";
 import { findClashes, isWithinLookahead, isWithinWeek, wibDateKey } from "@/lib/dashboard/time";
 import { ingestSnapshot, rehydrateSnapshot } from "@/lib/dashboard/redact";
@@ -14,11 +14,12 @@ import {
 } from "@/lib/dashboard/rate-limit";
 import {
   readCookie,
+  readSessionClaims,
   requestIsSecure,
   sessionCookie,
   signSession,
-  verifySession,
   SESSION_COOKIE,
+  SESSION_MAX_AGE_SEC,
 } from "@/lib/dashboard/session.server";
 import type { DashboardPayload } from "@/lib/dashboard/types";
 import {
@@ -28,6 +29,7 @@ import {
   SheetConfigError,
 } from "@/lib/dashboard/sheet.server";
 import { blobStore, blobToken, SnapshotConfigError } from "@/lib/dashboard/store.server";
+import { blobSessions, pruneSessions, type SessionRegistry } from "@/lib/dashboard/sessions.server";
 
 const STALE_MS = 26 * 60 * 60 * 1000;
 
@@ -37,6 +39,7 @@ export type HandlerDeps = {
   store?: SnapshotStore;
   readSheet?: () => Promise<{ values: string[][]; tab: string; sheetId: string }>;
   writeCells?: (updates: { range: string; values: string[][] }[]) => Promise<void>;
+  sessions?: SessionRegistry;
 };
 
 function nowOf(deps: HandlerDeps): Date {
@@ -110,19 +113,36 @@ function authConfig(): { hash: string; secret: string } | { error: string } {
   return { hash, secret };
 }
 
-export function isAuthenticated(request: Request, now = Date.now()): boolean {
-  const config = authConfig();
-  if ("error" in config) return false;
-  const token = readCookie(request.headers.get("cookie"), SESSION_COOKIE);
-  if (!token) return false;
-  return verifySession(token, config.secret, now);
+function sessionsFor(deps: HandlerDeps): SessionRegistry {
+  if (deps.sessions) return deps.sessions;
+  const token = blobToken();
+  if (!token) {
+    throw new SnapshotConfigError(
+      "Penyimpanan sesi belum diatur (BLOB_READ_WRITE_TOKEN). Keluar tidak bisa membatalkan salinan cookie.",
+    );
+  }
+  return blobSessions(token);
 }
 
-function requireSession(request: Request, now: number): Response | null {
+async function requireSession(
+  request: Request,
+  now: number,
+  deps: HandlerDeps,
+): Promise<Response | null> {
   const config = authConfig();
   if ("error" in config) return fail(config.error, 503);
-  if (!isAuthenticated(request, now)) return fail("Masuk dulu.", 401);
-  return null;
+  const token = readCookie(request.headers.get("cookie"), SESSION_COOKIE);
+  const claims = token ? readSessionClaims(token, config.secret, now) : null;
+  if (!claims) return fail("Masuk dulu.", 401);
+  try {
+    const registry = sessionsFor(deps);
+    const live = pruneSessions(await registry.list(), now);
+    if (!live.some((session) => session.id === claims.sid)) return fail("Masuk dulu.", 401);
+    return null;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Sesi tidak bisa diperiksa.";
+    return fail(message, 503);
+  }
 }
 
 function tokensMatch(given: string, expected: string): boolean {
@@ -172,17 +192,49 @@ export async function handlePostLogin(request: Request, deps: HandlerDeps = {}):
   }
   clearFailures(key);
   const headers = new Headers();
-  headers.append(
-    "set-cookie",
-    sessionCookie(signSession(config.secret, nowMs), requestIsSecure(request)),
-  );
+  try {
+    const registry = sessionsFor(deps);
+    const sid = randomBytes(16).toString("base64url");
+    const exp = nowMs + SESSION_MAX_AGE_SEC * 1000;
+    const live = pruneSessions(await registry.list(), nowMs);
+    live.push({ id: sid, exp });
+    await registry.save(live.slice(-8));
+    headers.append(
+      "set-cookie",
+      sessionCookie(signSession(config.secret, sid, nowMs), requestIsSecure(request)),
+    );
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Sesi tidak bisa disimpan.";
+    return fail(message, 503);
+  }
   return json({ ok: true }, 200, headers);
 }
 
-export async function handlePostLogout(request: Request): Promise<Response> {
+export async function handlePostLogout(
+  request: Request,
+  deps: HandlerDeps = {},
+): Promise<Response> {
   if (!sameOrigin(request)) return fail("Asal permintaan tidak dikenali.", 403);
   const headers = new Headers();
   headers.append("set-cookie", sessionCookie("", requestIsSecure(request), 0));
+  const config = authConfig();
+  if (!("error" in config)) {
+    const token = readCookie(request.headers.get("cookie"), SESSION_COOKIE);
+    const claims = token ? readSessionClaims(token, config.secret, nowOf(deps).getTime()) : null;
+    if (claims) {
+      try {
+        const registry = sessionsFor(deps);
+        const now = nowOf(deps).getTime();
+        const live = pruneSessions(await registry.list(), now).filter(
+          (session) => session.id !== claims.sid,
+        );
+        await registry.save(live);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Sesi tidak bisa dibatalkan.";
+        return json({ ok: false, error: message }, 503, headers);
+      }
+    }
+  }
   return json({ ok: true }, 200, headers);
 }
 
@@ -191,7 +243,7 @@ export async function handleGetDashboard(
   deps: HandlerDeps = {},
 ): Promise<Response> {
   const now = nowOf(deps);
-  const denied = requireSession(request, now.getTime());
+  const denied = await requireSession(request, now.getTime(), deps);
   if (denied) return denied;
 
   const warnings: string[] = [];
@@ -333,7 +385,7 @@ export async function handlePostKeputusan(
 ): Promise<Response> {
   if (!sameOrigin(request)) return fail("Asal permintaan tidak dikenali.", 403);
   const now = nowOf(deps);
-  const denied = requireSession(request, now.getTime());
+  const denied = await requireSession(request, now.getTime(), deps);
   if (denied) return denied;
   const body = await readBody(request, 16_000);
   if (!body.ok) return body.response;
