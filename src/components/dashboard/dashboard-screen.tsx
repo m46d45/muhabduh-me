@@ -6,11 +6,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { DECISION_CHOICES, OTHER_DECISION } from "@/lib/dashboard/decisions";
-import { PROJECT_STATUSES, type StatusView } from "@/lib/dashboard/projects";
+import { PROJECT_STATUSES } from "@/lib/dashboard/projects";
 import type {
   AgendaItem,
   DashboardPayload,
   DecisionView,
+  ProjectStatusView,
   TenggatItem,
 } from "@/lib/dashboard/types";
 import { formatEventSpan } from "@/lib/dashboard/time";
@@ -246,6 +247,8 @@ function DashboardView({
         </Button>
       </header>
 
+      <SummaryTiles payload={payload} />
+
       {payload.warnings.length > 0 ? (
         <div className="mt-6 space-y-2" role="status">
           {payload.warnings.map((warning) => (
@@ -258,8 +261,6 @@ function DashboardView({
           ))}
         </div>
       ) : null}
-
-      <SummaryTiles payload={payload} />
 
       <DecisionSection
         items={payload.keputusan}
@@ -441,7 +442,7 @@ function ProjectSection({
   items,
   onChanged,
 }: {
-  items: StatusView[];
+  items: ProjectStatusView[];
   onChanged: () => Promise<void>;
 }) {
   return (
@@ -460,7 +461,13 @@ function ProjectSection({
   );
 }
 
-function ProjectRow({ item, onChanged }: { item: StatusView; onChanged: () => Promise<void> }) {
+function ProjectRow({
+  item,
+  onChanged,
+}: {
+  item: ProjectStatusView;
+  onChanged: () => Promise<void>;
+}) {
   const [status, setStatus] = useState(item.status ?? "");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);

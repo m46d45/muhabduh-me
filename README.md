@@ -155,7 +155,7 @@ Project status is the tab **`Status Proyek`**, columns **`Proyek`**, **`Status`*
 
 Above the lists, the page shows counts that match those lists: open decisions (cards that are not still deferred), how many of those are Mendesak, today's agenda, clashes, this week's deadlines, and projects whose saved status is Tertahan or Dorman.
 
-Text from the snapshot and from Judul is cleaned before it is shown. Agent notes stay in the sheet: decision ids such as `K-20261105-07`, `Kopi Pagi`, `diputuskan via dashboard`, `BELUM TERVERIFIKASI`, `PR #…`, `Denyut`, and file names such as `ringkasan_usulan.md`. The page keeps the question, the due date, the importance label, the agenda title, time, and place, and the project name with its status.
+`/api/dashboard` does not include `kesehatan`, `proyek[].catatan`, `sumber`, the Muncul date, or the sheet-header map. Decision ids stay on each card only so Simpan can find the row. Agent notes stay in the sheet: `Kopi Pagi`, `diputuskan via dashboard`, `BELUM TERVERIFIKASI`, `PR #…`, and file names such as `ringkasan_usulan.md`. The page keeps the question, the due date, the importance label, the agenda title, time, and place, and the project name with its status.
 
 Names fold into one canonical row. A variant that starts with a seeded name (`ResearchGate full-text`) or contains every word of a multi-word seed (`Seri Simulasi ICE` → `Seri ICE`) uses that seed's spelling. The page then adds a blank row for every other project it shows, and renames an alias cell to the canonical spelling. Existing Status and Diubah WIB cells are left as they are. An empty Status means it has not been set. Heartbeat routines should read this tab, not the task Status columns.
 

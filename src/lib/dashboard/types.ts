@@ -1,7 +1,6 @@
 import type { AgendaItem, CleanSnapshot, ProyekItem, TenggatItem } from "@/lib/dashboard/redact";
-import type { ColumnKey } from "@/lib/dashboard/decisions";
 import type { Importance } from "@/lib/dashboard/importance";
-import type { StatusView } from "@/lib/dashboard/projects";
+import type { ProjectStatus } from "@/lib/dashboard/projects";
 
 export type { AgendaItem, CleanSnapshot, ProyekItem, TenggatItem };
 
@@ -15,14 +14,23 @@ export type DecisionView = {
   proyek: string;
   pertanyaan: string;
   opsi: string[];
-  sumber: string;
-  muncul: string;
-  lewat: boolean;
   rahasia: boolean;
   terkunci: boolean;
   penting: Importance;
   tenggat: string | null;
-  munculLagi: boolean;
+};
+
+export type ProjectStatusView = {
+  nama: string;
+  status: ProjectStatus | null;
+  tautan: string | null;
+};
+
+export type PublicProyek = {
+  nama: string;
+  kategori: string;
+  tautan: string | null;
+  rahasia: boolean;
 };
 
 export type DashboardPayload = {
@@ -32,7 +40,6 @@ export type DashboardPayload = {
   receivedAt: string | null;
   stale: boolean;
   warnings: string[];
-  kolom: Partial<Record<ColumnKey, string | null>> | null;
   kartu: {
     keputusanTerbuka: number;
     mendesak: number;
@@ -45,10 +52,10 @@ export type DashboardPayload = {
   bentrok: { a: string; b: string }[];
   tenggat: TenggatItem[];
   lookahead: AgendaItem[];
-  proyek: ProyekItem[];
+  proyek: PublicProyek[];
   keputusan: DecisionView[];
   tautanSheet: string | null;
-  statusProyek: StatusView[];
+  statusProyek: ProjectStatusView[];
 };
 
 export type ApiFailure = { ok: false; error: string };

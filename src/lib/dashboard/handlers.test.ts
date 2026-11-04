@@ -182,6 +182,7 @@ test("snapshot token stores only redacted JSON", async () => {
       keputusanTerbuka: number;
       mendesak: number;
       tenggatMingguIni: number;
+      agendaHariIni: number;
       bentrok: number;
       tertahanDorman: number;
     };
@@ -382,7 +383,8 @@ test("visible copy drops agent notes while counts follow the lists", async () =>
     };
     agenda: { judul: string; catatan: string | null }[];
     keputusan: { pertanyaan: string; id: string }[];
-    proyek: { catatan: string | null }[];
+    proyek: Record<string, unknown>[];
+    statusProyek: Record<string, unknown>[];
     warnings: string[];
   };
   assert.equal(payload.kartu.keputusanTerbuka, 1);
@@ -399,9 +401,25 @@ test("visible copy drops agent notes while counts follow the lists", async () =>
   assert.equal(payload.keputusan[0]?.id, "K-1");
   assert.equal(payload.keputusan[0]?.pertanyaan.includes("ringkasan_usulan.md"), false);
   assert.equal(payload.keputusan[0]?.pertanyaan.includes("K-2026"), false);
-  assert.equal(JSON.stringify(payload.proyek).includes("BELUM TERVERIFIKASI"), false);
-  assert.equal(JSON.stringify(payload.proyek).includes("PR #15"), false);
+  assert.equal(
+    payload.proyek.every((item) => !("catatan" in item)),
+    true,
+  );
+  assert.equal(
+    payload.keputusan.every((item) => !("sumber" in item) && !("muncul" in item)),
+    true,
+  );
+  assert.equal(
+    payload.statusProyek.every(
+      (item) => !("kesehatan" in item) && !("diubah" in item) && !("statusMentah" in item),
+    ),
+    true,
+  );
+  assert.equal("kolom" in payload, false);
+  assert.equal(JSON.stringify(payload).includes("BELUM TERVERIFIKASI"), false);
+  assert.equal(JSON.stringify(payload).includes("PR #15"), false);
   assert.equal(JSON.stringify(payload).includes("Denyut"), false);
+  assert.equal(JSON.stringify(payload).includes("Kopi Pagi"), false);
 });
 
 test("project status is written onto the status tab", async () => {

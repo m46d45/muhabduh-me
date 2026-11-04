@@ -316,7 +316,6 @@ export async function handleGetDashboard(
   }
 
   let keputusan: DecisionView[] = [];
-  let kolom: DashboardPayload["kolom"] = null;
   let tautanSheet: string | null = null;
   try {
     const sheet = deps.readSheet ? await deps.readSheet() : await readSheetValues();
@@ -325,7 +324,6 @@ export async function handleGetDashboard(
     if (!parsed.ok) {
       warnings.push(parsed.error);
     } else {
-      kolom = parsed.names;
       if (!parsed.names.pertanyaan) {
         const headers = parsed.headers
           .map((header) => header.trim())
@@ -344,14 +342,10 @@ export async function handleGetDashboard(
         proyek: presentText(item.proyek),
         pertanyaan: presentText(item.pertanyaan) || "Apa yang perlu diputuskan?",
         opsi: item.opsi,
-        sumber: "",
-        muncul: "",
-        lewat: item.lewat,
         rahasia: item.rahasia,
         terkunci: item.terkunci,
         penting: item.penting,
         tenggat: item.tenggat,
-        munculLagi: item.munculLagi,
       }));
       if (containsSecretDeep(keputusan)) {
         keputusan = [];
@@ -377,11 +371,9 @@ export async function handleGetDashboard(
       const parsedStatus = readStatusRows(statusValues);
       if (!parsedStatus.ok) warnings.push(parsedStatus.error);
       else {
-        statusProyek = mergeProjectStatus(proyek, parsedStatus.rows)
-          .filter((item) => !containsSecret(item.nama) && !containsSecret(item.diubah ?? ""))
-          .map((item) =>
-            containsSecret(item.kesehatan ?? "") ? { ...item, kesehatan: null } : item,
-          );
+        statusProyek = mergeProjectStatus(proyek, parsedStatus.rows).filter(
+          (item) => !containsSecret(item.nama) && !containsSecret(item.diubah ?? ""),
+        );
         if (!deps.readStatus) {
           const seed = planProjectSeed({
             values: statusValues,
@@ -413,7 +405,6 @@ export async function handleGetDashboard(
     receivedAt,
     stale,
     warnings: shownWarnings,
-    kolom,
     kartu: {
       keputusanTerbuka: keputusan.length,
       mendesak: keputusan.filter((item) => item.penting === "Mendesak").length,
@@ -428,10 +419,15 @@ export async function handleGetDashboard(
     bentrok: clashes,
     tenggat: weekDeadlines,
     lookahead,
-    proyek,
+    proyek: proyek.map(({ nama, kategori, tautan, rahasia }) => ({
+      nama,
+      kategori,
+      tautan,
+      rahasia,
+    })),
     keputusan,
     tautanSheet,
-    statusProyek,
+    statusProyek: statusProyek.map(({ nama, status, tautan }) => ({ nama, status, tautan })),
   };
   return json(payload);
 }
