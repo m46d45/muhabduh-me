@@ -12,12 +12,12 @@ import {
 test("session cookie is signed and rejects tampering", () => {
   const secret = "s".repeat(32);
   const now = Date.parse("2026-11-04T00:00:00.000Z");
-  const token = signSession(secret, now);
+  const token = signSession(secret, "sid-uji-1234", now);
   assert.equal(verifySession(token, secret, now + 1000), true);
   assert.equal(verifySession(token, "other-secret-value-32", now + 1000), false);
   const [payload, sig] = token.split(".");
   assert.equal(verifySession(`${payload}.${sig?.slice(0, -1)}x`, secret, now + 1000), false);
-  assert.equal(verifySession(token, secret, now + 8 * 24 * 60 * 60 * 1000), false);
+  assert.equal(verifySession(token, secret, now + 12 * 60 * 60 * 1000), false);
   const secure = sessionCookie(token, true);
   assert.match(secure, /HttpOnly/);
   assert.match(secure, /Secure/);

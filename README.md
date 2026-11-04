@@ -49,13 +49,13 @@ The public pages do not require any of the environment variables below. If they 
 
 ### Endpoints
 
-| Method | Path             | Auth                                                                                                                                                       |
-| ------ | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `POST` | `/api/login`     | JSON `{ "password": "..." }`. Sets an httpOnly `dashboard_session` cookie (Secure on HTTPS, 7 days).                                                       |
-| `POST` | `/api/logout`    | Clears the cookie.                                                                                                                                         |
-| `GET`  | `/api/dashboard` | Session cookie. Snapshot plus open rows from the Keputusan tab.                                                                                            |
-| `POST` | `/api/keputusan` | Session cookie. JSON `{ "id", "keputusan", "komentar" }`. Writes only when the Keputusan cell is still empty, then appends a completion note to Waktu WIB. |
-| `POST` | `/api/snapshot`  | `Authorization: Bearer $SNAPSHOT_TOKEN` (or `X-Snapshot-Token`). Replaces the private daily snapshot.                                                      |
+| Method | Path             | Auth                                                                                                                                                         |
+| ------ | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `POST` | `/api/login`     | JSON `{ "password": "..." }`. Sets an httpOnly `dashboard_session` cookie (Secure on HTTPS, 12 hours) and records that session id in the private Blob store. |
+| `POST` | `/api/logout`    | Clears the cookie and deletes that session id, so a copied cookie is rejected.                                                                               |
+| `GET`  | `/api/dashboard` | Session cookie. Snapshot plus open rows from the Keputusan tab.                                                                                              |
+| `POST` | `/api/keputusan` | Session cookie. JSON `{ "id", "keputusan", "komentar" }`. Writes only when the Keputusan cell is still empty, then appends a completion note to Waktu WIB.   |
+| `POST` | `/api/snapshot`  | `Authorization: Bearer $SNAPSHOT_TOKEN` (or `X-Snapshot-Token`). Replaces the private daily snapshot.                                                        |
 
 All of these responses use `Cache-Control: private, no-store`.
 
