@@ -521,11 +521,18 @@ function DecisionCard({
   sheetUrl: string | null;
   onChanged: () => Promise<void>;
 }) {
-  const [choice, setChoice] = useState("");
+  const [selected, setSelected] = useState("");
+  const [custom, setCustom] = useState("");
   const [comment, setComment] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const fieldId = `keputusan-${item.id || item.pertanyaan}`;
+  const other = "Keputusan lain";
+  const choices = (item.opsi.length >= 2 ? item.opsi : ["Setuju", "Tolak", "Tunda"]).filter(
+    (option) => option !== other,
+  );
+  const keputusan = selected === other ? custom.trim() : selected;
+  const canSave = selected !== "" && keputusan !== "";
 
   async function onSubmit(event: FormEvent) {
     event.preventDefault();
@@ -535,14 +542,15 @@ function DecisionCard({
       const response = await fetch("/api/keputusan", {
         method: "POST",
         headers: { "content-type": "application/json", accept: "application/json" },
-        body: JSON.stringify({ id: item.id, keputusan: choice, komentar: comment }),
+        body: JSON.stringify({ id: item.id, keputusan, komentar: comment }),
       });
       const data = (await response.json()) as { ok: boolean; error?: string };
       if (!response.ok || !data.ok) {
         setError(data.error ?? "Keputusan tidak tersimpan.");
         return;
       }
-      setChoice("");
+      setSelected("");
+      setCustom("");
       setComment("");
       await onChanged();
     } catch {
@@ -586,32 +594,40 @@ function DecisionCard({
         </p>
       ) : (
         <form onSubmit={onSubmit} className="mt-4 space-y-3">
-          {item.opsi.length > 0 ? (
-            <div className="flex flex-wrap gap-2">
-              {item.opsi.map((option) => (
-                <Button
+          <fieldset>
+            <legend className="text-sm font-medium text-ink">Keputusan</legend>
+            <div className="mt-2 space-y-2">
+              {[...choices, other].map((option) => (
+                <label
                   key={option}
-                  type="button"
-                  variant={choice === option ? "default" : "secondary"}
-                  aria-pressed={choice === option}
-                  onClick={() => setChoice(option)}
+                  className="flex min-h-11 cursor-pointer items-start gap-3 rounded-md border border-border px-3 py-2 text-sm text-ink"
                 >
-                  {option}
-                </Button>
+                  <input
+                    type="radio"
+                    className="mt-1 h-4 w-4 accent-accent"
+                    name={fieldId}
+                    value={option}
+                    checked={selected === option}
+                    onChange={() => setSelected(option)}
+                  />
+                  <span>{option}</span>
+                </label>
               ))}
             </div>
+          </fieldset>
+          {selected === other ? (
+            <div>
+              <Label htmlFor={`${fieldId}-lain`}>Keputusan lain</Label>
+              <Input
+                id={`${fieldId}-lain`}
+                className="mt-2"
+                value={custom}
+                onChange={(event) => setCustom(event.target.value)}
+                placeholder="Tulis keputusan"
+                required
+              />
+            </div>
           ) : null}
-          <div>
-            <Label htmlFor={fieldId}>Keputusan</Label>
-            <Input
-              id={fieldId}
-              className="mt-2"
-              value={choice}
-              onChange={(event) => setChoice(event.target.value)}
-              placeholder="Pilih di atas atau tulis sendiri"
-              required
-            />
-          </div>
           <div>
             <Label htmlFor={`${fieldId}-catatan`}>Komentar</Label>
             <Textarea
@@ -627,7 +643,7 @@ function DecisionCard({
               {error}
             </p>
           ) : null}
-          <Button type="submit" disabled={pending || choice.trim() === ""}>
+          <Button type="submit" disabled={pending || !canSave}>
             {pending ? "Menyimpan…" : "Simpan keputusan"}
           </Button>
         </form>

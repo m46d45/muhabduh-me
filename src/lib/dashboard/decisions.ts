@@ -112,20 +112,42 @@ export function isDecisionOpen(keputusan: string, waktu: string): boolean {
   return keputusan.trim() === "" && !hasCompletionNote(waktu);
 }
 
-export function parseOptions(raw: string): string[] {
-  if (!raw.trim()) return [];
-  const parts = raw
-    .split(/\r?\n|\|/g)
-    .map((part) => part.trim())
-    .filter(Boolean)
-    .map((part) => part.replace(/^(?:[-*•]|\d+[.)]|[A-Za-z][.)])\s+/, "").trim());
+export const FALLBACK_OPTIONS = ["Setuju", "Tolak", "Tunda"] as const;
+
+function capitalizeOption(value: string): string {
+  const trimmed = value
+    .replace(/^(?:[-*•]|\d+[.)]|[A-Za-z][.)])\s+/, "")
+    .replace(/[?.!]+$/g, "")
+    .trim();
+  if (!trimmed) return "";
+  return trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+}
+
+function looksLikeOptionList(text: string): boolean {
+  return /,\s*\S.*\satau\s+\S/i.test(text);
+}
+
+function splitOptionClause(clause: string): string[] {
   const unique: string[] = [];
-  for (const part of parts) {
-    if (!part || part.length > 120 || unique.includes(part)) continue;
-    unique.push(part);
+  for (const part of clause.split(/\s*,\s*atau\s+|\s+atau\s+|\s*,\s*/i)) {
+    const option = capitalizeOption(part);
+    if (!option || option.length > 160 || unique.includes(option)) continue;
+    unique.push(option);
     if (unique.length === 8) break;
   }
-  return unique.length >= 2 ? unique : [];
+  return unique;
+}
+
+/** Options live in the Judul text. The sheet has no options column. */
+export function parseQuestionOptions(question: string): string[] {
+  const text = question.trim();
+  if (!text) return [...FALLBACK_OPTIONS];
+  const semicolon = text.lastIndexOf(";");
+  const colon = text.lastIndexOf(":");
+  const separator = Math.max(semicolon, colon);
+  const clause = separator >= 0 ? text.slice(separator + 1) : text;
+  const parsed = separator >= 0 || looksLikeOptionList(text) ? splitOptionClause(clause) : [];
+  return parsed.length >= 2 ? parsed : [...FALLBACK_OPTIONS];
 }
 
 function truthy(value: string): boolean {
@@ -202,7 +224,7 @@ export function readOpenDecisions(values: string[][]): HeaderRead {
       pertanyaan: secret
         ? REDACTED_QUESTION
         : pertanyaan || "(Tanpa pertanyaan di kolom yang dikenali)",
-      opsi: secret ? [] : parseOptions(opsiRaw),
+      opsi: secret ? [...FALLBACK_OPTIONS] : parseQuestionOptions(pertanyaan),
       sumber: secret && containsSecret(sumber) ? "" : sumber,
       muncul: containsSecret(muncul) ? "" : muncul,
       lewat: truthy(cell(row, map.lewat)),
