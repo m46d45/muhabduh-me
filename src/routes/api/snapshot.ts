@@ -7,6 +7,10 @@ export const Route = createFileRoute("/api/snapshot")({
         const { handlePostSnapshot } = await import("@/lib/dashboard/handlers.server");
         return handlePostSnapshot(request);
       },
+      GET: async () => {
+        const { methodNotAllowed } = await import("@/lib/dashboard/handlers.server");
+        return methodNotAllowed();
+      },
     },
   },
 });

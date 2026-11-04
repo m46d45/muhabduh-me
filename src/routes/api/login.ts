@@ -7,6 +7,10 @@ export const Route = createFileRoute("/api/login")({
         const { handlePostLogin } = await import("@/lib/dashboard/handlers.server");
         return handlePostLogin(request);
       },
+      GET: async () => {
+        const { methodNotAllowed } = await import("@/lib/dashboard/handlers.server");
+        return methodNotAllowed();
+      },
     },
   },
 });

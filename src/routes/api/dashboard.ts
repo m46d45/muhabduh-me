@@ -7,6 +7,10 @@ export const Route = createFileRoute("/api/dashboard")({
         const { handleGetDashboard } = await import("@/lib/dashboard/handlers.server");
         return handleGetDashboard(request);
       },
+      POST: async () => {
+        const { methodNotAllowed } = await import("@/lib/dashboard/handlers.server");
+        return methodNotAllowed();
+      },
     },
   },
 });

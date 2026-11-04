@@ -7,6 +7,10 @@ export const Route = createFileRoute("/api/keputusan")({
         const { handlePostKeputusan } = await import("@/lib/dashboard/handlers.server");
         return handlePostKeputusan(request);
       },
+      GET: async () => {
+        const { methodNotAllowed } = await import("@/lib/dashboard/handlers.server");
+        return methodNotAllowed();
+      },
     },
   },
 });

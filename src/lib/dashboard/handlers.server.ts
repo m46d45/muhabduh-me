@@ -59,6 +59,10 @@ function fail(error: string, status: number): Response {
   return json({ ok: false, error }, status);
 }
 
+export function methodNotAllowed(): Response {
+  return fail("Metode tidak didukung.", 405);
+}
+
 async function readBody(
   request: Request,
   max = 200_000,
