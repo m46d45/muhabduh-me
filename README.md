@@ -116,7 +116,7 @@ A successful push returns `{ "ok": true, "receivedAt": "<ISO>", "redacted": 0 }`
 
 ### Keputusan tab
 
-Open rows are read from the live sheet (about a minute of cache), not from the snapshot. A row is open when the Keputusan cell is empty **and** Waktu WIB does not contain a completion note (`diputuskan`, `selesai`, `ditutup`, `via dashboard`, `completed`, or `decided`).
+Open rows are read from the live sheet (about a minute of cache), not from the snapshot. A row is open only when both Keputusan and Waktu WIB are empty. Any text in Waktu WIB, including a note such as `sudah dibalas Abduh…`, closes the row.
 
 Column positions are not hard-coded. The header row is matched by name:
 
@@ -131,7 +131,7 @@ Column positions are not hard-coded. The header row is matched by name:
 | Opsi                             | Taken from `Judul`, not a sheet column. The clause after the last `;` or `:` (or a question shaped `A, B, atau C?`) is split on commas and `atau`. Fewer than two choices becomes `Setuju`, `Tolak`, `Tunda`. The page adds `Keputusan lain`. |
 | Proyek / Sumber / Lewat / Tautan | `Proyek`, `Sumber`, `Lewat`, `Tautan`                                                                                                                                                                                                         |
 
-The page lists the headers it actually used. A write fills Keputusan only while that cell is still empty, appends `diputuskan via dashboard, DD MMM HH.MM WIB` to Waktu WIB, and appends the comment to Tanggapan saya. If Keputusan is already filled, the API returns 409 and does not overwrite it.
+The page lists the headers it actually used. A write fills Keputusan only while that cell and Waktu WIB are still empty, then writes `diputuskan via dashboard, DD MMM HH.MM WIB` into Waktu WIB and appends the comment to Tanggapan saya. If either cell is already filled, the API returns 409 and does not overwrite it.
 
 ### Environment variables
 

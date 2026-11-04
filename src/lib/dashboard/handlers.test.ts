@@ -22,8 +22,8 @@ const headers = ["ID", "Proyek", "Pertanyaan", "Opsi", "Keputusan", "Waktu WIB",
 const sheet = {
   values: [
     headers,
-    ["K-1", "Riset", "Lanjut kuliah?", "Ya | Tidak", "", "4 Nov 08.00 WIB", ""],
-    ["K-2", "INPEX", "Bahas Masela?", "A | B", "", "4 Nov 08.00", ""],
+    ["K-1", "Riset", "Lanjut kuliah?", "Ya | Tidak", "", "", ""],
+    ["K-2", "INPEX", "Bahas Masela?", "A | B", "", "", ""],
   ],
   tab: "Keputusan",
   sheetId: "sheet-uji",

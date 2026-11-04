@@ -1,5 +1,5 @@
 import { REDACTED_PROJECT, REDACTED_QUESTION, containsSecret } from "@/lib/dashboard/secret";
-import { hasCompletionNote, withCompletion } from "@/lib/dashboard/time";
+import { withCompletion } from "@/lib/dashboard/time";
 
 export type ColumnKey =
   | "id"
@@ -108,8 +108,9 @@ function cell(row: string[], index: number | null): string {
   return (row[index] ?? "").trim();
 }
 
+/** Kopi Pagi: open only when both Keputusan and Waktu WIB are empty. */
 export function isDecisionOpen(keputusan: string, waktu: string): boolean {
-  return keputusan.trim() === "" && !hasCompletionNote(waktu);
+  return keputusan.trim() === "" && waktu.trim() === "";
 }
 
 export const FALLBACK_OPTIONS = ["Setuju", "Tolak", "Tunda"] as const;
@@ -282,8 +283,8 @@ export function planDecisionWrite(args: {
     return { ok: false, status: 409, error: "Keputusan sudah terisi. Tidak ditimpa." };
   }
   const waktu = read.map.waktu == null ? "" : (row[read.map.waktu] ?? "");
-  if (hasCompletionNote(waktu)) {
-    return { ok: false, status: 409, error: "Baris ini sudah punya catatan selesai." };
+  if (waktu.trim()) {
+    return { ok: false, status: 409, error: "Waktu WIB sudah terisi. Baris ini ditutup." };
   }
   if (read.map.waktu == null) {
     return {

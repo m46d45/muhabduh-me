@@ -95,14 +95,6 @@ export function completionNote(now: Date): string {
   return `diputuskan via dashboard, ${parts.day} ${parts.monthShort} ${parts.hour}.${parts.minute} WIB`;
 }
 
-const COMPLETION =
-  /\bdiputuskan\b|\bvia dashboard\b|\bditutup\b|\bcompleted\b|\bdecided\b|\bselesai\b/i;
-
-export function hasCompletionNote(waktu: string | null | undefined): boolean {
-  if (!waktu) return false;
-  return COMPLETION.test(waktu);
-}
-
 export function withCompletion(existing: string, now: Date): string {
   const note = completionNote(now);
   const base = existing.trim();
