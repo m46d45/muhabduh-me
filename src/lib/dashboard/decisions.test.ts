@@ -2,11 +2,15 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { containsSecretDeep } from "@/lib/dashboard/secret";
 import {
+  DECISION_CHOICES,
+  deferralNote,
   isDecisionOpen,
   mapHeaders,
   parseQuestionOptions,
   planDecisionWrite,
   readOpenDecisions,
+  toDecisionQuestion,
+  TUNDA_DECISION,
 } from "@/lib/dashboard/decisions";
 import { completionNote } from "@/lib/dashboard/time";
 
@@ -46,17 +50,23 @@ test("confidential decision text is masked before it is served", () => {
     read.open.some((item) => item.pertanyaan === "Sudah dibalas"),
     false,
   );
-  const visible = read.open[0];
+  const visible = read.open.find((item) => item.id === "K-1");
   assert.equal(visible?.id, "K-1");
-  assert.deepEqual(visible?.opsi, ["Setuju", "Tolak", "Tunda"]);
+  assert.deepEqual(visible?.opsi, [
+    "Setuju, kerjakan",
+    "Tolak, jangan dikerjakan",
+    "Tunda, tanyakan lagi minggu depan",
+    "Sudah saya tangani sendiri",
+    "Abaikan / tidak relevan",
+  ]);
   assert.equal(visible?.rahasia, false);
-  const masked = read.open[1];
+  const masked = read.open.find((item) => item.id === "K-3");
   assert.equal(masked?.pertanyaan, "Pertanyaan klien (rahasia)");
   assert.equal(masked?.proyek, "Proyek klien (rahasia)");
-  assert.deepEqual(masked?.opsi, ["Setuju", "Tolak", "Tunda"]);
+  assert.deepEqual(masked?.opsi, visible?.opsi);
   assert.equal(masked?.id, "K-3");
   assert.equal(masked?.terkunci, false);
-  const locked = read.open[2];
+  const locked = read.open.find((item) => item.terkunci);
   assert.equal(locked?.id, "");
   assert.equal(locked?.terkunci, true);
   assert.equal(containsSecretDeep(read.open), false);
@@ -189,6 +199,83 @@ test("options are parsed from the clause after the last semicolon or colon", () 
   assert.deepEqual(parseQuestionOptions("Pilih: kirim draf, atau tunda"), ["Kirim draf", "Tunda"]);
   assert.deepEqual(parseQuestionOptions("Lanjut kuliah besok?"), ["Setuju", "Tolak", "Tunda"]);
   assert.deepEqual(parseQuestionOptions(""), ["Setuju", "Tolak", "Tunda"]);
+});
+
+test("a title is a question, and a trailing option menu is not the question", () => {
+  assert.equal(toDecisionQuestion("Lanjut kuliah?"), "Lanjut kuliah?");
+  assert.equal(toDecisionQuestion("Cek berkas yang terunggah"), "Cek berkas yang terunggah?");
+  assert.equal(toDecisionQuestion(""), "Apa yang perlu diputuskan?");
+  assert.equal(
+    toDecisionQuestion(
+      "LCI International: balas Glenn (Coordination Group, frekuensi laporan dan rapat); kirim draf apa adanya, tanpa paragraf opsional, ubah frekuensi rapat, atau tunda?",
+    ),
+    "LCI International: balas Glenn (Coordination Group, frekuensi laporan dan rapat)?",
+  );
+});
+
+test("tunda hides the card for 7 days, then lets it be decided again", () => {
+  const hiddenAt = new Date("2026-11-04T02:40:00.000Z");
+  const planned = planDecisionWrite({
+    values: [liveHeaders, ["K-1", "4 Nov 2026", "Lanjut kuliah?", "", "", "", "Riset"]],
+    tab: "Keputusan",
+    id: "K-1",
+    keputusan: TUNDA_DECISION,
+    komentar: "minggu depan saja",
+    now: hiddenAt,
+  });
+  assert.equal(planned.ok, true);
+  if (!planned.ok) return;
+  assert.equal(planned.updates[0]?.values[0]?.[0], TUNDA_DECISION);
+  assert.match(planned.updates[1]?.values[0]?.[0] ?? "", /tunda sampai 2026-11-11/);
+  assert.equal(deferralNote(hiddenAt).includes("tunda sampai 2026-11-11"), true);
+  assert.equal(planned.updates[2]?.values[0]?.[0], "minggu depan saja");
+
+  const deferredRow = [
+    "K-1",
+    "4 Nov 2026",
+    "Lanjut kuliah?",
+    TUNDA_DECISION,
+    "minggu depan saja",
+    planned.updates[1]?.values[0]?.[0] ?? "",
+    "Riset",
+  ];
+  const hidden = readOpenDecisions([liveHeaders, deferredRow], { today: "2026-11-10" });
+  assert.equal(hidden.ok, true);
+  if (!hidden.ok) return;
+  assert.equal(hidden.open.length, 0);
+
+  const blocked = planDecisionWrite({
+    values: [liveHeaders, deferredRow],
+    tab: "Keputusan",
+    id: "K-1",
+    keputusan: DECISION_CHOICES[0],
+    komentar: "",
+    now: new Date("2026-11-10T02:00:00.000Z"),
+  });
+  assert.equal(blocked.ok, false);
+  if (blocked.ok) return;
+  assert.equal(blocked.status, 409);
+
+  const shown = readOpenDecisions([liveHeaders, deferredRow], { today: "2026-11-11" });
+  assert.equal(shown.ok, true);
+  if (!shown.ok) return;
+  assert.equal(shown.open.length, 1);
+  assert.equal(shown.open[0]?.munculLagi, true);
+  assert.equal(shown.open[0]?.pertanyaan, "Lanjut kuliah?");
+
+  const again = planDecisionWrite({
+    values: [liveHeaders, deferredRow],
+    tab: "Keputusan",
+    id: "K-1",
+    keputusan: DECISION_CHOICES[0],
+    komentar: "kerjakan sekarang",
+    now: new Date("2026-11-11T02:40:00.000Z"),
+  });
+  assert.equal(again.ok, true);
+  if (!again.ok) return;
+  assert.equal(again.updates[0]?.values[0]?.[0], "Setuju, kerjakan");
+  assert.match(again.updates[1]?.values[0]?.[0] ?? "", /^diputuskan via dashboard/);
+  assert.equal((again.updates[1]?.values[0]?.[0] ?? "").includes("tunda sampai"), false);
 });
 
 test("unknown headers produce a clear error and no row dump", () => {

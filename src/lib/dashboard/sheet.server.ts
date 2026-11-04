@@ -11,6 +11,16 @@ export class SheetConfigError extends Error {
   }
 }
 
+export class SheetTabMissingError extends Error {
+  readonly tab: string;
+
+  constructor(tab: string) {
+    super(`Tab ${tab} belum ada.`);
+    this.name = "SheetTabMissingError";
+    this.tab = tab;
+  }
+}
+
 export function normalizePrivateKey(raw: string): string {
   let key = raw.trim();
   if ((key.startsWith('"') && key.endsWith('"')) || (key.startsWith("'") && key.endsWith("'"))) {
@@ -113,10 +123,63 @@ function sheetError(status: number): string {
   return "Google Sheet tidak bisa dihubungi.";
 }
 
-let gridCache: { key: string; at: number; values: string[][] } | null = null;
+const gridCache = new Map<string, { at: number; values: string[][] }>();
 
 export function clearSheetCache(): void {
-  gridCache = null;
+  gridCache.clear();
+}
+
+async function spreadsheetTitles(sheetId: string, token: string): Promise<string[]> {
+  const response = await fetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(sheetId)}?fields=sheets.properties.title`,
+    {
+      headers: { authorization: `Bearer ${token}` },
+      signal: AbortSignal.timeout(15_000),
+    },
+  );
+  if (!response.ok) throw new SheetConfigError(sheetError(response.status));
+  const body = (await response.json()) as { sheets?: { properties?: { title?: string } }[] };
+  return (body.sheets ?? []).flatMap((sheet) => {
+    const title = sheet.properties?.title;
+    return title ? [title] : [];
+  });
+}
+
+export async function readNamedTab(
+  tab: string,
+  options?: { fresh?: boolean },
+): Promise<{
+  values: string[][];
+  tab: string;
+  sheetId: string;
+}> {
+  const config = sheetConfig();
+  if (!config.ok) throw new SheetConfigError(config.error);
+  const cacheKey = `${config.sheetId}:${tab}`;
+  const cached = gridCache.get(cacheKey);
+  if (!options?.fresh && cached && Date.now() - cached.at < 60_000) {
+    return { values: cached.values, tab, sheetId: config.sheetId };
+  }
+  const token = await accessToken(config.email, config.key);
+  const range = encodeURIComponent(`${tab}!A1:ZZ2000`);
+  const response = await fetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(config.sheetId)}/values/${range}`,
+    {
+      headers: { authorization: `Bearer ${token}` },
+      signal: AbortSignal.timeout(15_000),
+    },
+  );
+  if (!response.ok) {
+    const detail = await response.text();
+    if (response.status === 400 && /unable to parse range|not found/i.test(detail)) {
+      throw new SheetTabMissingError(tab);
+    }
+    throw new SheetConfigError(sheetError(response.status));
+  }
+  const body = (await response.json()) as { values?: unknown[][] };
+  const values = (body.values ?? []).map((row) => row.map((cell) => String(cell ?? "")));
+  gridCache.set(cacheKey, { at: Date.now(), values });
+  return { values, tab, sheetId: config.sheetId };
 }
 
 export async function readSheetValues(options?: { fresh?: boolean }): Promise<{
@@ -126,29 +189,63 @@ export async function readSheetValues(options?: { fresh?: boolean }): Promise<{
 }> {
   const config = sheetConfig();
   if (!config.ok) throw new SheetConfigError(config.error);
-  const cacheKey = `${config.sheetId}:${config.tab}`;
-  if (
-    !options?.fresh &&
-    gridCache &&
-    gridCache.key === cacheKey &&
-    Date.now() - gridCache.at < 60_000
-  ) {
-    return { values: gridCache.values, tab: config.tab, sheetId: config.sheetId };
-  }
+  return readNamedTab(config.tab, options);
+}
+
+/** Create a tab when it is missing, and write the header row when the tab is empty. */
+export async function ensureSheetTab(
+  tab: string,
+  headers: string[],
+  seedRows: string[][] = [],
+): Promise<"created" | "present"> {
+  const config = sheetConfig();
+  if (!config.ok) throw new SheetConfigError(config.error);
   const token = await accessToken(config.email, config.key);
-  const range = encodeURIComponent(`${config.tab}!A1:ZZ2000`);
-  const response = await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(config.sheetId)}/values/${range}`,
+  const titles = await spreadsheetTitles(config.sheetId, token);
+  if (!titles.includes(tab)) {
+    const response = await fetch(
+      `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(config.sheetId)}:batchUpdate`,
+      {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${token}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          requests: [{ addSheet: { properties: { title: tab } } }],
+        }),
+        signal: AbortSignal.timeout(15_000),
+      },
+    );
+    if (!response.ok) {
+      const detail = await response.text();
+      if (!/already exists/i.test(detail)) throw new SheetConfigError(sheetError(response.status));
+    }
+  }
+  let existing: string[][] = [];
+  try {
+    existing = (await readNamedTab(tab, { fresh: true })).values;
+  } catch (error) {
+    if (!(error instanceof SheetTabMissingError)) throw error;
+  }
+  const headerRow = existing[0] ?? [];
+  if (headerRow.some((cell) => cell.trim())) {
+    const have = new Set(headerRow.map((cell) => cell.trim().toLowerCase()));
+    const missing = headers.filter((header) => !have.has(header.toLowerCase()));
+    if (missing.length > 0) {
+      throw new SheetConfigError(
+        `Tab ${tab} ada, tetapi kolomnya belum lengkap (${missing.join(", ")}).`,
+      );
+    }
+    return "present";
+  }
+  await writeSheetCells([
     {
-      headers: { authorization: `Bearer ${token}` },
-      signal: AbortSignal.timeout(15_000),
+      range: `'${tab.replaceAll("'", "''")}'!A1`,
+      values: [headers, ...seedRows],
     },
-  );
-  if (!response.ok) throw new SheetConfigError(sheetError(response.status));
-  const body = (await response.json()) as { values?: unknown[][] };
-  const values = (body.values ?? []).map((row) => row.map((cell) => String(cell ?? "")));
-  gridCache = { key: cacheKey, at: Date.now(), values };
-  return { values, tab: config.tab, sheetId: config.sheetId };
+  ]);
+  return "created";
 }
 
 export async function writeSheetCells(updates: CellUpdate[]): Promise<void> {

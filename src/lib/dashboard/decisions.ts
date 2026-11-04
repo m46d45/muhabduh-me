@@ -1,5 +1,17 @@
+import {
+  compareDecisions,
+  decisionImportance,
+  type DeadlineHint,
+  type Importance,
+} from "@/lib/dashboard/importance";
 import { REDACTED_PROJECT, REDACTED_QUESTION, containsSecret } from "@/lib/dashboard/secret";
-import { withCompletion } from "@/lib/dashboard/time";
+import {
+  addDays,
+  completionNote,
+  withCompletion,
+  wibDateKey,
+  wibParts,
+} from "@/lib/dashboard/time";
 
 export type ColumnKey =
   | "id"
@@ -115,6 +127,48 @@ export function isDecisionOpen(keputusan: string, waktu: string): boolean {
 
 export const FALLBACK_OPTIONS = ["Setuju", "Tolak", "Tunda"] as const;
 
+/** Same choices on every card. The Judul text is no longer a menu. */
+export const DECISION_CHOICES = [
+  "Setuju, kerjakan",
+  "Tolak, jangan dikerjakan",
+  "Tunda, tanyakan lagi minggu depan",
+  "Sudah saya tangani sendiri",
+  "Abaikan / tidak relevan",
+] as const;
+
+export const OTHER_DECISION = "Keputusan lain";
+export const TUNDA_DECISION = "Tunda, tanyakan lagi minggu depan";
+
+const TUNDA_MARK = /tunda sampai (\d{4}-\d{2}-\d{2})/i;
+
+/** Date encoded in Waktu WIB while a card is hidden. Null when the row is not deferred. */
+export function deferUntil(waktu: string): string | null {
+  const match = TUNDA_MARK.exec(waktu);
+  return match?.[1] ?? null;
+}
+
+export function deferralNote(now: Date): string {
+  const until = addDays(wibDateKey(now), 7);
+  const parts = wibParts(now);
+  return `tunda sampai ${until} · dicatat via dashboard, ${parts.day} ${parts.monthShort} ${parts.hour}.${parts.minute} WIB`;
+}
+
+/** Card title: the Judul stem, always phrased as a question. A trailing option menu is dropped. */
+export function toDecisionQuestion(judul: string): string {
+  let text = judul.replace(/\s+/g, " ").trim();
+  if (!text) return "Apa yang perlu diputuskan?";
+  const semi = text.lastIndexOf(";");
+  if (semi > 20) {
+    const tail = text.slice(semi + 1);
+    const parsed = looksLikeOptionList(tail) ? splitOptionClause(tail) : [];
+    if (parsed.length >= 2) text = text.slice(0, semi).trim();
+  }
+  text = text.replace(/[.\s]+$/g, "").trim();
+  if (!text) return "Apa yang perlu diputuskan?";
+  if (!text.endsWith("?")) text = `${text}?`;
+  return text;
+}
+
 function capitalizeOption(value: string): string {
   const trimmed = value
     .replace(/^(?:[-*•]|\d+[.)]|[A-Za-z][.)])\s+/, "")
@@ -166,6 +220,14 @@ export type SheetDecision = {
   lewat: boolean;
   rahasia: boolean;
   terkunci: boolean;
+  penting: Importance;
+  tenggat: string | null;
+  munculLagi: boolean;
+};
+
+export type DecisionContext = {
+  today: string;
+  tenggat?: DeadlineHint[];
 };
 
 export type HeaderRead =
@@ -178,7 +240,7 @@ export type HeaderRead =
     }
   | { ok: false; error: string; headers: string[] };
 
-export function readOpenDecisions(values: string[][]): HeaderRead {
+export function readOpenDecisions(values: string[][], context?: DecisionContext): HeaderRead {
   const headers = (values[0] ?? []).map((header) => String(header ?? ""));
   if (headers.every((header) => header.trim() === "")) {
     return { ok: false, error: "Tab Keputusan kosong atau tidak punya baris header.", headers };
@@ -204,12 +266,27 @@ export function readOpenDecisions(values: string[][]): HeaderRead {
     if (!id) continue;
     const keputusan = cell(row, map.keputusan);
     const waktu = cell(row, map.waktu);
-    if (!isDecisionOpen(keputusan, waktu)) continue;
+    const until = deferUntil(waktu);
+    const today = context?.today;
+    let munculLagi = false;
+    if (!isDecisionOpen(keputusan, waktu)) {
+      if (!until || !today || today < until) continue;
+      munculLagi = true;
+    }
     const proyek = cell(row, map.proyek);
     const pertanyaan = cell(row, map.pertanyaan);
     const opsiRaw = cell(row, map.opsi);
     const sumber = cell(row, map.sumber);
     const muncul = cell(row, map.muncul);
+    const lewat = truthy(cell(row, map.lewat));
+    const ranked = decisionImportance({
+      pertanyaan,
+      muncul,
+      proyek,
+      lewat,
+      today: today ?? "",
+      tenggat: context?.tenggat ?? [],
+    });
     const secret =
       containsSecret(id) ||
       containsSecret(proyek) ||
@@ -224,15 +301,19 @@ export function readOpenDecisions(values: string[][]): HeaderRead {
       proyek: secret && containsSecret(proyek) ? REDACTED_PROJECT : proyek,
       pertanyaan: secret
         ? REDACTED_QUESTION
-        : pertanyaan || "(Tanpa pertanyaan di kolom yang dikenali)",
-      opsi: secret ? [...FALLBACK_OPTIONS] : parseQuestionOptions(pertanyaan),
+        : toDecisionQuestion(pertanyaan || "(Tanpa pertanyaan di kolom yang dikenali)"),
+      opsi: [...DECISION_CHOICES],
       sumber: secret && containsSecret(sumber) ? "" : sumber,
       muncul: containsSecret(muncul) ? "" : muncul,
-      lewat: truthy(cell(row, map.lewat)),
+      lewat,
       rahasia: secret,
       terkunci: locked,
+      penting: ranked.penting,
+      tenggat: ranked.tenggat,
+      munculLagi,
     });
   }
+  open.sort(compareDecisions);
   return { ok: true, map, names, open, headers };
 }
 
@@ -279,11 +360,17 @@ export function planDecisionWrite(args: {
   const rowIndex = matches[0] as number;
   const row = args.values[rowIndex] ?? [];
   const current = (row[read.map.keputusan as number] ?? "").trim();
-  if (current) {
+  const waktu = read.map.waktu == null ? "" : (row[read.map.waktu] ?? "");
+  const until = deferUntil(waktu);
+  const today = wibDateKey(args.now);
+  const reopened = until != null && today >= until;
+  if (current && !reopened) {
+    if (until && today < until) {
+      return { ok: false, status: 409, error: `Masih ditunda sampai ${until}. Tidak ditimpa.` };
+    }
     return { ok: false, status: 409, error: "Keputusan sudah terisi. Tidak ditimpa." };
   }
-  const waktu = read.map.waktu == null ? "" : (row[read.map.waktu] ?? "");
-  if (waktu.trim()) {
+  if (waktu.trim() && !reopened) {
     return { ok: false, status: 409, error: "Waktu WIB sudah terisi. Baris ini ditutup." };
   }
   if (read.map.waktu == null) {
@@ -302,6 +389,12 @@ export function planDecisionWrite(args: {
   }
 
   const sheetRow = rowIndex + 1;
+  const waktuValue =
+    keputusan === TUNDA_DECISION
+      ? deferralNote(args.now)
+      : reopened
+        ? completionNote(args.now)
+        : withCompletion(waktu, args.now);
   const updates: CellUpdate[] = [
     {
       range: sheetA1(args.tab, read.map.keputusan as number, sheetRow),
@@ -309,7 +402,7 @@ export function planDecisionWrite(args: {
     },
     {
       range: sheetA1(args.tab, read.map.waktu, sheetRow),
-      values: [[withCompletion(waktu, args.now)]],
+      values: [[waktuValue]],
     },
   ];
   if (komentar && read.map.catatan != null) {

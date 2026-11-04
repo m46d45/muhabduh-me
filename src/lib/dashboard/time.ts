@@ -90,6 +90,20 @@ export function formatClock(value: string | null | undefined): string | null {
   return `${match[1].padStart(2, "0")}.${match[2]}`;
 }
 
+/** Calendar all-day items arrive as midnight to midnight. */
+export function isAllDay(
+  mulai: string | null | undefined,
+  selesai: string | null | undefined,
+): boolean {
+  return parseClock(mulai) === 0 && parseClock(selesai) === 0;
+}
+
+export function formatEventSpan(item: { mulai: string | null; selesai: string | null }): string {
+  if (isAllDay(item.mulai, item.selesai)) return "Seharian";
+  if (item.mulai && item.selesai) return `${item.mulai}–${item.selesai}`;
+  return item.mulai ?? item.selesai ?? "Waktu belum ada";
+}
+
 export function completionNote(now: Date): string {
   const parts = wibParts(now);
   return `diputuskan via dashboard, ${parts.day} ${parts.monthShort} ${parts.hour}.${parts.minute} WIB`;

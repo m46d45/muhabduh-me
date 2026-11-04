@@ -1,5 +1,7 @@
 import type { AgendaItem, CleanSnapshot, ProyekItem, TenggatItem } from "@/lib/dashboard/redact";
 import type { ColumnKey } from "@/lib/dashboard/decisions";
+import type { Importance } from "@/lib/dashboard/importance";
+import type { StatusView } from "@/lib/dashboard/projects";
 
 export type { AgendaItem, CleanSnapshot, ProyekItem, TenggatItem };
 
@@ -18,6 +20,9 @@ export type DecisionView = {
   lewat: boolean;
   rahasia: boolean;
   terkunci: boolean;
+  penting: Importance;
+  tenggat: string | null;
+  munculLagi: boolean;
 };
 
 export type DashboardPayload = {
@@ -42,6 +47,7 @@ export type DashboardPayload = {
   proyek: ProyekItem[];
   keputusan: DecisionView[];
   tautanSheet: string | null;
+  statusProyek: StatusView[];
 };
 
 export type ApiFailure = { ok: false; error: string };
