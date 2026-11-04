@@ -1,0 +1,645 @@
+import { useEffect, useState, type FormEvent } from "react";
+import { Link } from "@tanstack/react-router";
+import { ExternalLink, LogOut } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import type {
+  AgendaItem,
+  DashboardPayload,
+  DecisionView,
+  ProyekItem,
+  TenggatItem,
+} from "@/lib/dashboard/types";
+
+type Failure = { ok: false; error: string };
+
+function formatToday(date = new Date()): string {
+  return new Intl.DateTimeFormat("id-ID", {
+    timeZone: "Asia/Jakarta",
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(date);
+}
+
+function formatUpdated(iso: string | null): string {
+  if (!iso) return "Belum ada pembaruan";
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return "Belum ada pembaruan";
+  const text = new Intl.DateTimeFormat("id-ID", {
+    timeZone: "Asia/Jakarta",
+    day: "numeric",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(date);
+  return `${text} WIB`;
+}
+
+function formatDay(dateKey: string): string {
+  const date = new Date(`${dateKey}T12:00:00+07:00`);
+  return new Intl.DateTimeFormat("id-ID", {
+    timeZone: "Asia/Jakarta",
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  }).format(date);
+}
+
+function clock(item: { mulai: string | null; selesai: string | null }): string {
+  if (item.mulai && item.selesai) return `${item.mulai}–${item.selesai}`;
+  return item.mulai ?? item.selesai ?? "Waktu belum ada";
+}
+
+function safeHref(value: string | null): string | null {
+  if (!value) return null;
+  try {
+    const url = new URL(value);
+    if (url.protocol !== "https:" && url.protocol !== "http:") return null;
+    return url.toString();
+  } catch {
+    return null;
+  }
+}
+
+async function readJson(response: Response): Promise<DashboardPayload | Failure> {
+  const data = (await response.json()) as DashboardPayload | Failure;
+  if (!response.ok || !data.ok) {
+    return { ok: false, error: "error" in data ? data.error : "Permintaan gagal." };
+  }
+  return data;
+}
+
+export function DashboardScreen() {
+  const [payload, setPayload] = useState<DashboardPayload | null>(null);
+  const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  async function load() {
+    const response = await fetch("/api/dashboard", { headers: { accept: "application/json" } });
+    if (response.status === 401) {
+      setPayload(null);
+      return;
+    }
+    const data = await readJson(response);
+    if (!data.ok) {
+      setLoginError(data.error);
+      setPayload(null);
+      return;
+    }
+    setLoginError(null);
+    setPayload(data);
+  }
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      const response = await fetch("/api/dashboard", { headers: { accept: "application/json" } });
+      if (cancelled) return;
+      if (response.status === 401) return;
+      const data = await readJson(response);
+      if (cancelled || !data.ok) {
+        if (!cancelled && !data.ok) setLoginError(data.error);
+        return;
+      }
+      setPayload(data);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  async function onLogin(event: FormEvent) {
+    event.preventDefault();
+    setSubmitting(true);
+    setLoginError(null);
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: { "content-type": "application/json", accept: "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      const data = (await response.json()) as { ok: boolean; error?: string };
+      if (!response.ok || !data.ok) {
+        setLoginError(data.error ?? "Kata sandi salah.");
+        return;
+      }
+      setPassword("");
+      await load();
+    } catch {
+      setLoginError("Tidak terhubung. Coba lagi.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function onLogout() {
+    await fetch("/api/logout", { method: "POST" });
+    setPayload(null);
+  }
+
+  return (
+    <main className="min-h-svh">
+      <div className="container-narrow section-pad py-8 sm:py-12">
+        {payload ? (
+          <DashboardView payload={payload} onLogout={() => void onLogout()} onChanged={load} />
+        ) : (
+          <LoginPanel
+            password={password}
+            error={loginError}
+            submitting={submitting}
+            onPassword={setPassword}
+            onSubmit={onLogin}
+          />
+        )}
+      </div>
+    </main>
+  );
+}
+
+function LoginPanel({
+  password,
+  error,
+  submitting,
+  onPassword,
+  onSubmit,
+}: {
+  password: string;
+  error: string | null;
+  submitting: boolean;
+  onPassword: (value: string) => void;
+  onSubmit: (event: FormEvent) => void;
+}) {
+  return (
+    <div className="mx-auto flex min-h-svh w-full max-w-md flex-col justify-center">
+      <p className="text-sm font-medium text-accent">muhabduh.id</p>
+      <h1 className="mt-2 font-display text-4xl text-ink">Dasbor harian</h1>
+      <p className="mt-3 text-muted">
+        Halaman pribadi. Agenda dan keputusan tidak dimuat sebelum masuk.
+      </p>
+      <form
+        onSubmit={onSubmit}
+        className="mt-8 rounded-xl border border-border bg-surface p-5 shadow-soft"
+      >
+        <Label htmlFor="dashboard-password">Kata sandi</Label>
+        <Input
+          id="dashboard-password"
+          className="mt-2"
+          type="password"
+          name="password"
+          autoComplete="current-password"
+          value={password}
+          onChange={(event) => onPassword(event.target.value)}
+          required
+        />
+        {error ? (
+          <p role="alert" className="mt-3 text-sm font-medium text-ink">
+            {error}
+          </p>
+        ) : null}
+        <Button type="submit" className="mt-5 w-full" disabled={submitting}>
+          {submitting ? "Memeriksa…" : "Masuk"}
+        </Button>
+      </form>
+      <p className="mt-6 text-sm text-subtle">
+        <Link to="/" className="text-accent underline-offset-4 hover:underline">
+          Kembali ke situs publik
+        </Link>
+      </p>
+    </div>
+  );
+}
+
+function DashboardView({
+  payload,
+  onLogout,
+  onChanged,
+}: {
+  payload: DashboardPayload;
+  onLogout: () => void;
+  onChanged: () => Promise<void>;
+}) {
+  const cards = [
+    { label: "Keputusan terbuka", value: payload.kartu.keputusanTerbuka, hint: "Menunggu Bapak" },
+    {
+      label: "Tenggat minggu ini",
+      value: payload.kartu.tenggatMingguIni,
+      hint: "Senin–Minggu, WIB",
+    },
+    {
+      label: "Agenda hari ini",
+      value: payload.kartu.agendaHariIni,
+      hint:
+        payload.kartu.bentrok == null
+          ? "Belum ada snapshot"
+          : payload.kartu.bentrok === 0
+            ? "Tanpa bentrok"
+            : `${payload.kartu.bentrok} bentrok`,
+    },
+    {
+      label: "Tertahan / Dorman",
+      value: payload.kartu.tertahanDorman,
+      hint: "Perlu didorong atau ditutup",
+    },
+  ];
+
+  return (
+    <div>
+      <header className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="text-sm font-medium text-accent">Pribadi · tidak diindeks</p>
+          <h1 className="mt-1 font-display text-4xl text-ink">Dasbor harian</h1>
+          <p className="mt-2 capitalize text-muted">{formatToday()}</p>
+          <p className="text-sm text-subtle">Diperbarui {formatUpdated(payload.generatedAt)}</p>
+        </div>
+        <Button type="button" variant="secondary" onClick={onLogout}>
+          <LogOut className="h-4 w-4" aria-hidden />
+          Keluar
+        </Button>
+      </header>
+
+      {payload.warnings.length > 0 ? (
+        <div className="mt-6 space-y-2" role="status">
+          {payload.warnings.map((warning) => (
+            <p
+              key={warning}
+              className="rounded-lg border border-accent/30 bg-teal-wash/50 px-4 py-3 text-sm text-ink"
+            >
+              {warning}
+            </p>
+          ))}
+        </div>
+      ) : null}
+
+      <section className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4" aria-label="Ringkasan">
+        {cards.map((card) => (
+          <article
+            key={card.label}
+            className="rounded-lg border border-border bg-surface p-4 shadow-soft"
+          >
+            <h2 className="text-xs font-medium uppercase tracking-wide text-subtle">
+              {card.label}
+            </h2>
+            <p className="mt-2 font-display text-3xl text-ink">
+              {card.value == null ? "—" : card.value}
+            </p>
+            <p className="mt-1 text-sm text-muted">{card.hint}</p>
+          </article>
+        ))}
+      </section>
+
+      <div className="mt-8 grid gap-8 lg:grid-cols-2">
+        <AgendaSection items={payload.agenda} clashes={payload.bentrok} />
+        <DeadlineSection items={payload.tenggat} />
+      </div>
+
+      <LookaheadSection items={payload.lookahead} />
+      <ProjectSection items={payload.proyek} />
+      <DecisionSection
+        items={payload.keputusan}
+        sheetUrl={safeHref(payload.tautanSheet)}
+        columns={payload.kolom}
+        onChanged={onChanged}
+      />
+    </div>
+  );
+}
+
+function SectionTitle({ title, hint }: { title: string; hint: string }) {
+  return (
+    <div className="mb-3">
+      <h2 className="font-display text-2xl text-ink">{title}</h2>
+      <p className="text-sm text-muted">{hint}</p>
+    </div>
+  );
+}
+
+function AgendaSection({
+  items,
+  clashes,
+}: {
+  items: AgendaItem[];
+  clashes: { a: string; b: string }[];
+}) {
+  return (
+    <section>
+      <SectionTitle
+        title="Agenda hari ini"
+        hint="Judul singkat dan jam. Detail rahasia tidak ditampilkan."
+      />
+      {items.length === 0 ? (
+        <Empty>Tidak ada agenda hari ini.</Empty>
+      ) : (
+        <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface">
+          {items.map((item, index) => (
+            <li key={`${item.judul}-${item.mulai}-${index}`} className="flex gap-4 px-4 py-3">
+              <p className="w-28 shrink-0 text-sm font-medium text-accent">{clock(item)}</p>
+              <div className="min-w-0">
+                <p className="text-ink">{item.judul}</p>
+                {item.lokasi ? <p className="text-sm text-muted">{item.lokasi}</p> : null}
+                {item.catatan ? <p className="text-sm text-muted">{item.catatan}</p> : null}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+      {clashes.length > 0 ? (
+        <ul className="mt-3 space-y-1 text-sm text-ink">
+          {clashes.map((clash) => (
+            <li key={`${clash.a}-${clash.b}`}>
+              Bentrok: {clash.a} dan {clash.b}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </section>
+  );
+}
+
+function DeadlineSection({ items }: { items: TenggatItem[] }) {
+  return (
+    <section>
+      <SectionTitle title="Tenggat minggu ini" hint="Yang jatuh temponya ada di minggu berjalan." />
+      {items.length === 0 ? (
+        <Empty>Tidak ada tenggat minggu ini.</Empty>
+      ) : (
+        <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface">
+          {items.map((item, index) => (
+            <li key={`${item.judul}-${item.jatuhTempo}-${index}`} className="px-4 py-3">
+              <p className="text-ink">{item.judul}</p>
+              <p className="text-sm text-muted">
+                {item.jatuhTempo ?? "Tanggal menyusul"}
+                {item.proyek ? ` · ${item.proyek}` : ""}
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
+}
+
+function LookaheadSection({ items }: { items: AgendaItem[] }) {
+  const groups = new Map<string, AgendaItem[]>();
+  for (const item of items) {
+    const key = item.tanggal ?? "tanpa-tanggal";
+    const list = groups.get(key) ?? [];
+    list.push(item);
+    groups.set(key, list);
+  }
+  return (
+    <section className="mt-8">
+      <SectionTitle title="14 hari ke depan" hint="Dari hari ini sampai dua minggu, waktu WIB." />
+      {items.length === 0 ? (
+        <Empty>Tidak ada agenda dalam 14 hari ke depan.</Empty>
+      ) : (
+        <div className="space-y-5">
+          {[...groups.entries()].map(([key, group]) => (
+            <div key={key}>
+              <h3 className="text-sm font-medium text-subtle">
+                {key === "tanpa-tanggal" ? "Tanggal belum jelas" : formatDay(key)}
+              </h3>
+              <ul className="mt-2 divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface">
+                {group.map((item, index) => (
+                  <li key={`${key}-${item.judul}-${index}`} className="flex gap-4 px-4 py-3">
+                    <p className="w-28 shrink-0 text-sm font-medium text-accent">{clock(item)}</p>
+                    <p className="text-ink">{item.judul}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function ProjectSection({ items }: { items: ProyekItem[] }) {
+  return (
+    <section className="mt-8">
+      <SectionTitle
+        title="Status proyek"
+        hint="Tertahan dan Dorman di atas, supaya yang macet kelihatan dulu."
+      />
+      {items.length === 0 ? (
+        <Empty>Belum ada proyek di snapshot.</Empty>
+      ) : (
+        <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface">
+          {items.map((item, index) => {
+            const href = safeHref(item.tautan);
+            return (
+              <li
+                key={`${item.nama}-${item.kategori}-${index}`}
+                className="flex items-start justify-between gap-3 px-4 py-3"
+              >
+                <div className="min-w-0">
+                  <p className="text-ink">{item.nama}</p>
+                  {item.catatan ? <p className="text-sm text-muted">{item.catatan}</p> : null}
+                </div>
+                <div className="flex shrink-0 items-center gap-3">
+                  <span className="rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted">
+                    {item.kategori}
+                  </span>
+                  {href ? (
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-accent"
+                      aria-label={`Buka ${item.nama}`}
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  ) : null}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </section>
+  );
+}
+
+function DecisionSection({
+  items,
+  sheetUrl,
+  columns,
+  onChanged,
+}: {
+  items: DecisionView[];
+  sheetUrl: string | null;
+  columns: DashboardPayload["kolom"];
+  onChanged: () => Promise<void>;
+}) {
+  return (
+    <section className="mt-8 pb-8">
+      <SectionTitle
+        title="Menunggu Bapak"
+        hint="Keputusan masih kosong dan Waktu WIB belum berisi catatan selesai."
+      />
+      {items.length === 0 ? (
+        <Empty>Tidak ada keputusan yang menunggu.</Empty>
+      ) : (
+        <div className="space-y-4">
+          {items.map((item, index) => (
+            <DecisionCard
+              key={`${item.id || "rahasia"}-${index}`}
+              item={item}
+              sheetUrl={sheetUrl}
+              onChanged={onChanged}
+            />
+          ))}
+        </div>
+      )}
+      {columns ? (
+        <details className="mt-4 text-sm text-muted">
+          <summary className="cursor-pointer text-accent">Kolom Sheet yang dikenali</summary>
+          <p className="mt-2">
+            ID: {columns.id ?? "—"} · Muncul: {columns.muncul ?? "—"} · Keputusan:{" "}
+            {columns.keputusan ?? "—"} · Waktu: {columns.waktu ?? "—"} · Tanggapan:{" "}
+            {columns.catatan ?? "—"} · Judul: {columns.pertanyaan ?? "—"} · Opsi:{" "}
+            {columns.opsi ?? "—"}
+          </p>
+        </details>
+      ) : null}
+    </section>
+  );
+}
+
+function DecisionCard({
+  item,
+  sheetUrl,
+  onChanged,
+}: {
+  item: DecisionView;
+  sheetUrl: string | null;
+  onChanged: () => Promise<void>;
+}) {
+  const [choice, setChoice] = useState("");
+  const [comment, setComment] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
+  const fieldId = `keputusan-${item.id || item.pertanyaan}`;
+
+  async function onSubmit(event: FormEvent) {
+    event.preventDefault();
+    setPending(true);
+    setError(null);
+    try {
+      const response = await fetch("/api/keputusan", {
+        method: "POST",
+        headers: { "content-type": "application/json", accept: "application/json" },
+        body: JSON.stringify({ id: item.id, keputusan: choice, komentar: comment }),
+      });
+      const data = (await response.json()) as { ok: boolean; error?: string };
+      if (!response.ok || !data.ok) {
+        setError(data.error ?? "Keputusan tidak tersimpan.");
+        return;
+      }
+      setChoice("");
+      setComment("");
+      await onChanged();
+    } catch {
+      setError("Tidak terhubung. Coba lagi.");
+    } finally {
+      setPending(false);
+    }
+  }
+
+  return (
+    <article className="rounded-lg border border-border bg-surface p-4 shadow-soft">
+      <div className="flex flex-wrap items-start justify-between gap-2">
+        <div>
+          <h3 className="font-display text-xl text-ink">{item.pertanyaan}</h3>
+          <p className="mt-1 text-sm text-muted">
+            {[
+              item.muncul ? `Muncul ${item.muncul}` : "",
+              item.proyek,
+              item.sumber,
+              item.lewat ? "Lewat waktu" : "",
+            ]
+              .filter(Boolean)
+              .join(" · ") || "Tanpa proyek"}
+          </p>
+        </div>
+        {item.rahasia && sheetUrl ? (
+          <a
+            href={sheetUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-accent underline-offset-4 hover:underline"
+          >
+            Buka di Sheet
+          </a>
+        ) : null}
+      </div>
+      {item.terkunci ? (
+        <p className="mt-3 text-sm text-muted">
+          Detail ada di Sheet. Baris ini tidak bisa diisi dari halaman, supaya ID-nya tidak ikut
+          terkirim.
+        </p>
+      ) : (
+        <form onSubmit={onSubmit} className="mt-4 space-y-3">
+          {item.opsi.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {item.opsi.map((option) => (
+                <Button
+                  key={option}
+                  type="button"
+                  variant={choice === option ? "default" : "secondary"}
+                  aria-pressed={choice === option}
+                  onClick={() => setChoice(option)}
+                >
+                  {option}
+                </Button>
+              ))}
+            </div>
+          ) : null}
+          <div>
+            <Label htmlFor={fieldId}>Keputusan</Label>
+            <Input
+              id={fieldId}
+              className="mt-2"
+              value={choice}
+              onChange={(event) => setChoice(event.target.value)}
+              placeholder="Pilih di atas atau tulis sendiri"
+              required
+            />
+          </div>
+          <div>
+            <Label htmlFor={`${fieldId}-catatan`}>Komentar</Label>
+            <Textarea
+              id={`${fieldId}-catatan`}
+              className="mt-2 min-h-24"
+              value={comment}
+              onChange={(event) => setComment(event.target.value)}
+              placeholder="Opsional, masuk ke kolom Tanggapan saya"
+            />
+          </div>
+          {error ? (
+            <p role="alert" className="text-sm font-medium text-ink">
+              {error}
+            </p>
+          ) : null}
+          <Button type="submit" disabled={pending || choice.trim() === ""}>
+            {pending ? "Menyimpan…" : "Simpan keputusan"}
+          </Button>
+        </form>
+      )}
+    </article>
+  );
+}
+
+function Empty({ children }: { children: string }) {
+  return (
+    <p className="rounded-lg border border-dashed border-border px-4 py-6 text-sm text-muted">
+      {children}
+    </p>
+  );
+}

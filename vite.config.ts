@@ -183,6 +183,9 @@ export default defineConfig(({ command }) => ({
           if (path.includes("#")) return false;
           const pathname = (path.split(/[?#]/)[0] ?? path).replace(/\/+$/, "") || "/";
           if (pathname === "/news" || pathname.startsWith("/bertanya")) return false;
+          if (pathname === "/dashboard" || pathname === "/api" || pathname.startsWith("/api/")) {
+            return false;
+          }
           if (pathname === "/rss.xml") return true;
           if (/\.[a-z0-9]+$/i.test(pathname)) return false;
           return true;
