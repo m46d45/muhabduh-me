@@ -180,7 +180,9 @@ test("snapshot token stores only redacted JSON", async () => {
   const payload = (await dashboard.json()) as {
     kartu: {
       keputusanTerbuka: number;
+      mendesak: number;
       tenggatMingguIni: number;
+      agendaHariIni: number;
       bentrok: number;
       tertahanDorman: number;
     };
@@ -192,8 +194,11 @@ test("snapshot token stores only redacted JSON", async () => {
   };
   assert.equal(containsSecretDeep(payload), false);
   assert.equal(payload.kartu.keputusanTerbuka, 2);
+  assert.equal(payload.kartu.mendesak, 0);
   assert.equal(payload.kartu.tenggatMingguIni, 1);
-  assert.equal(payload.kartu.tertahanDorman, 2);
+  assert.equal(payload.kartu.agendaHariIni, 2);
+  assert.equal(payload.kartu.bentrok, 0);
+  assert.equal(payload.kartu.tertahanDorman, 0);
   assert.equal(
     payload.tenggat.some((item) => item.judul === "Di luar minggu"),
     false,
@@ -304,6 +309,117 @@ test("decision write refuses a filled cell and records a completion note", async
   );
   assert.equal(deferred.status, 200);
   assert.match(JSON.stringify(updates), /tunda sampai 2026-11-11/);
+});
+
+test("visible copy drops agent notes while counts follow the lists", async () => {
+  const store = memoryStore();
+  const cookie = await loginCookie();
+  const response = await handlePostSnapshot(
+    new Request("https://www.muhabduh.id/api/snapshot", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${snapshotToken}`,
+      },
+      body: JSON.stringify({
+        generatedAt: "2026-11-04T04:30:00+07:00",
+        agenda: [
+          {
+            judul: "Kuliah (K-20261101-01)",
+            mulai: "10.00",
+            selesai: "11.00",
+            catatan: "dicatat Kopi Pagi 1 Nov 2026 04.20",
+          },
+          { judul: "Bimbingan", mulai: "08.00", selesai: "09.00" },
+        ],
+        tenggat: [{ judul: "Kirim draf", jatuhTempo: "2026-11-06" }],
+        lookahead: [],
+        proyek: [
+          {
+            nama: "Paper PKPRB",
+            kategori: "Melambat",
+            catatan: "Target jurnal BELUM TERVERIFIKASI; PR #15 masih terbuka",
+          },
+        ],
+      }),
+    }),
+    { now, store },
+  );
+  assert.equal(response.status, 200);
+  const dashboard = await handleGetDashboard(
+    new Request("https://www.muhabduh.id/api/dashboard", { headers: { cookie } }),
+    {
+      now,
+      sessions,
+      store,
+      readSheet: async () => ({
+        values: [
+          ["ID", "Judul", "Keputusan", "Waktu WIB", "Proyek"],
+          [
+            "K-1",
+            "Balas editor (lihat ringkasan_usulan.md) sebelum K-20261105-07?",
+            "",
+            "",
+            "Rencana Paper",
+          ],
+          ["K-2", "Tunda ini?", "Tunda, tanyakan lagi minggu depan", "tunda sampai 2026-11-20", ""],
+        ],
+        tab: "Keputusan",
+        sheetId: "sheet-uji",
+      }),
+      readStatus: async () => [
+        ["Proyek", "Status", "Diubah WIB"],
+        ["Paper PKPRB", "", ""],
+        ["RagilE", "Dorman", ""],
+      ],
+    },
+  );
+  const payload = (await dashboard.json()) as {
+    kartu: {
+      keputusanTerbuka: number;
+      mendesak: number;
+      tertahanDorman: number;
+      agendaHariIni: number;
+    };
+    agenda: { judul: string; catatan: string | null }[];
+    keputusan: { pertanyaan: string; id: string }[];
+    proyek: Record<string, unknown>[];
+    statusProyek: Record<string, unknown>[];
+    warnings: string[];
+  };
+  assert.equal(payload.kartu.keputusanTerbuka, 1);
+  assert.equal(payload.kartu.agendaHariIni, payload.agenda.length);
+  assert.equal(payload.kartu.tertahanDorman, 1);
+  assert.equal(
+    payload.agenda.some((item) => item.judul.includes("K-2026")),
+    false,
+  );
+  assert.equal(
+    payload.agenda.some((item) => item.catatan?.includes("Kopi Pagi")),
+    false,
+  );
+  assert.equal(payload.keputusan[0]?.id, "K-1");
+  assert.equal(payload.keputusan[0]?.pertanyaan.includes("ringkasan_usulan.md"), false);
+  assert.equal(payload.keputusan[0]?.pertanyaan.includes("K-2026"), false);
+  assert.equal(
+    payload.proyek.every((item) => !("catatan" in item)),
+    true,
+  );
+  assert.equal(
+    payload.keputusan.every((item) => !("sumber" in item) && !("muncul" in item)),
+    true,
+  );
+  assert.equal(
+    payload.statusProyek.every(
+      (item) => !("kesehatan" in item) && !("diubah" in item) && !("statusMentah" in item),
+    ),
+    true,
+  );
+  assert.equal("kolom" in payload, false);
+  assert.equal(JSON.stringify(payload).includes("BELUM TERVERIFIKASI"), false);
+  assert.equal(JSON.stringify(payload).includes("PR #15"), false);
+  assert.equal(JSON.stringify(payload).includes("Denyut"), false);
+  assert.equal(JSON.stringify(payload).includes("Kopi Pagi"), false);
 });
 
 test("project status is written onto the status tab", async () => {

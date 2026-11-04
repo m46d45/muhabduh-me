@@ -1,7 +1,8 @@
 import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import { containsSecret, containsSecretDeep } from "@/lib/dashboard/secret";
 import { findClashes, isWithinLookahead, isWithinWeek, wibDateKey } from "@/lib/dashboard/time";
-import { ingestSnapshot, rehydrateSnapshot } from "@/lib/dashboard/redact";
+import { presentText, presentWarning } from "@/lib/dashboard/present";
+import { ingestSnapshot, rehydrateSnapshot, type AgendaItem } from "@/lib/dashboard/redact";
 import { planDecisionWrite, readOpenDecisions } from "@/lib/dashboard/decisions";
 import {
   SEED_PROJECTS,
@@ -268,7 +269,6 @@ export async function handleGetDashboard(
   let tenggat: DashboardPayload["tenggat"] = [];
   let lookahead: DashboardPayload["lookahead"] = [];
   let proyek: DashboardPayload["proyek"] = [];
-  let snapshotReady = false;
 
   try {
     const store = await storeFor(deps);
@@ -281,7 +281,6 @@ export async function handleGetDashboard(
     } else if (containsSecretDeep(snapshot)) {
       warnings.push("Snapshot ditolak karena masih memuat data yang harus disaring.");
     } else {
-      snapshotReady = true;
       generatedAt = snapshot.generatedAt;
       receivedAt = snapshot.receivedAt;
       const age = now.getTime() - Date.parse(snapshot.receivedAt);
@@ -289,28 +288,35 @@ export async function handleGetDashboard(
       if (stale) {
         warnings.push("Snapshot lebih dari 26 jam. Routine 04.30 WIB mungkin belum masuk.");
       }
-      agenda = [...snapshot.agenda].sort(byClock);
-      tenggat = snapshot.tenggat;
-      lookahead = snapshot.lookahead
-        .filter((item) => isWithinLookahead(item.tanggal, today))
-        .sort(byDateThenClock);
-      const categoryOrder = ["Tertahan", "Melambat", "Aktif", "Dorman", "Lainnya"];
-      proyek = [...snapshot.proyek].sort((a, b) => {
-        const left = categoryOrder.indexOf(a.kategori);
-        const right = categoryOrder.indexOf(b.kategori);
-        return (
-          (left < 0 ? 99 : left) - (right < 0 ? 99 : right) || a.nama.localeCompare(b.nama, "id")
-        );
+      agenda = presentAgenda([...snapshot.agenda].sort(byClock));
+      tenggat = snapshot.tenggat.flatMap((item) => {
+        const judul = presentText(item.judul);
+        if (!judul) return [];
+        const proyekName = presentText(item.proyek);
+        return [{ ...item, judul, proyek: proyekName || null }];
       });
+      lookahead = presentAgenda(
+        snapshot.lookahead
+          .filter((item) => isWithinLookahead(item.tanggal, today))
+          .sort(byDateThenClock),
+      );
+      const categoryOrder = ["Tertahan", "Melambat", "Aktif", "Dorman", "Lainnya"];
+      proyek = [...snapshot.proyek]
+        .map((item) => ({ ...item, catatan: presentText(item.catatan) || null }))
+        .sort((a, b) => {
+          const left = categoryOrder.indexOf(a.kategori);
+          const right = categoryOrder.indexOf(b.kategori);
+          return (
+            (left < 0 ? 99 : left) - (right < 0 ? 99 : right) || a.nama.localeCompare(b.nama, "id")
+          );
+        });
     }
   } catch (error) {
     warnings.push(error instanceof Error ? error.message : "Snapshot tidak bisa dibaca.");
   }
 
   let keputusan: DecisionView[] = [];
-  let kolom: DashboardPayload["kolom"] = null;
   let tautanSheet: string | null = null;
-  let sheetReady = false;
   try {
     const sheet = deps.readSheet ? await deps.readSheet() : await readSheetValues();
     const parsed = readOpenDecisions(sheet.values, { today, tenggat });
@@ -318,8 +324,6 @@ export async function handleGetDashboard(
     if (!parsed.ok) {
       warnings.push(parsed.error);
     } else {
-      sheetReady = true;
-      kolom = parsed.names;
       if (!parsed.names.pertanyaan) {
         const headers = parsed.headers
           .map((header) => header.trim())
@@ -335,24 +339,19 @@ export async function handleGetDashboard(
       }
       keputusan = parsed.open.map((item) => ({
         id: item.id,
-        proyek: item.proyek,
-        pertanyaan: item.pertanyaan,
+        proyek: presentText(item.proyek),
+        pertanyaan: presentText(item.pertanyaan) || "Apa yang perlu diputuskan?",
         opsi: item.opsi,
-        sumber: item.sumber,
-        muncul: item.muncul,
-        lewat: item.lewat,
         rahasia: item.rahasia,
         terkunci: item.terkunci,
         penting: item.penting,
         tenggat: item.tenggat,
-        munculLagi: item.munculLagi,
       }));
       if (containsSecretDeep(keputusan)) {
         keputusan = [];
         warnings.push(
           "Daftar keputusan disembunyikan karena masih memuat data yang harus disaring.",
         );
-        sheetReady = false;
       }
     }
   } catch (error) {
@@ -372,11 +371,9 @@ export async function handleGetDashboard(
       const parsedStatus = readStatusRows(statusValues);
       if (!parsedStatus.ok) warnings.push(parsedStatus.error);
       else {
-        statusProyek = mergeProjectStatus(proyek, parsedStatus.rows)
-          .filter((item) => !containsSecret(item.nama) && !containsSecret(item.diubah ?? ""))
-          .map((item) =>
-            containsSecret(item.kesehatan ?? "") ? { ...item, kesehatan: null } : item,
-          );
+        statusProyek = mergeProjectStatus(proyek, parsedStatus.rows).filter(
+          (item) => !containsSecret(item.nama) && !containsSecret(item.diubah ?? ""),
+        );
         if (!deps.readStatus) {
           const seed = planProjectSeed({
             values: statusValues,
@@ -397,9 +394,9 @@ export async function handleGetDashboard(
 
   const clashes = findClashes(agenda).map((pair) => ({ a: pair.a.judul, b: pair.b.judul }));
   const weekDeadlines = tenggat.filter((item) => isWithinWeek(item.jatuhTempo, today));
-  const stalled = proyek.filter(
-    (item) => item.kategori === "Tertahan" || item.kategori === "Dorman",
-  );
+  const shownWarnings = [
+    ...new Set(warnings.map(presentWarning).filter((warning) => warning.trim() !== "")),
+  ];
 
   const payload: DashboardPayload = {
     ok: true,
@@ -407,23 +404,30 @@ export async function handleGetDashboard(
     generatedAt,
     receivedAt,
     stale,
-    warnings,
-    kolom,
+    warnings: shownWarnings,
     kartu: {
-      keputusanTerbuka: sheetReady ? keputusan.length : null,
-      tenggatMingguIni: snapshotReady ? weekDeadlines.length : null,
-      agendaHariIni: snapshotReady ? agenda.length : null,
-      bentrok: snapshotReady ? clashes.length : null,
-      tertahanDorman: snapshotReady ? stalled.length : null,
+      keputusanTerbuka: keputusan.length,
+      mendesak: keputusan.filter((item) => item.penting === "Mendesak").length,
+      tenggatMingguIni: weekDeadlines.length,
+      agendaHariIni: agenda.length,
+      bentrok: clashes.length,
+      tertahanDorman: statusProyek.filter(
+        (item) => item.status === "Tertahan" || item.status === "Dorman",
+      ).length,
     },
     agenda,
     bentrok: clashes,
     tenggat: weekDeadlines,
     lookahead,
-    proyek,
+    proyek: proyek.map(({ nama, kategori, tautan, rahasia }) => ({
+      nama,
+      kategori,
+      tautan,
+      rahasia,
+    })),
     keputusan,
     tautanSheet,
-    statusProyek,
+    statusProyek: statusProyek.map(({ nama, status, tautan }) => ({ nama, status, tautan })),
   };
   return json(payload);
 }
@@ -557,6 +561,16 @@ export async function handlePostSnapshot(
 
 export function resetHandlerState(): void {
   resetRateLimits();
+}
+
+function presentAgenda(items: AgendaItem[]): AgendaItem[] {
+  return items.flatMap((item) => {
+    const judul = presentText(item.judul);
+    if (!judul) return [];
+    const lokasi = presentText(item.lokasi);
+    const catatan = presentText(item.catatan);
+    return [{ ...item, judul, lokasi: lokasi || null, catatan: catatan || null }];
+  });
 }
 
 function byClock<T extends { mulai: string | null }>(a: T, b: T): number {

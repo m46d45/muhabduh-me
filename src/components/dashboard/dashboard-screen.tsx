@@ -6,11 +6,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { DECISION_CHOICES, OTHER_DECISION } from "@/lib/dashboard/decisions";
-import { PROJECT_STATUSES, STATUS_TAB, type StatusView } from "@/lib/dashboard/projects";
+import { PROJECT_STATUSES } from "@/lib/dashboard/projects";
 import type {
   AgendaItem,
   DashboardPayload,
   DecisionView,
+  ProjectStatusView,
   TenggatItem,
 } from "@/lib/dashboard/types";
 import { formatEventSpan } from "@/lib/dashboard/time";
@@ -246,6 +247,8 @@ function DashboardView({
         </Button>
       </header>
 
+      <SummaryTiles payload={payload} />
+
       {payload.warnings.length > 0 ? (
         <div className="mt-6 space-y-2" role="status">
           {payload.warnings.map((warning) => (
@@ -262,13 +265,49 @@ function DashboardView({
       <DecisionSection
         items={payload.keputusan}
         sheetUrl={safeHref(payload.tautanSheet)}
-        columns={payload.kolom}
         onChanged={onChanged}
       />
       <AgendaSection items={payload.agenda} clashes={payload.bentrok} />
       <HorizonSection tenggat={payload.tenggat} lookahead={payload.lookahead} />
       <ProjectSection items={payload.statusProyek} onChanged={onChanged} />
     </div>
+  );
+}
+
+function SummaryTiles({ payload }: { payload: DashboardPayload }) {
+  const cards = [
+    {
+      label: "Keputusan terbuka",
+      value: payload.kartu.keputusanTerbuka,
+      hint: "Yang belum ditunda",
+    },
+    { label: "Mendesak", value: payload.kartu.mendesak, hint: "Perlu hari ini" },
+    {
+      label: "Agenda hari ini",
+      value: payload.kartu.agendaHariIni,
+      hint: payload.kartu.bentrok === 0 ? "Tanpa bentrok" : `${payload.kartu.bentrok} bentrok`,
+    },
+    { label: "Bentrok", value: payload.kartu.bentrok, hint: "Jam yang bertumpuk" },
+    { label: "Tenggat minggu ini", value: payload.kartu.tenggatMingguIni, hint: "Senin–Minggu" },
+    {
+      label: "Tertahan / Dorman",
+      value: payload.kartu.tertahanDorman,
+      hint: "Status proyek",
+    },
+  ];
+  return (
+    <section className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-3" aria-label="Ringkasan">
+      {cards.map((card) => (
+        <article
+          key={card.label}
+          className="rounded-lg border border-border bg-surface p-4 shadow-soft"
+        >
+          <h2 className="text-xs font-medium uppercase tracking-wide text-subtle">{card.label}</h2>
+          <p className="mt-2 font-display text-3xl text-ink">{card.value}</p>
+          <p className="mt-1 text-sm text-muted">{card.hint}</p>
+        </article>
+      ))}
+    </section>
   );
 }
 
@@ -403,15 +442,12 @@ function ProjectSection({
   items,
   onChanged,
 }: {
-  items: StatusView[];
+  items: ProjectStatusView[];
   onChanged: () => Promise<void>;
 }) {
   return (
     <section id="status-proyek" data-section="status-proyek" className="mt-8 pb-10">
-      <SectionTitle
-        title="Status proyek"
-        hint={`Nilai yang tersimpan di tab ${STATUS_TAB}. Pilih Aktif, Tertahan, Dorman, atau Selesai.`}
-      />
+      <SectionTitle title="Status proyek" hint="Pilih Aktif, Tertahan, Dorman, atau Selesai." />
       {items.length === 0 ? (
         <Empty>Belum ada proyek untuk diubah statusnya.</Empty>
       ) : (
@@ -425,7 +461,13 @@ function ProjectSection({
   );
 }
 
-function ProjectRow({ item, onChanged }: { item: StatusView; onChanged: () => Promise<void> }) {
+function ProjectRow({
+  item,
+  onChanged,
+}: {
+  item: ProjectStatusView;
+  onChanged: () => Promise<void>;
+}) {
   const [status, setStatus] = useState(item.status ?? "");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
@@ -470,18 +512,8 @@ function ProjectRow({ item, onChanged }: { item: StatusView; onChanged: () => Pr
   return (
     <li className="flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
       <div className="min-w-0">
-        <div className="flex flex-wrap items-center gap-2">
-          <p className="text-ink">{item.nama}</p>
-          {item.kesehatan && item.kesehatan !== item.status ? (
-            <span className="rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted">
-              Denyut: {item.kesehatan}
-            </span>
-          ) : null}
-        </div>
-        <p className="text-sm text-muted">
-          Saat ini: {current}
-          {item.diubah ? ` · diubah ${item.diubah}` : ""}
-        </p>
+        <p className="text-ink">{item.nama}</p>
+        <p className="text-sm text-muted">Saat ini: {current}</p>
         {error ? (
           <p role="alert" className="text-sm font-medium text-ink">
             {error}
@@ -528,31 +560,15 @@ function ProjectRow({ item, onChanged }: { item: StatusView; onChanged: () => Pr
 function DecisionSection({
   items,
   sheetUrl,
-  columns,
   onChanged,
 }: {
   items: DecisionView[];
   sheetUrl: string | null;
-  columns: DashboardPayload["kolom"];
   onChanged: () => Promise<void>;
 }) {
   return (
     <section id="menunggu-bapak" data-section="menunggu-bapak" className="mt-8">
-      <SectionTitle
-        title="Menunggu Bapak"
-        hint="Diurutkan Mendesak, Penting, lalu Bisa nanti. Tiap kartu menampilkan label dan tenggat."
-      />
-      <details className="mb-4 text-sm text-muted">
-        <summary className="cursor-pointer text-accent">Aturan urutan</summary>
-        <p className="mt-2">
-          Tenggat diambil dari tanggal di judul. Kalau tahunnya tidak ditulis, dipakai tahun ini
-          atau tahun depan, mana yang lebih dekat ke hari ini. Kalau tidak ada tanggal, dipakai
-          tenggat snapshot pada proyek yang sama. Kalau judul menulis &quot;hari ini&quot;,
-          tenggatnya tanggal Muncul. Mendesak: tenggat hari ini atau sudah lewat, atau belum ada
-          tenggat dan item sudah muncul 7 hari atau lebih. Penting: tenggat 1–7 hari lagi, atau
-          muncul 3–6 hari tanpa tenggat. Selain itu: Bisa nanti.
-        </p>
-      </details>
+      <SectionTitle title="Menunggu Bapak" hint="Diurutkan Mendesak, Penting, lalu Bisa nanti." />
       {items.length === 0 ? (
         <Empty>Tidak ada keputusan yang menunggu.</Empty>
       ) : (
@@ -567,17 +583,6 @@ function DecisionSection({
           ))}
         </div>
       )}
-      {columns ? (
-        <details className="mt-4 text-sm text-muted">
-          <summary className="cursor-pointer text-accent">Kolom Sheet yang dikenali</summary>
-          <p className="mt-2">
-            ID: {columns.id ?? "—"} · Muncul: {columns.muncul ?? "—"} · Keputusan:{" "}
-            {columns.keputusan ?? "—"} · Waktu: {columns.waktu ?? "—"} · Tanggapan:{" "}
-            {columns.catatan ?? "—"} · Judul: {columns.pertanyaan ?? "—"} · Opsi:{" "}
-            {columns.opsi ?? "—"}
-          </p>
-        </details>
-      ) : null}
     </section>
   );
 }
@@ -639,19 +644,7 @@ function DecisionCard({
       <div className="mt-3 flex flex-wrap items-start justify-between gap-2">
         <div>
           <h3 className="font-display text-xl text-ink">{item.pertanyaan}</h3>
-          {item.munculLagi ? (
-            <p className="mt-1 text-sm text-accent">Muncul lagi setelah ditunda.</p>
-          ) : null}
-          <p className="mt-1 text-sm text-muted">
-            {[
-              item.muncul ? `Muncul ${item.muncul}` : "",
-              item.proyek,
-              item.sumber,
-              item.lewat ? "Lewat waktu" : "",
-            ]
-              .filter(Boolean)
-              .join(" · ") || "Tanpa proyek"}
-          </p>
+          {item.proyek ? <p className="mt-1 text-sm text-muted">{item.proyek}</p> : null}
         </div>
         {item.rahasia && sheetUrl ? (
           <a
