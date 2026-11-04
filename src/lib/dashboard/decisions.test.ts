@@ -4,6 +4,7 @@ import { containsSecretDeep } from "@/lib/dashboard/secret";
 import {
   isDecisionOpen,
   mapHeaders,
+  parseQuestionOptions,
   planDecisionWrite,
   readOpenDecisions,
 } from "@/lib/dashboard/decisions";
@@ -40,12 +41,12 @@ test("confidential decision text is masked before it is served", () => {
   assert.equal(read.open.length, 3);
   const visible = read.open[0];
   assert.equal(visible?.id, "K-1");
-  assert.deepEqual(visible?.opsi, ["Ya", "Tidak"]);
+  assert.deepEqual(visible?.opsi, ["Setuju", "Tolak", "Tunda"]);
   assert.equal(visible?.rahasia, false);
   const masked = read.open[1];
   assert.equal(masked?.pertanyaan, "Pertanyaan klien (rahasia)");
   assert.equal(masked?.proyek, "Proyek klien (rahasia)");
-  assert.deepEqual(masked?.opsi, []);
+  assert.deepEqual(masked?.opsi, ["Setuju", "Tolak", "Tunda"]);
   assert.equal(masked?.id, "K-3");
   assert.equal(masked?.terkunci, false);
   const locked = read.open[2];
@@ -159,6 +160,26 @@ test("live Keputusan headers use judul, tanggapan saya, and muncul", () => {
   );
   assert.equal(planned.updates[2]?.range, "'Keputusan'!E2");
   assert.equal(planned.updates[2]?.values[0]?.[0], "tanggapan lama\nsetuju di rapat");
+});
+
+test("options are parsed from the clause after the last semicolon or colon", () => {
+  const question =
+    "LCI International: balas Glenn (Coordination Group, frekuensi laporan dan rapat); kirim draf apa adanya, tanpa paragraf opsional, ubah frekuensi rapat, atau tunda?";
+  assert.deepEqual(parseQuestionOptions(question), [
+    "Kirim draf apa adanya",
+    "Tanpa paragraf opsional",
+    "Ubah frekuensi rapat",
+    "Tunda",
+  ]);
+  assert.equal(parseQuestionOptions(question).includes("Coordination Group"), false);
+  assert.deepEqual(parseQuestionOptions("setuju, tolak, atau tunda?"), [
+    "Setuju",
+    "Tolak",
+    "Tunda",
+  ]);
+  assert.deepEqual(parseQuestionOptions("Pilih: kirim draf, atau tunda"), ["Kirim draf", "Tunda"]);
+  assert.deepEqual(parseQuestionOptions("Lanjut kuliah besok?"), ["Setuju", "Tolak", "Tunda"]);
+  assert.deepEqual(parseQuestionOptions(""), ["Setuju", "Tolak", "Tunda"]);
 });
 
 test("unknown headers produce a clear error and no row dump", () => {

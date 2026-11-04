@@ -181,7 +181,7 @@ test("snapshot token stores only redacted JSON", async () => {
     payload.lookahead.some((item) => item.judul === "Terlalu jauh"),
     false,
   );
-  assert.equal(payload.keputusan[0]?.opsi.join("|"), "Ya|Tidak");
+  assert.deepEqual(payload.keputusan[0]?.opsi, ["Setuju", "Tolak", "Tunda"]);
   assert.equal(payload.keputusan[1]?.pertanyaan, "Pertanyaan klien (rahasia)");
   assert.equal(payload.tautanSheet.includes("sheet-uji"), true);
 });
