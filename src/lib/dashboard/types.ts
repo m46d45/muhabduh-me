@@ -34,11 +34,12 @@ export type DashboardPayload = {
   warnings: string[];
   kolom: Partial<Record<ColumnKey, string | null>> | null;
   kartu: {
-    keputusanTerbuka: number | null;
-    tenggatMingguIni: number | null;
-    agendaHariIni: number | null;
-    bentrok: number | null;
-    tertahanDorman: number | null;
+    keputusanTerbuka: number;
+    mendesak: number;
+    tenggatMingguIni: number;
+    agendaHariIni: number;
+    bentrok: number;
+    tertahanDorman: number;
   };
   agenda: AgendaItem[];
   bentrok: { a: string; b: string }[];

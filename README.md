@@ -151,7 +151,11 @@ Inside one band, the earlier due date comes first, then the older Muncul date, t
 
 The Status column on ResearchGate, Personal Website, LC Bibliometric, RagilE, Seri ICE, Rencana Paper, and Kuliah MBK is task progress (`Sudah`, `Belum`, and similar). It is not the project heartbeat.
 
-Project status is the tab **`Status Proyek`**, columns **`Proyek`**, **`Status`**, **`Diubah WIB`**. The select is only `Aktif`, `Tertahan`, `Dorman`, or `Selesai`, and it shows the cell in that tab. The morning snapshot's category (`Aktif`, `Melambat`, `Tertahan`, `Dorman`) is a separate health badge (`Denyut`) and is never written into the select.
+Project status is the tab **`Status Proyek`**, columns **`Proyek`**, **`Status`**, **`Diubah WIB`**. The select is only `Aktif`, `Tertahan`, `Dorman`, or `Selesai`, and it shows the cell in that tab. The morning category (`Melambat` and the rest) is not shown on the page.
+
+Above the lists, the page shows counts that match those lists: open decisions (cards that are not still deferred), how many of those are Mendesak, today's agenda, clashes, this week's deadlines, and projects whose saved status is Tertahan or Dorman.
+
+Text from the snapshot and from Judul is cleaned before it is shown. Agent notes stay in the sheet: decision ids such as `K-20261105-07`, `Kopi Pagi`, `diputuskan via dashboard`, `BELUM TERVERIFIKASI`, `PR #…`, `Denyut`, and file names such as `ringkasan_usulan.md`. The page keeps the question, the due date, the importance label, the agenda title, time, and place, and the project name with its status.
 
 Names fold into one canonical row. A variant that starts with a seeded name (`ResearchGate full-text`) or contains every word of a multi-word seed (`Seri Simulasi ICE` → `Seri ICE`) uses that seed's spelling. The page then adds a blank row for every other project it shows, and renames an alias cell to the canonical spelling. Existing Status and Diubah WIB cells are left as they are. An empty Status means it has not been set. Heartbeat routines should read this tab, not the task Status columns.
 
