@@ -13,6 +13,7 @@ import type {
   DecisionView,
   TenggatItem,
 } from "@/lib/dashboard/types";
+import { formatEventSpan } from "@/lib/dashboard/time";
 
 type Failure = { ok: false; error: string };
 
@@ -59,11 +60,6 @@ function formatDue(dateKey: string): string {
     month: "long",
     year: "numeric",
   }).format(date);
-}
-
-function clock(item: { mulai: string | null; selesai: string | null }): string {
-  if (item.mulai && item.selesai) return `${item.mulai}–${item.selesai}`;
-  return item.mulai ?? item.selesai ?? "Waktu belum ada";
 }
 
 function safeHref(value: string | null): string | null {
@@ -304,7 +300,9 @@ function AgendaSection({
         <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface">
           {items.map((item, index) => (
             <li key={`${item.judul}-${item.mulai}-${index}`} className="flex gap-4 px-4 py-3">
-              <p className="w-28 shrink-0 text-sm font-medium text-accent">{clock(item)}</p>
+              <p className="w-28 shrink-0 text-sm font-medium text-accent">
+                {formatEventSpan(item)}
+              </p>
               <div className="min-w-0">
                 <p className="text-ink">{item.judul}</p>
                 {item.lokasi ? <p className="text-sm text-muted">{item.lokasi}</p> : null}
@@ -388,7 +386,9 @@ function LookaheadList({ items }: { items: AgendaItem[] }) {
           <ul className="mt-2 divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface">
             {group.map((item, index) => (
               <li key={`${key}-${item.judul}-${index}`} className="flex gap-4 px-4 py-3">
-                <p className="w-28 shrink-0 text-sm font-medium text-accent">{clock(item)}</p>
+                <p className="w-28 shrink-0 text-sm font-medium text-accent">
+                  {formatEventSpan(item)}
+                </p>
                 <p className="text-ink">{item.judul}</p>
               </li>
             ))}
@@ -465,18 +465,22 @@ function ProjectRow({ item, onChanged }: { item: StatusView; onChanged: () => Pr
     }
   }
 
-  const current = item.status ?? item.statusMentah ?? "Belum diisi";
+  const current = item.status ?? "Belum diisi";
 
   return (
     <li className="flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
       <div className="min-w-0">
-        <p className="text-ink">{item.nama}</p>
+        <div className="flex flex-wrap items-center gap-2">
+          <p className="text-ink">{item.nama}</p>
+          {item.kesehatan && item.kesehatan !== item.status ? (
+            <span className="rounded-full border border-border px-2.5 py-1 text-xs font-medium text-muted">
+              Denyut: {item.kesehatan}
+            </span>
+          ) : null}
+        </div>
         <p className="text-sm text-muted">
           Saat ini: {current}
           {item.diubah ? ` · diubah ${item.diubah}` : ""}
-          {item.snapshot && item.snapshot !== item.status
-            ? ` · snapshot pagi ${item.snapshot}`
-            : ""}
         </p>
         {error ? (
           <p role="alert" className="text-sm font-medium text-ink">

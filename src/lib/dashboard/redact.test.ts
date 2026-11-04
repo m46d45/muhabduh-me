@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { containsSecret, containsSecretDeep } from "@/lib/dashboard/secret";
 import { ingestSnapshot, rehydrateSnapshot } from "@/lib/dashboard/redact";
-import { findClashes, wibDateKey, wibWeekRange } from "@/lib/dashboard/time";
+import { findClashes, formatEventSpan, wibDateKey, wibWeekRange } from "@/lib/dashboard/time";
 
 const now = new Date("2026-11-04T02:35:00.000Z");
 
@@ -100,6 +100,16 @@ test("clock clashes and the WIB week use Jakarta time", () => {
   ]);
   assert.equal(clashes.length, 1);
   assert.equal(clashes[0]?.a.judul, "Pagi");
+  assert.equal(formatEventSpan({ mulai: "08.00", selesai: "09.30" }), "08.00–09.30");
+  assert.equal(formatEventSpan({ mulai: "00.00", selesai: "00.00" }), "Seharian");
+  assert.equal(formatEventSpan({ mulai: "00:00", selesai: "00:00" }), "Seharian");
+  assert.equal(
+    findClashes([
+      { judul: "Hotel", mulai: "00.00", selesai: "00.00" },
+      { judul: "Lain", mulai: "00.00", selesai: "00.00" },
+    ]).length,
+    0,
+  );
   assert.equal(wibDateKey(now), "2026-11-04");
   assert.deepEqual(wibWeekRange("2026-11-04"), { start: "2026-11-02", end: "2026-11-08" });
 });

@@ -2,7 +2,9 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { REDACTED_PROJECT } from "@/lib/dashboard/secret";
 import {
+  canonicalProjectName,
   mergeProjectStatus,
+  planProjectSeed,
   planProjectStatusWrite,
   readStatusRows,
   STATUS_HEADERS,
@@ -86,13 +88,105 @@ test("the status list shows the sheet value and adds snapshot projects that are 
   );
   assert.equal(merged[0]?.nama, "RagilE");
   assert.equal(merged[0]?.status, "Dorman");
-  assert.equal(merged[0]?.snapshot, "Aktif");
+  assert.equal(merged[0]?.kesehatan, "Aktif");
   assert.equal(
     merged.some((item) => item.nama === "Bank soal"),
     true,
   );
   assert.equal(
     merged.some((item) => item.nama === REDACTED_PROJECT),
+    false,
+  );
+});
+
+test("aliases collapse to one canonical row and Melambat stays off the toggle", () => {
+  assert.equal(canonicalProjectName("ResearchGate full-text"), "ResearchGate");
+  assert.equal(canonicalProjectName("Seri Simulasi ICE"), "Seri ICE");
+  assert.equal(canonicalProjectName("Bank soal"), "Bank soal");
+
+  const merged = mergeProjectStatus(
+    [
+      { nama: "ResearchGate full-text", kategori: "Melambat", tautan: null },
+      { nama: "Seri Simulasi ICE", kategori: "Aktif", tautan: null },
+      { nama: "ResearchGate", kategori: "Tertahan", tautan: "https://example.com/rg" },
+    ],
+    [
+      {
+        proyek: "ResearchGate",
+        status: null,
+        statusMentah: null,
+        diubah: "",
+        rowNumber: 2,
+      },
+      {
+        proyek: "Seri ICE",
+        status: "Dorman",
+        statusMentah: null,
+        diubah: "02 Nov 2026 04.00 WIB",
+        rowNumber: 3,
+      },
+      {
+        proyek: "Kuliah MBK",
+        status: null,
+        statusMentah: "Melambat",
+        diubah: "",
+        rowNumber: 4,
+      },
+    ],
+  );
+  assert.equal(merged.length, 3);
+  const research = merged.find((item) => item.nama === "ResearchGate");
+  assert.equal(research?.status, null);
+  assert.equal(research?.kesehatan, "Tertahan");
+  const ice = merged.find((item) => item.nama === "Seri ICE");
+  assert.equal(ice?.status, "Dorman");
+  assert.equal(ice?.kesehatan, "Aktif");
+  const course = merged.find((item) => item.nama === "Kuliah MBK");
+  assert.equal(course?.status, null);
+  assert.equal(course?.statusMentah, "Melambat");
+  assert.equal(
+    merged.some((item) => item.nama === "ResearchGate full-text"),
+    false,
+  );
+  assert.equal(
+    merged.some((item) => item.nama === "Seri Simulasi ICE"),
+    false,
+  );
+});
+
+test("seeding adds missing canonical projects and does not overwrite a saved status", () => {
+  const values = [
+    [...STATUS_HEADERS],
+    ["ResearchGate full-text", "Aktif", "01 Nov 2026 04.00 WIB"],
+    ["Seri ICE", "Dorman", "02 Nov 2026 04.00 WIB"],
+  ];
+  const seeded = planProjectSeed({
+    values,
+    tab: "Status Proyek",
+    names: ["ResearchGate", "Seri Simulasi ICE", "Bank soal", "ResearchGate full-text"],
+  });
+  assert.equal(seeded.ok, true);
+  if (!seeded.ok) return;
+  const ranges = seeded.updates.map((update) => update.range);
+  assert.equal(ranges.includes("'Status Proyek'!A2"), true);
+  assert.equal(
+    seeded.updates.find((update) => update.range.endsWith("A2"))?.values[0]?.[0],
+    "ResearchGate",
+  );
+  assert.equal(
+    seeded.updates.some((update) => update.range.endsWith("B2") || update.range.endsWith("C2")),
+    false,
+  );
+  assert.equal(
+    seeded.updates.some((update) => update.values[0]?.[0] === "Seri ICE"),
+    false,
+  );
+  assert.equal(
+    seeded.updates.some((update) => update.values[0]?.[0] === "Bank soal"),
+    true,
+  );
+  assert.equal(
+    seeded.updates.some((update) => update.values[0]?.[0] === "Dorman"),
     false,
   );
 });

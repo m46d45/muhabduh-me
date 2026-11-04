@@ -110,7 +110,7 @@ Push this once a day, around 04.30 WIB, after the morning routine. The server st
 }
 ```
 
-`generatedAt` is an ISO-8601 timestamp. `mulai` / `selesai` use `HH.MM` or `HH:MM`. Dates use `YYYY-MM-DD`. `kategori` should be one of `Aktif`, `Melambat`, `Tertahan`, `Dorman`. `agenda` is today's list. `tenggat` should already be this week; items with a parseable date outside Monday–Sunday WIB are not counted. `lookahead` is clipped to today through the next 13 days WIB.
+`generatedAt` is an ISO-8601 timestamp. `mulai` / `selesai` use `HH.MM` or `HH:MM`. Both `00.00` means the event lasts all day; the page shows `Seharian` instead of `00.00–00.00`. Dates use `YYYY-MM-DD`. `kategori` should be one of `Aktif`, `Melambat`, `Tertahan`, `Dorman`. `agenda` is today's list. `tenggat` should already be this week; items with a parseable date outside Monday–Sunday WIB are not counted. `lookahead` is clipped to today through the next 13 days WIB.
 
 A successful push returns `{ "ok": true, "receivedAt": "<ISO>", "redacted": 0 }`. `redacted` is a count, not the removed text. There is one snapshot; the next push replaces it. The page warns when `receivedAt` is older than 26 hours.
 
@@ -151,7 +151,9 @@ Inside one band, the earlier due date comes first, then the older Muncul date, t
 
 The Status column on ResearchGate, Personal Website, LC Bibliometric, RagilE, Seri ICE, Rencana Paper, and Kuliah MBK is task progress (`Sudah`, `Belum`, and similar). It is not the project heartbeat.
 
-Project status is the tab **`Status Proyek`**, columns **`Proyek`**, **`Status`**, **`Diubah WIB`**. Status is one of `Aktif`, `Tertahan`, `Dorman`, `Selesai`. The dashboard creates that tab when it is missing and seeds those seven project names with an empty status. Changing the select writes Status and Diubah WIB (`DD MMM YYYY HH.MM WIB`) on that row. An empty Status means it has not been set. Heartbeat routines should read this tab, not the task Status columns.
+Project status is the tab **`Status Proyek`**, columns **`Proyek`**, **`Status`**, **`Diubah WIB`**. The select is only `Aktif`, `Tertahan`, `Dorman`, or `Selesai`, and it shows the cell in that tab. The morning snapshot's category (`Aktif`, `Melambat`, `Tertahan`, `Dorman`) is a separate health badge (`Denyut`) and is never written into the select.
+
+Names fold into one canonical row. A variant that starts with a seeded name (`ResearchGate full-text`) or contains every word of a multi-word seed (`Seri Simulasi ICE` → `Seri ICE`) uses that seed's spelling. The page then adds a blank row for every other project it shows, and renames an alias cell to the canonical spelling. Existing Status and Diubah WIB cells are left as they are. An empty Status means it has not been set. Heartbeat routines should read this tab, not the task Status columns.
 
 ### Environment variables
 

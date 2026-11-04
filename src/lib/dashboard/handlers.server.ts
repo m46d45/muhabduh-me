@@ -8,6 +8,7 @@ import {
   STATUS_HEADERS,
   STATUS_TAB,
   mergeProjectStatus,
+  planProjectSeed,
   planProjectStatusWrite,
   readStatusRows,
 } from "@/lib/dashboard/projects";
@@ -371,9 +372,23 @@ export async function handleGetDashboard(
       const parsedStatus = readStatusRows(statusValues);
       if (!parsedStatus.ok) warnings.push(parsedStatus.error);
       else {
-        statusProyek = mergeProjectStatus(proyek, parsedStatus.rows).filter(
-          (item) => !containsSecret(item.nama) && !containsSecret(item.diubah ?? ""),
-        );
+        statusProyek = mergeProjectStatus(proyek, parsedStatus.rows)
+          .filter((item) => !containsSecret(item.nama) && !containsSecret(item.diubah ?? ""))
+          .map((item) =>
+            containsSecret(item.kesehatan ?? "") ? { ...item, kesehatan: null } : item,
+          );
+        if (!deps.readStatus) {
+          const seed = planProjectSeed({
+            values: statusValues,
+            tab: STATUS_TAB,
+            names: statusProyek.map((item) => item.nama),
+          });
+          if (!seed.ok) warnings.push(seed.error);
+          else if (seed.updates.length > 0) {
+            if (deps.writeCells) await deps.writeCells(seed.updates);
+            else await writeSheetCells(seed.updates);
+          }
+        }
       }
     }
   } catch (error) {

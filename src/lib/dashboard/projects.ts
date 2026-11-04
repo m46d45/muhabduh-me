@@ -38,9 +38,12 @@ export type StatusView = {
   status: ProjectStatus | null;
   statusMentah: string | null;
   diubah: string | null;
-  snapshot: string | null;
+  /** Morning-routine health, such as Melambat. Not one of the four toggle values. */
+  kesehatan: string | null;
   tautan: string | null;
 };
+
+const HEALTH_RANK = ["Tertahan", "Melambat", "Dorman", "Aktif", "Lainnya"];
 
 export function statusStamp(now: Date): string {
   const parts = wibParts(now);
@@ -95,45 +98,114 @@ function projectKey(value: string): string {
   return value.trim().toLowerCase().replace(/\s+/g, " ");
 }
 
+function tokensOf(key: string): string[] {
+  return key.match(/[a-z0-9]+/g)?.filter((token) => token.length >= 2) ?? [];
+}
+
+/**
+ * One row per project. Variants fold into a seeded name when the variant
+ * starts with that name ("ResearchGate full-text") or contains every word of
+ * a multi-word name ("Seri Simulasi ICE" → "Seri ICE").
+ */
+export function canonicalProjectName(
+  name: string,
+  known: readonly string[] = SEED_PROJECTS,
+): string {
+  const cleaned = name.trim().replace(/\s+/g, " ");
+  if (!cleaned) return "";
+  const key = projectKey(cleaned);
+  const exact = known.find((item) => projectKey(item) === key);
+  if (exact) return exact;
+
+  const matches = known.filter((item) => {
+    const canonical = projectKey(item);
+    if (
+      key.startsWith(`${canonical} `) ||
+      key.startsWith(`${canonical}-`) ||
+      key.startsWith(`${canonical}:`) ||
+      key.startsWith(`${canonical}/`)
+    ) {
+      return true;
+    }
+    const wanted = tokensOf(canonical);
+    const have = new Set(tokensOf(key));
+    if (wanted.length >= 2 && wanted.every((token) => have.has(token))) return true;
+    const only = wanted[0];
+    return wanted.length === 1 && (only?.length ?? 0) >= 6 && have.has(only ?? "");
+  });
+  if (matches.length === 0) return cleaned;
+  return (
+    [...matches].sort(
+      (a, b) => projectKey(b).length - projectKey(a).length || a.localeCompare(b, "id"),
+    )[0] ?? cleaned
+  );
+}
+
+function healthRank(value: string): number {
+  const index = HEALTH_RANK.findIndex((item) => item.toLowerCase() === value.trim().toLowerCase());
+  return index < 0 ? HEALTH_RANK.length : index;
+}
+
 export function mergeProjectStatus(
   snapshot: { nama: string; kategori: string; tautan: string | null }[],
   rows: SheetStatusRow[],
 ): StatusView[] {
-  const views: StatusView[] = [];
-  const seen = new Set<string>();
-  const snapshotByName = new Map<string, { kategori: string; tautan: string | null }>();
-  for (const item of snapshot) {
-    const nama = item.nama.trim();
-    if (!nama || nama === REDACTED_PROJECT) continue;
-    snapshotByName.set(projectKey(nama), { kategori: item.kategori, tautan: item.tautan });
-  }
-  for (const row of rows) {
-    if (row.proyek === REDACTED_PROJECT) continue;
-    const key = projectKey(row.proyek);
-    if (seen.has(key)) continue;
-    seen.add(key);
-    const fromSnapshot = snapshotByName.get(key);
-    views.push({
-      nama: row.proyek,
-      status: row.status,
-      statusMentah: row.statusMentah,
-      diubah: row.diubah || null,
-      snapshot: fromSnapshot?.kategori ?? null,
-      tautan: fromSnapshot?.tautan ?? null,
-    });
-  }
-  const extras = [...snapshotByName.entries()]
-    .filter(([key]) => !seen.has(key))
-    .sort((a, b) => a[0].localeCompare(b[0], "id"));
-  for (const [key, item] of extras) {
-    const nama = snapshot.find((entry) => projectKey(entry.nama) === key)?.nama ?? key;
-    views.push({
+  const groups = new Map<
+    string,
+    {
+      nama: string;
+      rows: SheetStatusRow[];
+      kesehatan: string | null;
+      tautan: string | null;
+    }
+  >();
+
+  function groupFor(name: string) {
+    const nama = canonicalProjectName(name);
+    if (!nama || nama === REDACTED_PROJECT) return null;
+    const key = projectKey(nama);
+    const existing = groups.get(key);
+    if (existing) return existing;
+    const created = {
       nama,
-      status: null,
-      statusMentah: null,
-      diubah: null,
-      snapshot: item.kategori,
-      tautan: item.tautan,
+      rows: [] as SheetStatusRow[],
+      kesehatan: null as string | null,
+      tautan: null as string | null,
+    };
+    groups.set(key, created);
+    return created;
+  }
+
+  for (const row of rows) {
+    const group = groupFor(row.proyek);
+    if (!group) continue;
+    group.rows.push(row);
+  }
+  for (const item of snapshot) {
+    const group = groupFor(item.nama);
+    if (!group) continue;
+    const kategori = item.kategori.trim();
+    if (
+      kategori &&
+      (group.kesehatan == null || healthRank(kategori) < healthRank(group.kesehatan))
+    ) {
+      group.kesehatan = kategori;
+    }
+    if (!group.tautan && item.tautan) group.tautan = item.tautan;
+  }
+
+  const views: StatusView[] = [];
+  for (const group of groups.values()) {
+    const exact = group.rows.filter((row) => projectKey(row.proyek) === projectKey(group.nama));
+    const pool = exact.length > 0 ? exact : group.rows;
+    const chosen = pool.find((row) => row.status) ?? pool[0];
+    views.push({
+      nama: group.nama,
+      status: chosen?.status ?? null,
+      statusMentah: chosen?.statusMentah ?? null,
+      diubah: chosen?.diubah || null,
+      kesehatan: group.kesehatan,
+      tautan: group.tautan,
     });
   }
   return views;
@@ -177,11 +249,12 @@ export function planProjectStatusWrite(args: {
       error: "Tab Status Proyek butuh kolom Proyek, Status, dan Diubah WIB.",
     };
   }
-  const key = projectKey(proyek);
+  const canonical = canonicalProjectName(proyek);
+  const key = projectKey(canonical);
   const matches: number[] = [];
   for (let index = 1; index < args.values.length; index++) {
     const name = (args.values[index]?.[proyekCol] ?? "").trim();
-    if (name && projectKey(name) === key) matches.push(index);
+    if (name && projectKey(canonicalProjectName(name)) === key) matches.push(index);
   }
   if (matches.length > 1) {
     return {
@@ -205,9 +278,88 @@ export function planProjectStatusWrite(args: {
   }
   const sheetRow = last + 1;
   updates.push(
-    { range: sheetA1(args.tab, proyekCol, sheetRow), values: [[proyek]] },
+    { range: sheetA1(args.tab, proyekCol, sheetRow), values: [[canonical]] },
     { range: sheetA1(args.tab, statusCol, sheetRow), values: [[args.status]] },
     { range: sheetA1(args.tab, diubahCol, sheetRow), values: [[stamp]] },
   );
+  return { ok: true, updates };
+}
+
+/** Append missing canonical projects and rename alias rows. Never changes Status or Diubah WIB. */
+export function planProjectSeed(args: {
+  values: string[][];
+  tab: string;
+  names: string[];
+}): WritePlan {
+  const wanted: string[] = [];
+  const seenWanted = new Set<string>();
+  for (const name of args.names) {
+    const canonical = canonicalProjectName(name);
+    const key = projectKey(canonical);
+    if (!canonical || canonical === REDACTED_PROJECT || seenWanted.has(key)) continue;
+    seenWanted.add(key);
+    wanted.push(canonical);
+  }
+  const headers = args.values[0] ?? [];
+  const blank = args.values.length === 0 || headers.every((cell) => cell.trim() === "");
+  if (blank) {
+    if (wanted.length === 0) return { ok: true, updates: [] };
+    return {
+      ok: true,
+      updates: [
+        {
+          range: `'${args.tab.replaceAll("'", "''")}'!A1`,
+          values: [[...STATUS_HEADERS], ...wanted.map((nama) => [nama, "", ""])],
+        },
+      ],
+    };
+  }
+  const proyekCol = headerIndex(headers, "Proyek");
+  const statusCol = headerIndex(headers, "Status");
+  const diubahCol = headerIndex(headers, "Diubah WIB");
+  if (proyekCol == null || statusCol == null || diubahCol == null) {
+    return {
+      ok: false,
+      status: 503,
+      error: "Tab Status Proyek butuh kolom Proyek, Status, dan Diubah WIB.",
+    };
+  }
+
+  const keeper = new Map<string, { index: number; name: string; exact: boolean }>();
+  for (let index = 1; index < args.values.length; index++) {
+    const name = (args.values[index]?.[proyekCol] ?? "").trim();
+    if (!name) continue;
+    const canonical = canonicalProjectName(name);
+    const key = projectKey(canonical);
+    const exact = projectKey(name) === key;
+    const current = keeper.get(key);
+    if (!current || (exact && !current.exact)) keeper.set(key, { index, name, exact });
+  }
+
+  const updates: CellUpdate[] = [];
+  for (const [key, row] of keeper) {
+    const spelling =
+      wanted.find((nama) => projectKey(nama) === key) ?? canonicalProjectName(row.name);
+    if (row.name !== spelling) {
+      updates.push({
+        range: sheetA1(args.tab, proyekCol, row.index + 1),
+        values: [[spelling]],
+      });
+    }
+  }
+
+  let last = 1;
+  for (let index = 1; index < args.values.length; index++) {
+    if ((args.values[index] ?? []).some((cell) => cell.trim())) last = index + 1;
+  }
+  for (const nama of wanted) {
+    if (keeper.has(projectKey(nama))) continue;
+    last += 1;
+    updates.push(
+      { range: sheetA1(args.tab, proyekCol, last), values: [[nama]] },
+      { range: sheetA1(args.tab, statusCol, last), values: [[""]] },
+      { range: sheetA1(args.tab, diubahCol, last), values: [[""]] },
+    );
+  }
   return { ok: true, updates };
 }
