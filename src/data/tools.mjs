@@ -4,6 +4,16 @@
  */
 export const tools = [
   {
+    id: "simvsm-konstruksi",
+    title: "SimVSM Konstruksi",
+    description:
+      "Value stream mapping and simulation of repetitive construction operations: current-state bottlenecks and waste, then future-state scenarios for in-situ columns and precast panels.",
+    note: "Vercel",
+    appUrl: "https://simvsm-konstruksi.vercel.app/",
+    trackId: "software-simvsm-konstruksi-vercel",
+    topics: [],
+  },
+  {
     id: "peta-scp",
     title: "Peta SCP Konstruksi Indonesia",
     description:
