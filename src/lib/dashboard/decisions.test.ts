@@ -3,6 +3,9 @@ import test from "node:test";
 import { containsSecretDeep } from "@/lib/dashboard/secret";
 import {
   DECISION_CHOICES,
+  HANDLED_DECISION,
+  HANDLED_LABEL,
+  decisionFormChoices,
   deferralNote,
   isDecisionOpen,
   mapHeaders,
@@ -276,6 +279,93 @@ test("tunda hides the card for 7 days, then lets it be decided again", () => {
   assert.equal(again.updates[0]?.values[0]?.[0], "Setuju, kerjakan");
   assert.match(again.updates[1]?.values[0]?.[0] ?? "", /^diputuskan via dashboard/);
   assert.equal((again.updates[1]?.values[0]?.[0] ?? "").includes("tunda sampai"), false);
+});
+
+test("sudah saya tangani is last on every card and records Sudah ditangani Abduh", () => {
+  const parsedQuestion =
+    "LCI International: balas Glenn (Coordination Group, frekuensi laporan dan rapat); kirim draf apa adanya, tanpa paragraf opsional, ubah frekuensi rapat, atau tunda?";
+  const withParsed = decisionFormChoices(parseQuestionOptions(parsedQuestion));
+  const withoutParsed = decisionFormChoices(parseQuestionOptions("Lanjut kuliah besok?"));
+  const withoutAny = decisionFormChoices([]);
+  const fixed = decisionFormChoices(DECISION_CHOICES);
+  const alreadyHandled = decisionFormChoices([
+    "Sudah ditangani",
+    "Kirim draf",
+    "Sudah saya tangani",
+    "Sudah ditangani Abduh",
+  ]);
+
+  for (const choices of [withParsed, withoutParsed, withoutAny, fixed, alreadyHandled]) {
+    const handled = choices.filter((choice) => choice.label === HANDLED_LABEL);
+    assert.equal(handled.length, 1);
+    assert.equal(handled[0]?.value, HANDLED_DECISION);
+    assert.equal(choices.at(-2)?.label, HANDLED_LABEL);
+    assert.equal(choices.at(-1)?.label, "Keputusan lain");
+    assert.equal(
+      choices.filter((choice) => choice.value === HANDLED_DECISION).length,
+      1,
+    );
+  }
+
+  assert.deepEqual(
+    withParsed.map((choice) => choice.label),
+    [
+      "Kirim draf apa adanya",
+      "Tanpa paragraf opsional",
+      "Ubah frekuensi rapat",
+      "Tunda",
+      HANDLED_LABEL,
+      "Keputusan lain",
+    ],
+  );
+  assert.deepEqual(
+    withoutParsed.map((choice) => choice.value),
+    ["Setuju", "Tolak", "Tunda", HANDLED_DECISION, "Keputusan lain"],
+  );
+  assert.equal(
+    fixed.some((choice) => choice.value === "Sudah saya tangani sendiri"),
+    true,
+  );
+  assert.deepEqual(
+    alreadyHandled.map((choice) => choice.value),
+    ["Kirim draf", HANDLED_DECISION, "Keputusan lain"],
+  );
+
+  const now = new Date("2026-11-04T02:40:00.000Z");
+  const planned = planDecisionWrite({
+    values: [liveHeaders, ["K-1", "4 Nov 2026", "Lanjut kuliah?", "", "", "", "Riset"]],
+    tab: "Keputusan",
+    id: "K-1",
+    keputusan: HANDLED_DECISION,
+    komentar: "sudah beres",
+    now,
+  });
+  assert.equal(planned.ok, true);
+  if (!planned.ok) return;
+  assert.equal(planned.updates[0]?.range, "'Keputusan'!D2");
+  assert.equal(planned.updates[0]?.values[0]?.[0], "Sudah ditangani Abduh");
+  assert.match(
+    planned.updates[1]?.values[0]?.[0] ?? "",
+    /diputuskan via dashboard, 04 Nov 09\.40 WIB/,
+  );
+  assert.equal((planned.updates[1]?.values[0]?.[0] ?? "").includes("tunda sampai"), false);
+  assert.equal(planned.updates[2]?.values[0]?.[0], "sudah beres");
+
+  const closed = readOpenDecisions([
+    liveHeaders,
+    [
+      "K-1",
+      "4 Nov 2026",
+      "Lanjut kuliah?",
+      planned.updates[0]?.values[0]?.[0] ?? "",
+      "sudah beres",
+      planned.updates[1]?.values[0]?.[0] ?? "",
+      "Riset",
+    ],
+  ]);
+  assert.equal(closed.ok, true);
+  if (!closed.ok) return;
+  assert.equal(closed.open.length, 0);
 });
 
 test("unknown headers produce a clear error and no row dump", () => {
