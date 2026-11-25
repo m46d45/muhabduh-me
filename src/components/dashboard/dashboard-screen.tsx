@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { DECISION_CHOICES, OTHER_DECISION } from "@/lib/dashboard/decisions";
+import { OTHER_DECISION, decisionFormChoices } from "@/lib/dashboard/decisions";
 import { PROJECT_STATUSES } from "@/lib/dashboard/projects";
 import type {
   AgendaItem,
@@ -587,7 +587,7 @@ function DecisionSection({
   );
 }
 
-function DecisionCard({
+export function DecisionCard({
   item,
   sheetUrl,
   onChanged,
@@ -603,7 +603,7 @@ function DecisionCard({
   const [pending, setPending] = useState(false);
   const fieldId = `keputusan-${item.id || item.pertanyaan}`;
   const other = OTHER_DECISION;
-  const choices = DECISION_CHOICES;
+  const formChoices = decisionFormChoices(item.opsi);
   const keputusan = selected === other ? custom.trim() : selected;
   const canSave = selected !== "" && keputusan !== "";
 
@@ -667,20 +667,20 @@ function DecisionCard({
           <fieldset>
             <legend className="text-sm font-medium text-ink">Keputusan</legend>
             <div className="mt-2 space-y-2">
-              {[...choices, other].map((option) => (
+              {formChoices.map((option, index) => (
                 <label
-                  key={option}
+                  key={`${option.value}-${index}`}
                   className="flex min-h-11 cursor-pointer items-start gap-3 rounded-md border border-border px-3 py-2 text-sm text-ink"
                 >
                   <input
                     type="radio"
                     className="mt-1 h-4 w-4 accent-accent"
                     name={fieldId}
-                    value={option}
-                    checked={selected === option}
-                    onChange={() => setSelected(option)}
+                    value={option.value}
+                    checked={selected === option.value}
+                    onChange={() => setSelected(option.value)}
                   />
-                  <span>{option}</span>
+                  <span>{option.label}</span>
                 </label>
               ))}
             </div>

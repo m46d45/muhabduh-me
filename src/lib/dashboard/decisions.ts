@@ -139,6 +139,52 @@ export const DECISION_CHOICES = [
 export const OTHER_DECISION = "Keputusan lain";
 export const TUNDA_DECISION = "Tunda, tanyakan lagi minggu depan";
 
+/** Label on every card. The sheet stores HANDLED_DECISION, not this label. */
+export const HANDLED_LABEL = "Sudah saya tangani";
+export const HANDLED_DECISION = "Sudah ditangani Abduh";
+
+export type DecisionRadio = { label: string; value: string };
+
+function normalizeChoice(value: string): string {
+  return value
+    .normalize("NFKC")
+    .trim()
+    .toLowerCase()
+    .replace(/[?.!]+$/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** True when a parsed option is already the universal handled choice. */
+export function isHandledChoice(value: string): boolean {
+  const text = normalizeChoice(value);
+  return (
+    text === "sudah saya tangani" ||
+    text === "sudah ditangani" ||
+    text === normalizeChoice(HANDLED_DECISION)
+  );
+}
+
+/**
+ * Radios for one card. The handled choice is always last.
+ * An equivalent parsed option is omitted so it is not shown twice.
+ */
+export function decisionRadios(options: readonly string[]): DecisionRadio[] {
+  const radios: DecisionRadio[] = [];
+  for (const option of options) {
+    const label = option.trim();
+    if (!label || isHandledChoice(label)) continue;
+    radios.push({ label, value: label });
+  }
+  radios.push({ label: HANDLED_LABEL, value: HANDLED_DECISION });
+  return radios;
+}
+
+/** Card radios, with Keputusan lain after the handled choice. */
+export function decisionFormChoices(options: readonly string[]): DecisionRadio[] {
+  return [...decisionRadios(options), { label: OTHER_DECISION, value: OTHER_DECISION }];
+}
+
 const TUNDA_MARK = /tunda sampai (\d{4}-\d{2}-\d{2})/i;
 
 /** Date encoded in Waktu WIB while a card is hidden. Null when the row is not deferred. */

@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { HANDLED_DECISION, readOpenDecisions } from "@/lib/dashboard/decisions";
 import { containsSecretDeep } from "@/lib/dashboard/secret";
 import type { CleanSnapshot } from "@/lib/dashboard/redact";
 import type { SnapshotStore } from "@/lib/dashboard/types";
@@ -309,6 +310,49 @@ test("decision write refuses a filled cell and records a completion note", async
   );
   assert.equal(deferred.status, 200);
   assert.match(JSON.stringify(updates), /tunda sampai 2026-11-11/);
+});
+
+test("sudah saya tangani writes Sudah ditangani Abduh through the mocked sheet", async () => {
+  const cookie = await loginCookie();
+  const updates: { range: string; values: string[][] }[] = [];
+  const values = [headers, ["K-1", "Riset", "Lanjut kuliah?", "Ya | Tidak", "", "", ""]];
+  const saved = await handlePostKeputusan(
+    new Request("https://www.muhabduh.id/api/keputusan", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        cookie,
+        origin: "https://www.muhabduh.id",
+        host: "www.muhabduh.id",
+      },
+      body: JSON.stringify({ id: "K-1", keputusan: HANDLED_DECISION, komentar: "" }),
+    }),
+    {
+      now,
+      sessions,
+      readSheet: async () => ({ values, tab: "Keputusan", sheetId: "sheet-uji" }),
+      writeCells: async (next) => {
+        updates.push(...next);
+      },
+    },
+  );
+  assert.equal(saved.status, 200);
+  assert.equal(updates.length, 2);
+  assert.equal(updates[0]?.values[0]?.[0], "Sudah ditangani Abduh");
+  assert.match(updates[1]?.values[0]?.[0] ?? "", /diputuskan via dashboard/);
+  assert.equal((updates[1]?.values[0]?.[0] ?? "").includes("tunda sampai"), false);
+
+  const written = values.map((row) => [...row]);
+  const keputusanColumn = headers.indexOf("Keputusan");
+  const waktuColumn = headers.indexOf("Waktu WIB");
+  const row = written[1];
+  if (!row) return;
+  row[keputusanColumn] = updates[0]?.values[0]?.[0] ?? "";
+  row[waktuColumn] = updates[1]?.values[0]?.[0] ?? "";
+  const open = readOpenDecisions(written);
+  assert.equal(open.ok, true);
+  if (!open.ok) return;
+  assert.equal(open.open.length, 0);
 });
 
 test("visible copy drops agent notes while counts follow the lists", async () => {

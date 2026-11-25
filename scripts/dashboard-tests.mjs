@@ -12,6 +12,7 @@ const result = spawnSync(
     "--test",
     "src/lib/dashboard/redact.test.ts",
     "src/lib/dashboard/decisions.test.ts",
+    "src/lib/dashboard/decision-card.test.tsx",
     "src/lib/dashboard/importance.test.ts",
     "src/lib/dashboard/projects.test.ts",
     "src/lib/dashboard/present.test.ts",
